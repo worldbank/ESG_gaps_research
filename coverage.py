@@ -1,3 +1,4 @@
+#!/usr/bin/python
 
 """
 coverage.py produces quick density coverage stats for an indicator
@@ -58,12 +59,13 @@ for elem in data:
         _countries[elem['id']] = [0] * (maxYear-minYear+1)
 
 writer = csv.writer(sys.stdout, quoting=csv.QUOTE_MINIMAL)
-writer.writerow(['CETS', 'NAME', 'MAX_YEAR', 'COUNT', 'MIN', 'MAX', 'AVERAGE'])
+writer.writerow(['CETS', 'NAME', 'MAXMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MIN', 'MAX', 'AVERAGE'])
 
 for id in config['INDICATOR']:
     minYear = int(config['--start'])
     maxYear = datetime.datetime.now().year
     actualMaxYear = None
+    minMRV = None
     countries = copy.deepcopy(_countries)
 
     parts = id.split(':')
@@ -85,16 +87,21 @@ for id in config['INDICATOR']:
         actualMaxYear = date if actualMaxYear is None else max(actualMaxYear, date)
         if countries.get(iso3) and date >= minYear and date <= maxYear and elem['value'] is not None:
             offset = date - minYear
-            countries[iso3][offset] = 1
+            countries[iso3][offset] = date
 
     allCoverage = []
+    countriesWithData = 0
     for k,elem in countries.iteritems():
-        coverage = sum(elem) * 100 / (actualMaxYear-minYear+1)
+        coverage = sum([1 if i else 0 for i in elem]) * 100 / (actualMaxYear-minYear+1)
+        if sum(elem) > 0:
+            countriesWithData += 1
+            minMRV = min(minMRV,max(elem)) if minMRV else max(elem)
+
         allCoverage.append(coverage)
 
 
     if len(allCoverage) > 0:
-        writer.writerow([cets, cets_name, actualMaxYear, len(countries),
+        writer.writerow([cets, cets_name, minMRV, actualMaxYear, countriesWithData, len(countries),
             int(round(min(allCoverage))),
             int(round(max(allCoverage))),
             int(round(sum(allCoverage)/len(allCoverage)))
@@ -102,5 +109,11 @@ for id in config['INDICATOR']:
 
     if config['--verbose']:
         for k,elem in countries.iteritems():
-            coverage = sum(elem) * 100 / (actualMaxYear-minYear+1)
-            writer.writerow([k, coverage])
+            coverage = sum([1 if i else 0 for i in elem]) * 100 / (actualMaxYear-minYear+1)
+            if sum(elem) > 0:
+                minMRV = min([i for i in elem if i > 0])
+                maxMRV = max(elem)
+            else:
+                minMRV = maxMRV = ''
+
+            writer.writerow([k, minMRV, maxMRV, coverage])
