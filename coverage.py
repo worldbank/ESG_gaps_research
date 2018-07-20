@@ -59,7 +59,7 @@ for elem in data:
         _countries[elem['id']] = [0] * (maxYear-minYear+1)
 
 writer = csv.writer(sys.stdout, quoting=csv.QUOTE_MINIMAL)
-writer.writerow(['CETS', 'NAME', 'MAXMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MIN', 'MAX', 'AVERAGE'])
+writer.writerow(['CETS', 'NAME', 'MINMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MIN', 'MAX', 'AVERAGE'])
 
 for id in config['INDICATOR']:
     minYear = int(config['--start'])
