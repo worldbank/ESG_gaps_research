@@ -4,16 +4,16 @@
 coverage.py produces quick density coverage stats for an indicator
 
 Usage:
-  coverage.py [--verbose] [--start YEAR] [--income INC] [--region RGN] INDICATOR...
+  coverage.py [--verbose] [--start YEAR] [--income INC] [--region RGN] [--since YEARS] INDICATOR...
 
 Options:
   --verbose, -v       detailed output
   --start, -s YEAR    start year [default: 2010]
+  --since YEARS       comma-separated list of years for coverage analysis [default: 2010,2013,2015,2017]
   --income INC        only this income group (~ to exclude)
   --region RGN        only this region (~ to exclude)
 
-INDICATOR can be in the form CETS or SOURCE:CETS. If omitted, SOURCE
-defaults to 2
+INDICATOR can be in the form CETS or SOURCE:CETS. If omitted, SOURCE defaults to 2
 
 """
 
@@ -25,6 +25,7 @@ import copy
 from docopt import docopt
 
 config = docopt(__doc__)
+
 minYear = int(config['--start'])
 maxYear = datetime.datetime.now().year
 actualMaxYear = None
@@ -38,6 +39,12 @@ if config['--region'] and config['--region'][0] == '~':
     config['--region'] = config['--region'][1:]
     regionFlag = False
 
+yearKeys = [int(i) for i in config['--since'].split(',')]
+_yearBreaks = {}
+for i in yearKeys:
+    _yearBreaks[i] = 0
+    
+  
 # sanity checks
 if len(config['INDICATOR']) > 1:
     config['--verbose'] = False
@@ -59,7 +66,11 @@ for elem in data:
         _countries[elem['id']] = [0] * (maxYear-minYear+1)
 
 writer = csv.writer(sys.stdout, quoting=csv.QUOTE_MINIMAL)
-writer.writerow(['CETS', 'NAME', 'MINMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MIN', 'MAX', 'AVERAGE'])
+output = ['CETS', 'NAME', 'MINMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MIN', 'MAX', 'AVERAGE']
+for i in yearKeys:
+    output.append('SINCE{}'.format(i))
+
+writer.writerow(output)
 
 for id in config['INDICATOR']:
     minYear = int(config['--start'])
@@ -67,6 +78,7 @@ for id in config['INDICATOR']:
     actualMaxYear = None
     minMRV = None
     countries = copy.deepcopy(_countries)
+    yearBreaks = copy.deepcopy(_yearBreaks)
 
     parts = id.split(':')
     if len(parts) > 1:
@@ -79,33 +91,48 @@ for id in config['INDICATOR']:
     response = requests.get(url)
     data = response.json()
 
+    if len(data) < 2:
+        print ""
+        continue
+
     data = data[1]
     for elem in data:
         cets_name = elem['indicator']['value']
         date = int(elem['date'])
         iso3 = elem['countryiso3code']
-        actualMaxYear = date if actualMaxYear is None else max(actualMaxYear, date)
         if countries.get(iso3) and date >= minYear and date <= maxYear and elem['value'] is not None:
+            actualMaxYear = date if actualMaxYear is None else max(actualMaxYear, date)
             offset = date - minYear
             countries[iso3][offset] = date
 
     allCoverage = []
     countriesWithData = 0
-    for k,elem in countries.iteritems():
-        coverage = sum([1 if i else 0 for i in elem]) * 100 / (actualMaxYear-minYear+1)
-        if sum(elem) > 0:
-            countriesWithData += 1
-            minMRV = min(minMRV,max(elem)) if minMRV else max(elem)
+    if actualMaxYear:
+        for k,elem in countries.iteritems():
+            coverage = sum([1 if i else 0 for i in elem]) * 100 / (actualMaxYear-minYear+1)
+            if sum(elem) > 0:
+                countriesWithData += 1
+                minMRV = min(minMRV,max(elem)) if minMRV else max(elem)
+                for i in yearKeys:
+                    if len([x for x in elem if x >= i]) > 0:
+                        yearBreaks[i] += 1
 
-        allCoverage.append(coverage)
+            allCoverage.append(coverage)
 
 
     if len(allCoverage) > 0:
-        writer.writerow([cets, cets_name, minMRV, actualMaxYear, countriesWithData, len(countries),
+        output = [cets, cets_name, minMRV, actualMaxYear, countriesWithData, len(countries),
             int(round(min(allCoverage))),
             int(round(max(allCoverage))),
             int(round(sum(allCoverage)/len(allCoverage)))
-            ])
+            ]
+
+        for i in yearKeys:
+            output.append(yearBreaks[i])
+
+        writer.writerow(output)
+    else:
+        writer.writerow([cets, cets_name])
 
     if config['--verbose']:
         for k,elem in countries.iteritems():
