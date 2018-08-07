@@ -22,6 +22,7 @@ import datetime
 import sys
 import csv
 import copy
+import numpy
 from docopt import docopt
 
 config = docopt(__doc__)
@@ -66,7 +67,7 @@ for elem in data:
         _countries[elem['id']] = [0] * (maxYear-minYear+1)
 
 writer = csv.writer(sys.stdout, quoting=csv.QUOTE_MINIMAL)
-output = ['CETS', 'NAME', 'MINMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MIN', 'MAX', 'AVERAGE']
+output = ['CETS', 'NAME', 'MINMRV', 'MEDMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MIN', 'MAX', 'AVERAGE']
 for i in yearKeys:
     output.append('SINCE{}'.format(i))
 
@@ -105,13 +106,15 @@ for id in config['INDICATOR']:
             offset = date - minYear
             countries[iso3][offset] = date
 
-    allCoverage = []
+    allCoverage = [] # a country array of 'coverage' values: % of possible values in the study range (0 means no values, 100 means complete coverage)
     countriesWithData = 0
+    mrvYears = []
     if actualMaxYear:
         for k,elem in countries.iteritems():
             coverage = sum([1 if i else 0 for i in elem]) * 100 / (actualMaxYear-minYear+1)
             if sum(elem) > 0:
                 countriesWithData += 1
+                mrvYears.append(max(elem))
                 minMRV = min(minMRV,max(elem)) if minMRV else max(elem)
                 for i in yearKeys:
                     if len([x for x in elem if x >= i]) > 0:
@@ -120,8 +123,11 @@ for id in config['INDICATOR']:
             allCoverage.append(coverage)
 
 
+    if len(mrvYears) == 0:
+        mrvYears = [0]    # sanity check: shouldn't happen
+
     if len(allCoverage) > 0:
-        output = [cets, cets_name, minMRV, actualMaxYear, countriesWithData, len(countries),
+        output = [cets, cets_name, min(mrvYears), int(numpy.median(mrvYears)), max(mrvYears), countriesWithData, len(countries),
             int(round(min(allCoverage))),
             int(round(max(allCoverage))),
             int(round(sum(allCoverage)/len(allCoverage)))
