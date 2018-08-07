@@ -67,7 +67,7 @@ for elem in data:
         _countries[elem['id']] = [0] * (maxYear-minYear+1)
 
 writer = csv.writer(sys.stdout, quoting=csv.QUOTE_MINIMAL)
-output = ['CETS', 'NAME', 'MINMRV', 'MEDMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MIN', 'MAX', 'AVERAGE']
+output = ['CETS', 'NAME', 'MINMRV', 'AVGMRV', 'MEDMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MIN', 'MAX', 'AVERAGE']
 for i in yearKeys:
     output.append('SINCE{}'.format(i))
 
@@ -87,7 +87,9 @@ for id in config['INDICATOR']:
     else:
         (src,cets) = (2, parts[0])
 
-    url = 'https://api.worldbank.org/v2/en/country/all/indicator/{}?source={}&format=json&per_page=20000&date={}:{}'.format(cets, src, minYear, maxYear)
+    # sanity check: API calls for WGI data fail if minYear<1996
+    minYearApi = minYear if (minYear >= 1996 or int(src) != 3) else 1996
+    url = 'https://api.worldbank.org/v2/en/country/all/indicator/{}?source={}&format=json&per_page=20000&date={}:{}'.format(cets, src, minYearApi, maxYear)
 
     response = requests.get(url)
     data = response.json()
@@ -127,7 +129,7 @@ for id in config['INDICATOR']:
         mrvYears = [0]    # sanity check: shouldn't happen
 
     if len(allCoverage) > 0:
-        output = [cets, cets_name, min(mrvYears), int(numpy.median(mrvYears)), max(mrvYears), countriesWithData, len(countries),
+        output = [cets, cets_name, min(mrvYears), int(round(numpy.average(mrvYears))), int(numpy.median(mrvYears)), max(mrvYears), countriesWithData, len(countries),
             int(round(min(allCoverage))),
             int(round(max(allCoverage))),
             int(round(sum(allCoverage)/len(allCoverage)))
