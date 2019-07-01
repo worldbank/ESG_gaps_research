@@ -1,0 +1,149 @@
+---
+title: "ESG indicators"
+author: ""
+date: "July 1, 2019"
+output: html_document
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+pkg <-
+  c(
+    "devtools",
+    "tidyverse",
+    "data.table", 
+    "ggplot2",
+    "treemapify", 
+    "magrittr"
+  )
+new.pkg <-
+  pkg[!(pkg %in% installed.packages()[, "Package"])] # check installed packages
+load.pkg <-
+  pkg[!(pkg %in% loadedNamespaces())]              # check loaded packages
+
+if (length(new.pkg)) {
+  install.packages(new.pkg)     # Install missing packages
+}
+
+if (length(load.pkg)) {
+  lapp <- lapply(load.pkg, library, character.only = TRUE) # load all packages
+}
+
+knitr::opts_chunk$set(cache=FALSE)
+
+#knitr::opts_knit$set(root.dir = "D:/R working directory/")
+```
+
+
+```{r loadData, echo=FALSE, message=FALSE, warning=FALSE}
+esg2 <- read.csv("data/ESG.csv")
+esg <- read_csv("data/ESG.csv")
+esg <- esg %>% rename_at(vars(contains(" ")),
+                  ~str_replace(., " ", "_")) %>% 
+  rename_all(tolower)
+
+#names(esg) %<>% tolower
+
+```
+
+#Intro 
+
+The paper aims at providing information on Wold Bank diseminated indicators that are relevant 
+
+# Graphs 
+
+Most of the indicators of interest to ESG work are handled by Wendy - 33, followed by Florina - 24, Hiroko 23, Haruna 17 and Bhaskar 14
+
+```{r internal_poc, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "No. of ESG indicators by point of contact"}
+esg %>% count(internal_poc) %>% 
+  ggplot(aes(area = n, fill = internal_poc, 
+             label = paste(internal_poc, "\n", n))) +
+  geom_treemap(
+    color = "white", size = .75*.pt,
+    layout = "fixed",show.legend = FALSE
+  ) +
+  geom_treemap_text(
+    colour = "black", place = "centre",
+    grow = FALSE,
+    layout = "fixed"
+  )  
+
+```
+
+
+Analysis on missings frequency goes here... 
+```{r freqna, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Missing for frequency"}
+esg %>% count(`highest_frequency - production`) %>% 
+  ggplot(aes(area = n, fill = `highest_frequency - production`, 
+             label = paste(`highest_frequency - production`, "\n", n))) +
+  geom_treemap(
+    color = "white", size = .75*.pt,
+    layout = "fixed", 
+    show.legend = FALSE
+  ) +
+  geom_treemap_text(
+    colour = "black", place = "centre",
+    grow = FALSE,
+    layout = "fixed", 
+    min.size = 3
+  )  
+
+```
+
+
+
+## Topics analysis
+
+```{r topics1, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "topics by ESG"}
+esg %>% count() %>% 
+  ggplot(aes(x = n, y = topic)) +
+  geom_segment(aes(yend = name), xend = 0, colour = "grey50") +
+  geom_point(size = 3, aes(colour = lg)) +
+  scale_colour_brewer(palette = "Set1", limits = c("NL", "AL"), guide = FALSE) +
+  theme_bw() +
+  theme(panel.grid.major.y = element_blank()) +
+  facet_grid(lg ~ ., scales = "free_y", space = "free_y")
+```
+
+
+
+```{r barplot}
+
+counts <- table(esg2$Highest.Frequency...Production)
+barplot(counts, main="NAs")
+  xlab="?"
+  
+counts <- table(esg2$Topic)
+barplot(counts, main="Topic")
+  xlab="?"
+    
+
+counts <- table(esg2$SOURCE1..NSO.IO.ITP.ET.)
+barplot(counts, main="Collecting Entity")
+  xlab="?"
+
+counts <- table(esg2$SOURCE2)
+barplot(counts, main="Processing Entity")
+  xlab="?"
+
+counts <- table(esg2$SOURCE3)
+barplot(counts, main="Dissemination Entity")
+  xlab="?"
+  
+counts <- table(esg2$Highest.Frequency...Production)
+barplot(counts, main="Production Frequency")
+  xlab="?"
+  
+counts <- table(esg2$Highest.Frequency...Update.frequency)
+barplot(counts, main="Production Frequency")
+  xlab="?"
+  
+counts <- table(esg2$Source.Instrument)
+barplot(counts, main="Source Instrument")
+  xlab="?"
+
+counts <- table(esg2$Imputed.Data.)
+barplot(counts, main="Imputation")
+  xlab="?"
+
+```
+
