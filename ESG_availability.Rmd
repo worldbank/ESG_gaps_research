@@ -39,7 +39,7 @@ esg2 <- read.csv("data/ESG.csv")
 esg <- read_csv("data/ESG.csv")
 esg <- esg %>% rename_at(vars(contains(" ")),
                   ~str_replace(., " ", "_")) %>% 
-  rename_all(tolower)
+  rename_all(tolower) 
 
 #names(esg) %<>% tolower
 
@@ -94,14 +94,16 @@ esg %>% count(`highest_frequency - production`) %>%
 ## Topics analysis
 
 ```{r topics1, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "topics by ESG"}
-esg %>% count() %>% 
-  ggplot(aes(x = n, y = topic)) +
-  geom_segment(aes(yend = name), xend = 0, colour = "grey50") +
-  geom_point(size = 3, aes(colour = lg)) +
-  scale_colour_brewer(palette = "Set1", limits = c("NL", "AL"), guide = FALSE) +
-  theme_bw() +
-  theme(panel.grid.major.y = element_blank()) +
-  facet_grid(lg ~ ., scales = "free_y", space = "free_y")
+
+# esg %>% count(source2, topic) %>% 
+#   ggplot(aes(x = n, y = topic)) +
+#   geom_segment(aes(yend = topic), xend = 0, colour = "grey50") +
+#   geom_point(size = 3, aes(colour = source2)) +
+#   scale_colour_brewer(palette = "Set1", limits = c("NL", "AL"), guide = FALSE) +
+#   theme_bw() +
+#   theme(panel.grid.major.y = element_blank()) +
+#   facet_grid(source2 ~ ., scales = "free_y", space = "free_y")
+
 ```
 
 
