@@ -53,6 +53,8 @@ The paper aims at providing information on Wold Bank diseminated indicators that
 
 Most of the indicators of interest to ESG work are handled by Wendy - 33, followed by Florina - 24, Hiroko 23, Haruna 17 and Bhaskar 14. **Andrei: We have to complete this paragraph**
 
+And this is another change. 
+
 ```{r internal_poc, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "No. of ESG indicators by point of contact"}
 esg %>% count(internal_poc) %>% 
   ggplot(aes(area = n, fill = internal_poc, 
