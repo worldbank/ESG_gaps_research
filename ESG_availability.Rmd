@@ -194,3 +194,5 @@ There are only four indicators for which imputation methods are used to fill in 
 Need to color and reorder bar charts 
 
 Need stacked Bar charts to provide insights for indicators based on their assigned subject, environmental, social or governance.  
+
+New update
