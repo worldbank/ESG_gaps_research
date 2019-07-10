@@ -1,8 +1,18 @@
 ---
 title: "ESG indicators"
+subtitle: "An Analysis of availability"
 author: ""
-date: "July 1, 2019"
-output: html_document
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html: default
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: 
+link-citations: yes
 ---
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
@@ -13,7 +23,8 @@ pkg <-
     "data.table", 
     "ggplot2",
     "treemapify", 
-    "magrittr"
+    "magrittr", 
+    "tufte"
   )
 new.pkg <-
   pkg[!(pkg %in% installed.packages()[, "Package"])] # check installed packages
@@ -28,7 +39,8 @@ if (length(load.pkg)) {
   lapp <- lapply(load.pkg, library, character.only = TRUE) # load all packages
 }
 
-knitr::opts_chunk$set(cache=FALSE)
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
 
 #knitr::opts_knit$set(root.dir = "D:/R working directory/")
 ```
@@ -45,16 +57,15 @@ esg <- esg %>% rename_at(vars(contains(" ")),
 
 ```
 
-#Intro
+# Introduction
 
 The paper aims at providing an overview of the indicators curated and disseminated by World Bank and relevant for ESG (Environmental, Social, Governance) investment. The work has been conducting using metadata on indicators, interviews with data managers and analysis and research of indicators and metadata. We identified 123 indicators of relevance to ESG investments and we provide in the following parts of the paper an analytical overview of these indicators focusing on issues related to number of indicators managed by data managers, 
 
-# Graphs 
-
+# Graphs
 
 Most of the indicators of interest to ESG work are handled by Wendy - 33, followed by Florina - 24, Hiroko 23, Haruna 17 and Bhaskar 14. Almost 80% of indicators are managed by 4 people, Wendy, Florina, Hiroko and Haruna. Most of the indicators currently handled by Wendy will be managed by the analyst working on environmental indicators that joined DECDG in July 2019. 
 
-```{r internal_poc, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Indicators per manager"}
+```{r internal_poc, fig.margin = TRUE, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Indicators per manager"}
 esg %>% count(internal_poc) %>% 
   ggplot(aes(area = n, fill = internal_poc, 
              label = paste(internal_poc, "\n", n))) +
@@ -74,7 +85,7 @@ esg %>% count(internal_poc) %>%
 More than 21% of all indicators, 26 out of 123, come as Not Available for the following reasons: data no longer updated by the source and prepared migration to a different one; data was used one time only; indicators are not managed by the indicated point of consultation or they are no in the WDI database; someone else is managing the indicators and indicators are decommissioned. Finally a total of 97 indicators enter the final analysis. 
 
 
-```{r freqna, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Not Available Indicators"}
+```{r freqna, fig.margin = TRUE, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Not Available Indicators"}
 esg %>% count(`highest_frequency - production`) %>% 
   ggplot(aes(area = n, fill = `highest_frequency - production`, 
              label = paste(`highest_frequency - production`, "\n", n))) +
@@ -96,7 +107,7 @@ esg %>% count(`highest_frequency - production`) %>%
 Most of the indicators, 48, are classified as social indicators, followed by 38 environmental and 37 governance indicators. The process of assigning indicators followed an analysis of the descirption of indicators found in the metadata by name and cassigned category. Indicators such as those related to debt, tax, growth and GDP are grouped under governance indicators as one can argue that their evolution is a function of the governance structures in the specific countries. 
 
 
-```{r subject, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Class of indicators"}
+```{r subject, fig.margin = TRUE, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Class of indicators"}
 esg %>% count(subject) %>% 
   ggplot(aes(area = n, fill = subject, 
              label = paste(subject, "\n", n))) +
@@ -115,7 +126,7 @@ esg %>% count(subject) %>%
 The assignment of indicators to ESG categories was performed by analyzing the Topic column of the indicators metadata. 29 indicators are related to Environment; 21 to health; 13 to Economic Policy and Debt; 12 to Infrastructure and 11 to Social Protection. 14 indicators are grouped under the category other. 
 
 
-```{r topic, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Topic description"}
+```{r topic, fig.margin = TRUE, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Topic description"}
 esg2 %>% count(Topic) %>% 
   ggplot(aes(area = n, fill = Topic, 
              label = paste(Topic, "\n", n))) +
@@ -135,21 +146,21 @@ esg2 %>% count(Topic) %>%
 68 out of 97 indicators updated on a continuous basis are collected by International Organizations, while 16 and 10 indicators are collected by Internal Third Parties and External Third Parties respectively. A small number of indicators, 3, are collected by a consortium of IO, ITP and ETP
 
 
-```{r collecting entity, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Collecting Entity Type"}
+```{r collecting entity, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Collecting Entity Type"}
 counts <- table(esg2$SOURCE1..NSO.IO.ITP.ET.) 
 barplot(counts, main="Collecting Entity") 
 ```
 
 66 out of 97 indicators updated on a continuous basis are processed by IO, while 21 are processed by Internal Third Parties and 10 by Extrernal Third Parties. 
 
-```{r procent, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Processing Entity Type"}
+```{r procent, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Processing Entity Type"}
 counts <- table(esg2$SOURCE2) 
 barplot(counts, main="Processing Entity")
 ```
 
 66 indicators out of 97 updated continuosly are disseminated by IO, 21 by ITP and 10 by ETP
 
-```{r dissent, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Dissemination entity"}
+```{r dissent, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Dissemination entity"}
 counts <- table(esg2$SOURCE3) 
 barplot(counts, main="Dissemination Entity")
 ```
@@ -157,13 +168,13 @@ barplot(counts, main="Dissemination Entity")
 Most of indicators, 75, are produced on an annual basis. 8 indicators are updated quarterly and 7 every other year. The remaining 7 indicators are produced on a equartelry, montly or every three years basis. 
 
 
-```{r prodfre, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Production frequency"}
+```{r prodfre, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Production frequency"}
   counts <- table(esg2$Highest.Frequency...Production) 
   barplot(counts, main="Production Frequency") 
 ```
 
 
-```{r upfre, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Update frequency"}
+```{r upfre, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Update frequency"}
   counts <- table(esg2$Highest.Frequency...Update.frequency) 
   barplot(counts, main="Update freqency") 
 ```
@@ -171,7 +182,7 @@ Most of indicators, 75, are produced on an annual basis. 8 indicators are update
 
 53 indicators have a unique source instrument only (e.g. source type), most of them 32 being sourced from third party sources (TPS) while 9 each are sourced from surveys (S) and administrative records. The rest of the indicators are sourced from a combination of 2,3 or 4 different source types. 
 
-```{r sourcinstr, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Update frequency"}
+```{r sourcinstr, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Update frequency"}
   counts <- table(esg2$Source.Instrument) 
   barplot(counts, main="Source Instr") 
 ```
@@ -179,14 +190,14 @@ Most of indicators, 75, are produced on an annual basis. 8 indicators are update
 There are only four indicators for which imputation methods are used to fill in gaps. Three of them are managed by Emi and pertain to populational indicators and one by Bhaskar, GNI per capita. 
 
 
-```{r imput, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Imputation"}
+```{r imput, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Imputation"}
   counts <- table(esg2$Imputed.Data.) 
   barplot(counts, main="Imputation") 
 ```
 
 32 indicators come with notes related to issues such as last year available, updates, discontinuation etc. 
 
-```{r notes, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Notes"}
+```{r notes, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Notes"}
   counts <- table(esg2$Notes) 
   barplot(counts, main="Notes") 
 ```
