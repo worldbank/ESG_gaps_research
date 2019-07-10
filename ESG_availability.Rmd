@@ -61,9 +61,7 @@ esg <- esg %>% rename_at(vars(contains(" ")),
 
 The paper aims at providing an overview of the indicators curated and disseminated by World Bank and relevant for ESG (Environmental, Social, Governance) investment. The work has been conducting using metadata on indicators, interviews with data managers and analysis and research of indicators and metadata. We identified 123 indicators of relevance to ESG investments and we provide in the following parts of the paper an analytical overview of these indicators focusing on issues related to number of indicators managed by data managers, 
 
-# Graphs
-
-Most of the indicators of interest to ESG work are handled by Wendy - 33, followed by Florina - 24, Hiroko 23, Haruna 17 and Bhaskar 14. Almost 80% of indicators are managed by 4 people, Wendy, Florina, Hiroko and Haruna. Most of the indicators currently handled by Wendy will be managed by the analyst working on environmental indicators that joined DECDG in July 2019. 
+# Data Management
 
 ```{r internal_poc, fig.margin = TRUE, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Indicators per manager"}
 esg %>% count(internal_poc) %>% 
@@ -81,9 +79,9 @@ esg %>% count(internal_poc) %>%
 
 ```
 
+Most of the indicators of interest to ESG work are handled by Wendy - 33, followed by Florina - 24, Hiroko 23, Haruna 17 and Bhaskar 14. Almost 80% of indicators are managed by 4 people, Wendy, Florina, Hiroko and Haruna. Most of the indicators currently handled by Wendy will be managed by the analyst working on environmental indicators that joined DECDG in July 2019.
 
-More than 21% of all indicators, 26 out of 123, come as Not Available for the following reasons: data no longer updated by the source and prepared migration to a different one; data was used one time only; indicators are not managed by the indicated point of consultation or they are no in the WDI database; someone else is managing the indicators and indicators are decommissioned. Finally a total of 97 indicators enter the final analysis. 
-
+# Unavailable data
 
 ```{r freqna, fig.margin = TRUE, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Not Available Indicators"}
 esg %>% count(`highest_frequency - production`) %>% 
@@ -103,9 +101,15 @@ esg %>% count(`highest_frequency - production`) %>%
 
 ```
 
+About 21% of all indicators---26 out of 123---come as Not Available for one of the following reasons: 
+1. Data no longer updated by the source and prepared migration to a different one;
+2. Data was used one time only; 
+3. Indicators are not managed by the indicated point of consultation or they are no in the WDI database;
+4. Someone else is managing the indicators and indicators are decommissioned. 
 
-Most of the indicators, 48, are classified as social indicators, followed by 38 environmental and 37 governance indicators. The process of assigning indicators followed an analysis of the descirption of indicators found in the metadata by name and cassigned category. Indicators such as those related to debt, tax, growth and GDP are grouped under governance indicators as one can argue that their evolution is a function of the governance structures in the specific countries. 
+Thus, a total of 97 indicators enter the final analysis. 
 
+# ESG indicators broken down
 
 ```{r subject, fig.margin = TRUE, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Class of indicators"}
 esg %>% count(subject) %>% 
@@ -123,8 +127,7 @@ esg %>% count(subject) %>%
 
 ```
 
-The assignment of indicators to ESG categories was performed by analyzing the Topic column of the indicators metadata. 29 indicators are related to Environment; 21 to health; 13 to Economic Policy and Debt; 12 to Infrastructure and 11 to Social Protection. 14 indicators are grouped under the category other. 
-
+Most of the indicators, 48, are classified as social indicators, followed by 38 environmental and 37 governance indicators. The process of assigning indicators followed an analysis of the descirption of indicators found in the metadata by name and cassigned category. Indicators such as those related to debt, tax, growth and GDP are grouped under governance indicators as one can argue that their evolution is a function of the governance structures in the specific countries. 
 
 ```{r topic, fig.margin = TRUE, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Topic description"}
 esg2 %>% count(Topic) %>% 
@@ -142,15 +145,18 @@ esg2 %>% count(Topic) %>%
 
 ```
 
+The assignment of indicators to ESG categories was performed by analyzing the Topic column of the indicators metadata. 29 indicators are related to Environment; 21 to health; 13 to Economic Policy and Debt; 12 to Infrastructure and 11 to Social Protection. 14 indicators are grouped under the category other. 
 
-68 out of 97 indicators updated on a continuous basis are collected by International Organizations, while 16 and 10 indicators are collected by Internal Third Parties and External Third Parties respectively. A small number of indicators, 3, are collected by a consortium of IO, ITP and ETP
-
+# Data collection
 
 ```{r collecting entity, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Collecting Entity Type"}
 counts <- table(esg2$SOURCE1..NSO.IO.ITP.ET.) 
 barplot(counts, main="Collecting Entity") 
 ```
 
+68 out of 97 indicators updated on a continuous basis are collected by International Organizations, while 16 and 10 indicators are collected by Internal Third Parties and External Third Parties respectively. A small number of indicators, 3, are collected by a consortium of IO, ITP and ETP
+
+# Data processing
 66 out of 97 indicators updated on a continuous basis are processed by IO, while 21 are processed by Internal Third Parties and 10 by Extrernal Third Parties. 
 
 ```{r procent, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Processing Entity Type"}
