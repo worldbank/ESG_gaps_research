@@ -56,7 +56,7 @@ esg <- esg %>% rename_at(vars(contains(" ")),
 #names(esg) %<>% tolower
 
 ```
-
+# new analysis is supposed to be 
 # Introduction
 
 The paper aims at providing an overview of the indicators curated and disseminated by World Bank and relevant for ESG (Environmental, Social, Governance) investment. The work has been conducting using metadata on indicators, interviews with data managers and analysis and research of indicators and metadata. We identified 123 indicators of relevance to ESG investments and we provide in the following parts of the paper an analytical overview of these indicators focusing on issues related to number of indicators managed by data managers, 
