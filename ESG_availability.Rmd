@@ -220,8 +220,63 @@ There are only four indicators for which imputation methods are used to fill in 
   barplot(counts, main="Notes") 
 ```
 
-Need to color and reorder bar charts 
+# Annexes
+Long and Short Database Overview
 
-Need stacked Bar charts to provide insights for indicators based on their assigned subject, environmental, social or governance.  
+Database
+Variable Name	Explanations
+cetsid	 
+DATABASE ID	 
+inputname	 
+Topic	 
+Statisticalconceptandmethodology	 
+Aggregationmethod	 
+Periodicity	 
+Source	 
+Unitofmeasure	 
+Shortdefinition	 
+Developmentrelevance	 
+Limitationsandexceptions	 
+IndicatorName	 
+License_URL	 
+Othernotes	 
+License_Type	 
+Generalcomments	 
+Notesfromoriginalsource	 
+Longdefinition	 
+Internal POC	 
+SOURCE1 (NSO,IO,ITP,ET)	 
+SOURCE1NAME	 
+SOURCE2	 
+SOURCE2NAME	 
+SOURCE3	 
+SOURCE3NAME	 
+Highest Frequency - Production	 
+Highest Frequency - Update frequency	 
+Release Gap	 
+Source Instrument	 
+Imputed Data?	 
+Metadata Level	 
+Data Volatility	 
+Notes	 
 
-New update
+Variable label	Variable name
+Indicator Code	indCode
+Indicator Name	indName
+Category	categ
+Sub-Category	subcateg
+World Bank Database	wbdb
+Data owner/generator (Primary source)	source1
+Data owner/generator name	source1Name
+Data processor (Secondary source)	source2
+Data processor name	source2Name
+Data host/distributer (Tertiary source)	source3
+Data host/distributer nane	source3Name
+Highest frequency of data	hFreq
+Shortest gap between release date and most recent data point available	releaseGap
+Source Instrument	sournceInstrument
+Includes imputed data	impData
+Metadata level	metaLevel
+Country code	countryCode
+Volatility	 
+
