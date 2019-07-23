@@ -56,14 +56,13 @@ esg <- esg %>% rename_at(vars(contains(" ")),
 #names(esg) %<>% tolower
 
 ```
-<<<<<<< HEAD
-## Introduction
+
 
 # Executive Summary
 
 
 #Intro
->>>>>>> update_03
+
 
 # Methodology 
 The 123 indicators identified as relevant for ESG investment come from World Bank databases, mainly from the World Development Indicators database. In order to have a complete picture of the indicators, we assembled a database for analysis consisting of indicators metadata with a total of 34 variables. The 34 variables were meant to provide the most comprehensive overview of each indicator separately. We tracked each indicator by a unique code assigned to it, by database of which it is part of, by name, topic, statistical methodology used for compilation, aggregation methods, its relevance to development, periodicity , collecting, processing, and disseminating entity among others. Among these 34 variables, we identified a set of 17 variables that contain most of the information that is relevant for the analysis of these indicators in the context of their use in ESG investments. These 17 variables had set out to capture the indicator’s code and name, the database they belong to, the collecting, processing and dissemination entity, the granularity of data (monthly, yearly etc) and the shortest gap between release date and most recent data point available. Finally, we tried to capture the statistical methods through which the indicators are created and to capture imputations performed on the dataset. The annex of this paper provides an overview of the initial database of the indicators metadata and the short version with the variables of most interest to this paper. 
