@@ -168,8 +168,9 @@ While in the previous we provided a full database description and an overview of
 
 # ESG indicators broken down 
 
-```{r subject2, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Class of indicators", fig.margin = TRUE}
-esg %>% count(subject) %>% 
+```{r subject2, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = c("Class of indicators after removing NAs", "Topic description"), fig.margin = TRUE}
+esg %>% filter(!is.na(`highest_frequency - production`)) %>% 
+  count(subject) %>% 
   ggplot(aes(area = n, fill = subject, 
              label = paste(subject, "\n", n))) +
   geom_treemap(
@@ -182,13 +183,6 @@ esg %>% count(subject) %>%
     layout = "fixed"
   )  
 
-```
-
-Given the previous analysis of the indicators that are not available indicators (NAs), we are left with a total of 97 indicators to  perform further analysis. A total of 21 environmental indicators are left from an initial batch of 38 indicators. This is by far the  highest rate of attrition observed in the indicators as 45% of the initial set of indicators appears to be no longer updated.  The environmental part of the new ESG database will thus need the largest amount of attention to understand the reasons of the mismatch  between original set of indicators and the ones left after the analysis on their status.  31 governance indicators are left of a total of 37 original one representing a 16% attrition rate. Finally, social indicators appear  to be the most robust class of indicators with 45 out of 48 original ones remaining equivalent of a 6% attrition rate. The process of  assigning indicators followed an analysis of the description of indicators found in the metadata by name and assigned category. Indicators  such as those related to debt, tax, growth and GDP are grouped under governance indicators as one can argue that their evolution is a  function of the governance structures in the specific countries. The assignment of indicators to ESG categories was performed by analyzing  the Topic column of the indicators metadata. 29 indicators are related to Environment; 21 to health; 13 to Economic Policy and Debt;  12 to Infrastructure and 11 to Social Protection. 14 indicators are grouped under the category other.  
-
-
-
-```{r topic, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Topic description", fig.margin = TRUE}
 esg2 %>% count(Topic) %>% 
   ggplot(aes(area = n, fill = Topic, 
              label = paste(Topic, "\n", n))) +
@@ -203,6 +197,10 @@ esg2 %>% count(Topic) %>%
   )  
 
 ```
+
+Given the previous analysis of the indicators that are not available indicators (NAs), we are left with a total of 97 indicators to  perform further analysis. A total of 21 environmental indicators are left from an initial batch of 38 indicators. This is by far the  highest rate of attrition observed in the indicators as 45% of the initial set of indicators appears to be no longer updated.  _The environmental part of the new ESG database will thus need the largest amount of attention to understand the reasons of the mismatch  between original set of indicators and the ones left after the analysis on their status_.  31 governance indicators are left of a total of 37 original one representing a 16% attrition rate. Finally, social indicators appear  to be the most robust class of indicators with 45 out of 48 original ones remaining equivalent of a 6% attrition rate. The process of  assigning indicators followed an analysis of the description of indicators found in the metadata by name and assigned category. Indicators  such as those related to debt, tax, growth and GDP are grouped under governance indicators as one can argue that their evolution is a  function of the governance structures in the specific countries. 
+
+The assignment of indicators to ESG categories was performed by analyzing  the Topic column of the indicators metadata. 29 indicators are related to Environment; 21 to health; 13 to Economic Policy and Debt;  12 to Infrastructure and 11 to Social Protection. 14 indicators are grouped under the category other.  
 
 
 
