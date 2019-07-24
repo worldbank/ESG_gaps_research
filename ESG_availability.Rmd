@@ -255,14 +255,10 @@ There are 4 indicators, 3 social and one governance, out of 97 indicators for wh
   barplot(counts, main="Notes") 
 ```
 
-<<<<<<<
-<<<<<<<
-=======
 # Final remarks and recommendations
 
 blah blah blah
 
->>>>>>>
 # Annexes
 Long and Short Database Overview
 =======
@@ -308,13 +304,7 @@ Data Volatility
 Notes	 
 =======
 
-<<<<<<<
->>>>>>>
 
-<<<<<<<
-=======
-
->>>>>>>
 Variable label	Variable name
 Indicator Code	indCode
 Indicator Name	indName
