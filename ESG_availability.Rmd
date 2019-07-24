@@ -4,7 +4,8 @@ subtitle: "An Analysis of availability"
 author: ""
 date: "`r Sys.Date()`"
 output:
-  tufte::tufte_html: default
+  tufte::tufte_html:
+    tufte_variant: "envisioned"
   tufte::tufte_handout:
     citation_package: natbib
     latex_engine: xelatex
@@ -143,8 +144,6 @@ esg %>% count(internal_poc) %>%
 
 Most of the indicators of interest to ESG work are handled by Wendy - 33, followed by Florina - 24, Hiroko 23, Haruna 17 and Bhaskar 14. Almost 80% of indicators are managed by 4 people, Wendy, Florina, Hiroko and Haruna. All of the indicators managed by Wendy, which are soon to be transferred to a new analyst, are environmental indicators. Another 5 environmental indicators are managed by Bahskar’s team. Thus, in terms of environmental indicators the new analyst that joined DECDG will be the focal point for all further questions. 5 out of 24 indicators managed by Florina are social indicators while the rest of 19 are governance indicators. Five of the 23 indicators managed by Hiroko are governance indicators while the rest are social indicators. Hiroko is the focal point for social indicators related to educational and employment outcomes. The 17 indicators managed by Haruna are exclusively social indicators are pertain to health related outcomes. A total of 21 indicators are managed by Baskhar, Emi, Rubena and Espen of which 5 are environmental, 8 are social indicators and 13 governance related indicators. Indicators related to population statistics are managed by Emi, of which 5 of them are of interest to ESG investment: population ages 65 and above, life expectancy at birth, mortality rate, infant (per 1,000 live births), fertility rate, total (births per woman) and net migration. Economic, financial and public sector indicators of relevance to ESG investment are managed by Bhaskar. These are either environmental such as adjusted savings - particulate emission damage (% of GNI) or governance such as gross national savings. A number of 13 indicators are managed by Emi, Espen and Rubena. Emi manages indicators related to population, life expectancy and migration, while Espen manages poverty related indicators and Rubena manages debt and development assistance indicators. 
 
-
-
 # Unavailable data
 ```{r freqna, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Not Available Indicators", fig.margin = TRUE}
 esg %>% count(`highest_frequency - production`) %>% 
@@ -210,7 +209,7 @@ counts <- table(esg2$SOURCE1..NSO.IO.ITP.ET.)
 barplot(counts, main="Collecting Entity") 
 ```
 
-We set out to analyze the type of entities that collect the data for the indicators. We structured the dataset according to three main  categories: International Organizations – IO; External Third Parties – ETP and Internal Third Partis – ITP  (e. g. World Bank department or divisions). Data for 68 indicators of a total of 97 are collected by international organizations,  equivalent to 70% of all the indicators. Data for another 16 indicators are collected by Internal Third Parties, departments of World Bank. Thus, 89% of the indicators are collected by international organizations which translate to very high degree of authoritativeness of  the indicators given the resources IOs put in data collection and curation. A small number of indicators, 10, are collected by  External Third Parties such as the European Commission and Natural Resource Governance Institute. Finally three indicators have multiple  entities, a mix of ETP, IO and ETP as collectors. Among the IO and ITP collected indicators, 14 are environmental indicators, 26 are  governance indicators and 44 are social indicators. Finally, of the 10 indicators collected by ETPs, one only is a social indicator,  5 are governance indicators and 4 environmental ones. 
+We set out to analyze the type of entities that collect the data for the indicators. We structured the dataset according to three main  categories: International Organizations – `IO`; External Third Parties – `ETP`; and Internal Third Partis – `ITP`  (e. g. World Bank department or divisions). Data for 68 indicators of a total of 97 are collected by international organizations,  equivalent to 70% of all the indicators. Data for another 16 indicators are collected by Internal Third Parties, departments of World Bank. Thus, 89% of the indicators are collected by international organizations which translate to very high degree of authoritativeness of  the indicators given the resources IOs put in data collection and curation. A small number of indicators, 10, are collected by  External Third Parties such as the European Commission and Natural Resource Governance Institute. Finally three indicators have multiple  entities, a mix of ETP, IO and ETP as collectors. Among the IO and ITP collected indicators, 14 are environmental indicators, 26 are  governance indicators and 44 are social indicators. Finally, of the 10 indicators collected by ETPs, one only is a social indicator,  5 are governance indicators and 4 environmental ones. 
 
 
 # Data processing
@@ -275,6 +274,9 @@ There are 4 indicators, 3 social and one governance, out of 97 indicators for wh
   barplot(counts, main="Notes") 
 ```
 
+# Final remarks and recommendations
+
+blah blah blah
 
 # Annexes
 Long and Short Database Overview
