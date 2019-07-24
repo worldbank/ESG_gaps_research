@@ -4,7 +4,8 @@ subtitle: "An Analysis of availability"
 author: ""
 date: "`r Sys.Date()`"
 output:
-  tufte::tufte_html: default
+  tufte::tufte_html:
+    tufte_variant: "envisioned"
   tufte::tufte_handout:
     citation_package: natbib
     latex_engine: xelatex
@@ -18,7 +19,6 @@ link-citations: yes
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 pkg <-
   c(
-    "devtools",
     "tidyverse",
     "data.table", 
     "ggplot2",
@@ -60,96 +60,73 @@ esg <- esg %>% rename_at(vars(contains(" ")),
 
 # Executive Summary
 
+blah blah blah
 
-#Introduction
+# Introduction
 
-The paper aims at providing an overview of the indicators curated and disseminated by World Bank and relevant for 
-ESG (Environmental, Social, Governance) investment. The work has been conducted assembling a metadata database on indicators, 
-doing a series of interviews with data managers and analyzing and researching the set of indicators and their metadata.
-We identified 123 indicators of relevance to ESG investments and we provide in the following parts of the paper an analytical 
-overview of these indicators. We start first with a detailed overview of the methodology used to analyze the dataset 
-and we continue with providing a set of insights on sources, processing entities and dissemination of these indicators 
-and the frequency of their updates and release. 
-
+This document aims at providing an overview of the indicators curated and disseminated by the World Bank Group that are relevant for ESG (Environmental, Social, Governance) investment. The work has been conducted by assembling a metadata database on indicators, interviewing data managers, and analyzing the set of 123 identified indicators and their corresponding metadata. We start with a detailed overview of the methodology used to analyze the dataset and we continue with providing a set of insights on sources, processing entities and dissemination of these indicators and the frequency of their updates and release.  
 
 # Methodology 
 
-The 123 indicators identified as relevant for ESG investment come from World Bank databases, mainly from the World Development Indicators 
-database. In order to have a complete picture of the indicators, we assembled a database for analysis consisting of indicators 
-metadata with a total of 34 variables. The 34 variables were meant to provide the most comprehensive overview of each indicator separately. 
-We tracked each indicator by a unique code assigned to it, by database of which it is part of, by name, topic, statistical methodology 
-used for compilation, aggregation methods, its relevance to development, periodicity , collecting, processing, and disseminating entity 
-among others. Among these 34 variables, we identified a set of 17 variables that contain most of the information that is relevant 
-for the analysis of these indicators in the context of their use in ESG investments. These 17 variables had set out to capture the 
-indicator’s code and name, the database they belong to, the collecting, processing and dissemination entity, the granularity of data
-(monthly, yearly etc) and the shortest gap between release date and most recent data point available. Finally, we tried to capture 
-the statistical methods through which the indicators are created and to capture imputations performed on the dataset. The annex of this
-paper provides an overview of the initial database of the indicators metadata and the short version with the variables of most interest 
-to this paper. In order to fill in knowledge gaps in metadata, a set of 8 interviews have been conducted with internal Point of Consultation 
-(PoC), data managers with extensive knowledge of each indicator of interest. The interviews took place over a three week period,
- in person and over phone and focused mostly on frequency update and release. With the help of these interviews, we were able to fill 
- in the metadata database with relevant information on the timelines and update processes of these indicators. Finally, we created an 
- additional variable called “subject” in order to classify each indicators under a broader category: Environmental, Social and Governance. 
- Assigning indicators to Environmental and Social category was generally straightforward as we used the definition provided in the
-World Bank Group publication of April 2018, Incorporating Environmental, Social and Governance (ESG) Factors into Fixed Income Investment. 
-Thus, environmental indicators are related to climate change, carbon emissions, pollution, resource efficiency and biodiversity. 
-Social indicators pertain to human rights, labor standards, health and safety, diversity policies, development of human capital 
-(health & education). Finally, governance indicators refer to corporate governance issues, corruption, rule of law, institutional 
-strength and transparency. A series of indicators such as GNI per capita, government expenditure on education, gross national 
-savings have been assigned to the governance category due to their close relationship to governance related outcomes. 
-The level of such indicators are closely correlated to governance related issues. Finally, using the database assembled on the 
-abovementioned guidelines we were able to analyze the metadata of indicators and provide insights on key issues such as update frequency 
-and dissemination, processing methods, data handling techniques and perceived quality of indicators. 
+The 123 indicators identified as relevant for ESG investment come from the World Bank databases, mainly from the World Development Indicators database. In order to have a complete picture of the indicators, we assembled a database for analysis consisting of metadata with a total of 34 variables (Table 1 in the annex). These variables were meant to provide the most comprehensive overview of each indicator separately. In addition to an individual tracking code assigned to each indicator, we categorized them by characteristics such as the database of which the indicators is part of, its topic, its statistical methodology used for compilation, its aggregation methods, its relevance to development, its periodicity, among others. Out of these 34 variables, we identified a set of 17 variables that contain most of the information that is relevant for the analysis of these indicators in the context of their use in ESG investments. This subset of variables has been set out to capture the collecting, processing and dissemination entity, the granularity of data (monthly, yearly etc), and the shortest gap between release date and most recent data point available. Finally, we tried to capture the statistical methods through which the indicators are created and to capture imputations performed on the dataset. The annex of this paper provides an overview of the initial database of the indicators metadata and the short version with the variables of most interest to this paper.  
+ 
+In order to fill in knowledge gaps in metadata, we conducted eight interviews with internal Point of Consultation (PoC), which were selected due to their extensive knowledge of each indicator of interest. The interviews took place over a three week period, in person and over phone and focused mostly on frequency update and release. Finally, we created an additional variable called `subject` in order to classify each indicators under a broader category: Environmental, Social, and Governance. Assigning indicators to Environmental and Social category was generally straightforward as we used the definition provided in the World Bank Group publication of April 2018, Incorporating ESG factors into _fixed income investment_. 
 
+Thus, environmental indicators are related to climate change, carbon emissions, pollution, resource efficiency and biodiversity. Social indicators pertain to human rights, labor standards, health and safety, diversity policies, development of human capital (health & education). Finally, governance indicators refer to corporate governance issues, corruption, rule of law, institutional strength and transparency. A series of indicators such as GNI per capita, government expenditure on education, gross national savings have been assigned to the governance category due to their close relationship to governance related outcomes or issues. Finally, using the database assembled on the abovementioned guidelines we were able to analyze the metadata of indicators and provide insights on key issues such as update frequency and dissemination, processing methods, data handling techniques, and perceived quality of indicators. 
 
 # Database description 
 
-The final database assembled for analysis had a total of 35 variables for a total of 123 indicators. The indicators came grouped 
-in 10 different database identification numbers. 38 indicators were designed as environmental indicators, 37 governance indicators 
-and 48 social indicators. We have identified 41 subcategories grouped under topic where more details about the topic to which the 
-indicators belong are provided. Economic policy and debt, health, education and social protection topics cover most of the indicators 
-under analysis. 
-As far as the aggregation method is concerned, we identified  different aggregation methods that apply to most of indicators. 
-However, 39 indicators have not any description as far as the aggregation method is concerned. The aggregation methods used to 
-produce the indicators are the following ones: gap-filled total, median, sum, unweighted average and weighted average. Two indicators, 
-CO2 emissions (kt) and scientific and technical journal articles are aggregated through the gap-filled total method. 
-Three governance related indicators are aggregated using medians to construct the indicators while 8 indicators are aggregated using sums,
-most of which are environmental indicators. Most of the indicators, 71 are aggregated using weighted and unweighted averages. 
-Environmental and social indicators are dominated by these types of aggregation. 114 indicators which have data on periodicity and 
-they are annual indicators, a debt related indicator, Outstanding international public debt securities to GDP (%, comes for the period of 
-1994 to 2014 only, and 9 indicators, mostly environmental come without data on periodicity. 
-A total of 64 unique sources were identified for the indicators. The World Bank, under diverse departments, is listed as a source for 
-24 indicators, 12 governance, 8 environmental and 4 social. The World Health Organization accounts as a source for 7 indicators 
-while the International Energy Agency is the source for 6 indicators, all of them environmental. The Food and Agriculture Organization 
-(FAO) is the source for 8 indicators, most of them, 6, environmental ones. The International Labor Organization is the source for 9 
-indicators, of which 8 are social indicators. A total of 19 indicators from United Nations organization or divisions and pertain almost 
-exclusively to social and governance issues. UNESCO, United Nations Population Division or the United Nations Framework Convention on 
-Climate Change. A small number of indicators are sourced from a consortium of international organizations such as WHO, UNICEF, UNFPA, 
-World Bank Group, and the United Nations Population Division. The rest of the indicators are from other international organizations such 
-as the International Telecommunication Union, the Bank for International Settlements, think tanks and research institutes. Additional 
-variables in the metadata database are provided to inform about units of measure, short and long definitions of indicators, the relevance 
-of indicators to development and notes from the original sources. 
+```{r subject, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Distribution of ESG indicators", fig.margin = TRUE}
+esg %>% count(subject) %>% 
+  ggplot(aes(area = n, fill = subject, 
+             label = paste(subject, "\n", n))) +
+  geom_treemap(
+    color = "white", size = .75*.pt,
+    layout = "fixed",show.legend = FALSE
+  ) +
+  geom_treemap_text(
+    colour = "black", place = "centre",
+    grow = FALSE,
+    layout = "fixed"
+  ) 
 
+```
+
+
+The final database assembled for analysis had a total of 35 variables for a total of 123 indicators. The indicators came grouped in 10 different database identification numbers. 38 indicators were designed as environmental indicators, 37 governance indicators, and 48 social indicators. We have identified 41 subcategories grouped under topic where more details about the topic to which the indicators belong are provided. Economic policy and debt, health, education and social protection topics cover most of the indicators under analysis. As far as the aggregation method is concerned, we identified different aggregation methods that apply to most of indicators. However, 39 indicators have not any description as far as the aggregation method is concerned. 
+
+The aggregation methods used to produce the indicators are as follows: gap-filled total, median, sum, unweighted average and weighted average. Two indicators, CO2 emissions (kt) and scientific and technical journal articles are aggregated through the gap-filled total method. Three governance related indicators are aggregated using medians to construct the indicators while 8 indicators are aggregated using sums, most of which are environmental indicators. Most of the indicators, 71 are aggregated using weighted and unweighted averages. Environmental and social indicators are dominated by these types of aggregation. 114 indicators which have data on periodicity and they are annual indicators, a debt related indicator, Outstanding international public debt securities to GDP (%, comes for the period of 1994 to 2014 only, and 9 indicators, mostly environmental come without data on periodicity. A total of 64 unique sources were identified for the indicators. 
+
+```{r source, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Distribution of ESG indicators by source", fig.margin = TRUE}
+y <- esg %>% 
+  count(source1name) %>% 
+  filter(n <= 3) %>% 
+  count() %>% 
+  mutate(source1name = "Single source")
+
+esg %>% 
+  count(source1name) %>% 
+  filter(n > 3) %>% 
+  rbind(y) %>% 
+  ggplot(aes(area = n, fill = source1name, 
+             label = paste(source1name, "\n", n))) +
+  geom_treemap(
+    color = "white", size = .75*.pt,
+    layout = "fixed",show.legend = FALSE
+  ) +
+  geom_treemap_text(
+    colour = "black", place = "centre",
+    grow = FALSE,
+    layout = "fixed"
+  )  
+
+```
+
+The World Bank, under diverse departments, is listed as a source for 24 indicators, 12 governance, 8 environmental and 4 social. The World Health Organization accounts as a source for 7 indicators while the International Energy Agency is the source for 6 indicators, all of them environmental. The Food and Agriculture Organization (FAO) is the source for 8 indicators, most of them, 6, environmental ones. The International Labor Organization is the source for 9 indicators, of which 8 are social indicators. A total of 19 indicators from the United Nations pertain almost exclusively to social and governance issues. UNESCO, United Nations Population Division or the United Nations Framework Convention on Climate Change (**This sentence is incomplete. There is no verb in it.**). A small number of indicators are sourced from a consortium of international organizations such as WHO, UNICEF, UNFPA, the World Bank Group, and the United Nations Population Division. The rest of the indicators are from other international organizations such as the International Telecommunication Union, the Bank for International Settlements, think tanks and research institutes. Additional variables in the metadata database are provided to inform about units of measure, short and long definitions of indicators, the relevance of indicators to development and notes from the original sources. 
 
 # Data Management
 
-Most of the indicators of interest to ESG work are handled by Wendy - 33, followed by Florina - 24, Hiroko 23, Haruna 17 and Bhaskar 14. 
-Almost 80% of indicators are managed by 4 people, Wendy, Florina, Hiroko and Haruna. All of the indicators managed by Wendy, 
-which are soon to be transferred to a new analyst, are environmental indicators. Another 5 environmental indicators are managed 
-by Bahskar’s team. Thus, in terms of environmental indicators the new analyst that joined DECDG will be the focal point for all further 
-questions. 5 out of 24 indicators managed by Florina are social indicators while the rest of 19 are governance indicators. 
-5 of the 23 indicators managed by Hiroko are governance indicators while the rest are social indicators. Hiroko is the focal point 
-for social indicators related to educational and employment outcomes. The 17 indicators managed by Haruna are exclusively social 
-indicators are pertain to health related outcomes. A total of 21 indicators are managed by Baskhar, Emi, Rubena and Espen of which 
-5 are environmental, 8 are social indicators and 13 governance related indicators. Indicators related to population statistics are 
-managed by Emi, of which 5 of them are of interest to ESG investment: population ages 65 and above, life expectancy at birth, 
-mortality rate, infant (per 1,000 live births), fertility rate, total (births per woman) and net migration. Economic, financial and 
-public sector indicators of relevance to ESG investment are managed by Bhaskar. These are either environmental such as adjusted savings - 
-particulate emission damage (% of GNI) or governance such as gross national savings. A number of 13 indicators are managed by Emi, 
-Espen and Rubena. Emi manages indicators related to population, life expectancy and migration, while Espen manages poverty related 
-indicators and Rubena manages debt and development assistance indicators. 
-
-```{r internal_poc, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Indicators per manager"}
+```{r internal_poc, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Indicators per manager", fig.margin = TRUE}
 esg %>% count(internal_poc) %>% 
   ggplot(aes(area = n, fill = internal_poc, 
              label = paste(internal_poc, "\n", n))) +
@@ -165,30 +142,10 @@ esg %>% count(internal_poc) %>%
 
 ```
 
+Most of the indicators of interest to ESG work are handled by Wendy - 33, followed by Florina - 24, Hiroko 23, Haruna 17 and Bhaskar 14. Almost 80% of indicators are managed by 4 people, Wendy, Florina, Hiroko and Haruna. All of the indicators managed by Wendy, which are soon to be transferred to a new analyst, are environmental indicators. Another 5 environmental indicators are managed by Bahskar’s team. Thus, in terms of environmental indicators the new analyst that joined DECDG will be the focal point for all further questions. 5 out of 24 indicators managed by Florina are social indicators while the rest of 19 are governance indicators. Five of the 23 indicators managed by Hiroko are governance indicators while the rest are social indicators. Hiroko is the focal point for social indicators related to educational and employment outcomes. The 17 indicators managed by Haruna are exclusively social indicators are pertain to health related outcomes. A total of 21 indicators are managed by Baskhar, Emi, Rubena and Espen of which 5 are environmental, 8 are social indicators and 13 governance related indicators. Indicators related to population statistics are managed by Emi, of which 5 of them are of interest to ESG investment: population ages 65 and above, life expectancy at birth, mortality rate, infant (per 1,000 live births), fertility rate, total (births per woman) and net migration. Economic, financial and public sector indicators of relevance to ESG investment are managed by Bhaskar. These are either environmental such as adjusted savings - particulate emission damage (% of GNI) or governance such as gross national savings. A number of 13 indicators are managed by Emi, Espen and Rubena. Emi manages indicators related to population, life expectancy and migration, while Espen manages poverty related indicators and Rubena manages debt and development assistance indicators. 
 
 # Unavailable data
-
-While in the previous paragraph we attempted to provide a full database description and an overview of the data managers and the type of 
-indicators they are managing, including a classification for ESG purposes, in this part of the paper, we will be attempting an overview of 
-indicators that are no longer updated by the WDI team. Following the interviews with the data managers, we identified a total of 26 out of 
-123 indicators, 21%, that are no longer updated. We classified them as not available. 17 of these indicators are environmental indicators. 
-Of these 17 indicators, a number of four of them supposedly managed by Wendy have not been retrieved in the WDI database. 
-There are the following ones: Genuine savings: energy depletion (% of GDP); Natural capital, subsoil assets: coal (constant 2014 US$); 
-Natural capital, subsoil assets: gas (constant 2014 US$); Natural capital, subsoil assets: oil (constant 2014 US$). These are all 
-indicators produced by the World Bank and the natural capital ones stem from the following publication: The Changing Wealth of Nations 
-2018: Building a Sustainable Future. The rest of environmental indicators that are no longer updated are indicators that have been 
-pulled once for a specific purpose (e.g MDG, SDG), indicators with one data point only and indicators that are discontinued. 
-Two CO2 indicators managed by Wendy and produced by the Carbon Dioxide Information Analysis Center are no longer updated by the original 
-source and according to discussions in the department will be replace by IEA provided indicators. A number of four indicators managed by 
-Bhaskar were not wrongly assigned to his team as per our discussion the IT team is managing the datasets. Finally, of these 4 indicators 
-one of them, Adjusted savings: energy depletion (% of GNI), is managed by someone else according to Bhaskar. A number of three social 
-indicators are either discontinued or decommissioned. Six governance indicators are with missing information due to them not being in the 
-WDI database, the assigned data manager is not correctly assigned or there is indication by the data manager of better available data. 
-Finally, a couple of them are not in the WDI database. 
-
-
-
-```{r freqna, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Not Available Indicators"}
+```{r freqna, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Not Available Indicators", fig.margin = TRUE}
 esg %>% count(`highest_frequency - production`) %>% 
   ggplot(aes(area = n, fill = `highest_frequency - production`, 
              label = paste(`highest_frequency - production`, "\n", n))) +
@@ -206,25 +163,13 @@ esg %>% count(`highest_frequency - production`) %>%
 
 ```
 
+While in the previous we provided a full database description and an overview of the data managers and the type of indicators they are managing, including a classification for ESG purposes, in this section, we overview the indicators that are no longer updated by the WDI team. Following the interviews with the data managers, we identified a total of 26 out of 123 indicators, 21%, that are no longer updated. We classified them as not available(`NA`). 17 of these indicators are environmental indicators. Of these 17 indicators, four of them have not been retrieved in the WDI database. There are the following ones: Genuine savings: energy depletion (% of GDP); Natural capital, subsoil assets: coal (constant 2014 US); Natural capital, subsoil assets: gas (constant 2014 US); Natural capital, subsoil assets: oil (constant 2014 US$). These are all indicators produced by the World Bank and the natural capital ones stem from the following publication: The Changing Wealth of Nations 2018: Building a Sustainable Future. The rest of environmental indicators that are no longer updated are indicators that have been pulled once for a specific purpose (e.g MDG, SDG), indicators with one data point only and indicators that are discontinued. Two CO2 indicators managed by Wendy and produced by the Carbon Dioxide Information Analysis Center are no longer updated by the original source and according to discussions in the department will be replace by IEA provided indicators. A number of four indicators managed by Bhaskar were not wrongly assigned to his team as per our discussion the IT team is managing the datasets. Finally, of these 4 indicators one of them, Adjusted savings: energy depletion (% of GNI), is managed by someone else according to Bhaskar. A number of three social indicators are either discontinued or decommissioned. Six governance indicators are with missing information due to them not being in the WDI database, the assigned data manager is not correctly assigned or there is indication by the data manager of better available data. Finally, a couple of them are not in the WDI database.  
 
 # ESG indicators broken down 
 
-Given the previous analysis of the indicators that are not available indicators (NAs), we are left with a total of 97 indicators to 
-perform further analysis. A total of 21 environmental indicators are left from an initial batch of 38 indicators. This is by far the 
-highest rate of attrition observed in the indicators as 45% of the initial set of indicators appears to be no longer updated. 
-The environmental part of the new ESG database will thus need the largest amount of attention to understand the reasons of the mismatch 
-between original set of indicators and the ones left after the analysis on their status. 
-31 governance indicators are left of a total of 37 original one representing a 16% attrition rate. Finally, social indicators appear 
-to be the most robust class of indicators with 45 out of 48 original ones remaining equivalent of a 6% attrition rate. The process of 
-assigning indicators followed an analysis of the description of indicators found in the metadata by name and assigned category. Indicators 
-such as those related to debt, tax, growth and GDP are grouped under governance indicators as one can argue that their evolution is a 
-function of the governance structures in the specific countries. The assignment of indicators to ESG categories was performed by analyzing 
-the Topic column of the indicators metadata. 29 indicators are related to Environment; 21 to health; 13 to Economic Policy and Debt; 
-12 to Infrastructure and 11 to Social Protection. 14 indicators are grouped under the category other. 
-
-
-```{r subject, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Class of indicators"}
-esg %>% count(subject) %>% 
+```{r subject2, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = c("Class of indicators after removing NAs", "Topic description"), fig.margin = TRUE}
+esg %>% filter(!is.na(`highest_frequency - production`)) %>% 
+  count(subject) %>% 
   ggplot(aes(area = n, fill = subject, 
              label = paste(subject, "\n", n))) +
   geom_treemap(
@@ -237,10 +182,6 @@ esg %>% count(subject) %>%
     layout = "fixed"
   )  
 
-```
-
-
-```{r topic, fig.margin = TRUE, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Topic description"}
 esg2 %>% count(Topic) %>% 
   ggplot(aes(area = n, fill = Topic, 
              label = paste(Topic, "\n", n))) +
@@ -256,144 +197,90 @@ esg2 %>% count(Topic) %>%
 
 ```
 
+Given the previous analysis of the indicators that are not available indicators (NAs), we are left with a total of 97 indicators to  perform further analysis. A total of 21 environmental indicators are left from an initial batch of 38 indicators. This is by far the  highest rate of attrition observed in the indicators as 45% of the initial set of indicators appears to be no longer updated.  _The environmental part of the new ESG database will thus need the largest amount of attention to understand the reasons of the mismatch  between original set of indicators and the ones left after the analysis on their status_.  31 governance indicators are left of a total of 37 original one representing a 16% attrition rate. Finally, social indicators appear  to be the most robust class of indicators with 45 out of 48 original ones remaining equivalent of a 6% attrition rate. The process of  assigning indicators followed an analysis of the description of indicators found in the metadata by name and assigned category. Indicators  such as those related to debt, tax, growth and GDP are grouped under governance indicators as one can argue that their evolution is a  function of the governance structures in the specific countries. 
+
+The assignment of indicators to ESG categories was performed by analyzing  the Topic column of the indicators metadata. 29 indicators are related to Environment; 21 to health; 13 to Economic Policy and Debt;  12 to Infrastructure and 11 to Social Protection. 14 indicators are grouped under the category other.  
+
 
 
 # Data collection
-
-We set out to analyze the type of entities that collect the data for the indicators. We structured the dataset according to three main 
-categories: International Organizations – IO; External Third Parties – ETP and Internal Third Partis – ITP 
-(e. g. World Bank department or divisions). Data for 68 indicators of a total of 97 are collected by international organizations, 
-equivalent to 70% of all the indicators. Data for another 16 indicators are collected by Internal Third Parties, departments of World Bank.
-Thus, 89% of the indicators are collected by international organizations which translate to very high degree of authoritativeness of 
-the indicators given the resources IOs put in data collection and curation. A small number of indicators, 10, are collected by 
-External Third Parties such as the European Commission and Natural Resource Governance Institute. Finally three indicators have multiple 
-entities, a mix of ETP, IO and ETP as collectors. Among the IO and ITP collected indicators, 14 are environmental indicators, 26 are 
-governance indicators and 44 are social indicators. Finally, of the 10 indicators collected by ETPs, one only is a social indicator, 
-5 are governance indicators and 4 environmental ones. 
-
-```{r collecting entity, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Collecting Entity Type"}
+```{r collecting entity, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Collecting Entity Type", fig.margin = TRUE}
 counts <- table(esg2$SOURCE1..NSO.IO.ITP.ET.) 
 barplot(counts, main="Collecting Entity") 
 ```
 
+We set out to analyze the type of entities that collect the data for the indicators. We structured the dataset according to three main  categories: International Organizations – `IO`; External Third Parties – `ETP`; and Internal Third Partis – `ITP`  (e. g. World Bank department or divisions). Data for 68 indicators of a total of 97 are collected by international organizations,  equivalent to 70% of all the indicators. Data for another 16 indicators are collected by Internal Third Parties, departments of World Bank. Thus, 89% of the indicators are collected by international organizations which translate to very high degree of authoritativeness of  the indicators given the resources IOs put in data collection and curation. A small number of indicators, 10, are collected by  External Third Parties such as the European Commission and Natural Resource Governance Institute. Finally three indicators have multiple  entities, a mix of ETP, IO and ETP as collectors. Among the IO and ITP collected indicators, 14 are environmental indicators, 26 are  governance indicators and 44 are social indicators. Finally, of the 10 indicators collected by ETPs, one only is a social indicator,  5 are governance indicators and 4 environmental ones. 
+
+
 # Data processing
 
-In order to have a comprehensive overview of the indicators, we wanted to capture data on the processing entities of the indicators in 
-order to see if there are any differences between collecting and processing entities. 66 indicators out of 97 are processed by IO of which
-12 are environmental, 14 are governance indicators and 40 are social indicators. 10 indicators are processed by external third parties of
-which one is a social indicator, 5 are governance indicators and 4 are environmental ones. Finally 21 indicators are processed by ITP, 
-internal third parties of which 5 are environmental, 12 are governance indicators, and 4 are social indicators. The small differences 
-between the number of indicators processed by one of the three entity types when compared to the number of indicators collected by the 
-three entity types is given by indicators that have a consortium as collecting entities and a single entity processing the data. 
-
-
-```{r procent, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Processing Entity Type"}
+```{r procent, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Processing Entity Type", fig.margin = TRUE}
 counts <- table(esg2$SOURCE2) 
 barplot(counts, main="Processing Entity")
 ```
 
+In order to have a comprehensive overview of the indicators, we wanted to capture data on the processing entities of the indicators in  order to see if there are any differences between collecting and processing entities. 66 indicators out of 97 are processed by IO of which 12 are environmental, 14 are governance indicators and 40 are social indicators. 10 indicators are processed by external third parties of which one is a social indicator, 5 are governance indicators and 4 are environmental ones. Finally 21 indicators are processed by ITP,  internal third parties of which 5 are environmental, 12 are governance indicators, and 4 are social indicators. The small differences  between the number of indicators processed by one of the three entity types when compared to the number of indicators collected by the  three entity types is given by indicators that have a consortium as collecting entities and a single entity processing the data.  
+
+
 # Data dissemination
-
-We conclude this part of the analysis by looking at the type of disseminating entities. We have again 66 indicators that are disseminated 
-by IOs, with the same class structure observed in the data processing item in terms of environmental, social and governance category. 
-We also observe 10 indicators that are disseminated by external third parties and 21 indicators that are disseminated by World Bank 
-internal third parties. Finally, the structure of entity types for all three categories, collection, processing and dissemination is 
-very robust with IOs dominating these categories followed by World Bank internal parties. Given this situation, there is a high degree 
-of trust placed in these indicators. The downside is that the time lag and update processes are quite high as IOs strive to supply a high 
-accuracy of data, most of the time meaning that they release country level data at year minus one or even year minus two for mor difficult 
-datasets such as CO2 emissions. 
-
-
-```{r dissent, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Dissemination entity"}
+```{r dissent, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Dissemination entity", fig.margin = TRUE}
 counts <- table(esg2$SOURCE3) 
 barplot(counts, main="Dissemination Entity")
 ```
 
+We conclude this part of the analysis by looking at the type of disseminating entities. We have again 66 indicators that are disseminated  by IOs, with the same class structure observed in the data processing item in terms of environmental, social and governance category.  We also observe 10 indicators that are disseminated by external third parties and 21 indicators that are disseminated by World Bank  internal third parties. Finally, the structure of entity types for all three categories, collection, processing and dissemination is  very robust with IOs dominating these categories followed by World Bank internal parties. Given this situation, there is a high degree  of trust placed in these indicators. The downside is that the time lag and update processes are quite high as IOs strive to supply a high  accuracy of data, most of the time meaning that they release country level data at year minus one or even year minus two for mor difficult  datasets such as CO2 emissions.  
+
 # Highest Frequency Production
 
-Our next piece of analysis refers to the frequency of production of these indicators by the creating entities. We identified 6 categories 
-of frequency production: monthly, quarterly, yearly, every other year and every three years. One social indicator is updated monthly by 
-the producing entity (i.e. collecting entity). A total of 9 indicators are produced on a quarterly basis of which 8 are governance 
-indicators and one is an environmental indicator. Most of the indicators, 75, are updated yearly. Of these, 13 are environmental 
-indicators, 22 are governance indicators, and 40 are social indicators. A number of 7 indicators are updated every other year of which 
-4 are environmental and 3 social indicators. Finally, 5 indicators are produced every three years. 3 of these are environmental indicators 
-while one each is social and governance respectively. 
-
-```{r prodfre, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Production frequency"}
+```{r prodfre, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Production frequency", fig.margin = TRUE}
   counts <- table(esg2$Highest.Frequency...Production) 
   barplot(counts, main="Production Frequency") 
 ```
 
+Our next piece of analysis refers to the frequency of production of these indicators by the creating entities. We identified 6 categories  of frequency production: monthly, quarterly, yearly, every other year and every three years. One social indicator is updated monthly by  the producing entity (i.e. collecting entity). A total of 9 indicators are produced on a quarterly basis of which 8 are governance  indicators and one is an environmental indicator. Most of the indicators, 75, are updated yearly. Of these, 13 are environmental  indicators, 22 are governance indicators, and 40 are social indicators. A number of 7 indicators are updated every other year of which  4 are environmental and 3 social indicators. Finally, 5 indicators are produced every three years. 3 of these are environmental indicators  while one each is social and governance respectively. 
+
+
 # Highest Frequency Updates
 
-The frequency of updates by the data managers is essential to understand the timeliness of these indicators for external stakeholders. 
-The following covers this part of the database. Firstly, we have 5 categories only for the update frequency as no monthly update occurs 
-in the WDI team. The starting point are quarterly updated. 8 indicators are quarterly updated of which 7 are governance indicators and 
-one environmental. A total of 76 indicators are update by the WDI team. Of these 76 indicators, 13 are environmental, 22 are governance 
-related indicators and 41 are social indicators. Finally, a number of 12 indicators are updated by the WDI team every two or three years.
-Of these 7 are environmental, 4 social and one governance indicator. In the end, the timeline of updates by the WDI team is a function 
-of the data source collectors own timelines and generally the WDI updates mirror the production rhythm imposed by the collecting entity. 
-
-
-```{r upfre, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Update frequency"}
+```{r upfre, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Update frequency", fig.margin = TRUE}
   counts <- table(esg2$Highest.Frequency...Update.frequency) 
   barplot(counts, main="Update freqency") 
 ```
-   
+
+The frequency of updates by the data managers is essential to understand the timeliness of these indicators for external stakeholders.  The following covers this part of the database. Firstly, we have 5 categories only for the update frequency as no monthly update occurs  in the WDI team. The starting point are quarterly updated. 8 indicators are quarterly updated of which 7 are governance indicators and  one environmental. A total of 76 indicators are update by the WDI team. Of these 76 indicators, 13 are environmental, 22 are governance  related indicators and 41 are social indicators. Finally, a number of 12 indicators are updated by the WDI team every two or three years. Of these 7 are environmental, 4 social and one governance indicator. In the end, the timeline of updates by the WDI team is a function  of the data source collectors own timelines and generally the WDI updates mirror the production rhythm imposed by the collecting entity. 
+
 
 # Source Instrument
 
-We aimed to provide an analytical overview of the sources through which the data behind the indicators are collected in order to 
-understand better the indicators themselves. These are mostly related to the statistical instruments used to compile the datasets 
-behind the indicators. Our analysis revealed 7 instruments through which the data is collected. These are the following: 
-National accounts (NTA), Household surveys (HHS), Third party sources (TPS), Administrative records (AR), Surveys (S), 
-Sample Registration (SR) and Census (C). 63 indicators only a unique source, either administrative records or surveys, 
-household surveys, third party sources and national accounts. 9 of these indicators are environmental, 27 are social indicators 
-and another 27 are governance indicators. The rest of the 34 indicators have more than one instruments through which data is gathered 
-for the indicators, usually a combination of two or more instruments. 12 of these indicators are environmental, 4 are governance 
-indicators and 18 social indicators. The prevalence of social indicators with more than one statistical instruments as source for 
-data is explained by the complexity of data gathering for social indicators where different sources such as household surveys, 
-administrative records, censuses need to be used to create specific indicators. 
-
-```{r sourcinstr, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Update frequency"}
+```{r sourcinstr, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Update frequency", fig.margin = TRUE}
   counts <- table(esg2$Source.Instrument) 
   barplot(counts, main="Source Instr") 
 ```
+
+We aimed to provide an analytical overview of the sources through which the data behind the indicators are collected in order to  understand better the indicators themselves. These are mostly related to the statistical instruments used to compile the datasets  behind the indicators. Our analysis revealed 7 instruments through which the data is collected. These are the following:  National accounts (NTA), Household surveys (HHS), Third party sources (TPS), Administrative records (AR), Surveys (S),  Sample Registration (SR) and Census (C). 63 indicators only a unique source, either administrative records or surveys,  household surveys, third party sources and national accounts. 9 of these indicators are environmental, 27 are social indicators  and another 27 are governance indicators. The rest of the 34 indicators have more than one instruments through which data is gathered  for the indicators, usually a combination of two or more instruments. 12 of these indicators are environmental, 4 are governance  indicators and 18 social indicators. The prevalence of social indicators with more than one statistical instruments as source for  data is explained by the complexity of data gathering for social indicators where different sources such as household surveys,  administrative records, censuses need to be used to create specific indicators. 
+
    
 # Imputation
 
-There are 4 indicators, 3 social and one governance, out of 97 indicators for which a specific form of gap filling is used, 
-either imputation or a different method. These are the following indicators: Life expectancy at birth, total (years); 
-Mortality rate, infant (per 1,000 live births); Fertility rate, total (births per woman); GNI per capita, Atlas method 
-(current US$). The first three indicators are managed by Emi and the last one by Bhaskar. On the first indicator, an imputation is 
-performed, namely a weighted average between males and females if total estimates is not easily available. On the second one, 
-an interagency effort is conducted to have single point estimated for missing values using regression methods. The work is led by 
-UNICEF and the technical term used for it is smoothing. For the fertility rate indicator, the data manager uses extrapolation for 
-most recent year and interpolations for missing years. Finally, imputation methods are used to complete the GNI per capita indicator. 
-
-
-
-
-```{r imput, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Imputation"}
+```{r imput, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Imputation", fig.margin = TRUE}
   counts <- table(esg2$Imputed.Data.) 
   barplot(counts, main="Imputation") 
 ```
 
-
+There are 4 indicators, 3 social and one governance, out of 97 indicators for which a specific form of gap filling is used,  either imputation or a different method. These are the following indicators: Life expectancy at birth, total (years);  Mortality rate, infant (per 1,000 live births); Fertility rate, total (births per woman); GNI per capita, Atlas method  (current US$). The first three indicators are managed by Emi and the last one by Bhaskar. On the first indicator, an imputation is  performed, namely a weighted average between males and females if total estimates is not easily available. On the second one,  an interagency effort is conducted to have single point estimated for missing values using regression methods. The work is led by  UNICEF and the technical term used for it is smoothing. For the fertility rate indicator, the data manager uses extrapolation for  most recent year and interpolations for missing years. Finally, imputation methods are used to complete the GNI per capita indicator.  
 
 ```{r notes, fig.margin = TRUE, echo = FALSE, fig.width = 5.5, fig.asp = 1, fig.cap = "Notes"}
   counts <- table(esg2$Notes) 
   barplot(counts, main="Notes") 
 ```
 
-<<<<<<<
+# Final remarks and recommendations
+
+blah blah blah
+
 # Annexes
 Long and Short Database Overview
-=======
 
->>>>>>>
-
-<<<<<<<
 Database
 Variable Name	Explanations
 cetsid	 
@@ -430,11 +317,8 @@ Imputed Data?
 Metadata Level	 
 Data Volatility	 
 Notes	 
-=======
 
->>>>>>>
 
-<<<<<<<
 Variable label	Variable name
 Indicator Code	indCode
 Indicator Name	indName
@@ -455,7 +339,3 @@ Metadata level	metaLevel
 Country code	countryCode
 Volatility	 
 
-
-=======
-
->>>>>>>
