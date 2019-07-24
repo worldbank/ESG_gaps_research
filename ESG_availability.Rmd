@@ -75,7 +75,53 @@ Thus, environmental indicators are related to climate change, carbon emissions, 
 
 # Database description 
 
-The final database assembled for analysis had a total of 35 variables for a total of 123 indicators. The indicators came grouped in 10 different database identification numbers. 38 indicators were designed as environmental indicators, 37 governance indicators and 48 social indicators. We have identified 41 subcategories grouped under topic where more details about the topic to which the indicators belong are provided. Economic policy and debt, health, education and social protection topics cover most of the indicators under analysis. As far as the aggregation method is concerned, we identified different aggregation methods that apply to most of indicators. However, 39 indicators have not any description as far as the aggregation method is concerned. The aggregation methods used to produce the indicators are the following ones: gap-filled total, median, sum, unweighted average and weighted average. Two indicators, CO2 emissions (kt) and scientific and technical journal articles are aggregated through the gap-filled total method. Three governance related indicators are aggregated using medians to construct the indicators while 8 indicators are aggregated using sums, most of which are environmental indicators. Most of the indicators, 71 are aggregated using weighted and unweighted averages. Environmental and social indicators are dominated by these types of aggregation. 114 indicators which have data on periodicity and they are annual indicators, a debt related indicator, Outstanding international public debt securities to GDP (%, comes for the period of 1994 to 2014 only, and 9 indicators, mostly environmental come without data on periodicity. A total of 64 unique sources were identified for the indicators. The World Bank, under diverse departments, is listed as a source for 24 indicators, 12 governance, 8 environmental and 4 social. The World Health Organization accounts as a source for 7 indicators while the International Energy Agency is the source for 6 indicators, all of them environmental. The Food and Agriculture Organization (FAO) is the source for 8 indicators, most of them, 6, environmental ones. The International Labor Organization is the source for 9 indicators, of which 8 are social indicators. A total of 19 indicators from United Nations organization or divisions and pertain almost exclusively to social and governance issues. UNESCO, United Nations Population Division or the United Nations Framework Convention on Climate Change. A small number of indicators are sourced from a consortium of international organizations such as WHO, UNICEF, UNFPA, World Bank Group, and the United Nations Population Division. The rest of the indicators are from other international organizations such as the International Telecommunication Union, the Bank for International Settlements, think tanks and research institutes. Additional variables in the metadata database are provided to inform about units of measure, short and long definitions of indicators, the relevance of indicators to development and notes from the original sources. 
+```{r subject, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Distribution of ESG indicators", fig.margin = TRUE}
+esg %>% count(subject) %>% 
+  ggplot(aes(area = n, fill = subject, 
+             label = paste(subject, "\n", n))) +
+  geom_treemap(
+    color = "white", size = .75*.pt,
+    layout = "fixed",show.legend = FALSE
+  ) +
+  geom_treemap_text(
+    colour = "black", place = "centre",
+    grow = FALSE,
+    layout = "fixed"
+  ) 
+
+```
+
+
+The final database assembled for analysis had a total of 35 variables for a total of 123 indicators. The indicators came grouped in 10 different database identification numbers. 38 indicators were designed as environmental indicators, 37 governance indicators, and 48 social indicators. We have identified 41 subcategories grouped under topic where more details about the topic to which the indicators belong are provided. Economic policy and debt, health, education and social protection topics cover most of the indicators under analysis. As far as the aggregation method is concerned, we identified different aggregation methods that apply to most of indicators. However, 39 indicators have not any description as far as the aggregation method is concerned. 
+
+The aggregation methods used to produce the indicators are as follows: gap-filled total, median, sum, unweighted average and weighted average. Two indicators, CO2 emissions (kt) and scientific and technical journal articles are aggregated through the gap-filled total method. Three governance related indicators are aggregated using medians to construct the indicators while 8 indicators are aggregated using sums, most of which are environmental indicators. Most of the indicators, 71 are aggregated using weighted and unweighted averages. Environmental and social indicators are dominated by these types of aggregation. 114 indicators which have data on periodicity and they are annual indicators, a debt related indicator, Outstanding international public debt securities to GDP (%, comes for the period of 1994 to 2014 only, and 9 indicators, mostly environmental come without data on periodicity. A total of 64 unique sources were identified for the indicators. 
+
+```{r source, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Distribution of ESG indicators by source", fig.margin = TRUE}
+y <- esg %>% 
+  count(source1name) %>% 
+  filter(n <= 3) %>% 
+  count() %>% 
+  mutate(source1name = "Single source")
+
+esg %>% 
+  count(source1name) %>% 
+  filter(n > 3) %>% 
+  rbind(y) %>% 
+  ggplot(aes(area = n, fill = source1name, 
+             label = paste(source1name, "\n", n))) +
+  geom_treemap(
+    color = "white", size = .75*.pt,
+    layout = "fixed",show.legend = FALSE
+  ) +
+  geom_treemap_text(
+    colour = "black", place = "centre",
+    grow = FALSE,
+    layout = "fixed"
+  )  
+
+```
+
+The World Bank, under diverse departments, is listed as a source for 24 indicators, 12 governance, 8 environmental and 4 social. The World Health Organization accounts as a source for 7 indicators while the International Energy Agency is the source for 6 indicators, all of them environmental. The Food and Agriculture Organization (FAO) is the source for 8 indicators, most of them, 6, environmental ones. The International Labor Organization is the source for 9 indicators, of which 8 are social indicators. A total of 19 indicators from the United Nations pertain almost exclusively to social and governance issues. UNESCO, United Nations Population Division or the United Nations Framework Convention on Climate Change (**This sentence is incomplete. There is no verb in it.**). A small number of indicators are sourced from a consortium of international organizations such as WHO, UNICEF, UNFPA, the World Bank Group, and the United Nations Population Division. The rest of the indicators are from other international organizations such as the International Telecommunication Union, the Bank for International Settlements, think tanks and research institutes. Additional variables in the metadata database are provided to inform about units of measure, short and long definitions of indicators, the relevance of indicators to development and notes from the original sources. 
 
 # Data Management
 
@@ -122,7 +168,7 @@ While in the previous paragraph we attempted to provide a full database descript
 
 # ESG indicators broken down 
 
-```{r subject, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Class of indicators", fig.margin = TRUE}
+```{r subject2, echo = FALSE, fig.width = 4.5, fig.asp = .75, fig.cap = "Class of indicators", fig.margin = TRUE}
 esg %>% count(subject) %>% 
   ggplot(aes(area = n, fill = subject, 
              label = paste(subject, "\n", n))) +
