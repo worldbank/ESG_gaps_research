@@ -91,3 +91,27 @@ ggplotly(p, tooltip = "text")
 
 
 
+#----------------------------------------------------------
+#   Gap Histogram
+#----------------------------------------------------------
+
+h <- df %>% filter(gap <= 15) %>%
+  ggplot(aes(x = gap, fill=decade)) +
+  geom_histogram(alpha = 0.6,
+                 position = 'identity',
+                 binwidth = 1) +
+  scale_fill_viridis(discrete=TRUE) +
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum() +
+  theme(
+    legend.position="none",
+    panel.spacing = unit(0.1, "lines"),
+    strip.text.x = element_text(size = 8)
+  ) +
+  xlab("Gap between surveys") +
+  ylab("No. of surveys") +
+  facet_wrap(~decade)
+h
+
+
+
