@@ -11,7 +11,7 @@ library("hrbrthemes")
 library("plotly")
 library("viridis")
 library("lubridate")
-
+library("zoo")
 
 #----------------------------------------------------------
 #   Download and Prepare Data
@@ -74,20 +74,22 @@ ggplotly(g, tooltip = "text")
 #----------------------------------------------------------
 
 df3 <- df %>%
-  group_by(yrs) %>%
-  summarise(n_country = n_distinct(countrycode)) %>%
-  mutate(text = paste0("Year: ", yrs, "\n",
-                  "No. countries: ",n_country,"\n"))
+    group_by(regioncode, yrs) %>%
+    summarise(n_country = n_distinct(countrycode)) %>%
+    mutate(ma_nc = rollmean(n_country, k = 3, fill = NA),
+           text = paste0("Year: ", yrs, "\n",
+                         "No. countries: ",ma_nc,"\n"))
 
-
-p <- ggplot(df3, aes(x = yrs, y = n_country, text = text, group = 1)) +
-  geom_area(fill = "#69b3a2", alpha = 0.5) +
-  geom_line(color = "#69b3a2") +
+p <- ggplot(df3, aes(x = yrs,
+                       y = ma_nc,
+                       fill = regioncode)) +
+    geom_area(color = "black" , aes(fill=regioncode),
+              position='stack', size=.5, alpha =.9) +
   ylab("Number of Surveys") +
   xlab("Year") +
   theme_ipsum()
 
-ggplotly(p, tooltip = "text")
+ggplotly(p)
 
 
 

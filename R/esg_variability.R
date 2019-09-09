@@ -49,11 +49,11 @@ norm_prox <- function(x) {
 
 codes <- read_csv("data/esg_codes.csv")
 
-x <- wb(indicator = codes$code)
-x <- as_tibble(x)
+# x <- wb(indicator = codes$code)
+# x <- as_tibble(x)
 
 # save(x, file = "data/ESG_wdi.RData")
-# load(file = "data/ESG_wdi.RData")
+load(file = "data/ESG_wdi.RData")
 
 
 esg <-  x %>%
