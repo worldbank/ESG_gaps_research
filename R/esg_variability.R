@@ -47,11 +47,18 @@ norm_prox <- function(x) {
 #   Load and prepare data
 #----------------------------------------------------------
 
+# Blend and regions vector
+ic <- wb_cachelist$countries %>%
+  filter(!(lending  %in% c("Aggregates", "Blend")) ) %>%
+  select(iso3c)
+
 codes <- read_csv("data/esg_codes.csv")
 
 # x <- wb(indicator = codes$code)
 # x <- as_tibble(x)
 
+# exclude blends and regions
+# x <- x[x$iso3c  %in% ic$iso3c, ]
 # save(x, file = "data/ESG_wdi.RData")
 load(file = "data/ESG_wdi.RData")
 
