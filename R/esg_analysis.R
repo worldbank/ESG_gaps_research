@@ -179,7 +179,8 @@ View(var_ind)
 # Mean Coefficient of variation for each indicator
 var_ind %>% ggplot(aes(x = cv)) +
   geom_histogram(alpha = 0.6,
-                 position = 'identity') +
+                 position = 'identity',
+                 bins = 10) +
   scale_fill_viridis(discrete=TRUE) +
   scale_color_viridis(discrete=TRUE) +
   theme_ipsum() +
