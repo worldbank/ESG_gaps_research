@@ -53,64 +53,12 @@ knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
 options(htmltools.dir.version = FALSE)
 
 #knitr::opts_knit$set(root.dir = "D:/R working directory/")
-```
 
+#--------- execute script of analysis
 
-```{r loadData, echo=FALSE, message=FALSE, warning=FALSE}
-#----------------------------------------------------------
-#   subfunctions
-#----------------------------------------------------------
+source("R/esg_analysis.R")
+source("R/hh_analysis.R")
 
-
-# coefficient of variation
-cv <- function(x) {
-  mean(x, na.rm = TRUE) / sd(x, na.rm = TRUE)
-}
-
-
-# Quartile coefficient of dispersion
-qcd <- function(x) {
-  q <- quantile(x, na.rm = TRUE)
-
-  a <- (q[[4]] - q[[2]])/2 # Interquantile range
-  b <-  (q[[4]] + q[[2]])/2 # Midhinge
-  c <- a/b  # qcd
-  return(c)
-}
-
-norm_prox <- function(x) {
-  #p <- (x - mean(x, na.rm = TRUE)) / sd(x, TRUE)  # normalize
-  p <- rescale(x, na.rm = TRUE)
-  p <- na.approx(p, na.rm = FALSE)                # interpolate missings
-  return(p)
-}
-
-#----------------------------------------------------------
-#   Load and prepare data
-#----------------------------------------------------------
-
-# Blend and regions vector
-ic <- wb_cachelist$countries %>%
-  filter(!(lending  %in% c("Aggregates", "Blend")) ) %>%
-  select(iso3c)
-
-# Indicators codes and names
-inames <- wb_cachelist$indicators[, c(1,2)]
-names(inames)[2] <- "ind_name"
-
-
-
-codes <- read_csv("data/esg_codes.csv")
-
-# x <- wb(indicator = codes$code)
-# x <- as_tibble(x)
-
-# cleaning
-#x$date <-  as.numeric(x$date)
-# exclude blends and regions
-# x <- x[x$iso3c  %in% ic$iso3c, ]
-#save(x, file = "data/ESG_wdi.RData")
-load(file = "data/ESG_wdi.RData")
 
 esg2 <- read.csv("data/ESG.csv")
 esg <- read_csv("data/ESG.csv")
@@ -119,7 +67,6 @@ esg <- esg %>% rename_at(vars(contains(" ")),
   rename_all(tolower) 
 
 #names(esg) %<>% tolower
-
 ```
 
 
@@ -130,22 +77,99 @@ TBD
 
 # Introduction
 
+This document is the continuation of the paper _Options for Improving Use of ESG data for Sovereign Bond Analysis_ (World Bank 2018). Following interaction with investors in sovereign bonds that use ESG indicators in their country analyses and risk/return profiles of sovereign securities, the World Bank Group (WBG) presents a set of options for improving accessibility, quality (e.g. timeliness and regularity of publication, geographic coverage) and transparency of Emerging Markets data, in particular for ESG data. This paper aims to continue the analysis, better understand underlying data production and management issues that affect availability and provide recommendations for improving the accessibility, quality and coverage of ESG indicators. 
 
 
 # Methodology
 
-We assembled a database for analysis consisting of metadata with a total of 34 variables These variables were meant to provide the most comprehensive overview of each indicator separately. In addition to an individual tracking code assigned to each indicator, we categorized them by characteristics such as the database of which the indicators is part of, its topic, its statistical methodology used for compilation, its aggregation methods, its relevance to development, its periodicity, among others. Out of these 34 variables, we identified a set of 17 variables that contain most of the information that is relevant for the analysis of these indicators in the context of their use in ESG investments. This subset of variables has been set out to capture the collecting, processing and dissemination entity, the granularity of data (monthly, yearly etc), and the shortest gap between release date and most recent data point available. Finally, we tried to capture the statistical methods through which the indicators are created and to capture imputations performed on the dataset. The annex of this paper provides an overview of the initial database of the indicators metadata and the short version with the variables of most interest to this paper.  In order to fill in knowledge gaps in metadata, we conducted eight interviews with internal Point of Consultation (PoC), which were selected due to their extensive knowledge of each indicator of interest. The interviews took place over a three week period, in person and over phone and focused mostly on timeliness of updates. 
-Environmental indicators are related to climate change, carbon emissions, pollution, resource efficiency and biodiversity. Social indicators pertain to human rights, labor standards, health and safety, diversity policies, development of human capital (health & education). Finally, governance indicators refer to corporate governance issues, corruption, rule of law, institutional strength and transparency. 
-Finally, using the database assembled on the abovementioned guidelines we were able to analyze the metadata of indicators and provide insights on key issues such as update frequency and dissemination, processing methods, data handling techniques, and quality of indicators.  Additionally, an analysis of data variability and of data points availability was conducted in order to assess first the impact of changes in indicator values and how old data was. 
+bla bla
 
 # Database description
 
-The final database assembled for analysis had a total of 35 variables for a total of 138 indicators. 47 indicators are environmental indicators, 25 governance indicators and 66 social indicators. The World Bank was is a source for a total of 26 indicators, of which 10 each are environmental and social indicators respectively and 6 are governance indicators. Organizations pertaining to the UN system are a source for 53 indicators of which 41 social indicators, 8 environmental indicators and 4 governance indicators. 57 indicators are sourced from different organization grouped under the term of other organization. 29 of these indicators are environmental, 15 are social  and 13 are governance indicators. 
+The final database assembled for analysis had a total of 35 variables for a total of 138 indicators. 47 indicators are environmental indicators, 25 governance indicators and 66 social indicators. The World Bank is the source of 26 indicators, of which 10 each are environmental and social indicators respectively and 6 are governance indicators. Organizations pertaining to the UN system are a source for 53 indicators of which 41 social indicators, 8 environmental indicators and 4 governance indicators. 57 indicators are sourced from different organization grouped under the term of other organization. 29 of these indicators are environmental, 15 are social  and 13 are governance indicators. 
 
-Source	Env 	Soc	Gov
-WBG	10	10	6
-UN System	8	41	4
-Other org	29	15	13
+  Source | Env  | Soc   | Gov
+  ------ | ---: | ---:  | ---:
+    WBG    | 10    | 10     | 6
+  UN System | 8 | 41 | 4
+  Other orgs | 29 | 15 | 1
+
+
+# availability by country
+
+```{r c_i_availability, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of countries per indicator over time", fig.margin = TRUE, fig.width = 10, fig.height = 12}
+pg1
+```
+
+# Variability of ESG indicators
+
+```{r esg_var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Density o fcoefficient of variation of ESG indicators", fig.margin = TRUE, fig.width = 4.5, fig.asp = .75}
+g_cv +  geom_density(alpha = .2, fill = "#CCFFFF") + 
+  geom_vline(aes(xintercept = mean(cv, na.rm = TRUE)),   
+               color = "#FF3333", linetype = "dashed", size = 1)
+```
+
+This id a long paragraph 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```{r c_i_var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of countries per indicator over time", fig.margin = TRUE, fig.width = 10, fig.height = 12}
+pg2
+```
+
+
+# Household surveys analysis
+
+```{r hh_nc, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of countries per survey gap", fig.margin = TRUE, fig.width = 5, fig.asp = .75}
+pg_hh
+```
+
+Number of countries per survey gap
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```{r p_decade, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of surveys produce in each decade", fig.fullwidth = TRUE, fig.width = 10, fig.height = 2}
+h
+```
+
+
+
+
+```{r hh_p_time, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of countries per survey gap", fig.margin = TRUE, fig.height = 7 , fig.width = 5, fig.asp = .75}
+pg_hhp
+```
+Production of household surveys over time
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
 
 
 # Discontinued Indicators
@@ -221,7 +245,7 @@ The World Bank, under diverse departments, is listed as a source for 24 indicato
   A small number of indicators (( are these redundant or in addition to the indicators from WBG and UN you identify above? ))
   are sourced from a consortium of international organizations such as WHO, UNICEF, UNFPA, the World Bank Group, and the United Nations Population Division. The rest of the indicators are from other international organizations such as the International Telecommunication Union, the Bank for International Settlements, think tanks and research institutes. Additional variables in the metadata database are provided to inform about units of measure, short and long definitions of indicators, the relevance of indicators to development and notes from the original sources. 
   
-  ## Data Management
+## Data Management
   
   (( don't need this section; not relevant which individuals manage how many indicators. At best this belongs in an annex ))
 
