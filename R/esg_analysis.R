@@ -17,8 +17,8 @@
 #----------------------------------------------------------
 
 library("tidyverse")
-library("zoo")
 library("plotly")
+library("zoo")
 library("wbstats")
 library("hrbrthemes")
 library("viridis")
@@ -97,10 +97,10 @@ load(file = "data/ESG_wdi.RData")
 #--------- heatmap indicators years and No. of countries
 
 d1 <- x %>%
-  group_by(indicatorID,indicator, date) %>%
   filter(date >= 1980, date <= 2018) %>%
+  group_by(indicatorID,indicator, date) %>%
   count(date) %>%
-  mutate(text = paste0("Date: ", date, "\n",
+  mutate(text = paste0("Year: ", date, "\n",
                        "Indicator: ", indicator, "\n",
                        "No. countries: ", n, "\n"))
 
@@ -118,23 +118,20 @@ g1 <- ggplot(d1, aes( x = date,
                       y = ind,
                       fill = n,
                       text = text)) +
-  geom_tile() +
+  geom_tile()+
   scale_fill_distiller(palette = "Spectral",
                        direction = 1) +
   labs(x = "", y = "") +
-  scale_x_discrete(expand = c(0, 0)) +
-  scale_y_discrete(expand = c(0, 0)) +
   theme(axis.text.x = element_text(size = rel(0.8),
-                                 angle = 330,
-                                 hjust = 0,
-                                 colour = "grey50"),
+                                   angle = 330,
+                                   hjust = 0,
+                                   colour = "grey50"),
         axis.text.y = element_text(size = rel(0.6),
                                    colour = "grey50")) +
   ggtitle(label = "Number of countries per indicator over time")
-
+g1
 # make it interactive
 ggplotly(g1, tooltip = "text")
-
 
 
 #----------------------------------------------------------
@@ -172,7 +169,7 @@ var_ind <-  var_country %>%
   summarise_at(vars("cv", "qcd"), mean, na.rm = TRUE) %>%
   arrange(cv, qcd, indicator)
 
-View(var_ind)
+
 
 #--------- Charts
 
