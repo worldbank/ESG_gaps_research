@@ -49,7 +49,7 @@ df <- df %>%
 #   Heatmap of surveys per decada and production Gap
 #----------------------------------------------------------
 
-df2 <- df %>%
+df_hh <- df %>%
   group_by(gap, decade) %>%
   summarise(n_country = n_distinct(countrycode)) %>%
   mutate(text = paste0("Decade: ", decade, "\n",
@@ -57,7 +57,7 @@ df2 <- df %>%
                        "No. countries: ",n_country,"\n"))
 
 
-g <- ggplot(df2, aes(x = decade,
+g_hh <- ggplot(df_hh, aes(x = decade,
                y = gap,
                fill = n_country,
                text = text)) +
@@ -66,7 +66,7 @@ g <- ggplot(df2, aes(x = decade,
   theme_ipsum() +
   ggtitle(label = "No. of countries per survey gap")
 
-ggplotly(g, tooltip = "text")
+pg_hh <- ggplotly(g_hh, tooltip = "text")
 
 
 #----------------------------------------------------------
@@ -80,7 +80,7 @@ df3 <- df %>%
            text = paste0("Year: ", yrs, "\n",
                          "No. countries: ",ma_nc,"\n"))
 
-p <- ggplot(df3, aes(x = yrs,
+g_hhp <- ggplot(df3, aes(x = yrs,
                        y = ma_nc,
                        fill = regioncode)) +
     geom_area(color = "black" , aes(fill=regioncode),
@@ -89,7 +89,7 @@ p <- ggplot(df3, aes(x = yrs,
   xlab("Year") +
   theme_ipsum()
 
-ggplotly(p)
+pg_hhp <- ggplotly(g_hhp)
 
 
 
@@ -112,8 +112,7 @@ h <- df %>% filter(gap <= 15) %>%
   ) +
   xlab("Gap between surveys") +
   ylab("No. of surveys") +
-  facet_wrap(~decade)
-h
+  facet_grid(~decade)
 
 
 

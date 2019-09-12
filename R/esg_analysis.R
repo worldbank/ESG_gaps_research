@@ -89,10 +89,8 @@ load(file = "data/ESG_wdi.RData")
 
 
 #----------------------------------------------------------
-#   Charts
+#   Number of countries per indicator over time"
 #----------------------------------------------------------
-
-
 
 #--------- heatmap indicators years and No. of countries
 
@@ -133,7 +131,7 @@ g1 <- ggplot(d1, aes( x = date,
   ggtitle(label = "Number of countries per indicator over time")
 #g1
 # make it interactive
-ggplotly(g1, tooltip = "text")
+pg1 <- ggplotly(g1, tooltip = "text")
 
 
 #----------------------------------------------------------
@@ -142,7 +140,7 @@ ggplotly(g1, tooltip = "text")
 
 #--------- Calculations
 
-esg <-  x %>%
+esg_wdi <-  x %>%
   select(-iso2c, -country, -indicator) %>% # keep important variables
   filter(date > 1990, date <= 2019, !is.na(iso3c)) %>% # filter older years
   distinct(iso3c, date, indicatorID, .keep_all = TRUE) %>% #  Remove duplicates
@@ -150,7 +148,7 @@ esg <-  x %>%
   spread(indicatorID, value)       # Convert in wide form
 
 # Scale variables
-esg_scaled <- esg %>%
+esg_scaled <- esg_wdi %>%
   group_by(iso3c) %>%   # calculations done by country
   mutate_at(vars(matches("\\.")), norm_prox)  # normalize and Interpolate data (linear)
 
@@ -176,20 +174,22 @@ var_ind <-  var_country %>%
 #--------- Charts
 
 # Mean Coefficient of variation for each indicator
-var_ind %>% ggplot(aes(x = cv)) +
-  geom_histogram(alpha = 0.6,
+g_cv <- var_ind %>% ggplot(aes(x = cv)) +
+  geom_histogram(aes(y = ..density..),
+                 alpha = 0.8,
                  position = 'identity',
                  bins = 10) +
   scale_fill_viridis(discrete=TRUE) +
   scale_color_viridis(discrete=TRUE) +
   theme_ipsum() +
   theme(
-    legend.position="none",
+    legend.position = "none",
     panel.spacing = unit(0.1, "lines"),
-    strip.text.x = element_text(size = 8)
+    strip.text.x = element_text(size = 8),
+    panel.grid = element_blank()
   ) +
   xlab("Mean Coefficient of variation") +
-  ylab("Number of Indicators")
+  ylab("K-density")
 
 # CV vay country and indicator
 
@@ -229,7 +229,7 @@ g2 <- var_country %>%
                                    colour = "grey50")) +
   ggtitle(label = "Variability of ESG indicators by country")
 
-ggplotly(g2, tooltip = "text")
+pg2 <- ggplotly(g2, tooltip = "text")
 
 
 
@@ -251,7 +251,7 @@ d2 <- x %>%
   filter(date == max_year)
 
 
-d2 %>% summarise(mcountry = mean(n_country, na.rm = TRUE)) %>%
+g3 <- d2 %>% summarise(mcountry = mean(n_country, na.rm = TRUE)) %>%
   ggplot(aes(x = mcountry)) +
   geom_histogram()
 
@@ -277,7 +277,7 @@ d3 <- tibble(
   )
 )
 
-kable(d3) %>%
+t_notavail <- kable(d3) %>%
   kable_styling(bootstrap_options = c("striped",
                                       "hover",
                                       "condensed",
