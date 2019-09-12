@@ -122,6 +122,8 @@ g1 <- ggplot(d1, aes( x = date,
   scale_fill_distiller(palette = "Spectral",
                        direction = 1) +
   labs(x = "", y = "") +
+  scale_x_continuous(breaks = c(1980:2018),
+                     expand = c(0,0))+
   theme(axis.text.x = element_text(size = rel(0.8),
                                    angle = 330,
                                    hjust = 0,
@@ -129,7 +131,7 @@ g1 <- ggplot(d1, aes( x = date,
         axis.text.y = element_text(size = rel(0.6),
                                    colour = "grey50")) +
   ggtitle(label = "Number of countries per indicator over time")
-g1
+#g1
 # make it interactive
 ggplotly(g1, tooltip = "text")
 
