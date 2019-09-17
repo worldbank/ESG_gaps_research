@@ -6,3 +6,9 @@
 R/dopar_parallel_example.R
 
 data/ESG_wdi.RData
+
+_aux/
+
+text/
+
+tableau/
