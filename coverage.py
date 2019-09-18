@@ -1,10 +1,12 @@
 #!/usr/bin/python -u
 
+#wbgapi module available here: https://github.com/tgherzog/wbgapi
+
 """
 coverage.py produces quick density coverage stats for an indicator
 
 Usage:
-  coverage.py [--verbose --sources --prefixes --bssi] [--start YEAR] [--income INC] [--region RGN] [--since YEARS] INDICATOR...
+  coverage.py [--verbose --sources --prefixes --bssi --gaps] [--start YEAR] [--income INC] [--region RGN] [--since YEARS] INDICATOR...
 
 Options:
   --verbose, -v       detailed output
@@ -14,6 +16,7 @@ Options:
   --income INC        only this income group (~ to exclude)
   --region RGN        only this region (~ to exclude)
   --bssi              only BSSI countries
+  --gaps              include gaps analysis
   --sources           include indicator sources
 
 INDICATOR can be in the form CETS or SOURCE:CETS. If omitted, SOURCE defaults to 2
@@ -26,6 +29,7 @@ import sys
 import csv
 import copy
 import numpy
+import wbgapi
 from docopt import docopt
 
 reload(sys)
@@ -63,13 +67,18 @@ for i in yearKeys:
 if len(config['INDICATOR']) > 1:
     config['--verbose'] = False
 
-# start by fetching the country list
-url = 'https://api.worldbank.org/v2/en/country?format=json&per_page=20000'
-response = requests.get(url)
-data = response.json()
-data = data[1]
+# get populations
+_pops = {}
+for row in wbgapi.fetch('https://api.worldbank.org/v2/en/country/all/indicator/SP.POP.TOTL', {'MRNEV': 1}):
+    if row['countryiso3code']:
+        _pops[row['countryiso3code']] = row['value']
+
+# Then fetch the the country list
 _countries = {}
-for elem in data:
+countOfSmallCountries = 0.0
+countOfRichCountries = 0.0
+country_meta = {}
+for elem in wbgapi.fetch('https://api.worldbank.org/v2/en/country'):
     if config['--bssi'] and elem['id'] not in bssi_countries:
         continue
 
@@ -81,18 +90,34 @@ for elem in data:
         
     if elem['region']['id'] != 'NA' and elem['id'] != 'TWN':
         _countries[elem['id']] = [0] * (maxYear-minYear+1)
+        pop = _pops.get(elem['id'])
+        meta = {
+          'pop': pop,
+          'income': elem['incomeLevel']['id'],
+          'region': elem['region']['id'],
+          'smallCountry': pop and pop < 100000,
+          'richCountry': elem['incomeLevel']['id'] == 'HIC',
+        }
+
+        if meta['smallCountry']: countOfSmallCountries += 1
+        if meta['richCountry']: countOfRichCountries += 1
+
+        country_meta[elem['id']] = meta
 
 writer = csv.writer(sys.stdout, quoting=csv.QUOTE_MINIMAL)
-output = ['CETS', 'NAME', 'MINMRV', 'AVGMRV', 'MEDMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MINCOV', 'MAXCOV', 'AVGCOV','COVSCORE']
+output = ['DB', 'CETS', 'NAME', 'MINMRV', 'AVGMRV', 'MEDMRV', 'MAXMRV', 'COUNTRIES', 'TOTAL_COUNTRIES', 'MINCOV', 'MAXCOV', 'AVGCOV','COVSCORE']
 
 if config['--sources']:
-    output.insert(2, 'SOURCE')
+    output.insert(3, 'SOURCE')
 
 if config['--prefixes']:
     output.insert(0, 'PREFIX')
 
 for i in yearKeys:
     output.append('SINCE{}'.format(i))
+
+if config['--gaps']:
+    output.extend(['GAPS_TOTAL', 'GAPS_SMALL', 'GAPS_SMALLPERC', 'GAPS_RICH', 'GAPS_RICHPERC'])
 
 writer.writerow(output)
 
@@ -136,7 +161,11 @@ for id in config['INDICATOR']:
     data = response.json()
 
     if len(data) < 2:
-        print ""
+        output = [src, cets]
+        if config['--prefixes']:
+            output.insert(0, prefix)
+
+        writer.writerow(output)
         continue
 
     data = data[1]
@@ -155,6 +184,9 @@ for id in config['INDICATOR']:
     allCoverage = [] # a country array of 'coverage' values: % of possible values in the study range (0 means no values, 100 means complete coverage)
     countriesWithData = 0
     coverageScore = 0.0
+    missingCountries = 0
+    missingSmallCountries = 0
+    missingRichCountries = 0
     mrvYears = []
     if actualMaxYear:
         for k,elem in countries.iteritems():
@@ -167,6 +199,19 @@ for id in config['INDICATOR']:
                 for i in yearKeys:
                     if len([x for x in elem if x >= i]) > 0:
                         yearBreaks[i] += 1
+            else:
+                missingCountries += 1
+                meta = country_meta[k]
+                isClassified = False
+                # if k in ['ASM', 'GUM', 'VIR', 'PRI', 'CHI', 'INM']:
+                #    missingTerritories += 1
+                if meta['smallCountry']:
+                    missingSmallCountries += 1
+                    isClassified = True
+
+                if meta['richCountry']:
+                    missingRichCountries += 1
+                    isClassified = True
 
             allCoverage.append(coverage)
 
@@ -177,7 +222,7 @@ for id in config['INDICATOR']:
         mrvYears = [0]    # sanity check: shouldn't happen
 
     if len(allCoverage) > 0:
-        output = [cets, cets_name, min(mrvYears), int(round(numpy.average(mrvYears))), int(numpy.median(mrvYears)), max(mrvYears), countriesWithData, len(countries),
+        output = [src, cets, cets_name, min(mrvYears), int(round(numpy.average(mrvYears))), int(numpy.median(mrvYears)), max(mrvYears), countriesWithData, len(countries),
             int(round(min(allCoverage))),
             int(round(max(allCoverage))),
             int(round(sum(allCoverage)/len(allCoverage))), coverageScore
@@ -187,14 +232,17 @@ for id in config['INDICATOR']:
             output.append(yearBreaks[i])
 
         if config['--sources']:
-            output.insert(2, source)
+            output.insert(3, source)
 
         if config['--prefixes']:
             output.insert(0, prefix)
 
+        if config['--gaps']:
+            output.extend([len(countries)-countriesWithData, missingSmallCountries, round(missingSmallCountries/countOfSmallCountries, 2), missingRichCountries, round(missingRichCountries/countOfRichCountries, 2)])
+
         writer.writerow(output)
     else:
-        output = [cets, cets_name]
+        output = [src, cets, cets_name]
         if config['--prefixes']:
             output.insert(0, prefix)
 
