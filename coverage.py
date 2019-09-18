@@ -6,13 +6,14 @@
 coverage.py produces quick density coverage stats for an indicator
 
 Usage:
-  coverage.py [--verbose --sources --prefixes --bssi --gaps] [--start YEAR] [--income INC] [--region RGN] [--since YEARS] INDICATOR...
+  coverage.py [--verbose --sources --prefixes --bssi --gaps] [--start YEAR] [--income INC] [--region RGN] [--since YEARS] [--archived-dbs IDS] INDICATOR...
 
 Options:
   --verbose, -v       detailed output
   --prefixes, -p      add a prefix column to output
   --start, -s YEAR    start year [default: 2000]
   --since YEARS       comma-separated list of years for coverage analysis [default: 2010,2014,2016,2018]
+  --archived-dbs IDS  comma-separated list of database IDs to treat as archived: don't analyze these [default: 11,57]
   --income INC        only this income group (~ to exclude)
   --region RGN        only this region (~ to exclude)
   --bssi              only BSSI countries
@@ -57,6 +58,8 @@ if config['--region'] and config['--region'][0] == '~':
     config['--region'] = config['--region'][1:]
     regionFlag = False
 
+archiveDBs = [int(i) for i in config['--archived-dbs'].split(',')]
+
 yearKeys = [int(i) for i in config['--since'].split(',')]
 _yearBreaks = {}
 for i in yearKeys:
@@ -75,8 +78,8 @@ for row in wbgapi.fetch('https://api.worldbank.org/v2/en/country/all/indicator/S
 
 # Then fetch the the country list
 _countries = {}
-countOfSmallCountries = 0.0
-countOfRichCountries = 0.0
+countOfSmallCountries = 0
+countOfRichCountries = 0
 country_meta = {}
 for elem in wbgapi.fetch('https://api.worldbank.org/v2/en/country'):
     if config['--bssi'] and elem['id'] not in bssi_countries:
@@ -117,7 +120,7 @@ for i in yearKeys:
     output.append('SINCE{}'.format(i))
 
 if config['--gaps']:
-    output.extend(['GAPS_TOTAL', 'GAPS_SMALL', 'GAPS_SMALLPERC', 'GAPS_RICH', 'GAPS_RICHPERC'])
+    output.extend(['GAPS_TOTAL', 'GAPS_SMALL n={}'.format(countOfSmallCountries), 'GAPS_SMALLPERC', 'GAPS_RICH n={}'.format(countOfRichCountries), 'GAPS_RICHPERC', 'GAPS_OTHER'])
 
 writer.writerow(output)
 
@@ -160,7 +163,7 @@ for id in config['INDICATOR']:
     response = requests.get(url)
     data = response.json()
 
-    if len(data) < 2:
+    if len(data) < 2 or src in archiveDBs:
         output = [src, cets]
         if config['--prefixes']:
             output.insert(0, prefix)
@@ -187,6 +190,7 @@ for id in config['INDICATOR']:
     missingCountries = 0
     missingSmallCountries = 0
     missingRichCountries = 0
+    missingOtherCountries = 0
     mrvYears = []
     if actualMaxYear:
         for k,elem in countries.iteritems():
@@ -213,6 +217,9 @@ for id in config['INDICATOR']:
                     missingRichCountries += 1
                     isClassified = True
 
+                if not isClassified:
+                    missingOtherCountries += 1
+
             allCoverage.append(coverage)
 
 
@@ -238,7 +245,7 @@ for id in config['INDICATOR']:
             output.insert(0, prefix)
 
         if config['--gaps']:
-            output.extend([len(countries)-countriesWithData, missingSmallCountries, round(missingSmallCountries/countOfSmallCountries, 2), missingRichCountries, round(missingRichCountries/countOfRichCountries, 2)])
+            output.extend([len(countries)-countriesWithData, missingSmallCountries, round(float(missingSmallCountries)/countOfSmallCountries, 2), missingRichCountries, round(float(missingRichCountries)/countOfRichCountries, 2), missingOtherCountries])
 
         writer.writerow(output)
     else:
