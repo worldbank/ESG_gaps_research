@@ -128,7 +128,7 @@ pg2
 # Household surveys analysis
 
 ```{r hh_nc, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of countries per survey gap", fig.margin = TRUE, fig.width = 5, fig.asp = .75}
-pg_hh
+g_hh
 ```
 
 Number of countries per survey gap
@@ -141,7 +141,7 @@ Number of countries per survey gap
 <br>
 <br>
 
-```{r p_decade, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of surveys produce in each decade", fig.fullwidth = TRUE, fig.width = 10, fig.height = 2}
+```{r p_decade, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of surveys produce in each decade", fig.fullwidth = TRUE, fig.width = 10, fig.height = 3}
 h
 ```
 
@@ -149,7 +149,7 @@ h
 
 
 ```{r hh_p_time, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of countries per survey gap", fig.margin = TRUE, fig.height = 7 , fig.width = 5, fig.asp = .75}
-pg_hhp
+g_hhp
 ```
 Production of household surveys over time
 <br>
