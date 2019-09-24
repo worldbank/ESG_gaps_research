@@ -6,8 +6,8 @@
 
 ### Examples ###
 
-```python coverage.py \`cat indicators.txt\` ```
+```python coverage.py `cat indicators.txt` ```
 
-```python coverage.py \`cat indicators.txt\` > indicators.csv```
+```python coverage.py `cat indicators.txt` > indicators.csv```
 
 ```python -u coverage.py `cat indicators.txt` | tee indicators.csv```
