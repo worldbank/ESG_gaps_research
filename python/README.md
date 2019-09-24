@@ -6,8 +6,18 @@
 
 ### Examples ###
 
-```python coverage.py `cat indicators.txt` ```
+    # single indicator (assumes WDI)
+    python coverage.py EN.ATM.CO2E.KT
 
-```python coverage.py `cat indicators.txt` > indicators.csv```
+    # single indicator from another database
+    python coverage.py 3:GE.EST
 
-```python -u coverage.py `cat indicators.txt` | tee indicators.csv```
+    # analyze all indicators in the current study set
+    python coverage.py `cat indicators.txt`
+
+    # same but save to a file
+    python coverage.py `cat indicators.txt` > indicators.csv
+
+    # tee output to file and stdout
+    python -u coverage.py `cat indicators.txt` | tee indicators.csv
+
