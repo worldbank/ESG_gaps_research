@@ -55,3 +55,6 @@ if (length(load.pkg)) {
   inst = lapply(load.pkg, library, character.only = TRUE) # load all packages
 }
 
+
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
