@@ -189,6 +189,11 @@ g_cv <- var_ind %>% ggplot(aes(x = cv)) +
   xlab("Mean Coefficient of variation") +
   ylab("K-density")
 
+
+mean_cv <- var_ind %>% summarise(mean(cv, na.rm = TRUE))
+
+
+
 # CV vay country and indicator
 
 oc <- var_country %>%
