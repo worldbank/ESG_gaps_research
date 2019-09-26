@@ -1,0 +1,29 @@
+bookdown::tufte_html_book:
+  tufte_variant: "envisioned"
+  number_sections: yes
+tufte::tufte_handout:
+  citation_package: natbib
+  latex_engine: xelatex
+tufte::tufte_book:
+  citation_package: natbib
+  latex_engine: xelatex
+  css: style.css
+  highlight: tango
+  config:
+    toc:
+      collapse: section
+      scroll_highlight: yes
+      before: |
+        <li><a href="./">ESG Gaps Research</a></li>
+      after: |
+        <li><a href="https://github.com/worldbank/ESG_gaps_research" target="blank">Published with bookdown</a></li>
+    download: ["pdf", "epub"]
+
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book:
+  stylesheet: style.css

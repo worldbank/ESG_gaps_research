@@ -1,0 +1,25 @@
+book_filename: "ESG_gaps_research"
+repo: https://github.com/worldbank/ESG_gaps_research/
+output_dir: "docs"
+delete_merged_file: true
+language:
+  label:
+    fig: "Figure "
+    tab: "Table "
+  ui:
+    edit: "Edit"
+    chapter_name: "Section "
+
+rmd_files: [
+  "index.Rmd",
+  "ESG_availability.Rmd",
+  "ESG_background.Rmd",
+  "ESG_highlevelresults.Rmd",
+  "ESG_methodology.Rmd",
+  "ESG_recommendations.Rmd",
+  "ESG_resultsbyexplanation.Rmd",
+  "ESG_updates.Rmd",
+  "ESG_volatility.Rmd"
+]
+
+before_chapter_script: "_common.R"
