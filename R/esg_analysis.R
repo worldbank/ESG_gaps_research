@@ -112,22 +112,20 @@ o <- d1 %>%
 d1 <- inner_join(d1, o)
 
 # Plot Heatmap
-g1 <- ggplot(d1, aes( x = date,
-                      y = ind,
+g1 <- ggplot(d1, aes( x = ind,
+                      y = date,
                       fill = n,
                       text = text)) +
-  geom_tile()+
+  geom_tile() +
   scale_fill_distiller(palette = "Spectral",
                        direction = 1) +
   labs(x = "", y = "") +
-  scale_x_continuous(breaks = c(1980:2018),
+  scale_y_continuous(breaks = c(1980:2018),
                      expand = c(0,0))+
-  theme(axis.text.x = element_text(size = rel(0.8),
-                                   angle = 330,
+  theme(axis.text.y = element_text(size = rel(0.6),
                                    hjust = 0,
                                    colour = "grey50"),
-        axis.text.y = element_text(size = rel(0.6),
-                                   colour = "grey50")) +
+        axis.text.x = element_blank()) +
   ggtitle(label = "Number of countries per indicator over time")
 #g1
 # make it interactive
@@ -191,6 +189,11 @@ g_cv <- var_ind %>% ggplot(aes(x = cv)) +
   xlab("Mean Coefficient of variation") +
   ylab("K-density")
 
+
+mean_cv <- var_ind %>% summarise(mean(cv, na.rm = TRUE))
+
+
+
 # CV vay country and indicator
 
 oc <- var_country %>%
@@ -225,7 +228,7 @@ g2 <- var_country %>%
   scale_x_discrete(expand = c(0, 0)) +
   scale_y_discrete(expand = c(0, 0)) +
   theme(axis.text.x = element_blank(),
-        axis.text.y = element_text(size = rel(0.5),
+        axis.text.y = element_text(size = rel(0.4),
                                    colour = "grey50")) +
   ggtitle(label = "Variability of ESG indicators by country")
 
