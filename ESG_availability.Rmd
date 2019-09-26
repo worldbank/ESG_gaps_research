@@ -1,59 +1,6 @@
----
-title: "ESG indicators"
-subtitle: "An Analysis of availability"
-author: ""
-date: "`r Sys.Date()`"
-output:
-  tufte::tufte_html:
-    tufte_variant: "envisioned"
-    number_sections: yes
-  tufte::tufte_handout:
-    citation_package: natbib
-    latex_engine: xelatex
-  tufte::tufte_book:
-    citation_package: natbib
-    latex_engine: xelatex
-bibliography: 
-link-citations: yes
----
+# ESG availability
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
-pkg <-
-  c(
-    "tidyverse",
-    "data.table", 
-    "treemapify", 
-    "magrittr", 
-    "tufte",
-    "zoo",
-    "plotly",
-    "wbstats",
-    "hrbrthemes",
-    "viridis",
-    "ggdendro",
-    "scales",
-    "formattable",
-    "knitr",
-    "kableExtra"
-  )
-new.pkg <-
-  pkg[!(pkg %in% installed.packages()[, "Package"])] # check installed packages
-load.pkg <-
-  pkg[!(pkg %in% loadedNamespaces())]              # check loaded packages
-
-if (length(new.pkg)) {
-  install.packages(new.pkg)     # Install missing packages
-}
-
-if (length(load.pkg)) {
-  lapp <- lapply(load.pkg, library, character.only = TRUE) # load all packages
-}
-
-knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
-options(htmltools.dir.version = FALSE)
-
-#knitr::opts_knit$set(root.dir = "D:/R working directory/")
-
 #--------- execute script of analysis
 
 source("R/esg_analysis.R")
