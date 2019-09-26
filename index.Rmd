@@ -1,0 +1,40 @@
+---
+title: "ESG Gaps Research" 
+author: ["The World Bank", "Development economics, Data Group"]
+date: "`r Sys.Date()`" 
+knit: "bookdown::render_book"
+site: bookdown::bookdown_site 
+bibliography:  
+biblio-style: "apalike" 
+link-citations: true
+links-as-notes: true
+colorlinks: yes
+lot: yes
+lof: yes
+fontsize: 12pt
+monofont: "Source Code Pro" 
+monofontoptions: "Scale=0.7" 
+github-repo: worldbank/ESG_gaps_research
+description: "ESG " 
+documentclass: book 
+---
+
+# Welcome {#welcome .unnumbered}
+
+<font color="red" size="6" >This is a preliminary draft. Please do not cite or distribute without permission of the SARTSD</font>
+
+<div style= "float:right;position: relative;">
+```{r echo=FALSE}
+knitr::include_graphics("figures/WB_logo.png")
+```
+</div>
+
+This document....
+## Team {-}
+
+This document has been created by...
+
+## Replicability and license {-}
+
+This document is fully replicable. All the text files, codes, underlying data, and  dashboards can be found in its GitHub repository [worldbank/ESG_gaps_research](https://github.com/worldbank/ESG_gaps_research).
+
