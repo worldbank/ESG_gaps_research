@@ -1,0 +1,4 @@
+
+* Define the "ideal" coverage case: 90%+ countries for 2018 or later
+* Describe the "explanations" and definitions
+* Scoring
