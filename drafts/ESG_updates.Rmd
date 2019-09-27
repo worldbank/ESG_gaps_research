@@ -1,5 +1,0 @@
-
-Updates since 2018 (new/revised indicators, updated base line, etc)
-
-* Include high-level description of indicators and coverage
-* May include Andres' indicator heat map here
