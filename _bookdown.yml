@@ -12,15 +12,15 @@ language:
 
 rmd_files: [
   "index.Rmd",
-  "ESG_availability.Rmd",
   "ESG_background.Rmd",
-  "ESG_highlevelresults.Rmd",
   "ESG_methodology.Rmd",
-  "ESG_recommendations.Rmd",
+  "ESG_highlevelresults.Rmd",
+  "ESG_availability.Rmd",
   "ESG_resultsbyexplanation.Rmd",
-  "ESG_updates.Rmd",
   "ESG_volatility.Rmd",
+  "ESG_updates.Rmd",
   "ESG_hhsAvailability.Rmd",
+  "ESG_recommendations.Rmd",
 ]
 
 before_chapter_script: "_common.R"
