@@ -1,0 +1,37 @@
+# Variability of ESG indicators
+```{r setupvolatil, echo=FALSE, message=FALSE, warning=FALSE}
+#--------- execute script of analysis
+
+source("R/load_data.R")
+source("R/esg_variability.R")
+
+```
+
+
+ESG indicators belong to set of measures with wide diversity. Some of them are estimated every few years, whereas others are produced every three or six month. In addition, some indicators are bounded by construction--like percentages or indexes--, others are normalized across countries--like indicators in PPP values--, others are in units based on population size--like all those in x by 1,000 people--, among many other kinds of measures and units. This variety makes it difficult to compare directly one indicator to another, especially if any sort weight is going to be assigned all the indicators. 
+
+```{r esg_var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Figure 2. Density of coefficient of variation of ESG indicators", fig.margin = TRUE, fig.width = 4.5, fig.asp = .75}
+g_cv +  geom_density(alpha = .2, fill = "#CCFFFF") + 
+  geom_vline(aes(xintercept = mean(cv, na.rm = TRUE)),   
+               color = "#FF3333", linetype = "dashed", size = 1)
+```
+
+To alleviate this problem, a standard measure of variability could be applied to all indicators. Those indicators that vary the most, deserve the most attention by investors, whereas those that vary the less could be revisited every few years to recalibrate models.  To make variability comparable across countries, it was necessary to rescale all indicators and linearly interpolate missing values by year. Then, the coefficient of variation (CV) was estimated at indicator/country level in order to capture to temporal variability of each indicators in each country. Finally, an average of CVs across countries is calculated to get measure of variability at the indicator level. Figure 2, shows the distribution of such estimates. 
+
+Most indicators have a CV of `r mean_cv`, with light mass spanning from 0 to 1 
+
+
+This id a long paragraph 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```{r c_i_var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of countries per indicator over time", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
+pg2
+```

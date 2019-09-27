@@ -1,4 +1,16 @@
+# Methodology
 
 * Define the "ideal" coverage case: 90%+ countries for 2018 or later
 * Describe the "explanations" and definitions
 * Scoring
+
+
+## Database description
+
+The final database assembled for analysis had a total of 35 variables for a total of 138 indicators. 47 indicators are environmental indicators, 25 governance indicators and 66 social indicators. The World Bank is the source of 26 indicators, of which 10 each are environmental and social indicators respectively and 6 are governance indicators. Organizations pertaining to the UN system are a source for 53 indicators of which 41 social indicators, 8 environmental indicators and 4 governance indicators. 57 indicators are sourced from different organization grouped under the term of other organization. 29 of these indicators are environmental, 15 are social  and 13 are governance indicators. 
+
+  Source | Env  | Soc   | Gov
+  ------ | ---: | ---:  | ---:
+    WBG    | 10    | 10     | 6
+  UN System | 8 | 41 | 4
+  Other orgs | 29 | 15 | 1

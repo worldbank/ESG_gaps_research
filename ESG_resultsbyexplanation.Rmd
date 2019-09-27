@@ -1,9 +1,10 @@
+# Results 
 
 * Descriptive statistics
 * Analysis
 * Recommendations
 
-#### Sample descriptive statistics ####
+#### Sample descriptive statistics
 
 **Indicator has been explicitly deprecated or dropped**
 
@@ -11,3 +12,4 @@ Domain         | ESG    | SOC    | GOV
 -------------- | :----: | :----: | :----:
 WBG Dataset    | 0 / 26 | 0 / 29 | 0 / 12
 All indicators | 3 / 44 | 9 / 66 | 2 / 24
+

@@ -1,0 +1,54 @@
+# Household surveys availability
+
+```{r setuphh, echo=FALSE, message=FALSE, warning=FALSE}
+#--------- execute script of analysis
+
+source("R/esg_hhAvailability.R")
+
+```
+
+
+
+```{r hh_nc, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of countries per survey gap", fig.margin = TRUE, fig.width = 5, fig.asp = .75}
+pg_hh
+```
+
+Number of countries per survey gap
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```{r p_decade, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of surveys produce in each decade", fig.fullwidth = TRUE, fig.width = 10, fig.height = 3}
+h
+```
+
+
+
+
+```{r hh_p_time, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of countries per survey gap", fig.margin = TRUE, fig.height = 7 , fig.width = 5, fig.asp = .75}
+pg_hhp
+```
+Production of household surveys over time
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
