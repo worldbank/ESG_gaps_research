@@ -1,17 +1,8 @@
-#----------------------------------------------------------
-#   Load libraries
-#----------------------------------------------------------
-
-library(tidyverse)
-library(wbstats)
-library(data.table)
-library(zoo)
-library(scales)
-
 
 #----------------------------------------------------------
 #   subfunctions
 #----------------------------------------------------------
+
 
 # coefficient of variation
 cv <- function(x) {
@@ -20,18 +11,12 @@ cv <- function(x) {
 
 
 # Quartile coefficient of dispersion
-
 qcd <- function(x) {
   q <- quantile(x, na.rm = TRUE)
 
-  # Interquantile range
-  a <- (q[[4]] - q[[2]])/2
-
-  # Midhinge
-  b <-  (q[[4]] + q[[2]])/2
-
-  # qcd
-  c <- a/b
+  a <- (q[[4]] - q[[2]])/2 # Interquantile range
+  b <-  (q[[4]] + q[[2]])/2 # Midhinge
+  c <- a/b  # qcd
   return(c)
 }
 
@@ -43,41 +28,22 @@ norm_prox <- function(x) {
 }
 
 
+
 #----------------------------------------------------------
-#   Load and prepare data
+#   Variability of ESG indicators
 #----------------------------------------------------------
 
-# Blend and regions vector
-ic <- wb_cachelist$countries %>%
-  filter(!(lending  %in% c("Aggregates", "Blend")) ) %>%
-  select(iso3c)
+#--------- Calculations
 
-codes <- read_csv("data/esg_codes.csv")
-
-# x <- wb(indicator = codes$code)
-# x <- as_tibble(x)
-
-# exclude blends and regions
-# x <- x[x$iso3c  %in% ic$iso3c, ]
-# save(x, file = "data/ESG_wdi.RData")
-load(file = "data/ESG_wdi.RData")
-
-
-esg <-  x %>%
+esg_wdi <-  x %>%
   select(-iso2c, -country, -indicator) %>% # keep important variables
   filter(date > 1990, date <= 2019, !is.na(iso3c)) %>% # filter older years
   distinct(iso3c, date, indicatorID, .keep_all = TRUE) %>% #  Remove duplicates
   arrange(iso3c, date) %>%
   spread(indicatorID, value)       # Convert in wide form
 
-
-
-#----------------------------------------------------------
-#   Variability analysis
-#----------------------------------------------------------
-
 # Scale variables
-esg_scaled <- esg %>%
+esg_scaled <- esg_wdi %>%
   group_by(iso3c) %>%   # calculations done by country
   mutate_at(vars(matches("\\.")), norm_prox)  # normalize and Interpolate data (linear)
 
@@ -100,8 +66,68 @@ var_ind <-  var_country %>%
 
 
 
+#--------- Charts
+
+# Mean Coefficient of variation for each indicator
+g_cv <- var_ind %>% ggplot(aes(x = cv)) +
+  geom_histogram(aes(y = ..density..),
+                 alpha = 0.8,
+                 position = 'identity',
+                 bins = 10) +
+  scale_fill_viridis(discrete=TRUE) +
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum() +
+  theme(
+    legend.position = "none",
+    panel.spacing = unit(0.1, "lines"),
+    strip.text.x = element_text(size = 8),
+    panel.grid = element_blank()
+  ) +
+  xlab("Mean Coefficient of variation") +
+  ylab("K-density")
+
+
+mean_cv <- var_ind %>% summarise(mean(cv, na.rm = TRUE))
 
 
 
+# CV vay country and indicator
 
+oc <- var_country %>%
+  group_by(iso3c) %>%
+  summarise(mcv = mean(cv, na.rm = TRUE)) %>%
+  arrange(mcv, iso3c) %>%
+  transmute(iso3c = iso3c,
+            iso = factor(iso3c, levels = unique(iso3c)))
+
+oi <- var_country %>%
+  group_by(indicator) %>%
+  summarise(mcv = mean(cv, na.rm = TRUE)) %>%
+  arrange(mcv, indicator) %>%
+  transmute(ind = factor(indicator, levels = unique(indicator)),
+            indicator = indicator)
+
+g2 <- var_country %>%
+  inner_join(oc) %>%
+  inner_join(oi) %>%
+  inner_join(inames, by = c("indicator" = "indicatorID")) %>%
+  mutate(text = paste0("Country: ", iso, "\n",
+                       "Indicator: ", ind_name, "\n",
+                       "value: ", round(cv, 2), "\n")) %>%
+  ggplot(aes(x = iso,
+             y = ind,
+             fill = cv,
+             text = text)) +
+  geom_tile() +
+  scale_fill_distiller(palette = "Spectral",
+                       direction = -1) +
+  labs(x = "", y = "") +
+  scale_x_discrete(expand = c(0, 0)) +
+  scale_y_discrete(expand = c(0, 0)) +
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_text(size = rel(0.4),
+                                   colour = "grey50")) +
+  ggtitle(label = "Variability of ESG indicators by country")
+
+pg2 <- ggplotly(g2, tooltip = "text")
 
