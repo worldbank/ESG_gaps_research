@@ -8,7 +8,7 @@ language:
     tab: "Table "
   ui:
     edit: "Edit"
-    chapter_name: "Section "
+    chapter_name: ""
 
 rmd_files: [
   "index.Rmd",
@@ -19,7 +19,8 @@ rmd_files: [
   "ESG_recommendations.Rmd",
   "ESG_resultsbyexplanation.Rmd",
   "ESG_updates.Rmd",
-  "ESG_volatility.Rmd"
+  "ESG_volatility.Rmd",
+  "ESG_hhsAvailability.Rmd",
 ]
 
 before_chapter_script: "_common.R"
