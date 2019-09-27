@@ -1,5 +1,6 @@
 
 # preview just one chapter
+file <- c("ESG_hhsAvailability.Rmd")
 file <- c("ESG_availability.Rmd")
 bookdown::render_book(file, "bookdown::tufte_html_book",
                       preview = TRUE)
