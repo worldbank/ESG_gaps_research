@@ -271,12 +271,12 @@ d2 <- d2 %>%
 d3 <- tibble(
   `last year` = as.character(2014:2019),
   indicators = c(
-    paste(d2$indicatorID[d2$year == 2014], collapse = ", "),
-    paste(d2$indicatorID[d2$year == 2015], collapse = ", "),
-    paste(d2$indicatorID[d2$year == 2016], collapse = ", "),
-    paste(d2$indicatorID[d2$year == 2017], collapse = ", "),
-    paste(d2$indicatorID[d2$year == 2018], collapse = ", "),
-    paste(d2$indicatorID[d2$year == 2019], collapse = ", ")
+    paste(d2$indicatorID[d2$year == 2014], collapse = "\n"),
+    paste(d2$indicatorID[d2$year == 2015], collapse = "\n"),
+    paste(d2$indicatorID[d2$year == 2016], collapse = "\n"),
+    paste(d2$indicatorID[d2$year == 2017], collapse = "\n"),
+    paste(d2$indicatorID[d2$year == 2018], collapse = "\n"),
+    paste(d2$indicatorID[d2$year == 2019], collapse = "\n")
   )
 )
 
@@ -289,6 +289,7 @@ t_notavail <- kable(d3) %>%
                 position = "left") %>%
   column_spec(1, width = "1em", bold = T, border_right = T) %>%
   column_spec(2, width = "20em", background = "#FFFFCC")
+
 
 # indicators that are yearly and there is not data after 2017.
 

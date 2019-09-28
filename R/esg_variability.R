@@ -66,7 +66,7 @@ var_ind <-  var_country %>%
 
 
 
-#--------- Charts
+#--------- histogram of CV
 
 # Mean Coefficient of variation for each indicator
 g_cv <- var_ind %>% ggplot(aes(x = cv)) +
@@ -87,7 +87,49 @@ g_cv <- var_ind %>% ggplot(aes(x = cv)) +
   ylab("K-density")
 
 
+
+#--------- Breaking down histogram
 mean_cv <- var_ind %>% summarise(mean(cv, na.rm = TRUE))
+
+# number of countries
+n_c <- summarise(var_ind, ind_n  = n_distinct(indicator))
+n_c_low <- var_ind %>%
+            filter(cv < 1)  %>%
+            summarise(ind_n  = n_distinct(indicator))
+
+n_c_high <- var_ind %>%
+            filter(cv > 2)  %>%
+            summarise(ind_n  = n_distinct(indicator))
+
+n_c_mid <- var_ind %>%
+  filter(cv >= 1, cv <= 2)  %>%
+  summarise(ind_n  = n_distinct(indicator))
+
+
+# shares
+s_c_low <- n_c_low/n_c
+s_c_high <- n_c_high/n_c
+s_c_mid <- n_c_mid/n_c
+
+#--------- table with Low and High CV
+
+t_lh <- var_ind %>%
+  inner_join(inames, by = c("indicator" = "indicatorID")) %>%
+  mutate(class_cv = case_when(
+    cv <= 1 ~ "Low",
+    cv >= 2 ~ "High"
+  )) %>%
+  filter(!is.na(class_cv)) %>%
+  select(class_cv, ind_name)
+
+
+a <- paste(t_lh$ind_name[t_lh$class_cv == "Low"],  collapse = "<br>- ")
+b <- paste(t_lh$ind_name[t_lh$class_cv == "High"], collapse = "<br>- ")
+
+t_lh2 <- tibble(
+  `Low volatility (CV <= 1)`  = paste0("- ",a),
+  `High volatility (CV >= 2)` = paste0("- ",b)
+)
 
 
 
