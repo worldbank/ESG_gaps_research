@@ -12,27 +12,31 @@ ESG indicators belong to set of measures with wide diversity. Some of them are e
 ```{r esg-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Density of coefficient of variation of ESG indicators", fig.margin = TRUE, fig.width = 6}
 g_cv +  geom_density(alpha = .2, fill = "#CCFFFF") + 
   geom_vline(aes(xintercept = mean(cv, na.rm = TRUE)),   
-               color = "#FF3333", linetype = "dashed", size = 1)
+             color = "#FF3333", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = 1),   
+             color = "#3399FF", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = 2),   
+             color = "#3399FF", linetype = "dashed", size = 1)
 ```
 
 To alleviate this problem, a standard measure of variability could be applied to all indicators. Those indicators that vary the most, deserve the most attention by investors, whereas those that vary the less could be revisited every few years to recalibrate models.  To make variability comparable across countries, it was necessary to rescale all indicators and linearly interpolate missing values by year. Then, the coefficient of variation (CV) was estimated at indicator/country level in order to capture to temporal variability of each indicators in each country. Finally, an average of CVs across countries is calculated to get measure of variability at the indicator level. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
 
-Most indicators (`r round(s_c_mid*100,2)`%) fall between 1 and 2 units of the CV, with an over all mean of `r round(mean_cv, 2)`. The light left tail of the distribution--those that fall below 1 in CV--is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`). These indicators are characterized low volatility. Table \@ref(tab:t-lh-cv) shows... 
-
+Most indicators (`r round(s_c_mid*100,2)`%) fall between 1 and 2 units of the CV, with an overall mean of `r round(mean_cv, 2)`. The light left tail of the distribution---those that fall below 1 in CV---is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`%), whereas the right tail---those indicators that fall above 2 in CV---is composed by `r n_c_high` indicators (`r round(s_c_high*100,2)`%). Table \@ref(tab:t-lh-cv) shows the indicators that fall in the left and right tail of the distribution. 
 
 ```{r t-lh-cv}
-knitr::kable(t_lh2, escape = FALSE, 
+knitr::kable(t_lh4, 
       caption = "ESG indicators with lowest and highest volatility") %>%
   kable_styling(bootstrap_options = c("striped",
                                       "hover",
-                                      "condensed",
                                       "responsive"),
-                full_width = F) %>%
+                full_width = F,
+                position = "left") %>%
   column_spec(1, width = "20em", border_right = T) %>%
-  column_spec(2, width = "20em")
+  column_spec(2, width = "20em") %>% 
+  row_spec(0,  align = "center")
 ```
 
-
+The first column of Table \@ref(tab:t-lh-cv) shows those indicators with low volatility. As expected 
 
 
 This id a long paragraph 
