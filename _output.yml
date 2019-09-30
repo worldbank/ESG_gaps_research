@@ -1,8 +1,9 @@
-bookdown::tufte_html_book:
-  toc: yes
-  css: toc.css
-  split_by: "chapter"
-  tufte_variant: "envisioned"
+msmbstyle::msmb_html_book:
+  toc: TRUE
+  toc_depth: 1
+  split_by: chapter
+  split_bib: no
+  margin_references: FALSE
   number_sections: yes
   highlight: tango
 bookdown::tufte_book2:

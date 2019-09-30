@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="ESG Gaps Research" />
+<meta property="og:title" content="Introduction | ESG Gaps Research" />
 <meta property="og:type" content="book" />
 
 
@@ -16,15 +16,33 @@
 <meta name="author" content="The World Bank" />
 <meta name="author" content="Development economics, Data Group" />
 
-<meta name="date" content="2019-09-27" />
+<meta name="date" content="2019-09-30" />
 
 
 <meta name="description" content="ESG">
 
-<title>ESG Gaps Research</title>
+<title>Introduction | ESG Gaps Research</title>
 
 <link href="libs/tufte-css/tufte.css" rel="stylesheet" />
 <link href="libs/tufte-css/envisioned.css" rel="stylesheet" />
+<link href="libs/msmb-css/msmb.css" rel="stylesheet" />
+<script>
+function toggle_visibility(id1, id2) {
+var e = document.getElementById(id1);
+var f = document.getElementById(id2);
+
+e.style.display = ((e.style.display!='none') ? 'none' : 'block');
+
+if(f.classList.contains('fa-plus-square')) {
+    f.classList.add('fa-minus-square')
+    f.classList.remove('fa-plus-square')
+} else {
+    f.classList.add('fa-plus-square')
+    f.classList.remove('fa-minus-square')
+}
+
+}
+</script>
 <script src="libs/htmlwidgets/htmlwidgets.js"></script>
 <script src="libs/plotly-binding/plotly.js"></script>
 <script src="libs/typedarray/typedarray.min.js"></script>
@@ -33,11 +51,11 @@
 <script src="libs/crosstalk/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main/plotly-latest.min.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
 
 
 
 
-<link rel="stylesheet" href="toc.css" type="text/css" />
 
 </head>
 
@@ -48,48 +66,41 @@
 <div class="row">
 <div class="col-sm-12">
 <div id="TOC">
-<ul>
-<li class="has-sub"><a href="index.html#introduction">Introduction</a><ul>
-<li><a href="index.html#team">Team</a></li>
-<li><a href="index.html#replicability-and-license">Replicability and license</a></li>
-</ul></li>
-<li><a href="background.html#background"><span class="toc-section-number">1</span> Background</a></li>
-<li class="has-sub"><a href="methodology.html#methodology"><span class="toc-section-number">2</span> Methodology</a><ul>
-<li><a href="methodology.html#database-description"><span class="toc-section-number">2.1</span> Database description</a></li>
-</ul></li>
-<li><a href="high-level-results.html#high-level-results"><span class="toc-section-number">3</span> High Level results</a></li>
-<li class="has-sub"><a href="esg-availability.html#esg-availability"><span class="toc-section-number">4</span> ESG availability</a><ul>
-<li><a href="esg-availability.html#low-coverage"><span class="toc-section-number">4.1</span> Low coverage</a></li>
-<li><a href="esg-availability.html#remarkable-improvement-over-time"><span class="toc-section-number">4.2</span> Remarkable improvement over time</a></li>
-<li><a href="esg-availability.html#remain-stable-over-time-but-with-middle-coverage"><span class="toc-section-number">4.3</span> Remain stable over time but with middle coverage</a></li>
-<li><a href="esg-availability.html#high-coverage-and-sudden-decline"><span class="toc-section-number">4.4</span> High coverage and sudden decline</a></li>
-<li><a href="esg-availability.html#high-coverage"><span class="toc-section-number">4.5</span> high coverage</a></li>
-</ul></li>
-<li><a href="results.html#results"><span class="toc-section-number">5</span> Results</a></li>
-<li><a href="variability-of-esg-indicators.html#variability-of-esg-indicators"><span class="toc-section-number">6</span> Variability of ESG indicators</a></li>
-<li><a href="updates.html#updates"><span class="toc-section-number">7</span> Updates</a></li>
-<li><a href="household-surveys-availability.html#household-surveys-availability"><span class="toc-section-number">8</span> Household surveys availability</a></li>
-<li><a href="recommendations.html#recommendations"><span class="toc-section-number">9</span> Recommendations</a></li>
+<ul class="navbar">
+<li class="msmb"><p class="title">ESG Gaps Research<p><p class="author">The World Bank, Development economics, Data Group</p>
+<li class="dropdown" style="float:right">
+<a href="javascript:void(0)" class="dropbtn">&#x25BE; Chapters</a>
+<div class="dropdown-content">
+<a id="active-page" href="index.html">Introduction</a><ul class="toc-sections">
+<li class="toc"><a href="#team">Team</a></li>
+<li class="toc"><a href="#replicability-and-license">Replicability and license</a></li>
+</ul>
+<a href="background.html"><span class="toc-section-number">1</span> Background</a>
+<a href="methodology.html"><span class="toc-section-number">2</span> Methodology</a>
+<a href="high-level-results.html"><span class="toc-section-number">3</span> High Level results</a>
+<a href="esg-availability.html"><span class="toc-section-number">4</span> ESG availability</a>
+<a href="results.html"><span class="toc-section-number">5</span> Results</a>
+<a href="variability-of-esg-indicators.html"><span class="toc-section-number">6</span> Variability of ESG indicators</a>
+<a href="updates.html"><span class="toc-section-number">7</span> Updates</a>
+<a href="household-surveys-availability.html"><span class="toc-section-number">8</span> Household surveys availability</a>
+<a href="recommendations.html"><span class="toc-section-number">9</span> Recommendations</a>
+</div>
+</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="row">
 <div class="col-sm-12">
-<div id="header">
-<h1 class="title">ESG Gaps Research</h1>
-<h4 class="author"><em>The World Bank</em></h4>
-<h4 class="author"><em>Development economics, Data Group</em></h4>
-<h4 class="date"><em>2019-09-27</em></h4>
-</div>
-<div id="introduction" class="section level1 unnumbered">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!--bookdown:title:end--><!--bookdown:title:start--><html><body><div id="introduction" class="section level1 unnumbered">
 <h1>Introduction</h1>
 <div class="infobox caution" data-latex="{caution}">
 <p>This document is in a <strong>very</strong> early stage of development. Please do not cite or distribute without permission of the DECDG team. If you have any suggestions on what should be included within this book, please get in touch via <a href="https://github.com/worldbank/ESG_gaps_research/issues/new">GitHub</a>.</p>
 </div>
-<p><font color="red" size="6" >This is a preliminary draft. Please do not cite or distribute without permission of the SARTSD</font></p>
+<p><font color="red" size="6">This is a preliminary draft. Please do not cite or distribute without permission of the SARTSD</font></p>
 <div style="float:right;position: relative;">
-<p><img src="figures/WB_logo.png" width="120"  /></p>
+<p><img src="figures/WB_logo.png" width="120"></p>
 </div>
 <p>This document is the continuation of the paper <em>Options for Improving Use of ESG data for Sovereign Bond Analysis</em> (World Bank 2018). Following interaction with investors in sovereign bonds that use ESG indicators in their country analyses and risk/return profiles of sovereign securities, the World Bank Group (WBG) presents a set of options for improving accessibility, quality (e.g. timeliness and regularity of publication, geographic coverage) and transparency of Emerging Markets data, in particular for ESG data. This paper aims to continue the analysis, better understand underlying data production and management issues that affect availability and provide recommendations for improving the accessibility, quality and coverage of ESG indicators.</p>
 <div id="team" class="section level2 unnumbered">
@@ -101,9 +112,13 @@
 <p>This document is fully replicable. All the text files, codes, underlying data, and dashboards can be found in its GitHub repository <a href="https://github.com/worldbank/ESG_gaps_research">worldbank/ESG_gaps_research</a>.</p>
 
 </div>
-</div>
+</div></body></html>
+
 <p style="text-align: center;">
 <a href="background.html"><button class="btn btn-default">Next</button></a>
+</p>
+<p class="build-date">Page built: 
+2019-09-30
 </p>
 </div>
 </div>
