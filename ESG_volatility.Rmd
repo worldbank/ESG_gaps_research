@@ -36,7 +36,7 @@ knitr::kable(t_lh2,
 
 The first column of Table \@ref(tab:t-lh-cv) shows those indicators with low volatility. As expected, indicators like _renewable internal freshwater_, _land area_, or _strength of legal rights_ do not change often. Thus, they deserve little attention on a yearly basis for decision-making process for investment. On the other hand, the right column of the table shows the most volatile indicators, whose standard deviations are two times higher than their means.
 
-<font color="red" size="6" >NOTE: We need to check why some indicators like internet users are low volatility </font>
+<font color="red" size="6" >NOTE: We need to check why some indicators like internet users have low volatility </font>
 
 ```{r echo = FALSE}
 foss_min <- var_country %>% 
