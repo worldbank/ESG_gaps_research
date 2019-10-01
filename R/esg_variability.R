@@ -73,7 +73,7 @@ g_cv <- var_ind %>% ggplot(aes(x = cv)) +
   geom_histogram(aes(y = ..density..),
                  alpha = 0.8,
                  position = 'identity',
-                 bins = 10) +
+                 bins = 15) +
   scale_fill_viridis(discrete=TRUE) +
   scale_color_viridis(discrete=TRUE) +
   theme_ipsum() +
@@ -85,8 +85,6 @@ g_cv <- var_ind %>% ggplot(aes(x = cv)) +
   ) +
   xlab("Mean Coefficient of variation") +
   ylab("K-density")
-
-
 
 #--------- Breaking down histogram
 mean_cv <- var_ind %>% summarise(mean(cv, na.rm = TRUE))
@@ -121,16 +119,6 @@ t_lh <- var_ind %>%
   )) %>%
   filter(!is.na(class_cv)) %>%
   select(class_cv, ind_name)
-
-
-a <- paste(t_lh$ind_name[t_lh$class_cv == "Low"],  collapse = "<br>- ")
-b <- paste(t_lh$ind_name[t_lh$class_cv == "High"], collapse = "<br>- ")
-
-t_lh2 <- tibble(
-  `Low volatility (CV <= 1)`  = paste0("- ",a),
-  `High volatility (CV >= 2)` = paste0("- ",b)
-)
-
 
 
 # CV vay country and indicator

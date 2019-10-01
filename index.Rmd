@@ -2,7 +2,7 @@
 title: "ESG Gaps Research" 
 author: ["The World Bank", "Development economics, Data Group"]
 date: "`r Sys.Date()`" 
-knit: "bookdown::render_book"
+knit: "bookdown::preview_chapter"
 site: bookdown::bookdown_site 
 bibliography:  
 biblio-style: "apalike" 
@@ -18,6 +18,20 @@ github-repo: worldbank/ESG_gaps_research
 description: "ESG " 
 documentclass: book 
 ---
+```{r setup1, include=FALSE}
+library(tufte)
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = 
+        packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
+
+
+#https://www-huber.embl.de/users/msmith/msmbstyle/index.html
+if (!("msmbstyle"  %in% installed.packages()[, "Package"])) {
+  remotes::install_github("grimbough/msmbstyle")
+}
+
+```
 
 # Introduction {-}
 
@@ -25,22 +39,12 @@ documentclass: book
 This document is in a **very** early stage of development. Please do not cite or distribute without permission of the DECDG team. If you have any suggestions on what should be included within this book, please get in touch via [GitHub](https://github.com/worldbank/ESG_gaps_research/issues/new).
 :::
 
-
-<font color="red" size="6" >This is a preliminary draft. Please do not cite or distribute without permission of the SARTSD</font>
-
 <div style= "float:right;position: relative;">
-```{r echo=FALSE}
-knitr::include_graphics("figures/WB_logo.png")
+```{r echo=FALSE, out.width = "50%"}
+knitr::include_graphics("images/tree.jpg")
 ```
 </div>
 
-```{r setup1, include=FALSE}
-library(tufte)
-# invalidate cache when the tufte version changes
-knitr::opts_chunk$set(tidy = FALSE, cache.extra = 
-packageVersion('tufte'))
-options(htmltools.dir.version = FALSE)
-```
 
 This document is the continuation of the paper _Options for Improving Use of ESG data for Sovereign Bond Analysis_ (World Bank 2018). Following interaction with investors in sovereign bonds that use ESG indicators in their country analyses and risk/return profiles of sovereign securities, the World Bank Group (WBG) presents a set of options for improving accessibility, quality (e.g. timeliness and regularity of publication, geographic coverage) and transparency of Emerging Markets data, in particular for ESG data. This paper aims to continue the analysis, better understand underlying data production and management issues that affect availability and provide recommendations for improving the accessibility, quality and coverage of ESG indicators.
 

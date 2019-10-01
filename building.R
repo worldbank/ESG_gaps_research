@@ -1,13 +1,16 @@
 
 # preview just one chapter
 file <- c("ESG_hhsAvailability.Rmd")
+
 file <- c("ESG_volatility.Rmd")
-bookdown::render_book(file, "bookdown::tufte_html_book",
-                      preview = TRUE)
+bookdown::render_book(file, preview = TRUE)
 beepr::beep(10)
 
+# bfile <- paste0("docs/", sub("(.*)(\\.Rmd)", "\\1", file), ".html")
+
 # render the whole book
-bookdown::render_book("index.Rmd", "bookdown::tufte_html_book")
+bookdown::render_book("index.Rmd")
+browseURL("docs/index.html")
 beepr::beep(10)
 
 #serve the whole book to see modification on the fly
