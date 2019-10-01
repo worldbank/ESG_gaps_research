@@ -4,9 +4,9 @@ file <- c("ESG_hhsAvailability.Rmd")
 
 file <- c("ESG_volatility.Rmd")
 bookdown::render_book(file, preview = TRUE)
-bfile <- paste0("docs/", sub("(.*)(\\.Rmd)", "\\1", file), ".html")
-browseURL(bfile)
 beepr::beep(10)
+
+# bfile <- paste0("docs/", sub("(.*)(\\.Rmd)", "\\1", file), ".html")
 
 # render the whole book
 bookdown::render_book("index.Rmd")

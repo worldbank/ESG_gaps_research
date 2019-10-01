@@ -1,10 +1,7 @@
 # Variability of ESG indicators
 ```{r setupvolatil, echo=FALSE, message=FALSE, warning=FALSE}
-#--------- execute script of analysis
-
 source("R/load_data.R")
 source("R/esg_variability.R")
-
 ```
 
 ESG indicators belong to set of measures with wide diversity. Some of them are estimated every few years, whereas others are produced every three or six month. In addition, some indicators are bounded by construction--like percentages or indexes--, others are normalized across countries--like indicators in PPP values--, others are in units based on population size--like all those in x by 1,000 people--, among many other kinds of measures and units. This variety makes it difficult to compare directly one indicator to another, especially if any sort weight is going to be assigned all the indicators. 
@@ -21,35 +18,40 @@ g_cv +  geom_density(alpha = .2, fill = "#CCFFFF") +
 
 To alleviate this problem, a standard measure of variability could be applied to all indicators. Those indicators that vary the most, deserve the most attention by investors, whereas those that vary the less could be revisited every few years to recalibrate models.  To make variability comparable across countries, it was necessary to rescale all indicators and linearly interpolate missing values by year. Then, the coefficient of variation (CV) was estimated at indicator/country level in order to capture to temporal variability of each indicators in each country. Finally, an average of CVs across countries is calculated to get measure of variability at the indicator level. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
 
-Most indicators (`r round(s_c_mid*100,2)`%) fall between 1 and 2 units of the CV, with an overall mean of `r round(mean_cv, 2)`. The light left tail of the distribution---those that fall below 1 in CV---is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`%), whereas the right tail---those indicators that fall above 2 in CV---is composed by `r n_c_high` indicators (`r round(s_c_high*100,2)`%). Table \@ref(tab:t-lh-cv) shows the indicators that fall in the left and right tail of the distribution. 
 
-```{r t-lh-cv}
-knitr::kable(t_lh4, 
-      caption = "ESG indicators with lowest and highest volatility") %>%
-  kable_styling(bootstrap_options = c("striped",
-                                      "hover",
-                                      "responsive"),
-                full_width = F,
-                position = "left") %>%
-  column_spec(1, width = "20em", border_right = T) %>%
-  column_spec(2, width = "20em") %>% 
-  row_spec(0,  align = "center")
+The average CV of most indicators (`r round(s_c_mid*100,2)`%) fall between 1 and 2, with an overall mean of `r round(mean_cv, 2)`. Since the CV is a measured of dispersion, a mean above 1 conveys the idea that, in average, the ESG indicators have a relatively high variability with respect to their own mean value. However, given that the majority of indicators are around the mean, all indictors have similar variability. The light left tail of the distribution---those that fall below 1 in CV---is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`%), whereas the right tail---those indicators that fall above 2 in CV---is composed by `r n_c_high` indicators (`r round(s_c_high*100,2)`%). Table \@ref(tab:t-lh-cv) shows the indicators that fall in the left and right tail of the distribution. 
+
+```{r t-lh-cv, echo = FALSE}
+t_lh2 <- t_lh %>% group_by(class_cv) %>%
+  mutate(n = row_number()) %>%
+  spread(class_cv, ind_name) %>%
+  mutate(High = replace_na(High, replace = "")) %>%
+  transmute(
+    `Low volatility (CV <= 1)`  =  Low,
+    `High volatility (CV >= 2)` =  High
+  )
+knitr::kable(t_lh2, 
+      caption = "ESG indicators with lowest and highest volatility")
 ```
 
-The first column of Table \@ref(tab:t-lh-cv) shows those indicators with low volatility. As expected 
+The first column of Table \@ref(tab:t-lh-cv) shows those indicators with low volatility. As expected, indicators like _renewable internal freshwater_, _land area_, or _strength of legal rights_ do not change often. Thus, they deserve little attention on a yearly basis for decision-making process for investment. On the other hand, the right column of the table shows the most volatile indicators, whose standard deviations are two times higher than their means.
 
+<font color="red" size="6" >NOTE: We need to check why some indicators like internet users are low volatility </font>
 
-This id a long paragraph 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+```{r echo = FALSE}
+foss_min <- var_country %>% 
+  filter(indicator == "EG.USE.COMM.FO.ZS", cv >0 ) %>% 
+  filter(cv == min(cv))
 
-```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of countries per indicator over time", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
+foss_max <- var_country %>% 
+  filter(indicator == "EG.USE.COMM.FO.ZS", cv >0 ) %>% 
+  filter(cv == max(cv))
+```
+
+In cotnrast to Figure  \@ref(fig:esg-var), which presents the overall view of the volatility of  ESG indicators, Figure \@ref(fig:civar) shows the variability of each indicator at the country level.  For some indicators, the level of variability range widely. For instance, the coefficient of variation of _Fossil fuel energy consumption_ varies from `r round(foss_min[["cv"]], 2)` in `r foss_min %>%  inner_join(ci_name) %>% select(country)` to more than 5 in `r foss_max %>%  inner_join(ci_name) %>% select(country)`.  Something similar happens with _Renewable energy consumption_ or, in a small scale, to _GDP growth_. For the rest of indicators, Figure \@ref(fig:civar) shows that their variability across countries is relatively stable. 
+
+```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Coefficient of variation by country and indicators", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
 pg2
 ```
+
+

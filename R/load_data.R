@@ -54,6 +54,10 @@ ic <- wb_cachelist$countries %>%
   filter(!(lending  %in% c("Aggregates", "Blend")) ) %>%
   select(iso3c)
 
+ci_name <- wb_cachelist$countries %>%
+  filter(!(lending  %in% c("Aggregates", "Blend")) ) %>%
+  select(country, iso3c)
+
 # Indicators codes and names
 inames <- wb_cachelist$indicators[, c(1,2)]
 names(inames)[2] <- "ind_name"

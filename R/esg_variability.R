@@ -86,8 +86,6 @@ g_cv <- var_ind %>% ggplot(aes(x = cv)) +
   xlab("Mean Coefficient of variation") +
   ylab("K-density")
 
-
-
 #--------- Breaking down histogram
 mean_cv <- var_ind %>% summarise(mean(cv, na.rm = TRUE))
 
@@ -121,35 +119,6 @@ t_lh <- var_ind %>%
   )) %>%
   filter(!is.na(class_cv)) %>%
   select(class_cv, ind_name)
-
-a <- paste(t_lh$ind_name[t_lh$class_cv == "Low"],  collapse = "<br>- ")
-b <- paste(t_lh$ind_name[t_lh$class_cv == "High"], collapse = "<br>- ")
-
-t_lh2 <- tibble(
-  `Low volatility (CV <= 1)`  = paste0("- ",a),
-  `High volatility (CV >= 2)` = paste0("- ",b)
-)
-
-t_lh3 <- knitr::kable(t_lh2, escape = FALSE,
-             caption = "ESG indicators with lowest and highest volatility") %>%
-  kable_styling(bootstrap_options = c("striped",
-                                      "hover",
-                                      "condensed",
-                                      "responsive"),
-                full_width = F) %>%
-  column_spec(1, width = "20em", border_right = T) %>%
-  column_spec(2, width = "20em")
-
-t_lh4 <- t_lh %>% group_by(class_cv) %>%
-  mutate(n = row_number()) %>%
-  spread(class_cv, ind_name) %>%
-  mutate(High = paste0("- ", High),
-         Low  = paste0("- ", Low),
-         High = str_replace(High, '- NA', '')) %>%
-  transmute(
-    `Low volatility (CV <= 1)`  =  Low,
-    `High volatility (CV >= 2)` =  High
-  )
 
 
 # CV vay country and indicator

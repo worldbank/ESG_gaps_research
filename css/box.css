@@ -25,3 +25,8 @@
 .warning {
   background-image: url("../images/warning.png");
 }
+
+#attention {
+  color: #FF3399;
+  font-weight: 900
+}
