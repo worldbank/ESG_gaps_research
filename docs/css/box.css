@@ -1,0 +1,27 @@
+.infobox {
+  padding: 1em 1em 1em 3em;
+  margin-bottom: 8px;
+  background: lightgray 5px center/3em no-repeat;
+  border: 2px solid orange;
+  border-radius: 8px;
+}
+.caution {
+  background-image: url("../images/caution.png");
+}
+.important {
+  background-image: url("../images/important.png");
+}
+.note {
+  background-image: url("../images/note.png");
+}
+.tip {
+  background-image: url("../images/tip.png");
+}
+
+.figure {
+  text-align: center;
+}
+
+.warning {
+  background-image: url("../images/warning.png");
+}

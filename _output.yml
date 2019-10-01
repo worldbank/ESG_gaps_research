@@ -2,6 +2,7 @@ msmbstyle::msmb_html_book:
   toc: TRUE
   toc_depth: 1
   split_by: chapter
+  css: [css/box.css]
   split_bib: no
   margin_references: FALSE
   number_sections: yes

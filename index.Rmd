@@ -39,12 +39,9 @@ if (!("msmbstyle"  %in% installed.packages()[, "Package"])) {
 This document is in a **very** early stage of development. Please do not cite or distribute without permission of the DECDG team. If you have any suggestions on what should be included within this book, please get in touch via [GitHub](https://github.com/worldbank/ESG_gaps_research/issues/new).
 :::
 
-
-<font color="red" size="6" >This is a preliminary draft. Please do not cite or distribute without permission of the SARTSD</font>
-
 <div style= "float:right;position: relative;">
-```{r echo=FALSE}
-knitr::include_graphics("figures/WB_logo.png")
+```{r echo=FALSE, out.width = "50%"}
+knitr::include_graphics("images/tree.jpg")
 ```
 </div>
 
