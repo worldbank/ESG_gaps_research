@@ -32,11 +32,16 @@ df <- df %>%
   group_by(countrycode) %>%
   mutate(gap = year - lag(year), # difference betwen years
          decade = case_when(     # decade
-           year  %in% 1970:1979 ~ "1970s",
-           year  %in% 1980:1989 ~ "1980s",
-           year  %in% 1990:1999 ~ "1990s",
-           year  %in% 2000:2009 ~ "2000s",
-           year  %in% 2010:2020 ~ "2010s",
+           year  %in% 1971:1979 ~ "1971-75",
+           year  %in% 1976:1980 ~ "1976-80",
+           year  %in% 1981:1985 ~ "1981-85",
+           year  %in% 1986:1990 ~ "1986-90",
+           year  %in% 1991:1995 ~ "1991-95",
+           year  %in% 1996:2000 ~ "1996-00",
+           year  %in% 2001:2005 ~ "2001-05",
+           year  %in% 2006:2010 ~ "2006-10",
+           year  %in% 2011:2015 ~ "2011-15",
+           year  %in% 2016:2020 ~ "2016-",
          ),
          yrs = year(ymd(year, truncated = 2L))) %>%
   filter(gap > 0) %>%   # remove repeated years with income and consumption
