@@ -3,6 +3,8 @@
 file <- c("ESG_hhsAvailability.Rmd")
 
 file <- c("ESG_volatility.Rmd")
+
+file <- c("ESG_availability.Rmd")
 bookdown::render_book(file, preview = TRUE)
 beepr::beep(10)
 

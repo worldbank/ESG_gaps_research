@@ -31,22 +31,23 @@ d2 <- x %>%
   ungroup()
 
 
-
 # Plot Heatmap
-g1 <- ggplot(d1, aes( x = ind,
-                      y = date,
+g1 <- ggplot(d1, aes( x = date,
+                      y = ind,
                       fill = n,
                       text = text)) +
   geom_tile() +
   scale_fill_distiller(palette = "Spectral",
                        direction = 1) +
   labs(x = "", y = "") +
-  scale_y_continuous(breaks = c(1980:2018),
-                     expand = c(0,0))+
-  theme(axis.text.y = element_text(size = rel(0.6),
+  scale_x_continuous(breaks = c(1980:2018),
+                     expand = c(0,0)) +
+  theme(axis.text.x = element_text(size = rel(0.8),
+                                   angle = 330,
                                    hjust = 0,
                                    colour = "grey50"),
-        axis.text.x = element_blank()) +
+        axis.text.y = element_text(size = rel(0.5),
+                                   colour = "grey50")) +
   ggtitle(label = "Number of countries per indicator over time")
 #g1
 # make it interactive

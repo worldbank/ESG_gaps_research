@@ -45,7 +45,7 @@ With the exception of a few indicators like _Ease of doing business index_ or _T
 
 Finally, the indicators at the right side of the chart present the best country coverage over time. They are characterized by their intense blue color. For instance, _Population density_, _Adjusted savings: mineral depletion_, or _Land area_ have a remarkable and stable high country coverage. 
 
-```{r ciavailability, fig.width = 14, fig.height = 8, fig.fullwidth = TRUE, fig.cap = "Number of countries per indicator over time"}
+```{r ciavailability, fig.width = 14, fig.height = 6, fig.fullwidth = TRUE, fig.cap = "Number of countries per indicator over time"}
 pg1
 ```
 
