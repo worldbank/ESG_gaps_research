@@ -21,6 +21,17 @@ o <- d1 %>%
 
 d1 <- inner_join(d1, o)
 
+
+d2 <- x %>%
+  filter(date >= 1980, date <= 2018) %>%
+  group_by(indicatorID,indicator, date) %>%
+  summarise(n = n_distinct(iso3c)) %>%
+  group_by(indicatorID,indicator)  %>%
+  summarise(mean = mean(n, na.rm = TRUE)) %>%
+  ungroup()
+
+
+
 # Plot Heatmap
 g1 <- ggplot(d1, aes( x = ind,
                       y = date,
