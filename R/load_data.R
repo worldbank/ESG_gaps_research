@@ -44,7 +44,6 @@ if (length(load.pkg)) {
   inst = lapply(load.pkg, library, character.only = TRUE) # load all packages
 }
 
-
 #----------------------------------------------------------
 #   Load and prepare data
 #----------------------------------------------------------
@@ -65,6 +64,8 @@ names(inames)[2] <- "ind_name"
 
 
 codes <- read_csv("data/esg_codes.csv")
+
+mtd <- read_csv("data/esg_metadata.csv")
 
 # x <- wb(indicator = codes$code)
 # x <- as_tibble(x)
