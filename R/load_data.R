@@ -29,7 +29,11 @@ pkg <-
     "ggdendro",
     "scales",
     "formattable",
-    "tufte"
+    "tufte",
+    "povcalnetR",
+    "rworldmap",
+    "countrycode",
+    "scales"
   )
 new.pkg <-
   pkg[!(pkg %in% installed.packages()[, "Package"])] # check installed packages
@@ -44,7 +48,6 @@ if (length(load.pkg)) {
   inst = lapply(load.pkg, library, character.only = TRUE) # load all packages
 }
 
-
 #----------------------------------------------------------
 #   Load and prepare data
 #----------------------------------------------------------
@@ -56,7 +59,7 @@ ic <- wb_cachelist$countries %>%
 
 ci_name <- wb_cachelist$countries %>%
   filter(!(lending  %in% c("Aggregates", "Blend")) ) %>%
-  select(country, iso3c)
+  select(country, iso3c, region)
 
 # Indicators codes and names
 inames <- wb_cachelist$indicators[, c(1,2)]
@@ -65,6 +68,8 @@ names(inames)[2] <- "ind_name"
 
 
 codes <- read_csv("data/esg_codes.csv")
+
+mtd <- read_csv("data/esg_metadata.csv")
 
 # x <- wb(indicator = codes$code)
 # x <- as_tibble(x)
