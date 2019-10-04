@@ -160,33 +160,51 @@ pg_hh <- ggplotly(g_hh, tooltip = "text")
 #   world map
 #----------------------------------------------------------
 
-sPDF <- joinCountryData2Map( df1,
-                             joinCode = "ISO3",
-                             nameJoinColumn = "countrycode")
+world <- map_data("world")
+cnames <- unique(world$region)
+cnames <- tibble(region = cnames,
+                 countrycode = countrycode(cnames, 'country.name', 'iso3c'))
 
-colourPalette <- brewer.pal(5,'RdPu')
-
-#mapDevice()
-mapParams <- mapCountryData(sPDF, nameColumnToPlot = "gap",
-               catMethod = "categorical",
-               missingCountryCol = gray(.8),
-               colourPalette = colourPalette,
-               addLegend = FALSE,
-               mapTitle = 'Number of years between last two surveys'
-               )
-
-#adding legend
-do.call(addMapLegendBoxes,
-        c(mapParams,
-          title = "Years gap",
-          x = "bottom",
-          ncol = n_distinct(df1$gap)))
-
-# outputPlotType = 'png'
-# savePlot("docs/figures/hh_gaps_map",
-#          type = outputPlotType)
+world <- inner_join(world, cnames)
+wdf <- inner_join(df1, world) %>%
+  mutate(text = paste0("Country: ", country, "\n",
+                       "Gap: ", gap, " years\n")) %>%
+  filter(!is.na(country))
 
 
+plain <- theme(
+  axis.text = element_blank(),
+  axis.line = element_blank(),
+  axis.ticks = element_blank(),
+  panel.border = element_blank(),
+  panel.grid = element_blank(),
+  axis.title = element_blank(),
+  panel.background = element_rect(fill = "white"),
+  plot.title = element_text(hjust = 0.5),
+  legend.position = "bottom",
+  legend.box = "horizontal"
+)
+
+brk <- c(1, 2, 3, 4, 5, 10, max(wdf$gap))
+hh_map <- ggplot(data = wdf,
+                 mapping = aes(x = long,
+                               y = lat,
+                               group = group)) +
+  geom_polygon(aes(fill = gap)) +
+  scale_fill_paletteer_c(package = "viridis",
+                         palette = "plasma",
+                         direction = 1,
+                         breaks = brk) + # or direction=1
+  geom_polygon(data = world,
+               color = "grey10", fill = NA) +
+  ggtitle("Number of years between last two surveys") +
+  #borders("world", colour = "grey10") +
+  coord_fixed(1.3) +
+  labs(fill = "Years of gap") +
+  guides(fill = guide_legend(title.position = "top")) +
+  plain
+
+phh_map <- ggplotly(hh_map, tooltip = "text")
 
 #----------------------------------------------------------
 #   Production of surveys over time
