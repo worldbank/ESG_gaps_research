@@ -1,15 +1,242 @@
-# Results 
+# Explanations for Gaps
 
-* Descriptive statistics
-* Analysis
-* Recommendations
+```{r setupvolatil, echo=FALSE, message=FALSE, warning=FALSE}
+source("R/load_data.R")
+source("R/esg_explanations.R")
+```
 
-#### Sample descriptive statistics
 
-**Indicator has been explicitly deprecated or dropped**
 
-Domain         | ESG    | SOC    | GOV
--------------- | :----: | :----: | :----:
-WBG Dataset    | 0 / 26 | 0 / 29 | 0 / 12
-All indicators | 3 / 44 | 9 / 66 | 2 / 24
+## Explanation A
 
+```{r t-a}
+  toKable(t[[1]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation A')
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Explanation B
+
+```{r t-b}
+  toKable(t[[2]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation B')
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Explanation C
+
+```{r t-c}
+  toKable(t[[3]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation C')
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Explanation D
+
+```{r t-d}
+  toKable(t[[4]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation D')
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Explanation E
+
+```{r t-e}
+  toKable(t[[5]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation E')
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Explanation F
+
+```{r t-f}
+  toKable(t[[6]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation F')
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Explanation G
+
+```{r t-g}
+  toKable(t[[7]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation G')
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Explanation H
+
+```{r t-h}
+  toKable(t[[8]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation H')
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
