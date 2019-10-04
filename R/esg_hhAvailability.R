@@ -122,40 +122,6 @@ df2 <- df %>%
 
 
 
-
-#----------------------------------------------------------
-#   Heatmap of surveys per decade and production Gap
-#----------------------------------------------------------
-
-d <- quo(lustrum)
-
-df_hh <- df1 %>%
-  group_by(gap_jump, !! d) %>%
-  summarise(n_country = n_distinct(countrycode)) %>%
-  mutate(text = paste0("Period: ", !! d, "\n",
-                       "Gap: ", gap_jump, " years\n",
-                       "No. countries: ",n_country,"\n"))
-
-brk <- c(5, 10, 20, 40, 60, 70)
-brk <- waiver()
-g_hh <- ggplot(df_hh, aes(x = !! d,
-               y = gap_jump,
-               fill = n_country,
-               text = text)) +
-  geom_tile() +
-  scale_fill_paletteer_c(package = "viridis", palette = "viridis",
-                         breaks = brk) +
-  theme_ipsum() +
-  ggtitle(label = "Number of countries per survey gap") +
-  theme(legend.position = "bottom",
-        legend.box = "horizontal") +
-  labs(fill = "Number of countries",
-       y = "Gap between surveys in years",
-       x = "Period") +
-  guides(fill = guide_legend(title.position = "top"))
-
-pg_hh <- ggplotly(g_hh, tooltip = "text")
-
 #----------------------------------------------------------
 #   world map
 #----------------------------------------------------------
@@ -195,10 +161,8 @@ hh_map <- ggplot(data = wdf,
                          palette = "plasma",
                          direction = 1,
                          breaks = brk) + # or direction=1
-  geom_polygon(data = world,
-               color = "grey10", fill = NA) +
   ggtitle("Number of years between last two surveys") +
-  #borders("world", colour = "grey10") +
+  borders("world", colour = "grey10") +
   coord_fixed(1.3) +
   labs(fill = "Years of gap") +
   guides(fill = guide_legend(title.position = "top")) +
@@ -232,27 +196,23 @@ g_hhp <- ggplot(df3, aes(x = yrs,
 pg_hhp <- ggplotly(g_hhp)
 
 
-
 #----------------------------------------------------------
-#   Gap Histogram
+#   Calculations
 #----------------------------------------------------------
 
-h <- df2 %>% filter(gap <= 15) %>%
-  ggplot(aes(x = gap, fill = decade)) +
-  geom_histogram(alpha = 0.6,
-                 position = 'identity',
-                 binwidth = 1) +
-  scale_fill_viridis(discrete=TRUE) +
-  scale_color_viridis(discrete=TRUE) +
-  theme_ipsum() +
-  theme(
-    legend.position="none",
-    panel.spacing = unit(0.1, "lines"),
-    strip.text.x = element_text(size = 8)
-  ) +
-  xlab("Gap between surveys") +
-  ylab("No. of surveys") +
-  facet_grid(~decade)
+nd <- df1 %>%
+  group_by(region) %>%
+  right_join(ci_name) %>%
+  filter(is.na(gap)) %>%
+  count() %>% ungroup()
+
+nd_af <- nd %>% filter(str_detect(region, "Africa")) %>% summarise(sum(n))
+nd_sa <- nd %>% filter(str_detect(region, "South")) %>% summarise(sum(n))
+nd_ea <- nd %>% filter(str_detect(region, "Pacific")) %>% summarise(sum(n))
+nd_la <- nd %>% filter(str_detect(region, "Latin")) %>% summarise(sum(n))
 
 
+mg_af <- df1 %>% filter(str_detect(region, "Africa")) %>% summarise(mean(gap))
+mg_sa <- df1 %>% filter(str_detect(region, "South")) %>% summarise(mean(gap))
+mg_ea <- df1 %>% filter(str_detect(region, "Pacific")) %>% summarise(mean(gap))
 

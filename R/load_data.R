@@ -29,7 +29,11 @@ pkg <-
     "ggdendro",
     "scales",
     "formattable",
-    "tufte"
+    "tufte",
+    "povcalnetR",
+    "rworldmap",
+    "countrycode",
+    "scales"
   )
 new.pkg <-
   pkg[!(pkg %in% installed.packages()[, "Package"])] # check installed packages
@@ -55,7 +59,7 @@ ic <- wb_cachelist$countries %>%
 
 ci_name <- wb_cachelist$countries %>%
   filter(!(lending  %in% c("Aggregates", "Blend")) ) %>%
-  select(country, iso3c)
+  select(country, iso3c, region)
 
 # Indicators codes and names
 inames <- wb_cachelist$indicators[, c(1,2)]
