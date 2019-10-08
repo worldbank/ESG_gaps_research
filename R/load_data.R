@@ -34,8 +34,11 @@ names(inames)[2] <- "ind_name"
 
 codes <- read_csv("data/esg_codes.csv")
 
+meta_csv <- "data/esg_metadata.csv"
+guess <- guess_encoding(meta_csv)
+
 mtd <- read_csv("data/esg_metadata.csv",
-                locale = readr::locale(encoding = "UTF-8"))
+                locale = readr::locale(encoding = guess[[1,1]]))
 
 # x <- wb(indicator = codes$code)
 # x <- as_tibble(x)
