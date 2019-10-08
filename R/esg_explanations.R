@@ -21,6 +21,11 @@
 # cleaning data
 #----------------------------------------------------------
 
+mtd <- mtd %>%
+  mutate(wb = ifelse(grepl("[Ww]orld [Bb]ank", source1_name),
+                     "World Bank",
+                     "Other Institution"))
+
 mtd$wbgv1 <- factor(mtd$wbgv1,
                     levels = c(0,1),
                     labels = c("Other sources", "World Bank"))

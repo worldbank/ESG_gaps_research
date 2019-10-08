@@ -35,7 +35,7 @@ names(inames)[2] <- "ind_name"
 codes <- read_csv("data/esg_codes.csv")
 
 mtd <- read_csv("data/esg_metadata.csv",
-                locale = readr::locale(encoding = "ISO-8859-1"))
+                locale = readr::locale(encoding = "UTF-8"))
 
 # x <- wb(indicator = codes$code)
 # x <- as_tibble(x)
