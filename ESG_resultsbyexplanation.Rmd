@@ -10,23 +10,16 @@ source("R/esg_explanations.R")
 ## Explanation A
 
 ```{r t-a}
-  toKable(t[[1]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation A')
+knitr::kable(t[[1]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation A', 
+        col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share"),
+        digits = 2) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
+A	
+Indicator has been explicitly deprecated or dropped	Indicator only exists in a deprecated database (e.g., WRI Archives, Africa Development Indicators)	Hopefully none of these are in the WBG ESG database . Recommend appropriate substitutes where available (e.g., PM2.5 for PM10)
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 <br>
 <br>
 <br>
@@ -40,16 +33,16 @@ source("R/esg_explanations.R")
 ## Explanation B
 
 ```{r t-b}
-  toKable(t[[2]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation B')
+knitr::kable(t[[2]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation B', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+B	
+Indicator still available, but not being updated in WDI	Indicator is in a current database, but does not have data for any country past a certain threshold (e.g., 2012)	This is really on DECDG to either update these indicators, explicitly remove them, or find substitutes
+
+
 <br>
 <br>
 <br>
@@ -70,14 +63,16 @@ source("R/esg_explanations.R")
 ## Explanation C
 
 ```{r t-c}
-  toKable(t[[3]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation C')
+  knitr::kable(t[[3]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation C', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
+C	
+MRV is subject to methodology lags 	1) original source is updated biennially or longer, OR;
+2) indicator is updated using raw data from 2+ years prior
+There may be some scope to address these in cases where WBG is the primary producer of both the indicator and the underlying raw data.
 
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 <br>
@@ -100,19 +95,16 @@ source("R/esg_explanations.R")
 ## Explanation D
 
 ```{r t-d}
-  toKable(t[[4]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation D')
+  knitr::kable(t[[4]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation D', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+D	
+MRV is subject to curation lags 	WBG’s update cycle is greater than that of the original source	This may be an area where we could improve if curation lags are material
+
+
 <br>
 <br>
 <br>
@@ -130,15 +122,14 @@ source("R/esg_explanations.R")
 ## Explanation E
 
 ```{r t-e}
-  toKable(t[[5]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation E')
+  knitr::kable(t[[5]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation E', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
+E	MRV is subject to licensing lags (e.g., IEA)	Provider license prevents WBG from using latest available data	We could only improve these by eliminating legal restrictions or identifying good substitutes
+
 <br>
 <br>
 <br>
@@ -160,16 +151,16 @@ source("R/esg_explanations.R")
 ## Explanation F
 
 ```{r t-f}
-  toKable(t[[6]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation F')
+  knitr::kable(t[[6]],format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation F', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+F	
+Data coverage is dependent on country-level microdata	Indicator is produced from country-level microdata surveys with  varying schedules
+Frequency of household surveys is typically a capacity issue
+
 <br>
 <br>
 <br>
@@ -190,15 +181,15 @@ source("R/esg_explanations.R")
 ## Explanation G
 
 ```{r t-g}
-  toKable(t[[7]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation G')
+  knitr::kable(t[[7]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation G', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
+G	
+Data coverage is geographically or economically limited	Values are entirely missing for classes of countries (high-income, small economies, etc)	These could be corrected for in many cases
+
 <br>
 <br>
 <br>
@@ -220,16 +211,15 @@ source("R/esg_explanations.R")
 ## Explanation H
 
 ```{r t-h}
-  toKable(t[[8]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation H')
+  knitr::kable(t[[8]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation H', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+H	Data coverage limited by internal political decisions	Values are suppressed for certain countries
+This would theoretically include any per capita indicator
+
 <br>
 <br>
 <br>
