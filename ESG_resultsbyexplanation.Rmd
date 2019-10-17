@@ -1,6 +1,6 @@
 # Explanations for Gaps
 
-```{r setupvolatil, echo=FALSE, message=FALSE, warning=FALSE}
+```{r setupresults, echo=FALSE, message=FALSE, warning=FALSE}
 source("R/load_data.R")
 source("R/esg_explanations.R")
 ```

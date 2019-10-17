@@ -16,16 +16,16 @@
 <meta name="author" content="The World Bank" />
 <meta name="author" content="Development economics, Data Group" />
 
-<meta name="date" content="2019-10-08" />
+<meta name="date" content="2019-10-17" />
 
 
 <meta name="description" content="ESG">
 
 <title>5 Explanations for Gaps | ESG Gaps Research</title>
 
-<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
-<link href="libs/tufte-css-2015.12.29/envisioned.css" rel="stylesheet" />
-<link href="libs/msmb-css-0/msmb.css" rel="stylesheet" />
+<link href="libs/tufte-css/tufte.css" rel="stylesheet" />
+<link href="libs/tufte-css/envisioned.css" rel="stylesheet" />
+<link href="libs/msmb-css/msmb.css" rel="stylesheet" />
 <script>
 function toggle_visibility(id1, id2) {
 var e = document.getElementById(id1);
@@ -43,7 +43,15 @@ if(f.classList.contains('fa-plus-square')) {
 
 }
 </script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
 
 
 
@@ -161,13 +169,13 @@ Other Sources
 34
 </td>
 <td style="text-align:right;">
-0.206
+0.147
 </td>
 <td style="text-align:right;">
 16
 </td>
 <td style="text-align:right;">
-0.500
+0.188
 </td>
 <td style="text-align:right;">
 54
@@ -213,13 +221,13 @@ All
 44
 </td>
 <td style="text-align:right;">
-0.273
+0.227
 </td>
 <td style="text-align:right;">
 25
 </td>
 <td style="text-align:right;">
-0.360
+0.160
 </td>
 <td style="text-align:right;">
 66
@@ -439,19 +447,19 @@ Other Sources
 34
 </td>
 <td style="text-align:right;">
-0.265
+0.382
 </td>
 <td style="text-align:right;">
 16
 </td>
 <td style="text-align:right;">
-0.25
+0.562
 </td>
 <td style="text-align:right;">
 54
 </td>
 <td style="text-align:right;">
-0.407
+0.4630
 </td>
 </tr>
 <tr>
@@ -471,13 +479,13 @@ World Bank
 9
 </td>
 <td style="text-align:right;">
-0.00
+0.000
 </td>
 <td style="text-align:right;">
 12
 </td>
 <td style="text-align:right;">
-0.000
+0.0833
 </td>
 </tr>
 <tr>
@@ -491,19 +499,19 @@ All
 44
 </td>
 <td style="text-align:right;">
-0.318
+0.409
 </td>
 <td style="text-align:right;">
 25
 </td>
 <td style="text-align:right;">
-0.16
+0.360
 </td>
 <td style="text-align:right;">
 66
 </td>
 <td style="text-align:right;">
-0.333
+0.3939
 </td>
 </tr>
 </tbody>
@@ -520,283 +528,6 @@ There may be some scope to address these in cases where WBG is the primary produ
 
 <p><!--
 <caption>--><span class="marginnote shownote"><span id="tab:t-d">Table 5.4: </span>Explanation D</span><!--</caption>--></p>
-<table class="margintab marginnote">
-<thead>
-<tr>
-<th style="border-bottom:hidden" colspan="2">
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-ENV
-</div>
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-GOV
-</div>
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-SOC
-</div>
-</th>
-</tr>
-<tr>
-<th style="text-align:left;">
-Source
-</th>
-<th style="text-align:right;">
-all
-</th>
-<th style="text-align:right;">
-n
-</th>
-<th style="text-align:right;">
-Share
-</th>
-<th style="text-align:right;">
-n
-</th>
-<th style="text-align:right;">
-Share
-</th>
-<th style="text-align:right;">
-n
-</th>
-<th style="text-align:right;">
-Share
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Other Sources
-</td>
-<td style="text-align:right;">
-104
-</td>
-<td style="text-align:right;">
-34
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-16
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-54
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-World Bank
-</td>
-<td style="text-align:right;">
-31
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-All
-</td>
-<td style="text-align:right;">
-135
-</td>
-<td style="text-align:right;">
-44
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-25
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-66
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-<p>D<br>
-MRV is subject to curation lags WBG’s update cycle is greater than that of the original source This may be an area where we could improve if curation lags are material</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
-</div>
-<div id="explanation-e" class="section level2">
-<h2>
-<span class="header-section-number">5.5</span> Explanation E</h2>
-
-<p><!--
-<caption>--><span class="marginnote shownote"><span id="tab:t-e">Table 5.5: </span>Explanation E</span><!--</caption>--></p>
-<table class="margintab marginnote">
-<thead>
-<tr>
-<th style="border-bottom:hidden" colspan="2">
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-ENV
-</div>
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-GOV
-</div>
-</th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-SOC
-</div>
-</th>
-</tr>
-<tr>
-<th style="text-align:left;">
-Source
-</th>
-<th style="text-align:right;">
-all
-</th>
-<th style="text-align:right;">
-n
-</th>
-<th style="text-align:right;">
-Share
-</th>
-<th style="text-align:right;">
-n
-</th>
-<th style="text-align:right;">
-Share
-</th>
-<th style="text-align:right;">
-n
-</th>
-<th style="text-align:right;">
-Share
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Other Sources
-</td>
-<td style="text-align:right;">
-104
-</td>
-<td style="text-align:right;">
-34
-</td>
-<td style="text-align:right;">
-0.206
-</td>
-<td style="text-align:right;">
-16
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-54
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-World Bank
-</td>
-<td style="text-align:right;">
-31
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0.000
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-All
-</td>
-<td style="text-align:right;">
-135
-</td>
-<td style="text-align:right;">
-44
-</td>
-<td style="text-align:right;">
-0.159
-</td>
-<td style="text-align:right;">
-25
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-66
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
-<p>E MRV is subject to licensing lags (e.g., IEA) Provider license prevents WBG from using latest available data We could only improve these by eliminating legal restrictions or identifying good substitutes</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
-</div>
-<div id="explanation-f" class="section level2">
-<h2>
-<span class="header-section-number">5.6</span> Explanation F</h2>
-
-<p><!--
-<caption>--><span class="marginnote shownote"><span id="tab:t-f">Table 5.6: </span>Explanation F</span><!--</caption>--></p>
 <table class="margintab marginnote">
 <thead>
 <tr>
@@ -895,7 +626,7 @@ World Bank
 12
 </td>
 <td style="text-align:right;">
-0.0000
+0.0833
 </td>
 </tr>
 <tr>
@@ -916,6 +647,283 @@ All
 </td>
 <td style="text-align:right;">
 0
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+0.0303
+</td>
+</tr>
+</tbody>
+</table>
+<p>D<br>
+MRV is subject to curation lags WBG’s update cycle is greater than that of the original source This may be an area where we could improve if curation lags are material</p>
+<p><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+</div>
+<div id="explanation-e" class="section level2">
+<h2>
+<span class="header-section-number">5.5</span> Explanation E</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:t-e">Table 5.5: </span>Explanation E</span><!--</caption>--></p>
+<table class="margintab marginnote">
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="2">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+ENV
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+GOV
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+SOC
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Source
+</th>
+<th style="text-align:right;">
+all
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+Share
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+Share
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+Share
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Other Sources
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+0.235
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+World Bank
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+All
+</td>
+<td style="text-align:right;">
+135
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+0.182
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>E MRV is subject to licensing lags (e.g., IEA) Provider license prevents WBG from using latest available data We could only improve these by eliminating legal restrictions or identifying good substitutes</p>
+<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+</div>
+<div id="explanation-f" class="section level2">
+<h2>
+<span class="header-section-number">5.6</span> Explanation F</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:t-f">Table 5.6: </span>Explanation F</span><!--</caption>--></p>
+<table class="margintab marginnote">
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="2">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+ENV
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+GOV
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+SOC
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Source
+</th>
+<th style="text-align:right;">
+all
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+Share
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+Share
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+Share
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Other Sources
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+0.0185
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+World Bank
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+All
+</td>
+<td style="text-align:right;">
+135
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+0.040
 </td>
 <td style="text-align:right;">
 66
@@ -1003,13 +1011,13 @@ Other Sources
 16
 </td>
 <td style="text-align:right;">
-0.250
+0.25
 </td>
 <td style="text-align:right;">
 54
 </td>
 <td style="text-align:right;">
-0.352
+0.315
 </td>
 </tr>
 <tr>
@@ -1029,7 +1037,7 @@ World Bank
 9
 </td>
 <td style="text-align:right;">
-0.222
+0.00
 </td>
 <td style="text-align:right;">
 12
@@ -1055,13 +1063,13 @@ All
 25
 </td>
 <td style="text-align:right;">
-0.240
+0.16
 </td>
 <td style="text-align:right;">
 66
 </td>
 <td style="text-align:right;">
-0.379
+0.348
 </td>
 </tr>
 </tbody>
@@ -1217,7 +1225,7 @@ This would theoretically include any per capita indicator</p>
 <a href="variability-of-esg-indicators.html"><button class="btn btn-default">Next</button></a>
 </p>
 <p class="build-date">Page built: 
-2019-10-08
+2019-10-17
 </p>
 </div>
 </div>

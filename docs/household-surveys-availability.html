@@ -16,7 +16,7 @@
 <meta name="author" content="The World Bank" />
 <meta name="author" content="Development economics, Data Group" />
 
-<meta name="date" content="2019-10-03" />
+<meta name="date" content="2019-10-17" />
 
 
 <meta name="description" content="ESG">
@@ -51,6 +51,7 @@ if(f.classList.contains('fa-plus-square')) {
 <script src="libs/crosstalk/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main/plotly-latest.min.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
 
 
 
@@ -76,12 +77,13 @@ if(f.classList.contains('fa-plus-square')) {
 <a href="methodology.html"><span class="toc-section-number">2</span> Methodology</a>
 <a href="high-level-results.html"><span class="toc-section-number">3</span> High Level results</a>
 <a href="esg-availability.html"><span class="toc-section-number">4</span> ESG availability</a>
-<a href="results.html"><span class="toc-section-number">5</span> Results</a>
+<a href="explanations-for-gaps.html"><span class="toc-section-number">5</span> Explanations for Gaps</a>
 <a href="variability-of-esg-indicators.html"><span class="toc-section-number">6</span> Variability of ESG indicators</a>
 <a href="updates.html"><span class="toc-section-number">7</span> Updates</a>
 <a id="active-page" href="household-surveys-availability.html"><span class="toc-section-number">8</span> Household surveys availability</a><ul class="toc-sections">
 <li class="toc"><a href="#household-surveys-for-global-poverty-monitoring"> Household surveys for Global Poverty monitoring</a></li>
 <li class="toc"><a href="#gaps-between-surveys"> Gaps between surveys</a></li>
+<li class="toc"><a href="#concluding-remarks"> Concluding remarks</a></li>
 </ul>
 <a href="recommendations.html"><span class="toc-section-number">9</span> Recommendations</a>
 </div>
@@ -122,6 +124,62 @@ Literacy rate, adult total (% of people ages 15 and above)
 SOC
 </td>
 <td style="text-align:left;">
+Labor force with secondary education (% of total)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Employment to population ratio, ages 15-24, total (%) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Unemployment, total (% of total labor force) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Vulnerable employment, total (% of total employment) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Unemployment, youth total (% of total labor force ages 15-24) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Labor force participation rate, total (% of total population ages 15-64) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Ratio of female to male labor force participation rate (%) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
 Children in employment, total (% of children ages 7-14)
 </td>
 </tr>
@@ -135,10 +193,42 @@ Population ages 65 and above (% of total)
 </tr>
 <tr>
 <td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Ease of doing business index (1=most business-friendly regulations)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Time required to start a business (days)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Total tax rate (% of commercial profits)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 SOC
 </td>
 <td style="text-align:left;">
 Mortality rate, infant (per 1,000 live births)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Value lost due to electrical outages (% of sales for affected firms)
 </td>
 </tr>
 <tr>
@@ -175,10 +265,34 @@ Fertility rate, total (births per woman)
 </tr>
 <tr>
 <td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Mortality rate, under-5 (per 1,000 live births)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Exports of goods and services (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 GOV
 </td>
 <td style="text-align:left;">
 Unmet need for contraception (% of married women ages 15-49)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Cause of death, by communicable diseases and maternal, prenatal and nutrition conditions (% of total)
 </td>
 </tr>
 <tr>
@@ -226,12 +340,28 @@ GINI index (World Bank estimate)
 SOC
 </td>
 <td style="text-align:left;">
+Average duration of power outages (hours)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
 Income share held by lowest 20%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Unemployment, female (% of female labor force) (modeled ILO estimate)
 </td>
 </tr>
 </tbody>
 </table>
-<p>Among the 136 ESG indicators, 15 of them come from surveys. Some of them come from labor force surveys, others come from living standard measurement surveys, and others from independent surveys or enterprise surveys. Each type of survey has characteristics that the others do not have, but, in general, surveys are characterized by being an expensive instrument, whose feasibility depends on budget. It requires planning, extensive execution, training of personal, data cleaning, and many other factors that makes their frequency unstable.</p>
+<p>Among the 135 ESG indicators, 31 of them come from surveys. Some of them come from labor force surveys, others come from living standard measurement surveys, and others from independent surveys or enterprise surveys. Each type of survey has characteristics that the others do not have, but, in general, surveys are characterized by being an expensive instrument, whose feasibility depends on budget. It requires planning, extensive execution, training of personal, data cleaning, and many other factors that makes their frequency unstable.</p>
 <p>In this section, we explore the availability of household surveys—which are the underlying data of global poverty estimates—as a case study to understand the general complexity of the indicators that are calculated from microdata. Though not all the conclusions and insights from this case study apply to all surveys, a proper analysis of household surveys analysis can be adequate to inductively infer the context of other ESG indicators that use other types of surveys as their underlying data.</p>
 <div id="household-surveys-for-global-poverty-monitoring" class="section level2">
 <h2>
@@ -259,6 +389,11 @@ Figure 8.2: Number of years between last two surveys
 <img src="ESG_gaps_research_files/figure-html/hh-map-1.png" alt="Number of years between last two surveys" width="672">
 </div>
 <p>At the country level, however, the frequency of household surveys varies widely, especially in the Africa region. Figure <a href="household-surveys-availability.html#fig:hh-map">8.2</a> plots the number of years between the last two surveys publicly released in the countries available in the PovcalNet. Countries in the Latina America and the East Europe and Central Asia regions conduct household surveys every year or every other year. In contrast, the average country in the Middle East and North Africa and in the Sub-Saharan Africa regions conduct household surveys every 5.7 years. In addition, there are 14 countries with no household surveys for measuring poverty. Other regions, like South Asia and East Asia and Pacific show a scenario that is better than Africa, yet not ideal. The average country releases a household surveys every 5.2 years in the South Asia, and every 3.8 in the East Asia and Pacific region. Though it is true that many countries in the EAP and the LAC regions (21 and 17, respectively) do not release household surveys to calculate international poverty measures, all of them are small islands with low population.</p>
+</div>
+<div id="concluding-remarks" class="section level2">
+<h2>
+<span class="header-section-number">8.3</span> Concluding remarks</h2>
+<p>blah blah</p>
 
 </div>
 </div></body></html>
@@ -268,7 +403,7 @@ Figure 8.2: Number of years between last two surveys
 <a href="recommendations.html"><button class="btn btn-default">Next</button></a>
 </p>
 <p class="build-date">Page built: 
-2019-10-03
+2019-10-17
 </p>
 </div>
 </div>
