@@ -2,11 +2,11 @@
 # preview just one chapter
 
 file <- c("ESG_volatility.Rmd")
-file <- c("ESG_availability.Rmd")
 
 file <- c("ESG_hhsAvailability.Rmd")
 
 file <- c("ESG_resultsbyexplanation.Rmd")
+file <- c("ESG_availability.Rmd")
 bookdown::render_book(file, preview = TRUE)
 beepr::beep(10)
 
