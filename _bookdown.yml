@@ -1,7 +1,7 @@
 book_filename: "ESG_gaps_research"
 repo: https://github.com/worldbank/ESG_gaps_research/
 output_dir: "docs"
-delete_merged_file: true
+delete_merged_file: false
 language:
   label:
     fig: "Figure "

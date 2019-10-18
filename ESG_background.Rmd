@@ -1,5 +1,4 @@
 # Background 
-<font color="red" size="5" >Short introduction by Tim about the previous paper and the updated base line.</font>
 
 ```{r setupavail, echo=FALSE, message=FALSE, warning=FALSE}
 #--------- execute script of analysis
@@ -7,6 +6,8 @@ source("R/load_data.R")
 source("R/esg_availability.R")
 source("R/esg_variability.R")
 ```
+
+<font color="red" size="5" >Short introduction by Tim about the previous paper and the updated base line.</font>
 
 ## ESG Coverage
 
