@@ -9,14 +9,14 @@ source("R/esg_hhAvailability.R")
 
 ```{r hh-indi, echo = FALSE}
 a <- mtd %>% 
-  filter(str_detect(source_instrument, "HHS")) %>% 
+  filter(si_hhs == 1 | si_s == 1) %>% 
   select(sector, input_name) 
 colnames(a) <- c("Sector", "Indicator")
 knitr::kable(a, format = 'html', table.attr = 'class=\"margintab marginnote\"',
         caption = 'Indicators from household surveys')
 ```
 
-Among the `r mtd %>% summarise(n_distinct(cetsid))` ESG indicators, `r mtd %>% filter(str_detect(source_instrument, "HHS")) %>% summarise(n_distinct(input_name))` of them come from surveys. Some of them come from labor force surveys, others come from living standard measurement surveys, and others from independent surveys or enterprise surveys. Each type of survey has characteristics that the others do not have, but, in general, surveys are characterized by being an expensive instrument, whose feasibility depends on budget. It requires planning, extensive execution, training of personal, data cleaning, and many other factors that makes their frequency unstable. 
+Among the `r mtd %>% summarise(n_distinct(cetsid))` ESG indicators, `r mtd %>% filter(si_hhs == 1 | si_s == 1) %>% summarise(n_distinct(input_name))` of them come from surveys. Some of them come from labor force surveys, others come from living standard measurement surveys, and others from independent surveys or enterprise surveys. Each type of survey has characteristics that the others do not have, but, in general, surveys are characterized by being an expensive instrument, whose feasibility depends on budget. It requires planning, extensive execution, training of personal, data cleaning, and many other factors that makes their frequency unstable. 
 
 In this section, we explore the availability of household surveys---which are the underlying data of global poverty estimates---as a case study to understand the general complexity of the indicators that are calculated from microdata. Though not all the conclusions and insights from this case study apply to all surveys, a proper analysis of household surveys analysis can be adequate to inductively infer the context of other ESG indicators that use other types of surveys as their underlying data. 
 

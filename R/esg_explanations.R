@@ -22,9 +22,7 @@
 #----------------------------------------------------------
 
 mtd <- mtd %>%
-  mutate(wb = ifelse(grepl("[Ww]orld [Bb]ank", source1_name),
-                     1,
-                     0))
+  mutate(wb = ifelse(grepl("[Ww]orld [Bb]ank", source1_name), 1,0))
 
 mtd$wb <- factor(mtd$wb,
                 levels = c(0,1),
@@ -76,8 +74,6 @@ expl_tb <- function(expl, tbl = 1){
 #----------------------------------------------------------
 #   create tables
 #----------------------------------------------------------
-
-
 
 expl_var <- names(mtd)[str_detect(names(mtd),"expl_")]
 t <- lapply(expl_var, expl_tb)

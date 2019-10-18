@@ -4,7 +4,7 @@ source("R/load_data.R")
 source("R/esg_variability.R")
 ```
 
-ESG indicators belong to set of measures with wide diversity. Some of them are estimated every few years, whereas others are produced every three or six month. In addition, some indicators are bounded by construction--like percentages or indexes--, others are normalized across countries--like indicators in PPP values--, others are in units based on population size--like all those in x by 1,000 people--, among many other kinds of measures and units. This variety makes it difficult to compare directly one indicator to another, especially if any sort weight is going to be assigned all the indicators. 
+ESG indicators belong to set of measures of wide diversity. Some of them are estimated every few years, whereas others are produced every three or six month. In addition, some indicators are bounded by construction---like percentages or indexes---, others are normalized across countries--like indicators in PPP values--, others are in units based on population size---like all the indicators of the type, *x by 1,000 people*---, among many other kinds of measures and units. This variety makes it difficult to compare directly one indicator to another, especially if some or all the indicators are weighted in any particular fashion. 
 
 ```{r esg-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Density of coefficient of variation of ESG indicators", fig.margin = TRUE, fig.width = 6}
 g_cv +  geom_density(alpha = .2, fill = "#CCFFFF") + 

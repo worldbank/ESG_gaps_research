@@ -1,7 +1,7 @@
 book_filename: "ESG_gaps_research"
 repo: https://github.com/worldbank/ESG_gaps_research/
 output_dir: "docs"
-delete_merged_file: true
+delete_merged_file: false
 language:
   label:
     fig: "Figure "
@@ -15,11 +15,7 @@ rmd_files: [
   "ESG_background.Rmd",
   "ESG_methodology.Rmd",
   "ESG_highlevelresults.Rmd",
-  "ESG_availability.Rmd",
   "ESG_resultsbyexplanation.Rmd",
-  "ESG_volatility.Rmd",
-  "ESG_updates.Rmd",
-  "ESG_hhsAvailability.Rmd",
   "ESG_recommendations.Rmd",
 ]
 
