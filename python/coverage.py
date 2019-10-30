@@ -27,6 +27,8 @@ INDICATOR can be in the form CETS or SOURCE:CETS. If omitted, SOURCE defaults to
 import requests
 import datetime
 import sys
+import os
+import re
 import csv
 import copy
 import numpy
@@ -155,13 +157,31 @@ for id in config['INDICATOR']:
         except:
             pass
 
-    # sanity check: API calls for WGI data fail if minYear<1996
-    minYearApi = minYear if (minYear >= 1996 or int(src) != 3) else 1996
-    url = 'https://api.worldbank.org/v2/en/country/all/indicator/{}?source={}&format=json&per_page=20000&date={}:{}'.format(cets, src, minYearApi, maxYear)
-    # print url
+    localDataPath = os.path.sep.join([os.path.dirname(os.path.realpath(sys.argv[0])), 'local', '{}.csv'.format(cets)])
+    data = [{}] # minimal viable object
 
-    response = requests.get(url)
-    data = response.json()
+    if os.path.isfile(localDataPath):
+        with open(localDataPath) as localFile:
+            localReader = csv.reader(localFile)
+            localReader.next() # read and toss the header: we assume SERIES_NAME,COUNTRY_ISO,DATE,VALUE
+            data = [{}, []]    # new minimal viable object we can iterate over
+            src = ''
+            for row in localReader:
+                if len(row) >= 4 and row[0] and row[1] and row[2]:
+                    data[1].append({
+                        'indicator': {'id': cets, 'value': row[0]},
+                        'countryiso3code': row[1],
+                        'date': row[2],
+                        'value': row[3] # no type conversion, but that's okay
+                    })
+    else:
+        # sanity check: API calls for WGI data fail if minYear<1996
+        minYearApi = minYear if (minYear >= 1996 or int(src) != 3) else 1996
+        url = 'https://api.worldbank.org/v2/en/country/all/indicator/{}?source={}&format=json&per_page=20000&date={}:{}'.format(cets, src, minYearApi, maxYear)
+        # print url
+
+        response = requests.get(url)
+        data = response.json()
 
     if len(data) < 2 or src in archiveDBs:
         output = [src, cets]
