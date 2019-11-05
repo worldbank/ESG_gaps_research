@@ -1,8 +1,9 @@
 # Explanations for Gaps
 
-```{r setupvolatil, echo=FALSE, message=FALSE, warning=FALSE}
+```{r setupresults, echo=FALSE, message=FALSE, warning=FALSE}
 source("R/load_data.R")
 source("R/esg_explanations.R")
+source("R/esg_hhAvailability.R")
 ```
 
 
@@ -10,233 +11,153 @@ source("R/esg_explanations.R")
 ## Explanation A
 
 ```{r t-a}
-  toKable(t[[1]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation A')
+knitr::kable(t[[1]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation A', 
+        col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share"),
+        digits = 2) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
+A	
+Indicator has been explicitly deprecated or dropped	Indicator only exists in a deprecated database (e.g., WRI Archives, Africa Development Indicators)	Hopefully none of these are in the WBG ESG database . Recommend appropriate substitutes where available (e.g., PM2.5 for PM10)
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br><br><br><br><br><br>
+
 
 ## Explanation B
 
 ```{r t-b}
-  toKable(t[[2]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation B')
+knitr::kable(t[[2]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation B', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+B	
+Indicator still available, but not being updated in WDI	Indicator is in a current database, but does not have data for any country past a certain threshold (e.g., 2012)	This is really on DECDG to either update these indicators, explicitly remove them, or find substitutes
+
+
+<br><br><br><br><br><br><br><br><br><br>
 
 ## Explanation C
 
 ```{r t-c}
-  toKable(t[[3]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation C')
+  knitr::kable(t[[3]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation C', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
+C	
+MRV is subject to methodology lags 	1) original source is updated biennially or longer, OR;
+2) indicator is updated using raw data from 2+ years prior
+There may be some scope to address these in cases where WBG is the primary producer of both the indicator and the underlying raw data.
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br><br><br><br><br><br>
 
 ## Explanation D
 
 ```{r t-d}
-  toKable(t[[4]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation D')
+  knitr::kable(t[[4]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation D', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+D	
+MRV is subject to curation lags 	WBG’s update cycle is greater than that of the original source	This may be an area where we could improve if curation lags are material
+
+<br><br><br><br><br><br><br><br><br><br>
 
 ## Explanation E
 
 ```{r t-e}
-  toKable(t[[5]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation E')
+  knitr::kable(t[[5]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation E', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+E	MRV is subject to licensing lags (e.g., IEA)	Provider license prevents WBG from using latest available data	We could only improve these by eliminating legal restrictions or identifying good substitutes
+
+<br><br><br><br><br><br><br><br><br><br>
 
 ## Explanation F
 
 ```{r t-f}
-  toKable(t[[6]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation F')
+  knitr::kable(t[[6]],format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation F', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+F	
+Data coverage is dependent on country-level microdata	Indicator is produced from country-level microdata surveys with  varying schedules
+Frequency of household surveys is typically a capacity issue
+<br><br><br><br><br><br><br><br><br><br>
 
 ## Explanation G
 
 ```{r t-g}
-  toKable(t[[7]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation G')
+  knitr::kable(t[[7]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation G', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+G	
+Data coverage is geographically or economically limited	Values are entirely missing for classes of countries (high-income, small economies, etc)	These could be corrected for in many cases
+
+<br><br><br><br><br><br><br><br><br><br>
 
 ## Explanation H
 
 ```{r t-h}
-  toKable(t[[8]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation H')
+  knitr::kable(t[[8]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Explanation H', 
+          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
+  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+H	Data coverage limited by internal political decisions	Values are suppressed for certain countries
+This would theoretically include any per capita indicator
+
+<br><br><br><br><br><br><br><br><br><br>
+
+## Case Study: Household surveys availability
+
+```{r hh-indi, echo = FALSE}
+a <- mtd %>% 
+  filter(si_hhs == 1 | si_s == 1) %>% 
+  select(sector, input_name) 
+colnames(a) <- c("Sector", "Indicator")
+knitr::kable(a, format = 'html', table.attr = 'class=\"margintab marginnote\"',
+        caption = 'Indicators from household surveys')
+```
+
+Among the `r mtd %>% summarise(n_distinct(cetsid))` ESG indicators, `r mtd %>% filter(si_hhs == 1 | si_s == 1) %>% summarise(n_distinct(input_name))` of them come from surveys. Some of them come from labor force surveys, others come from living standard measurement surveys, and others from independent surveys or enterprise surveys. Each type of survey has characteristics that the others do not have, but, in general, surveys are characterized by being an expensive instrument, whose feasibility depends on budget. It requires planning, extensive execution, training of personal, data cleaning, and many other factors that makes their frequency unstable. 
+
+In this section, we explore the availability of household surveys---which are the underlying data of global poverty estimates---as a case study to understand the general complexity of the indicators that are calculated from microdata. Though not all the conclusions and insights from this case study apply to all surveys, a proper analysis of household surveys analysis can be adequate to inductively infer the context of other ESG indicators that use other types of surveys as their underlying data. 
+
+
+### Household surveys for Global Poverty monitoring
+
+The biggest repository of household surveys for Global poverty monitoring is known as [PovcalNet](http://iresearch.worldbank.org/PovcalNet/home.aspx) It is an online toohosted by the World Bank that was developed with the purpose of public replication of the World Bank’s poverty measures at the international poverty line (IPL). PovcalNet contains poverty estimates from more than 1,600 household surveys spanning 164 economies and over 40 years, from 1977 to 2017. 
+
+The household survey data are typically collected by national statistical offices in each country, and then compiled, processed, and vetted for inclusion in the Global Monitoring Database (GMD), the World Bank’s repository of multitopic income and expenditure household surveys used to monitor global poverty and shared prosperity. Selected variables have been harmonized to the extent possible such that levels and trends in poverty and other key sociodemographic attributes can be reasonably compared across and within countries over time. The GMD’s harmonized microdata are used in PovcalNet and the GDSP (World Bank 2018).
+
+### Gaps between surveys
+
+```{r hh-p-time, echo=FALSE, fig.cap = "Production of household surveys over time", fig.margin = TRUE}
+g_hhp
+```
+Poverty rates are based on one of two types of welfare aggregate measure, income or consumption. Countries choose their measure of preference, but, in general, poor countries tend to measure poverty with consumption surveys, whereas rich countries do so with income surveys.  Consumption surveys have a wide range of question and are thus more time-consuming to answer. Also, they are more expensive than income surveys and thus they are conducted around every five years. In contrast, income surveys are less expensive and mostly available every year. So, if a country measures poverty using a consumption-based survey, poverty and inequality measures will be available every five years in average. In the early 70s and 80s, the gap between surveys was so wide that poverty measures were available about every ten years. Today. The number of surveys available is larger and the year gaps between them are shorter. Figure \@ref(fig:hh-p-time) shows the production of surveys over time by region. As expected, the most recent years show a decay in the production, not because no surveys are beeing conducted, but because they have not been released yet. Overall it seems that all regions are doing very well on improving the number of household surveys available to measure poverty.
+
+```{r hh-map, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Number of years between last two surveys"}
+hh_map
+```
+
+At the country level, however, the frequency of household surveys varies widely, especially in the Africa region.  Figure \@ref(fig:hh-map) plots the number of years between the last two surveys publicly released in the countries available in the PovcalNet system. Countries in the Latina America and the East Europe and Central Asia regions conduct household surveys every year or every other year. In contrast, the average country in the Middle East and North Africa and in the Sub-Saharan Africa regions conduct household surveys every `r round(mg_af,1)` years. In addition, there are `r nd_af` countries with no household surveys for measuring poverty in these two regions. Other regions, like South Asia and East Asia and Pacific show a relatively better scenario than  Africa, yet not ideal. The average country releases a household survey every `r round(mg_sa,1)` years in the South Asia region, and every `r round(mg_ea,1)` in the East Asia and Pacific region. Though it is true that many countries in the EAP and the LAC regions (`r nd_ea` and `r nd_la`, respectively) do not release household surveys suitable to calculate international poverty measures, all of them are small islands with low population. 
+
+
+## Concluding remarks
+
+blah blah 

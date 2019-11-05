@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="5 Explanations for Gaps | ESG Gaps Research" />
+<meta property="og:title" content="4 Explanations for Gaps | ESG Gaps Research" />
 <meta property="og:type" content="book" />
 
 
@@ -16,16 +16,16 @@
 <meta name="author" content="The World Bank" />
 <meta name="author" content="Development economics, Data Group" />
 
-<meta name="date" content="2019-10-04" />
+<meta name="date" content="2019-10-17" />
 
 
 <meta name="description" content="ESG">
 
-<title>5 Explanations for Gaps | ESG Gaps Research</title>
+<title>4 Explanations for Gaps | ESG Gaps Research</title>
 
-<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
-<link href="libs/tufte-css-2015.12.29/envisioned.css" rel="stylesheet" />
-<link href="libs/msmb-css-0/msmb.css" rel="stylesheet" />
+<link href="libs/tufte-css/tufte.css" rel="stylesheet" />
+<link href="libs/tufte-css/envisioned.css" rel="stylesheet" />
+<link href="libs/msmb-css/msmb.css" rel="stylesheet" />
 <script>
 function toggle_visibility(id1, id2) {
 var e = document.getElementById(id1);
@@ -43,6 +43,15 @@ if(f.classList.contains('fa-plus-square')) {
 
 }
 </script>
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
 
 
 
@@ -67,8 +76,7 @@ if(f.classList.contains('fa-plus-square')) {
 <a href="background.html"><span class="toc-section-number">1</span> Background</a>
 <a href="methodology.html"><span class="toc-section-number">2</span> Methodology</a>
 <a href="high-level-results.html"><span class="toc-section-number">3</span> High Level results</a>
-<a href="esg-availability.html"><span class="toc-section-number">4</span> ESG availability</a>
-<a id="active-page" href="explanations-for-gaps.html"><span class="toc-section-number">5</span> Explanations for Gaps</a><ul class="toc-sections">
+<a id="active-page" href="explanations-for-gaps.html"><span class="toc-section-number">4</span> Explanations for Gaps</a><ul class="toc-sections">
 <li class="toc"><a href="#explanation-a"> Explanation A</a></li>
 <li class="toc"><a href="#explanation-b"> Explanation B</a></li>
 <li class="toc"><a href="#explanation-c"> Explanation C</a></li>
@@ -77,11 +85,10 @@ if(f.classList.contains('fa-plus-square')) {
 <li class="toc"><a href="#explanation-f"> Explanation F</a></li>
 <li class="toc"><a href="#explanation-g"> Explanation G</a></li>
 <li class="toc"><a href="#explanation-h"> Explanation H</a></li>
+<li class="toc"><a href="#case-study-household-surveys-availability"> Case Study: Household surveys availability</a></li>
+<li class="toc"><a href="#concluding-remarks"> Concluding remarks</a></li>
 </ul>
-<a href="variability-of-esg-indicators.html"><span class="toc-section-number">6</span> Variability of ESG indicators</a>
-<a href="updates.html"><span class="toc-section-number">7</span> Updates</a>
-<a href="household-surveys-availability.html"><span class="toc-section-number">8</span> Household surveys availability</a>
-<a href="recommendations.html"><span class="toc-section-number">9</span> Recommendations</a>
+<a href="recommendations.html"><span class="toc-section-number">5</span> Recommendations</a>
 </div>
 </li>
 </ul>
@@ -93,1160 +100,1431 @@ if(f.classList.contains('fa-plus-square')) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body><div id="explanations-for-gaps" class="section level1">
 <h1>
-<span class="header-section-number">5</span> Explanations for Gaps</h1>
+<span class="header-section-number">4</span> Explanations for Gaps</h1>
 <div id="explanation-a" class="section level2">
 <h2>
-<span class="header-section-number">5.1</span> Explanation A</h2>
-<table class="Rtable">
+<span class="header-section-number">4.1</span> Explanation A</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:t-a">Table 4.1: </span>Explanation A</span><!--</caption>--></p>
+<table class="margintab marginnote">
 <thead>
-<tr class="center">
-<th>
- 
+<tr>
+<th style="border-bottom:hidden" colspan="2">
 </th>
-<th>
- 
-</th>
-<th colspan="6">
-Sector
-</th>
-</tr>
-<tr class="center">
-<th>
- 
-</th>
-<th>
- 
-</th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 ENV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 GOV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 SOC
+</div>
 </th>
 </tr>
-<tr class="center">
-<th>
+<tr>
+<th style="text-align:left;">
 Source
 </th>
-<th>
+<th style="text-align:right;">
 all
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
 </tr>
 </thead>
 <tbody>
-<tr class="center">
-<th class="left">
-Other sources
-</th>
-<td>
-71
+<tr>
+<td style="text-align:left;">
+Other Sources
 </td>
-<td>
-21
+<td style="text-align:right;">
+104
 </td>
-<td>
-0.43
+<td style="text-align:right;">
+34
 </td>
-<td>
-13
+<td style="text-align:right;">
+0.147
 </td>
-<td>
-0.08
+<td style="text-align:right;">
+16
 </td>
-<td>
-37
+<td style="text-align:right;">
+0.188
 </td>
-<td>
-0.08
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+0.111
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 World Bank
-</th>
-<td>
-67
 </td>
-<td>
-26
+<td style="text-align:right;">
+31
 </td>
-<td>
-0.23
+<td style="text-align:right;">
+10
 </td>
-<td>
+<td style="text-align:right;">
+0.400
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
 12
 </td>
-<td>
-0.42
-</td>
-<td>
-29
-</td>
-<td>
-0.00
+<td style="text-align:right;">
+0.250
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 All
-</th>
-<td>
-138
 </td>
-<td>
-47
+<td style="text-align:right;">
+135
 </td>
-<td>
-0.32
+<td style="text-align:right;">
+44
 </td>
-<td>
+<td style="text-align:right;">
+0.205
+</td>
+<td style="text-align:right;">
 25
 </td>
-<td>
-0.24
+<td style="text-align:right;">
+0.160
 </td>
-<td>
+<td style="text-align:right;">
 66
 </td>
-<td>
-0.05
+<td style="text-align:right;">
+0.136
 </td>
 </tr>
 </tbody>
 </table>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p>A<br>
+Indicator has been explicitly deprecated or dropped Indicator only exists in a deprecated database (e.g., WRI Archives, Africa Development Indicators) Hopefully none of these are in the WBG ESG database . Recommend appropriate substitutes where available (e.g., PM2.5 for PM10)</p>
+<p><br><br><br><br><br><br><br><br><br><br></p>
 </div>
 <div id="explanation-b" class="section level2">
 <h2>
-<span class="header-section-number">5.2</span> Explanation B</h2>
-<table class="Rtable">
+<span class="header-section-number">4.2</span> Explanation B</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:t-b">Table 4.2: </span>Explanation B</span><!--</caption>--></p>
+<table class="margintab marginnote">
 <thead>
-<tr class="center">
-<th>
- 
+<tr>
+<th style="border-bottom:hidden" colspan="2">
 </th>
-<th>
- 
-</th>
-<th colspan="6">
-Sector
-</th>
-</tr>
-<tr class="center">
-<th>
- 
-</th>
-<th>
- 
-</th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 ENV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 GOV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 SOC
+</div>
 </th>
 </tr>
-<tr class="center">
-<th>
+<tr>
+<th style="text-align:left;">
 Source
 </th>
-<th>
+<th style="text-align:right;">
 all
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
 </tr>
 </thead>
 <tbody>
-<tr class="center">
-<th class="left">
-Other sources
-</th>
-<td>
-71
+<tr>
+<td style="text-align:left;">
+Other Sources
 </td>
-<td>
-21
+<td style="text-align:right;">
+104
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+34
 </td>
-<td>
-13
+<td style="text-align:right;">
+0.235
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+16
 </td>
-<td>
-37
+<td style="text-align:right;">
+0
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+0
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 World Bank
-</th>
-<td>
-67
 </td>
-<td>
-26
+<td style="text-align:right;">
+31
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+10
 </td>
-<td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
 12
 </td>
-<td>
-0.0
-</td>
-<td>
-29
-</td>
-<td>
-0.1
+<td style="text-align:right;">
+0
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 All
-</th>
-<td>
-138
 </td>
-<td>
-47
+<td style="text-align:right;">
+135
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+44
 </td>
-<td>
+<td style="text-align:right;">
+0.182
+</td>
+<td style="text-align:right;">
 25
 </td>
-<td>
-0.1
+<td style="text-align:right;">
+0
 </td>
-<td>
+<td style="text-align:right;">
 66
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+0
 </td>
 </tr>
 </tbody>
 </table>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p>B<br>
+Indicator still available, but not being updated in WDI Indicator is in a current database, but does not have data for any country past a certain threshold (e.g., 2012) This is really on DECDG to either update these indicators, explicitly remove them, or find substitutes</p>
+<p><br><br><br><br><br><br><br><br><br><br></p>
 </div>
 <div id="explanation-c" class="section level2">
 <h2>
-<span class="header-section-number">5.3</span> Explanation C</h2>
-<table class="Rtable">
+<span class="header-section-number">4.3</span> Explanation C</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:t-c">Table 4.3: </span>Explanation C</span><!--</caption>--></p>
+<table class="margintab marginnote">
 <thead>
-<tr class="center">
-<th>
- 
+<tr>
+<th style="border-bottom:hidden" colspan="2">
 </th>
-<th>
- 
-</th>
-<th colspan="6">
-Sector
-</th>
-</tr>
-<tr class="center">
-<th>
- 
-</th>
-<th>
- 
-</th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 ENV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 GOV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 SOC
+</div>
 </th>
 </tr>
-<tr class="center">
-<th>
+<tr>
+<th style="text-align:left;">
 Source
 </th>
-<th>
+<th style="text-align:right;">
 all
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
 </tr>
 </thead>
 <tbody>
-<tr class="center">
-<th class="left">
-Other sources
-</th>
-<td>
-71
+<tr>
+<td style="text-align:left;">
+Other Sources
 </td>
-<td>
-21
+<td style="text-align:right;">
+104
 </td>
-<td>
-0.24
+<td style="text-align:right;">
+34
 </td>
-<td>
-13
+<td style="text-align:right;">
+0.324
 </td>
-<td>
-0.08
+<td style="text-align:right;">
+16
 </td>
-<td>
-37
+<td style="text-align:right;">
+0.562
 </td>
-<td>
-0.22
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+0.2593
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 World Bank
-</th>
-<td>
-67
 </td>
-<td>
-26
+<td style="text-align:right;">
+31
 </td>
-<td>
-0.35
+<td style="text-align:right;">
+10
 </td>
-<td>
+<td style="text-align:right;">
+0.500
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
 12
 </td>
-<td>
-0.25
-</td>
-<td>
-29
-</td>
-<td>
-0.21
+<td style="text-align:right;">
+0.0833
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 All
-</th>
-<td>
-138
 </td>
-<td>
-47
+<td style="text-align:right;">
+135
 </td>
-<td>
-0.30
+<td style="text-align:right;">
+44
 </td>
-<td>
+<td style="text-align:right;">
+0.364
+</td>
+<td style="text-align:right;">
 25
 </td>
-<td>
-0.16
+<td style="text-align:right;">
+0.360
 </td>
-<td>
+<td style="text-align:right;">
 66
 </td>
-<td>
-0.21
+<td style="text-align:right;">
+0.2273
 </td>
 </tr>
 </tbody>
 </table>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p>C<br>
+MRV is subject to methodology lags 1) original source is updated biennially or longer, OR;
+2) indicator is updated using raw data from 2+ years prior
+There may be some scope to address these in cases where WBG is the primary producer of both the indicator and the underlying raw data.</p>
+<p><br><br><br><br><br><br><br><br><br><br></p>
 </div>
 <div id="explanation-d" class="section level2">
 <h2>
-<span class="header-section-number">5.4</span> Explanation D</h2>
-<table class="Rtable">
+<span class="header-section-number">4.4</span> Explanation D</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:t-d">Table 4.4: </span>Explanation D</span><!--</caption>--></p>
+<table class="margintab marginnote">
 <thead>
-<tr class="center">
-<th>
- 
+<tr>
+<th style="border-bottom:hidden" colspan="2">
 </th>
-<th>
- 
-</th>
-<th colspan="6">
-Sector
-</th>
-</tr>
-<tr class="center">
-<th>
- 
-</th>
-<th>
- 
-</th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 ENV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 GOV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 SOC
+</div>
 </th>
 </tr>
-<tr class="center">
-<th>
+<tr>
+<th style="text-align:left;">
 Source
 </th>
-<th>
+<th style="text-align:right;">
 all
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
 </tr>
 </thead>
 <tbody>
-<tr class="center">
-<th class="left">
-Other sources
-</th>
-<td>
-71
+<tr>
+<td style="text-align:left;">
+Other Sources
 </td>
-<td>
-21
+<td style="text-align:right;">
+104
 </td>
-<td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
 0
 </td>
-<td>
-13
+<td style="text-align:right;">
+16
 </td>
-<td>
+<td style="text-align:right;">
 0
 </td>
-<td>
-37
+<td style="text-align:right;">
+54
 </td>
-<td>
-0
+<td style="text-align:right;">
+0.0185
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 World Bank
-</th>
-<td>
-67
 </td>
-<td>
-26
+<td style="text-align:right;">
+31
 </td>
-<td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
 0
 </td>
-<td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
 12
 </td>
-<td>
-0
-</td>
-<td>
-29
-</td>
-<td>
-0
+<td style="text-align:right;">
+0.0833
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 All
-</th>
-<td>
-138
 </td>
-<td>
-47
+<td style="text-align:right;">
+135
 </td>
-<td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
 0
 </td>
-<td>
+<td style="text-align:right;">
 25
 </td>
-<td>
+<td style="text-align:right;">
 0
 </td>
-<td>
+<td style="text-align:right;">
 66
 </td>
-<td>
-0
+<td style="text-align:right;">
+0.0303
 </td>
 </tr>
 </tbody>
 </table>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p>D<br>
+MRV is subject to curation lags WBG’s update cycle is greater than that of the original source This may be an area where we could improve if curation lags are material</p>
+<p><br><br><br><br><br><br><br><br><br><br></p>
 </div>
 <div id="explanation-e" class="section level2">
 <h2>
-<span class="header-section-number">5.5</span> Explanation E</h2>
-<table class="Rtable">
+<span class="header-section-number">4.5</span> Explanation E</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:t-e">Table 4.5: </span>Explanation E</span><!--</caption>--></p>
+<table class="margintab marginnote">
 <thead>
-<tr class="center">
-<th>
- 
+<tr>
+<th style="border-bottom:hidden" colspan="2">
 </th>
-<th>
- 
-</th>
-<th colspan="6">
-Sector
-</th>
-</tr>
-<tr class="center">
-<th>
- 
-</th>
-<th>
- 
-</th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 ENV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 GOV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 SOC
+</div>
 </th>
 </tr>
-<tr class="center">
-<th>
+<tr>
+<th style="text-align:left;">
 Source
 </th>
-<th>
+<th style="text-align:right;">
 all
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
 </tr>
 </thead>
 <tbody>
-<tr class="center">
-<th class="left">
-Other sources
-</th>
-<td>
-71
+<tr>
+<td style="text-align:left;">
+Other Sources
 </td>
-<td>
-21
+<td style="text-align:right;">
+104
 </td>
-<td>
-0.1
+<td style="text-align:right;">
+34
 </td>
-<td>
-13
+<td style="text-align:right;">
+0.235
 </td>
-<td>
-0.0
+<td style="text-align:right;">
+16
 </td>
-<td>
-37
+<td style="text-align:right;">
+0
 </td>
-<td>
-0.0
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+0
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 World Bank
-</th>
-<td>
-67
 </td>
-<td>
-26
+<td style="text-align:right;">
+31
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+10
 </td>
-<td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
 12
 </td>
-<td>
-0.0
-</td>
-<td>
-29
-</td>
-<td>
-0.0
+<td style="text-align:right;">
+0
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 All
-</th>
-<td>
-138
 </td>
-<td>
-47
+<td style="text-align:right;">
+135
 </td>
-<td>
-0.1
+<td style="text-align:right;">
+44
 </td>
-<td>
+<td style="text-align:right;">
+0.182
+</td>
+<td style="text-align:right;">
 25
 </td>
-<td>
-0.0
+<td style="text-align:right;">
+0
 </td>
-<td>
+<td style="text-align:right;">
 66
 </td>
-<td>
-0.0
+<td style="text-align:right;">
+0
 </td>
 </tr>
 </tbody>
 </table>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p>E MRV is subject to licensing lags (e.g., IEA) Provider license prevents WBG from using latest available data We could only improve these by eliminating legal restrictions or identifying good substitutes</p>
+<p><br><br><br><br><br><br><br><br><br><br></p>
 </div>
 <div id="explanation-f" class="section level2">
 <h2>
-<span class="header-section-number">5.6</span> Explanation F</h2>
-<table class="Rtable">
+<span class="header-section-number">4.6</span> Explanation F</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:t-f">Table 4.6: </span>Explanation F</span><!--</caption>--></p>
+<table class="margintab marginnote">
 <thead>
-<tr class="center">
-<th>
- 
+<tr>
+<th style="border-bottom:hidden" colspan="2">
 </th>
-<th>
- 
-</th>
-<th colspan="6">
-Sector
-</th>
-</tr>
-<tr class="center">
-<th>
- 
-</th>
-<th>
- 
-</th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 ENV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 GOV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 SOC
+</div>
 </th>
 </tr>
-<tr class="center">
-<th>
+<tr>
+<th style="text-align:left;">
 Source
 </th>
-<th>
+<th style="text-align:right;">
 all
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
 </tr>
 </thead>
 <tbody>
-<tr class="center">
-<th class="left">
-Other sources
-</th>
-<td>
-71
+<tr>
+<td style="text-align:left;">
+Other Sources
 </td>
-<td>
-21
+<td style="text-align:right;">
+104
 </td>
-<td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
 0
 </td>
-<td>
-13
+<td style="text-align:right;">
+16
 </td>
-<td>
-0
+<td style="text-align:right;">
+0.000
 </td>
-<td>
-37
+<td style="text-align:right;">
+54
 </td>
-<td>
-0
+<td style="text-align:right;">
+0.0185
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 World Bank
-</th>
-<td>
-67
 </td>
-<td>
-26
+<td style="text-align:right;">
+31
 </td>
-<td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
 0
 </td>
-<td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.111
+</td>
+<td style="text-align:right;">
 12
 </td>
-<td>
-0
-</td>
-<td>
-29
-</td>
-<td>
-0
+<td style="text-align:right;">
+0.4167
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 All
-</th>
-<td>
-138
 </td>
-<td>
-47
+<td style="text-align:right;">
+135
 </td>
-<td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
 0
 </td>
-<td>
+<td style="text-align:right;">
 25
 </td>
-<td>
-0
+<td style="text-align:right;">
+0.040
 </td>
-<td>
+<td style="text-align:right;">
 66
 </td>
-<td>
-0
+<td style="text-align:right;">
+0.0909
 </td>
 </tr>
 </tbody>
 </table>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p>F<br>
+Data coverage is dependent on country-level microdata Indicator is produced from country-level microdata surveys with varying schedules
+Frequency of household surveys is typically a capacity issue
+<br><br><br><br><br><br><br><br><br><br></p>
 </div>
 <div id="explanation-g" class="section level2">
 <h2>
-<span class="header-section-number">5.7</span> Explanation G</h2>
-<table class="Rtable">
+<span class="header-section-number">4.7</span> Explanation G</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:t-g">Table 4.7: </span>Explanation G</span><!--</caption>--></p>
+<table class="margintab marginnote">
 <thead>
-<tr class="center">
-<th>
- 
+<tr>
+<th style="border-bottom:hidden" colspan="2">
 </th>
-<th>
- 
-</th>
-<th colspan="6">
-Sector
-</th>
-</tr>
-<tr class="center">
-<th>
- 
-</th>
-<th>
- 
-</th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 ENV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 GOV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 SOC
+</div>
 </th>
 </tr>
-<tr class="center">
-<th>
+<tr>
+<th style="text-align:left;">
 Source
 </th>
-<th>
+<th style="text-align:right;">
 all
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
 </tr>
 </thead>
 <tbody>
-<tr class="center">
-<th class="left">
-Other sources
-</th>
-<td>
-71
+<tr>
+<td style="text-align:left;">
+Other Sources
 </td>
-<td>
-21
+<td style="text-align:right;">
+104
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+34
 </td>
-<td>
-13
+<td style="text-align:right;">
+0.206
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+16
 </td>
-<td>
-37
+<td style="text-align:right;">
+0.25
 </td>
-<td>
-0.4
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+0.463
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 World Bank
-</th>
-<td>
-67
 </td>
-<td>
-26
+<td style="text-align:right;">
+31
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+10
 </td>
-<td>
+<td style="text-align:right;">
+0.100
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
 12
 </td>
-<td>
-0.2
-</td>
-<td>
-29
-</td>
-<td>
-0.5
+<td style="text-align:right;">
+0.500
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 All
-</th>
-<td>
-138
 </td>
-<td>
-47
+<td style="text-align:right;">
+135
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+44
 </td>
-<td>
+<td style="text-align:right;">
+0.182
+</td>
+<td style="text-align:right;">
 25
 </td>
-<td>
-0.2
+<td style="text-align:right;">
+0.16
 </td>
-<td>
+<td style="text-align:right;">
 66
 </td>
-<td>
-0.4
+<td style="text-align:right;">
+0.470
 </td>
 </tr>
 </tbody>
 </table>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p>G<br>
+Data coverage is geographically or economically limited Values are entirely missing for classes of countries (high-income, small economies, etc) These could be corrected for in many cases</p>
+<p><br><br><br><br><br><br><br><br><br><br></p>
 </div>
 <div id="explanation-h" class="section level2">
 <h2>
-<span class="header-section-number">5.8</span> Explanation H</h2>
-<table class="Rtable">
+<span class="header-section-number">4.8</span> Explanation H</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:t-h">Table 4.8: </span>Explanation H</span><!--</caption>--></p>
+<table class="margintab marginnote">
 <thead>
-<tr class="center">
-<th>
- 
+<tr>
+<th style="border-bottom:hidden" colspan="2">
 </th>
-<th>
- 
-</th>
-<th colspan="6">
-Sector
-</th>
-</tr>
-<tr class="center">
-<th>
- 
-</th>
-<th>
- 
-</th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 ENV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 GOV
+</div>
 </th>
-<th colspan="2">
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 SOC
+</div>
 </th>
 </tr>
-<tr class="center">
-<th>
+<tr>
+<th style="text-align:left;">
 Source
 </th>
-<th>
+<th style="text-align:right;">
 all
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
-<th>
+<th style="text-align:right;">
 n
 </th>
-<th>
+<th style="text-align:right;">
 Share
 </th>
 </tr>
 </thead>
 <tbody>
-<tr class="center">
-<th class="left">
-Other sources
-</th>
-<td>
-71
+<tr>
+<td style="text-align:left;">
+Other Sources
 </td>
-<td>
-21
+<td style="text-align:right;">
+104
 </td>
-<td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
 0
 </td>
-<td>
-13
+<td style="text-align:right;">
+16
 </td>
-<td>
+<td style="text-align:right;">
 0
 </td>
-<td>
-37
+<td style="text-align:right;">
+54
 </td>
-<td>
+<td style="text-align:right;">
 0
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 World Bank
-</th>
-<td>
-67
 </td>
-<td>
-26
+<td style="text-align:right;">
+31
 </td>
-<td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
 0
 </td>
-<td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
 12
 </td>
-<td>
-0
-</td>
-<td>
-29
-</td>
-<td>
+<td style="text-align:right;">
 0
 </td>
 </tr>
-<tr class="center">
-<th class="left">
+<tr>
+<td style="text-align:left;">
 All
-</th>
-<td>
-138
 </td>
-<td>
-47
+<td style="text-align:right;">
+135
 </td>
-<td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
 0
 </td>
-<td>
+<td style="text-align:right;">
 25
 </td>
-<td>
+<td style="text-align:right;">
 0
 </td>
-<td>
+<td style="text-align:right;">
 66
 </td>
-<td>
+<td style="text-align:right;">
 0
 </td>
 </tr>
 </tbody>
 </table>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p>H Data coverage limited by internal political decisions Values are suppressed for certain countries
+This would theoretically include any per capita indicator</p>
+<p><br><br><br><br><br><br><br><br><br><br></p>
+</div>
+<div id="case-study-household-surveys-availability" class="section level2">
+<h2>
+<span class="header-section-number">4.9</span> Case Study: Household surveys availability</h2>
+
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:hh-indi">Table 4.9: </span>Indicators from household surveys</span><!--</caption>--></p>
+<table class="margintab marginnote">
+<thead><tr>
+<th style="text-align:left;">
+Sector
+</th>
+<th style="text-align:left;">
+Indicator
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Literacy rate, adult total (% of people ages 15 and above)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Labor force with secondary education (% of total)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Employment to population ratio, ages 15-24, total (%) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Unemployment, total (% of total labor force) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Vulnerable employment, total (% of total employment) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Unemployment, youth total (% of total labor force ages 15-24) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Labor force participation rate, total (% of total population ages 15-64) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Ratio of female to male labor force participation rate (%) (modeled ILO estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Children in employment, total (% of children ages 7-14)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Population ages 65 and above (% of total)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Ease of doing business index (1=most business-friendly regulations)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Time required to start a business (days)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Total tax rate (% of commercial profits)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Mortality rate, infant (per 1,000 live births)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Value lost due to electrical outages (% of sales for affected firms)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Maternal mortality ratio (modeled estimate, per 100,000 live births)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+People using safely managed drinking water services (% of population)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+People using safely managed sanitation services (% of population)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Fertility rate, total (births per woman)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Mortality rate, under-5 (per 1,000 live births)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Exports of goods and services (% of GDP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GOV
+</td>
+<td style="text-align:left;">
+Unmet need for contraception (% of married women ages 15-49)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Cause of death, by communicable diseases and maternal, prenatal and nutrition conditions (% of total)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Net migration
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Poverty headcount ratio at national poverty lines (% of population)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Access to electricity (% of population)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+GINI index (World Bank estimate)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Average duration of power outages (hours)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Income share held by lowest 20%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+Unemployment, female (% of female labor force) (modeled ILO estimate)
+</td>
+</tr>
+</tbody>
+</table>
+<p>Among the 135 ESG indicators, 31 of them come from surveys. Some of them come from labor force surveys, others come from living standard measurement surveys, and others from independent surveys or enterprise surveys. Each type of survey has characteristics that the others do not have, but, in general, surveys are characterized by being an expensive instrument, whose feasibility depends on budget. It requires planning, extensive execution, training of personal, data cleaning, and many other factors that makes their frequency unstable.</p>
+<p>In this section, we explore the availability of household surveys—which are the underlying data of global poverty estimates—as a case study to understand the general complexity of the indicators that are calculated from microdata. Though not all the conclusions and insights from this case study apply to all surveys, a proper analysis of household surveys analysis can be adequate to inductively infer the context of other ESG indicators that use other types of surveys as their underlying data.</p>
+<div id="household-surveys-for-global-poverty-monitoring" class="section level3">
+<h3>
+<span class="header-section-number">4.9.1</span> Household surveys for Global Poverty monitoring</h3>
+<p>The biggest repository of household surveys for Global poverty monitoring is known as <a href="http://iresearch.worldbank.org/PovcalNet/home.aspx">PovcalNet</a> It is an online toohosted by the World Bank that was developed with the purpose of public replication of the World Bank’s poverty measures at the international poverty line (IPL). PovcalNet contains poverty estimates from more than 1,600 household surveys spanning 164 economies and over 40 years, from 1977 to 2017.</p>
+<p>The household survey data are typically collected by national statistical offices in each country, and then compiled, processed, and vetted for inclusion in the Global Monitoring Database (GMD), the World Bank’s repository of multitopic income and expenditure household surveys used to monitor global poverty and shared prosperity. Selected variables have been harmonized to the extent possible such that levels and trends in poverty and other key sociodemographic attributes can be reasonably compared across and within countries over time. The GMD’s harmonized microdata are used in PovcalNet and the GDSP (World Bank 2018).</p>
+</div>
+<div id="gaps-between-surveys" class="section level3">
+<h3>
+<span class="header-section-number">4.9.2</span> Gaps between surveys</h3>
+<p>
+<span class="marginnote shownote">
+<!--
+<div class="figure">--><span id="fig:hh-p-time"></span>
+<img src="ESG_gaps_research_files/figure-html/hh-p-time-1.png" alt="Production of household surveys over time" width="672"><!--
+<p class="caption marginnote">-->Figure 4.1: Production of household surveys over time<!--</p>-->
+<!--</div>--></span>
+</p>
+<p>Poverty rates are based on one of two types of welfare aggregate measure, income or consumption. Countries choose their measure of preference, but, in general, poor countries tend to measure poverty with consumption surveys, whereas rich countries do so with income surveys. Consumption surveys have a wide range of question and are thus more time-consuming to answer. Also, they are more expensive than income surveys and thus they are conducted around every five years. In contrast, income surveys are less expensive and mostly available every year. So, if a country measures poverty using a consumption-based survey, poverty and inequality measures will be available every five years in average. In the early 70s and 80s, the gap between surveys was so wide that poverty measures were available about every ten years. Today. The number of surveys available is larger and the year gaps between them are shorter. Figure <a href="explanations-for-gaps.html#fig:hh-p-time">4.1</a> shows the production of surveys over time by region. As expected, the most recent years show a decay in the production, not because no surveys are beeing conducted, but because they have not been released yet. Overall it seems that all regions are doing very well on improving the number of household surveys available to measure poverty.</p>
+<div class="figure">
+<span id="fig:hh-map"></span>
+<p class="caption marginnote shownote">
+Figure 4.2: Number of years between last two surveys
+</p>
+<img src="ESG_gaps_research_files/figure-html/hh-map-1.png" alt="Number of years between last two surveys" width="672">
+</div>
+<p>At the country level, however, the frequency of household surveys varies widely, especially in the Africa region. Figure <a href="explanations-for-gaps.html#fig:hh-map">4.2</a> plots the number of years between the last two surveys publicly released in the countries available in the PovcalNet system. Countries in the Latina America and the East Europe and Central Asia regions conduct household surveys every year or every other year. In contrast, the average country in the Middle East and North Africa and in the Sub-Saharan Africa regions conduct household surveys every 5.7 years. In addition, there are 15 countries with no household surveys for measuring poverty in these two regions. Other regions, like South Asia and East Asia and Pacific show a relatively better scenario than Africa, yet not ideal. The average country releases a household survey every 5.2 years in the South Asia region, and every 3.8 in the East Asia and Pacific region. Though it is true that many countries in the EAP and the LAC regions (21 and 16, respectively) do not release household surveys suitable to calculate international poverty measures, all of them are small islands with low population.</p>
+</div>
+</div>
+<div id="concluding-remarks" class="section level2">
+<h2>
+<span class="header-section-number">4.10</span> Concluding remarks</h2>
+<p>blah blah</p>
 
 </div>
 </div></body></html>
 
 <p style="text-align: center;">
-<a href="esg-availability.html"><button class="btn btn-default">Previous</button></a>
-<a href="variability-of-esg-indicators.html"><button class="btn btn-default">Next</button></a>
+<a href="high-level-results.html"><button class="btn btn-default">Previous</button></a>
+<a href="recommendations.html"><button class="btn btn-default">Next</button></a>
 </p>
 <p class="build-date">Page built: 
-2019-10-04
+2019-10-17
 </p>
 </div>
 </div>

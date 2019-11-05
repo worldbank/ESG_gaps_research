@@ -46,15 +46,27 @@ vars <- c("countrycode", "regioncode", "year", "datayear", "datatype")
 
 load(file = "data/povcalnet.RData")
 
-df <- raw_df %>%
+# temporal df
+dft <- raw_df %>%
   group_by(countrycode, datatype, year) %>%
   mutate(n = n_distinct(coveragetype)) %>%
   filter((n > 1 & coveragetype %in% c("N", "A")) | n == 1) %>%
-  group_by(countrycode) %>%
+  group_by(countrycode)
+
+# data type of max year
+mtype <-  dft %>%
+  filter(year == max(year)) %>%
+  select(countrycode, mtype = datatype)
+
+# join dft with datatype of max year
+df <- dft %>%
+  inner_join(mtype) %>%
+  filter(datatype == mtype) %>% # keep datatype of max year in whole series
   mutate(n = n_distinct(datatype)) %>%
-  filter(n == 1 | (n > 1 & datatype == "consumption")) %>%
+  filter(n == 1 | (n > 1 & datatype == "consumption")) %>% # if 2 datatypes in max year, keep con
   ungroup() %>% select(vars)
 
+rm(dft, mtype)
 
 df1 <- df %>%
   arrange(countrycode, datatype, year) %>%
@@ -132,7 +144,7 @@ cnames <- tibble(region = cnames,
                  countrycode = countrycode(cnames, 'country.name', 'iso3c'))
 
 world <- inner_join(world, cnames)
-wdf <- inner_join(df1, world) %>%
+wdf <- inner_join(df1, world, by = c("countrycode" = "countrycode")) %>%
   mutate(text = paste0("Country: ", country, "\n",
                        "Gap: ", gap, " years\n")) %>%
   filter(!is.na(country))
