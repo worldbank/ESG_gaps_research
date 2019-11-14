@@ -7,7 +7,38 @@ source("R/esg_availability.R")
 source("R/esg_variability.R")
 ```
 
-<font color="red" size="5" >Short introduction by Tim about the previous paper and the updated base line.</font>
+This document builds upon research first presented in the discussion paper
+*Options for Improving Use of ESG for Soveraign Bond Analysis* (World Bank, 2018).
+Interviews ESG data providers found that most obtain at least some, and often a subsantial amount
+of, ata from World Bank databases.
+137 indicators were specifically identified from these interviews, of which 127 could be mapped to
+active databases in theWorld Bank's data API, enabling the authors to [perform a rapid
+assessment][2018-calcs] of data coverage and gaps.
+The paper further found that "data coverage is a significant issue in WBG data used for ESG."
+Looking at most recent available values (MRVs) by indicator and country, the paper found that
+just 41 ESG indicators (out of 127) had a value from 2017 or later (1 year old) for at least 50% of countries;
+74 ESG indicators had a value from 2015 or later (3 years old) for at least 50% of countries. However,
+while the 2018 paper suggested a set of options for improving the availability and usefulness of
+ESG data, it stopped short of further investigating the reasons that might give rise to gaps in data coverage
+or suggesting specific strategies to address them.
+
+This report uses a different selection of ESG indicators than that used in the 2018 report: 135 indicators
+compared to the original 137, but not excluding indicators in inactive databases as this is an important consideration
+in the gaps analyis.
+The sample of indicators has expanded to include additions from two new sources: the
+forthcoming Blackrock Sovereign Sustainability Index (BSSI) and the World Bank's own [curated ESG dataset][esg-ddh].
+In addition, further research into the original group of data providers has produced additional indicators.
+Conversely, we decided to some indicators used exclusively by one data provider (Versk-Maplecroft) because strong
+similarities between them (e.g., groups of very similar trade or debt measures) may have been skewing the results.
+
+The other factor that has changed since the 2018 report is of course that it is now a year later, and some underlying
+databases have been updated (at least once) with new data, while others have not been updated. As a result, if the same
+analysis were peformed today with 2019 as a reference the results would likely be different than those above. That said,
+this document attempts to provide a more comprehensive and current understanding of data availability and coverage as context
+for the gaps analysis.
+
+[2018-calcs]: https://docs.google.com/spreadsheets/d/1NDJQO7Ggl-zSf43YcQFhYqn6koOsEh_47O4Kh_rKQIs/edit#gid=1177047334
+[esg-ddh]:    https://datacatalog.worldbank.org/dataset/environment-social-and-governance-data
 
 ## ESG Coverage
 

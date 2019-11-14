@@ -1,8 +1,9 @@
 # Methodology
 
-* Define the "ideal" coverage case: 90%+ countries for 2018 or later
-* Describe the "explanations" and definitions
-* Scoring
+* Overview TIM
+* Define the "ideal" coverage case: 90%+ countries for 2018 or later TIM
+* Describe the "explanations" and definitions A-F/TIM, G-H/ANDRES
+* Scoring TIM??
 
 
 ## Database description
