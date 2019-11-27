@@ -6,19 +6,20 @@
 coverage.py produces quick density coverage stats for an indicator
 
 Usage:
-  coverage.py [--verbose --sources --prefixes --bssi --gaps] [--start YEAR] [--income INC] [--region RGN] [--since YEARS] [--archived-dbs IDS] INDICATOR...
+  coverage.py [--verbose --sources --prefixes --bssi --gaps] [--start YEAR] [--income INC] [--region RGN] [--since YEARS] [--archived-dbs IDS] [--small-economy-cutoff POP] INDICATOR...
 
 Options:
-  --verbose, -v       detailed output
-  --prefixes, -p      add a prefix column to output
-  --start, -s YEAR    start year [default: 2000]
-  --since YEARS       comma-separated list of years for coverage analysis [default: 2010,2014,2016,2018]
-  --archived-dbs IDS  comma-separated list of database IDs to treat as archived: don't analyze these [default: 11,57]
-  --income INC        only this income group (~ to exclude)
-  --region RGN        only this region (~ to exclude)
-  --bssi              only BSSI countries
-  --gaps              include gaps analysis
-  --sources           include indicator sources
+  --verbose, -v                   detailed output
+  --prefixes, -p                  add a prefix column to output
+  --start, -s YEAR                start year [default: 2000]
+  --since YEARS                   comma-separated list of years for coverage analysis [default: 2010,2014,2016,2018]
+  --archived-dbs IDS              comma-separated list of database IDs to treat as archived: don't analyze these [default: 11,57]
+  --income INC                    only this income group (~ to exclude)
+  --region RGN                    only this region (~ to exclude)
+  --bssi                          only BSSI countries
+  --gaps                          include gaps analysis
+  --small-economy-cutoff, -e POP  population threshold for small economies in gaps analysis [default: 120000]
+  --sources                       include indicator sources
 
 INDICATOR can be in the form CETS or SOURCE:CETS. If omitted, SOURCE defaults to 2
 
@@ -48,6 +49,7 @@ bssi_countries = ['ARG', 'AUS', 'AUT', 'BEL', 'BRA', 'CAN', 'CHL', 'CHN', 'COL',
 config = docopt(__doc__)
 
 minYear = int(config['--start'])
+smallEconomyThreshold = int(config['--small-economy-cutoff'])
 maxYear = datetime.datetime.now().year - 1
 actualMaxYear = None
 
@@ -60,7 +62,7 @@ if config['--region'] and config['--region'][0] == '~':
     config['--region'] = config['--region'][1:]
     regionFlag = False
 
-archiveDBs = [int(i) for i in config['--archived-dbs'].split(',')]
+archiveDBs = [i for i in config['--archived-dbs'].split(',')]
 
 yearKeys = [int(i) for i in config['--since'].split(',')]
 _yearBreaks = {}
@@ -100,7 +102,7 @@ for elem in wbgapi.fetch('https://api.worldbank.org/v2/en/country'):
           'pop': pop,
           'income': elem['incomeLevel']['id'],
           'region': elem['region']['id'],
-          'smallCountry': pop and pop < 100000,
+          'smallCountry': pop and pop < smallEconomyThreshold,
           'richCountry': elem['incomeLevel']['id'] == 'HIC',
         }
 
@@ -178,10 +180,14 @@ for id in config['INDICATOR']:
         # sanity check: API calls for WGI data fail if minYear<1996
         minYearApi = minYear if (minYear >= 1996 or int(src) != 3) else 1996
         url = 'https://api.worldbank.org/v2/en/country/all/indicator/{}?source={}&format=json&per_page=20000&date={}:{}'.format(cets, src, minYearApi, maxYear)
-        # print url
 
-        response = requests.get(url)
-        data = response.json()
+        try:
+            response = requests.get(url)
+            data = response.json()
+        except:
+            print 'API ERROR'
+            print url
+            raise
 
     if len(data) < 2 or src in archiveDBs:
         output = [src, cets]
