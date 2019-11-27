@@ -6,6 +6,26 @@
 * Scoring TIM??
 
 
+For explanation G, we tried getting GDP sector information for small economies, but this
+is all there is (unlisted countries have no GDP data):
+
+COUNTRY,SP.POP.TOTL,NV.SRV.TOTL.KD,NV.AGR.TOTL.KD,NV.IND.TOTL.KD
+FSM,,,
+KNA,0.655,0.012,0.221
+SYC,,,
+DMA,0.573,0.113,0.119
+MHL,,,
+AND,,,
+ATG,0.702,0.007,0.177
+GRD,0.649,0.052,0.150
+KIR,,,
+PLW,,,
+TUV,,,
+TON,,,
+VCT,0.618,0.064,0.159
+NRU,,,
+
+
 ## Database description
 
 The final database assembled for analysis had a total of 35 variables for a total of 138 indicators. 47 indicators are environmental indicators, 25 governance indicators and 66 social indicators. The World Bank is the source of 26 indicators, of which 10 each are environmental and social indicators respectively and 6 are governance indicators. Organizations pertaining to the UN system are a source for 53 indicators of which 41 social indicators, 8 environmental indicators and 4 governance indicators. 57 indicators are sourced from different organization grouped under the term of other organization. 29 of these indicators are environmental, 15 are social  and 13 are governance indicators. 
