@@ -8,7 +8,7 @@ source("R/esg_variability.R")
 ```
 
 This document builds upon research first presented in the discussion paper
-*Options for Improving Use of ESG for Soveraign Bond Analysis* (World Bank, 2018).
+*Options for Improving Use of ESG for Sovereign Bond Analysis* (World Bank, 2018).
 Interviews ESG data providers found that most obtain at least some, and often a subsantial amount
 of, ata from World Bank databases.
 137 indicators were specifically identified from these interviews, of which 127 could be mapped to
@@ -21,6 +21,12 @@ just 41 ESG indicators (out of 127) had a value from 2017 or later (1 year old) 
 while the 2018 paper suggested a set of options for improving the availability and usefulness of
 ESG data, it stopped short of further investigating the reasons that might give rise to gaps in data coverage
 or suggesting specific strategies to address them.
+
+The objective of this report is to pick up where the previous paper left off, and  to better understand
+the circumstances that explain gaps in data coverage. To do so, this report identifies a set of "explanations"
+that could be partially responsible for gaps in any particular series. The hope is that with a better understanding
+of why gaps occur and the pervasiveness of various explanatory factors, effective steps can be established to
+eliminate or mitigate gaps.
 
 This report uses a different selection of ESG indicators than that used in the 2018 report: 135 indicators
 compared to the original 137, but not excluding indicators in inactive databases as this is an important consideration

@@ -1,5 +1,61 @@
 # Methodology
 
+*Start with: what is a data gap? In this case it's particularly focused on MRV*
+
+To better understand the nature of data gaps we consulted with experts in data management at the World Bank to
+identify a list of explanatory factors which are described below. These "explanations" are defined such that they can be used
+to consistently "tag" indicators to which they apply. They are particularly relevant to time series statistics.
+Using metadata in the World Bank API and interviews with members
+of the data management team, we examined each indicator through the lens of these explanations and recorded the results
+as dummy variables in a metadata database. It is possible that multiple explanations apply to any given indicator.
+
+## Description of Explanations ##
+
+### Ideal Case ###
+
+The World Bank API defines 217 countries and economies. Indicators that had observations for 2018 or later (this research
+was conducted in 2019) for at least 196 countries (90%) were considered "non gap" indicators and were not tagged with
+any further explanations.
+
+### A. Dropped or Deprecated ###
+
+While most major World Bank time series databases are updated on regular schedules, it is common for individual indicators
+and occasionally entire databases to be discontinued. This can occur if the original provider or program discontinues
+support for the data, or if policies, programs, or methodologies evolve such that the data is no longer relevant.
+In these cases, the time series is no longer updated with recent observations, and the series becomes increasingly obsolete.
+Deprecated indicators in the WDI are typically removed and are available only in the [WDI Archives][wdi-archives].
+
+**Definition:** the indicator only exists in a discontinued or "archived" database, including:
+
+* [WDI Archives][wdi-archives] (API source=2)
+* [Africa Development Indicators][adi] (API source=11)
+
+**Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
+
+
+### B. No Longer Updated ###
+
+In other cases, an indicator may remain in an active database but fall out of active maintenance. This may be the case as a precursor
+to Explanation A above, or it may be attributable to lapsed oversight, i.e., there is no longer a person or team responsible
+for the indicator (e.g., the original manager took another position or retired). In these cases as well, the time series
+becomes increasingly obsolete as it is no longer updated.
+
+**Definition:** the indicator has no observations for any country for the last five years (2014-present)
+
+**Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
+
+### C. Methodology Lags ###
+
+### D. Curation Lags ###
+
+### E. Licensing Constraints ###
+
+### F. Survey Dependencies ###
+
+### G. Limited Relevance ###
+
+
+
 * Overview TIM
 * Define the "ideal" coverage case: 90%+ countries for 2018 or later TIM
 * Describe the "explanations" and definitions A-F/TIM, G-H/ANDRES
@@ -35,3 +91,6 @@ The final database assembled for analysis had a total of 35 variables for a tota
     WBG    | 10    | 10     | 6
   UN System | 8 | 41 | 4
   Other orgs | 29 | 15 | 1
+
+[wdi-archives]: https://datacatalog.worldbank.org/dataset/wdi-database-archives
+[adi]: https://datacatalog.worldbank.org/dataset/africa-development-indicators
