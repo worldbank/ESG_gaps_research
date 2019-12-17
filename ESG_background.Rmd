@@ -32,8 +32,7 @@ This report uses a different selection of ESG indicators than that used in the 2
 compared to the original 137, but not excluding indicators in inactive databases as this is an important consideration
 in the gaps analyis.
 The sample of indicators has expanded to include additions from two new sources: the
-forthcoming Blackrock Sovereign Sustainability Index (BSSI) and the World Bank's own [curated ESG dataset][esg-ddh] (4 indicators
-from the latter source were not included because they are modeled projections that are not relevant to this study).
+forthcoming Blackrock Sovereign Sustainability Index (BSSI) and the World Bank's own [curated ESG dataset][esg-ddh].
 In addition, further research into the original group of data providers has produced additional indicators.
 Conversely, we decided to remove some indicators used exclusively by one data provider (Versk-Maplecroft) because strong
 similarities between them (e.g., groups of very similar trade or debt measures) may have been skewing the results.

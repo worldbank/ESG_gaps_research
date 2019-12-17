@@ -15,7 +15,7 @@ as dummy variables in a metadata database. It is possible that multiple explanat
 
 The World Bank API defines 217 countries and economies. Indicators that had observations for 2018 or later (this research
 was conducted in 2019) for at least 196 countries (90%) were considered "non gap" indicators and were not tagged with
-any further explanations.
+any further explanations. This category also includes 4 indicators comprised of modeled projections for future time periods.
 
 ### A. Dropped or Deprecated ###
 
