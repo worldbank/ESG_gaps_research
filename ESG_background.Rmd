@@ -28,13 +28,14 @@ that could be partially responsible for gaps in any particular series. The hope 
 of why gaps occur and the pervasiveness of various explanatory factors, effective steps can be established to
 eliminate or mitigate gaps.
 
-This report uses a different selection of ESG indicators than that used in the 2018 report: 135 indicators
+This report uses a different selection of ESG indicators than that used in the 2018 report: 130 indicators
 compared to the original 137, but not excluding indicators in inactive databases as this is an important consideration
 in the gaps analyis.
 The sample of indicators has expanded to include additions from two new sources: the
-forthcoming Blackrock Sovereign Sustainability Index (BSSI) and the World Bank's own [curated ESG dataset][esg-ddh].
+forthcoming Blackrock Sovereign Sustainability Index (BSSI) and the World Bank's own [curated ESG dataset][esg-ddh] (4 indicators
+from the latter source were not included because they are modeled projections that are not relevant to this study).
 In addition, further research into the original group of data providers has produced additional indicators.
-Conversely, we decided to some indicators used exclusively by one data provider (Versk-Maplecroft) because strong
+Conversely, we decided to remove some indicators used exclusively by one data provider (Versk-Maplecroft) because strong
 similarities between them (e.g., groups of very similar trade or debt measures) may have been skewing the results.
 
 The other factor that has changed since the 2018 report is of course that it is now a year later, and some underlying
