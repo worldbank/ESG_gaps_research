@@ -1,6 +1,7 @@
 # Explanations for Gaps
 
 ```{r setupresults, echo=FALSE, message=FALSE, warning=FALSE}
+source("R/utils.R")
 source("R/load_data.R")
 source("R/esg_explanations.R")
 source("R/esg_hhAvailability.R")
@@ -20,7 +21,12 @@ knitr::kable(t[[1]], format = 'html', table.attr = 'class=\"margintab marginnote
 A	
 Indicator has been explicitly deprecated or dropped	Indicator only exists in a deprecated database (e.g., WRI Archives, Africa Development Indicators)	Hopefully none of these are in the WBG ESG database . Recommend appropriate substitutes where available (e.g., PM2.5 for PM10)
 
-<br><br><br><br><br><br><br><br><br><br>
+<b>Data gaps due to explanation A</b>  
+<b style="color:#cf455c">Red areas</b> show the proportion of excluded indicators
+
+```{r p-a, echo=FALSE, fig.cap = "Explanation A", fig.align='left'}
+plot_list[["expl_a"]]
+```
 
 
 ## Explanation B
@@ -36,7 +42,9 @@ B
 Indicator still available, but not being updated in WDI	Indicator is in a current database, but does not have data for any country past a certain threshold (e.g., 2012)	This is really on DECDG to either update these indicators, explicitly remove them, or find substitutes
 
 
-<br><br><br><br><br><br><br><br><br><br>
+```{r p-b, echo=FALSE, fig.cap = "Explanation B"}
+plot_list[["expl_b"]]
+```
 
 ## Explanation C
 
@@ -51,7 +59,9 @@ MRV is subject to methodology lags 	1) original source is updated biennially or 
 2) indicator is updated using raw data from 2+ years prior
 There may be some scope to address these in cases where WBG is the primary producer of both the indicator and the underlying raw data.
 
-<br><br><br><br><br><br><br><br><br><br>
+```{r p-c, echo=FALSE, fig.cap = "Explanation C"}
+plot_list[["expl_c"]]
+```
 
 ## Explanation D
 
@@ -65,7 +75,9 @@ There may be some scope to address these in cases where WBG is the primary produ
 D	
 MRV is subject to curation lags 	WBG’s update cycle is greater than that of the original source	This may be an area where we could improve if curation lags are material
 
-<br><br><br><br><br><br><br><br><br><br>
+```{r p-d, echo=FALSE, fig.cap = "Explanation D"}
+plot_list[["expl_d"]]
+```
 
 ## Explanation E
 
@@ -78,7 +90,9 @@ MRV is subject to curation lags 	WBG’s update cycle is greater than that of th
 
 E	MRV is subject to licensing lags (e.g., IEA)	Provider license prevents WBG from using latest available data	We could only improve these by eliminating legal restrictions or identifying good substitutes
 
-<br><br><br><br><br><br><br><br><br><br>
+```{r p-e, echo=FALSE, fig.cap = "Explanation e"}
+plot_list[["expl_e"]]
+```
 
 ## Explanation F
 
@@ -92,7 +106,10 @@ E	MRV is subject to licensing lags (e.g., IEA)	Provider license prevents WBG fro
 F	
 Data coverage is dependent on country-level microdata	Indicator is produced from country-level microdata surveys with  varying schedules
 Frequency of household surveys is typically a capacity issue
-<br><br><br><br><br><br><br><br><br><br>
+
+```{r p-f, echo=FALSE, fig.cap = "Explanation F"}
+plot_list[["expl_f"]]
+```
 
 ## Explanation G
 
@@ -106,21 +123,10 @@ Frequency of household surveys is typically a capacity issue
 G	
 Data coverage is geographically or economically limited	Values are entirely missing for classes of countries (high-income, small economies, etc)	These could be corrected for in many cases
 
-<br><br><br><br><br><br><br><br><br><br>
-
-## Explanation H
-
-```{r t-h}
-  knitr::kable(t[[8]], format = 'html', table.attr = 'class=\"margintab marginnote\"',
-        caption = 'Explanation H', 
-          col.names = c("Source","all", "n", "Share", "n", "Share", "n", "Share")) %>%
-  add_header_above(c(" " = 2, "ENV" = 2, "GOV" = 2, "SOC" = 2))
+```{r p-g, echo=FALSE, fig.cap = "Explanation G"}
+plot_list[["expl_g"]]
 ```
 
-H	Data coverage limited by internal political decisions	Values are suppressed for certain countries
-This would theoretically include any per capita indicator
-
-<br><br><br><br><br><br><br><br><br><br>
 
 ## Case Study: Household surveys availability
 
