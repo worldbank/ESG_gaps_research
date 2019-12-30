@@ -1,8 +1,110 @@
 # Methodology
 
-* Define the "ideal" coverage case: 90%+ countries for 2018 or later
-* Describe the "explanations" and definitions
-* Scoring
+It is first necessary to define what is meant by a "data gap" as several phenomena could be construed
+as being a "gap." For instance, data could be unavailable for a number of relevant economies, or there
+could be gaps in the time series over a relevant time period. There could also be gaps in metadata and other
+documentation. While all of these are potentially relevant, the most important gaps in the context of ESG
+likely involve the most recently available values compared to the current time period, since ESG
+analysis concerns investment decisions being made today and in the near future. Accordingly, this paper
+defines a "data gap" as a significant difference between the current calendar year and the most recent available value(s)
+(MRVs) for the indicators and economies under study. Gaps in metadata or in time periods before the MRV 
+are not a primary focus of this analysis.
+
+To better understand the nature of data gaps we consulted with data management experts at the World Bank to
+identify a list of explanatory factors which are described below. These "explanations" are defined such that they can be used
+to consistently "tag" indicators to which they apply. They are particularly relevant to time series statistics.
+Using metadata in the World Bank API and interviews with members
+of the data management team, we examined each indicator through the lens of these explanations and recorded the results
+as dummy variables in a metadata database. It is possible that multiple explanations apply to any given indicator.
+
+## Description of Explanations ##
+
+### Ideal Case ###
+
+The World Bank API defines 217 countries and economies. Indicators that had observations for 2018 or later (this research
+was conducted in 2019) for at least 196 countries (90%) were considered "non gap" indicators and were not tagged with
+any further explanations. This category also includes 4 indicators comprised of modeled projections for future time periods.
+
+### A. Dropped or Deprecated ###
+
+While most major World Bank time series databases are updated on regular schedules, it is common for individual indicators
+and occasionally entire databases to be discontinued. This can occur if the original provider or program discontinues
+support for the data, or if policies, programs, or methodologies evolve such that the data are no longer relevant.
+In these cases, the time series is no longer updated with recent observations, and the series becomes increasingly obsolete.
+Deprecated indicators in the WDI are typically removed and are available only in the [WDI Archives][wdi-archives].
+
+**Definition:** the indicator only exists in a discontinued or "archived" database, including:
+
+* [WDI Archives][wdi-archives] (API source=2)
+* [Africa Development Indicators][adi] (API source=11)
+
+**Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
+
+
+### B. No Longer Updated ###
+
+In other cases, an indicator may remain in an active database but fall out of active maintenance. This may be the case as a precursor
+to Explanation A above, or it may be attributable to lapsed oversight, i.e., there is no longer a person or team responsible
+for the indicator (e.g., program termination, department reorganization, personnel changes). In these cases as well, the time series
+becomes increasingly obsolete as it is no longer updated.
+
+**Definition:** the indicator has no observations for any country for the last five years (2014-present)
+
+**Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
+
+### C. Methodology Lags ###
+
+Some indicators by their nature may be especially time consuming to produce. For instance, if an indicator relies on
+administrative data or other underlying raw information, it cannot be calculated until that source is published. These
+source dependencies may be subject to their own production schedules and timeliness issues. The effect may be that an indicator
+may only be available significantly later than the time period of its observations.
+These delays may be compounded if multiple dependencies are involved. 
+
+**Definition:** classification under this explanation was made through consultations with subject matter experts.
+
+### D. Curation Lags ###
+
+In many cases the World Bank is a distributor of indicators it obtains from dozens of external parties.
+There is some level of "curation" overhead costs to obtain, collate, validate and finalize data from these independent
+sources, and this overhead may itself affect data availability compared to that of the original sources.
+This may be especially true where the production cycle of the original indicator varies from that of the Bank's curation team;
+for instance, an indicator published monthly by the original source may only be updated quarterly or annually by the World Bank.
+
+**Definition:** classification under this explanation was made through consultations with the data curation team.
+
+### E. Licensing Constraints ###
+
+In some cases, the World Bank distributes indicators under legal agreements that affect its availability. The most common
+case are licenses that stipulate that the Bank cannot distribute the latest version of a dataset in order to protect that
+dataset's value in cases where providers sell the data commercially. Thus, while more recent data may exist, the Bank is
+legally prevented from distributing it for a period of time, which can consistute a significant availability gap.
+
+**Definition:** classification under this explanation was made through consultations with the data curation team.
+
+### F. Survey Dependencies ###
+
+Some indicators are calculated from underlying [microdata](https://stats.oecd.org/glossary/detail.asp?ID=1656) obtained from
+household-level or firm-level surveys conducted in country. The survey process constitutes a unique kind of methodological lag.
+Surveys themselves are costly, and are frequently implemented irregularly or according to schedules that vary signficantly by country.
+As a result, data availability may vary not only by time but by country.
+
+**Definition:** classification under this explanation was made through consultations with the data curation team.
+
+
+### G. Limited Relevance ###
+
+Some indicators may not be relevant to or may not be interesting in the context of certain groups of economies. For example,
+very small economies may not have significant natural resource endowments or particular kinds of economic activity for particular
+indicators to be meaningful. Indicators designed to measure use of, say, forests or mineral deposits, or levels of trade, may
+be assumed to essentially be zero or "too small to measure." Similarly, other indicators may not be relevant to industrialized
+economies, such as prevalence of certain diseases (thought to be eradicated), literacy rates, or foreign aid.
+
+**Definition:** this explanation was considered for high-income "rich" countries (using the WBG income classification) and small economies,
+defined as those with populations under 120,000. This threshold represents a "natural" breakpoint at which population jumps by nearly
+40 percent, clearly differentiating economies above and below it. For both "rich" and "small" economies we identified a set of indicators
+for which at least 80% of economies had no observations at all. From these results we removed indicators that we still considered
+potentially relevant to rich/small economies despite the lack of available data.
+
 
 
 ## Database description
@@ -14,3 +116,6 @@ The final database assembled for analysis had a total of 35 variables for a tota
     WBG    | 10    | 10     | 6
   UN System | 8 | 41 | 4
   Other orgs | 29 | 15 | 1
+
+[wdi-archives]: https://datacatalog.worldbank.org/dataset/wdi-database-archives
+[adi]: https://datacatalog.worldbank.org/dataset/africa-development-indicators
