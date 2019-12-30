@@ -9,10 +9,11 @@ source("R/esg_variability.R")
 
 This document builds upon research first presented in the discussion paper
 *Options for Improving Use of ESG for Sovereign Bond Analysis* (World Bank, 2018).
-Interviews ESG data providers found that most obtain at least some, and often a subsantial amount
-of, ata from World Bank databases.
+
+Interviews ESG data providers found that most obtain at least some and often a subsantial amount
+of data from World Bank databases.
 137 indicators were specifically identified from these interviews, of which 127 could be mapped to
-active databases in theWorld Bank's data API, enabling the authors to [perform a rapid
+active databases in the World Bank's data API, enabling the authors to [perform a rapid
 assessment][2018-calcs] of data coverage and gaps.
 The paper further found that "data coverage is a significant issue in WBG data used for ESG."
 Looking at most recent available values (MRVs) by indicator and country, the paper found that
@@ -22,22 +23,22 @@ while the 2018 paper suggested a set of options for improving the availability a
 ESG data, it stopped short of further investigating the reasons that might give rise to gaps in data coverage
 or suggesting specific strategies to address them.
 
-The objective of this report is to pick up where the previous paper left off, and  to better understand
+The objective of this report is to pick up where the previous paper left off, and to better understand
 the circumstances that explain gaps in data coverage. To do so, this report identifies a set of "explanations"
 that could be partially responsible for gaps in any particular series. The hope is that with a better understanding
 of why gaps occur and the pervasiveness of various explanatory factors, effective steps can be established to
 eliminate or mitigate gaps.
 
-This report uses a different selection of ESG indicators than that used in the 2018 report: 130 indicators
+This report uses a different selection of ESG indicators than that used in the 2018 report: 134 indicators
 compared to the original 137, but not excluding indicators in inactive databases as this is an important consideration
 in the gaps analyis.
-The sample of indicators has expanded to include additions from two new sources: the
+The sample of indicators has expanded to include additions from two new products: the
 forthcoming Blackrock Sovereign Sustainability Index (BSSI) and the World Bank's own [curated ESG dataset][esg-ddh].
 In addition, further research into the original group of data providers has produced additional indicators.
 Conversely, we decided to remove some indicators used exclusively by one data provider (Versk-Maplecroft) because strong
-similarities between them (e.g., groups of very similar trade or debt measures) may have been skewing the results.
+similarities among those indicators (e.g., very similar trade or debt measures) may have been skewing the results.
 
-The other factor that has changed since the 2018 report is of course that it is now a year later, and some underlying
+The other factor that has changed since the 2018 report is of course that it is now over a year later, and some underlying
 databases have been updated (at least once) with new data, while others have not been updated. As a result, if the same
 analysis were peformed today with 2019 as a reference the results would likely be different than those above. That said,
 this document attempts to provide a more comprehensive and current understanding of data availability and coverage as context
