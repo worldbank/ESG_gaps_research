@@ -17,6 +17,20 @@ Using metadata in the World Bank API and interviews with members
 of the data management team, we examined each indicator through the lens of these explanations and recorded the results
 as dummy variables in a metadata database. It is possible that multiple explanations apply to any given indicator.
 
+The results of this tagging exercise were used to build a database along with other relevant metadata.
+The final database assembled for analysis has a total of 48 variables for a total of 134 indicators. 44 indicators are
+environmental indicators, 66 are social indicators, and 24 are governance indicators. The World Bank is the primary source of 35
+indicators, whereas the UN system is primary source of 61 indicators, and other organizations are the source for 38
+indicators.
+
+  Source     | Env  | Soc  | Gov | Total
+  ------     | ---: | ---: | ---:| ----:
+  WBG        | 10   | 11   | 14  | 35
+  UN System  | 10   | 46   | 5   | 61
+  Other orgs | 24   | 9    | 5   | 38
+  Total      | 44   | 24   | 66  | 134
+
+
 ## Description of Explanations ##
 
 ### Ideal Case ###
@@ -106,16 +120,6 @@ for which at least 80% of economies had no observations at all. From these resul
 potentially relevant to rich/small economies despite the lack of available data.
 
 
-
-## Database description
-
-The final database assembled for analysis had a total of 35 variables for a total of 138 indicators. 47 indicators are environmental indicators, 25 governance indicators and 66 social indicators. The World Bank is the source of 26 indicators, of which 10 each are environmental and social indicators respectively and 6 are governance indicators. Organizations pertaining to the UN system are a source for 53 indicators of which 41 social indicators, 8 environmental indicators and 4 governance indicators. 57 indicators are sourced from different organization grouped under the term of other organization. 29 of these indicators are environmental, 15 are social  and 13 are governance indicators. 
-
-  Source | Env  | Soc   | Gov
-  ------ | ---: | ---:  | ---:
-    WBG    | 10    | 10     | 6
-  UN System | 8 | 41 | 4
-  Other orgs | 29 | 15 | 1
 
 [wdi-archives]: https://datacatalog.worldbank.org/dataset/wdi-database-archives
 [adi]: https://datacatalog.worldbank.org/dataset/africa-development-indicators
