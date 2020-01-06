@@ -19,15 +19,15 @@ as dummy variables in a metadata database. It is possible that multiple explanat
 
 The results of this tagging exercise were used to build a database along with other relevant metadata.
 The final database assembled for analysis has a total of 48 variables for a total of 134 indicators. 44 indicators are
-environmental indicators, 66 are social indicators, and 24 are governance indicators. The World Bank is the primary source of 35
-indicators, whereas the UN system is primary source of 61 indicators, and other organizations are the source for 38
+environmental indicators, 66 are social indicators, and 24 are governance indicators. The World Bank is the primary source of 36
+indicators, whereas the UN system is primary source of 66 indicators, and other organizations are the source for 32
 indicators.
 
   Source     | Env  | Soc  | Gov | Total
   ------     | ---: | ---: | ---:| ----:
-  WBG        | 10   | 11   | 14  | 35
-  UN System  | 10   | 46   | 5   | 61
-  Other orgs | 24   | 9    | 5   | 38
+  WBG        | 10   | 12   | 14  | 36
+  UN System  | 9    | 49   | 8   | 66
+  Other orgs | 25   | 5    | 2   | 32
   Total      | 44   | 24   | 66  | 134
 
 
