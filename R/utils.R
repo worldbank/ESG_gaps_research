@@ -1,8 +1,7 @@
-library(ggmosaic)
-library(ggiraph)
-#devtools::install_github("clauswilke/ggtext")
-library(ggtext)
-library(extrafont)
+# library(ggmosaic)
+# library(ggiraph)
+# library(ggtext)
+# library(extrafont)
 
 plot_mosaic <- function(df,
                         explanation = "explanation A",

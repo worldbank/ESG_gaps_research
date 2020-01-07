@@ -25,12 +25,6 @@ knitr::opts_chunk$set(tidy = FALSE, cache.extra =
         packageVersion('tufte'))
 options(htmltools.dir.version = FALSE)
 
-
-#https://www-huber.embl.de/users/msmith/msmbstyle/index.html
-if (!("msmbstyle"  %in% installed.packages()[, "Package"])) {
-  remotes::install_github("grimbough/msmbstyle")
-}
-
 ```
 
 # Introduction {-}

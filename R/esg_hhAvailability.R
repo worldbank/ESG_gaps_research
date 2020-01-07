@@ -4,18 +4,18 @@
 #----------------------------------------------------------
 
 
-#remotes::install_github("worldbank/povcalnetR")
-library("povcalnetR")
-library("tidyverse")
-library("hrbrthemes")
-library("plotly")
-library("viridis")
-library("zoo")
-library("paletteer")
-library("lubridate")
-library("RColorBrewer")
-library("maps")
-library("countrycode")
+#
+# library("povcalnetR")
+# library("tidyverse")
+# library("hrbrthemes")
+# library("plotly")
+# library("viridis")
+# library("zoo")
+# library("paletteer")
+# library("lubridate")
+# library("RColorBrewer")
+# library("maps")
+# library("countrycode")
 
 #----------------------------------------------------------
 #   functions
@@ -169,8 +169,7 @@ hh_map <- ggplot(data = wdf,
                                y = lat,
                                group = group)) +
   geom_polygon(aes(fill = gap)) +
-  scale_fill_paletteer_c(package = "viridis",
-                         palette = "plasma",
+  scale_fill_paletteer_c("viridis::plasma",
                          direction = 1,
                          breaks = brk) + # or direction=1
   ggtitle("Number of years between last two surveys") +

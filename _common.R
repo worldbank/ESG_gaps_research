@@ -3,6 +3,14 @@
 # install and load packages
 #----------------------------------------------------------
 
+#https://www-huber.embl.de/users/msmith/msmbstyle/index.html
+if (!("msmbstyle"  %in% installed.packages()[, "Package"])) {
+  remotes::install_github("grimbough/msmbstyle")
+}
+
+if (!("ggtext"  %in% installed.packages()[, "Package"])) {
+  devtools::install_github("clauswilke/ggtext")
+}
 
 
 pkg <-
@@ -26,7 +34,14 @@ pkg <-
     "rworldmap",
     "countrycode",
     "scales",
-    "tables"
+    "tables",
+    "paletteer",
+    "maps",
+    "lubridate",
+    "ggmosaic",
+    "ggiraph",
+    "ggtext",
+    "extrafont"
   )
 new.pkg <-
   pkg[!(pkg %in% installed.packages()[, "Package"])] # check installed packages
