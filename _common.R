@@ -27,7 +27,9 @@ pkg <-
     "countrycode",
     "scales",
     "tables",
-    "paletteer"
+    "paletteer",
+    "maps",
+    "lubridate"
   )
 new.pkg <-
   pkg[!(pkg %in% installed.packages()[, "Package"])] # check installed packages
