@@ -79,3 +79,50 @@ expl_var <- names(mtd)[str_detect(names(mtd),"expl_")]
 t <- lapply(expl_var, expl_tb)
 
 
+#----------------------------------------------------------
+#   Prep data for plotting
+#----------------------------------------------------------
+
+explanation_lkup <- c("explanation A",
+                      "explanation B",
+                      "explanation C",
+                      "explanation D",
+                      "explanation E",
+                      "explanation F",
+                      "explanation G",
+                      "explanation H")
+names(explanation_lkup) <- c("expl_a",
+                             "expl_b",
+                             "expl_c",
+                             "expl_d",
+                             "expl_e",
+                             "expl_f",
+                             "expl_g",
+                             "expl_h")
+
+mtd_long <- mtd %>%
+  select(sector, origin = wb, expl_a:expl_h) %>%
+  pivot_longer(cols = -c("sector", "origin"), names_to = "reason", values_to = "status") %>%
+  mutate(
+    sector = as.character(sector),
+    sector = recode(sector, ENV = "Environment", GOV = "Governance", SOC = "Social"),
+    status = recode(status, `0` = "Included", `1` = "Excluded"),
+    origin = as.character(origin)
+  ) %>%
+  group_by(sector, reason) %>%
+  mutate(
+    n_indicators = n()
+  ) %>%
+  ungroup() %>%
+  mutate(
+    sector = paste0(sector, "\n(", n_indicators, " indicators)")
+  )
+
+mtd_long$reason <- explanation_lkup[mtd_long$reason]
+
+plot_list <- purrr::map(explanation_lkup, function(x) {
+
+  df <- mtd_long[mtd_long$reason == x, ]
+  out <- plot_mosaic(df, explanation = x)
+  return(out)
+})

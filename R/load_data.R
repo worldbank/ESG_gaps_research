@@ -17,6 +17,7 @@
 #   Load and prepare data
 #----------------------------------------------------------
 
+library(scales)
 # Blend and regions vector
 ic <- wb_cachelist$countries %>%
   filter(!(lending  %in% c("Aggregates", "Blend")) ) %>%
