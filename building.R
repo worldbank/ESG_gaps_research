@@ -15,8 +15,8 @@ beepr::beep(10)
 
 # render the whole book
 bookdown::render_book("index.Rmd")
-browseURL("docs/index.html")
 beepr::beep(10)
+browseURL("docs/index.html")
 
 #serve the whole book to see modification on the fly
 dir <- getwd()
