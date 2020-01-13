@@ -36,8 +36,8 @@ import numpy
 import wbgapi
 from docopt import docopt
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 
 bssi_countries = ['ARG', 'AUS', 'AUT', 'BEL', 'BRA', 'CAN', 'CHL', 'CHN', 'COL', 'HRV',
                   'CZE', 'DNK', 'DOM', 'ECU', 'EGY', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN',
@@ -185,8 +185,8 @@ for id in config['INDICATOR']:
             response = requests.get(url)
             data = response.json()
         except:
-            print 'API ERROR'
-            print url
+            print('API ERROR')
+            print(url)
             raise
 
     if len(data) < 2 or src in archiveDBs:
@@ -219,7 +219,7 @@ for id in config['INDICATOR']:
     missingOtherCountries = 0
     mrvYears = []
     if actualMaxYear:
-        for k,elem in countries.iteritems():
+        for k,elem in countries.items():
             coverage = sum([1 if i else 0 for i in elem]) * 100 / (actualMaxYear-minYear+1)
             coverageScore += max(max(elem)-minYear, 0)
             if sum(elem) > 0:
@@ -282,7 +282,7 @@ for id in config['INDICATOR']:
         writer.writerow(output)
 
     if config['--verbose']:
-        for k,elem in countries.iteritems():
+        for k,elem in countries.items():
             coverage = sum([1 if i else 0 for i in elem]) * 100 / (actualMaxYear-minYear+1)
             if sum(elem) > 0:
                 minMRV = min([i for i in elem if i > 0])
