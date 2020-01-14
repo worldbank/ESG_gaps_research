@@ -36,4 +36,18 @@ definition not be relevant to high-income or very small economies. This explanat
 somewhat exceptional case, as it may suggest special treatment at the analytical level
 as opposed to strategies to improve country coverage in the data.
 
-**TODO:** break down this analysis by sector and source a bit more
+## Results by Source and Sector ##
+
+Overall, just over 73% of ESG indicators studied originate from sources other than the World Bank.
+Figure X shows how this factor varies by explanation. Not surprisingly, all indicators restricted
+by licenses come from external sources. On the other hand, the two explanations with the lowest
+share of externally sourced indicators (and thus the highest share of World Bank sourced indicators)
+are 'Curation Lags' (which only includes 2 indicators) and 'Survey Dependencies.' This is significant
+because it may be easier for the World Bank to improve data coverage in areas where it is the primary
+source for a significant portion of data.
+
+Results vary significantly by sector and explanation. All indicators classied as 'Deprecated' along
+with all indicators subject to Licensing restraints are in the Environmental cluster, whereas both
+indicators in the 'Curation Lags' explanation are in the Social cluster. 'Survey Dependencies' is also heavily
+weighted with indicators in the Social cluster. The remaining explanations are distributed 
+among sectors in roughly line with their respective portions of the overall sample.
