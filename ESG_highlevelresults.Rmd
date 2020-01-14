@@ -4,8 +4,8 @@
 * Indicator-level heat map? (could also go in Updates section)
 * Other?
 
-Table X  and Y show the results of the explanation framework disaggregated
-primarily by explanation, and secondarily by sector (E, S and G) and
+*Figure 3.1* shows the results of the explanation framework disaggregated
+primarily by explanation, and secondarily by cluster (E, S and G) and
 primary source (WBG and all external sources).  Table X reflects the
 entire universe of indicators studied (134 indicators total) while Table Y includes only those
 in the current version of the WBG ESG-specific dataset (67 indicators total).
@@ -36,8 +36,10 @@ definition not be relevant to high-income or very small economies. This explanat
 somewhat exceptional case, as it may suggest special treatment at the analytical level
 as opposed to strategies to improve country coverage in the data.
 
-## Results by Source and Sector ##
+## Results by Source and Cluster ##
 
+*Figures 3.2 and 3.2* show results of the explanation framework in percentage terms, disaggregated
+by primary source and cluster respectively.
 Overall, just over 73% of ESG indicators studied originate from sources other than the World Bank.
 Figure X shows how this factor varies by explanation. Not surprisingly, all indicators restricted
 by licenses come from external sources. On the other hand, the two explanations with the lowest
@@ -46,8 +48,8 @@ are 'Curation Lags' (which only includes 2 indicators) and 'Survey Dependencies.
 because it may be easier for the World Bank to improve data coverage in areas where it is the primary
 source for a significant portion of data.
 
-Results vary significantly by sector and explanation. All indicators classied as 'Deprecated' along
+Results vary significantly by cluster and explanation. All indicators classied as 'Deprecated' along
 with all indicators subject to Licensing restraints are in the Environmental cluster, whereas both
 indicators in the 'Curation Lags' explanation are in the Social cluster. 'Survey Dependencies' is also heavily
 weighted with indicators in the Social cluster. The remaining explanations are distributed 
-among sectors in roughly line with their respective portions of the overall sample.
+among clusters in roughly line with their respective portions of the overall sample.
