@@ -91,7 +91,7 @@ for instance, an indicator published monthly by the original source may only be 
 In some cases, the World Bank distributes indicators under legal agreements that affect its availability. The most common
 case are licenses that stipulate that the Bank cannot distribute the latest version of a dataset in order to protect that
 dataset's value in cases where providers sell the data commercially. Thus, while more recent data may exist, the Bank is
-legally prevented from distributing it for a period of time, which can consistute a significant availability gap.
+legally prevented from distributing it for a period of time, which can constitute a significant availability gap.
 
 **Definition:** classification under this explanation was made through consultations with the data curation team.
 
@@ -99,7 +99,7 @@ legally prevented from distributing it for a period of time, which can consistut
 
 Some indicators are calculated from underlying [microdata](https://stats.oecd.org/glossary/detail.asp?ID=1656) obtained from
 household-level or firm-level surveys conducted in country. The survey process constitutes a unique kind of methodological lag.
-Surveys themselves are costly, and are frequently implemented irregularly or according to schedules that vary signficantly by country.
+Surveys themselves are costly, and are frequently implemented irregularly or according to schedules that vary significantly by country.
 As a result, data availability may vary not only by time but by country.
 
 **Definition:** classification under this explanation was made through consultations with the data curation team.

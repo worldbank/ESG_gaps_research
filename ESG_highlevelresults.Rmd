@@ -13,7 +13,7 @@ in the current version of the WBG ESG-specific dataset (67 indicators total).
 Overall, the "Methodology Lags" explanation is by far the dominant cause of gaps in ESG data,
 where it is a contributing factor for 72 of 134 indicators overall, and 40 of 67 indicators in the
 WBG's ESG dataset. This frequency likely reflects prevalence of traditional statistical indicators
-used in ESG, many of which rely on inter-agency cooperation and other intrisically time consuming
+used in ESG, many of which rely on inter-agency cooperation and other intrinsically time consuming
 modalities to produce comparable data for all countries.
 
 "Survey Dependencies" is the second most significant explanation, contributing to gaps for 32 of
@@ -48,7 +48,7 @@ are 'Curation Lags' (which only includes 2 indicators) and 'Survey Dependencies.
 because it may be easier for the World Bank to improve data coverage in areas where it is the primary
 source for a significant portion of data.
 
-Results vary significantly by cluster and explanation. All indicators classied as 'Deprecated' along
+Results vary significantly by cluster and explanation. All indicators classified as 'Deprecated' along
 with all indicators subject to Licensing restraints are in the Environmental cluster, whereas both
 indicators in the 'Curation Lags' explanation are in the Social cluster. 'Survey Dependencies' is also heavily
 weighted with indicators in the Social cluster. The remaining explanations are distributed 

@@ -10,7 +10,7 @@ source("R/esg_variability.R")
 This document builds upon research first presented in the discussion paper
 *Options for Improving Use of ESG for Sovereign Bond Analysis* (World Bank, 2018).
 
-Interviews ESG data providers found that most obtain at least some and often a subsantial amount
+Interviews ESG data providers found that most obtain at least some and often a substantial amount
 of data from World Bank databases.
 137 indicators were specifically identified from these interviews, of which 127 could be mapped to
 active databases in the World Bank's data API, enabling the authors to [perform a rapid
@@ -31,7 +31,7 @@ eliminate or mitigate gaps.
 
 This report uses a different selection of ESG indicators than that used in the 2018 report: 134 indicators
 compared to the original 137, but not excluding indicators in inactive databases as this is an important consideration
-in the gaps analyis.
+in the gaps analysis.
 The sample of indicators has expanded to include additions from two new products: the
 forthcoming Blackrock Sovereign Sustainability Index (BSSI) and the World Bank's own [curated ESG dataset][esg-ddh].
 In addition, further research into the original group of data providers has produced additional indicators.
@@ -40,7 +40,7 @@ similarities among those indicators (e.g., very similar trade or debt measures) 
 
 The other factor that has changed since the 2018 report is of course that it is now over a year later, and some underlying
 databases have been updated (at least once) with new data, while others have not been updated. As a result, if the same
-analysis were peformed today with 2019 as a reference the results would likely be different than those above. That said,
+analysis were performed today with 2019 as a reference the results would likely be different than those above. That said,
 this document attempts to provide a more comprehensive and current understanding of data availability and coverage as context
 for the gaps analysis.
 
@@ -109,7 +109,7 @@ g_cv +  geom_density(alpha = .2, fill = "#CCFFFF") +
 To alleviate this problem, a standard measure of variability could be applied to all indicators. Those indicators that vary the most, deserve the most attention by investors, whereas those that vary the less could be revisited every few years to recalibrate models.  To make variability comparable across countries, it was necessary to rescale all indicators and linearly interpolate missing values by year. Then, the coefficient of variation (CV) was estimated at indicator/country level in order to capture to temporal variability of each indicators in each country. Finally, an average of CVs across countries is calculated to get measure of variability at the indicator level. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
 
 
-The average CV of most indicators (`r round(s_c_mid*100,2)`%) fall between 1 and 2, with an overall mean of `r round(mean_cv, 2)`. Since the CV is a measured of dispersion, a mean above 1 conveys the idea that, in average, the ESG indicators have a relatively high variability with respect to their own mean value. However, given that the majority of indicators are around the mean, all indictors have similar variability. The light left tail of the distribution---those that fall below 1 in CV---is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`%), whereas the right tail---those indicators that fall above 2 in CV---is composed by `r n_c_high` indicators (`r round(s_c_high*100,2)`%). Table \@ref(tab:t-lh-cv) shows the indicators that fall in the left and right tail of the distribution. 
+The average CV of most indicators (`r round(s_c_mid*100,2)`%) fall between 1 and 2, with an overall mean of `r round(mean_cv, 2)`. Since the CV is a measured of dispersion, a mean above 1 conveys the idea that, in average, the ESG indicators have a relatively high variability with respect to their own mean value. However, given that the majority of indicators are around the mean, all indicators have similar variability. The light left tail of the distribution---those that fall below 1 in CV---is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`%), whereas the right tail---those indicators that fall above 2 in CV---is composed by `r n_c_high` indicators (`r round(s_c_high*100,2)`%). Table \@ref(tab:t-lh-cv) shows the indicators that fall in the left and right tail of the distribution. 
 
 ```{r t-lh-cv, echo = FALSE}
 t_lh2 <- t_lh %>% group_by(class_cv) %>%
@@ -138,7 +138,7 @@ foss_max <- var_country %>%
   filter(cv == max(cv))
 ```
 
-In cotnrast to Figure  \@ref(fig:esg-var), which presents the overall view of the volatility of  ESG indicators, Figure \@ref(fig:civar) shows the variability of each indicator at the country level.  For some indicators, the level of variability range widely. For instance, the coefficient of variation of _Fossil fuel energy consumption_ varies from `r round(foss_min[["cv"]], 2)` in `r foss_min %>%  inner_join(ci_name) %>% select(country)` to more than 5 in `r foss_max %>%  inner_join(ci_name) %>% select(country)`.  Something similar happens with _Renewable energy consumption_ or, in a small scale, to _GDP growth_. For the rest of indicators, Figure \@ref(fig:civar) shows that their variability across countries is relatively stable. 
+In contrast to Figure  \@ref(fig:esg-var), which presents the overall view of the volatility of  ESG indicators, Figure \@ref(fig:civar) shows the variability of each indicator at the country level.  For some indicators, the level of variability range widely. For instance, the coefficient of variation of _Fossil fuel energy consumption_ varies from `r round(foss_min[["cv"]], 2)` in `r foss_min %>%  inner_join(ci_name) %>% select(country)` to more than 5 in `r foss_max %>%  inner_join(ci_name) %>% select(country)`.  Something similar happens with _Renewable energy consumption_ or, in a small scale, to _GDP growth_. For the rest of indicators, Figure \@ref(fig:civar) shows that their variability across countries is relatively stable. 
 
 ```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Coefficient of variation by country and indicators", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
 pg2
