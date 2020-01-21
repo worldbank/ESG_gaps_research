@@ -5,7 +5,7 @@
 #--------- heatmap indicators years and No. of countries
 
 d1 <- x %>%
-  filter(date >= 1980, date <= 2018) %>%
+  filter(date >= 2000, date <= 2018) %>%
   group_by(indicatorID,indicator, date) %>%
   count(date) %>%
   mutate(text = paste0("Year: ", date, "\n",
@@ -23,7 +23,7 @@ d1 <- inner_join(d1, o)
 
 
 d2 <- x %>%
-  filter(date >= 1980, date <= 2018) %>%
+  filter(date >= 2000, date <= 2018) %>%
   group_by(indicatorID,indicator, date) %>%
   summarise(n = n_distinct(iso3c)) %>%
   group_by(indicatorID,indicator)  %>%
@@ -40,7 +40,7 @@ g1 <- ggplot(d1, aes( x = date,
   scale_fill_distiller(palette = "Spectral",
                        direction = 1) +
   labs(x = "", y = "") +
-  scale_x_continuous(breaks = c(1980:2018),
+  scale_x_continuous(breaks = c(2000:2018),
                      expand = c(0,0)) +
   theme(axis.text.x = element_text(size = rel(0.8),
                                    angle = 330,
