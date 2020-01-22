@@ -7,6 +7,18 @@ source("R/esg_explanations.R")
 source("R/esg_hhAvailability.R")
 ```
 
+**Easy Steps**
+
+1. Encourage deprecation of retired indicators
+2. Align curation lags
+3. Some methodological guidance for "gap filling"
+4. Might be substitutes in some cases where licensing is an issue (IPCC)
+
+**Hard Steps**
+
+1. The common cases are also the most difficult to address
+2. WBG is dependent on external providers in these cases
+3. Avoid surveys :)
 
 
 ## Explanation A

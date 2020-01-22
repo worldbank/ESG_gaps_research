@@ -1,34 +1,14 @@
-# Methodology
-
-It is first necessary to define what is meant by a "data gap" as several phenomena could be construed
-as being a "gap." For instance, data could be unavailable for a number of relevant economies, or there
-could be gaps in the time series over a relevant time period. There could also be gaps in metadata and other
-documentation. While all of these are potentially relevant, the most important gaps in the context of ESG
-likely involve the most recently available values compared to the current time period, since ESG
-analysis concerns investment decisions being made today and in the near future. Accordingly, this paper
-defines a "data gap" as a significant difference between the current calendar year and the most recent available value(s)
-(MRVs) for the indicators and economies under study. Gaps in metadata or in time periods before the MRV 
-are not a primary focus of this analysis.
+# Explanation Framework Analysis
 
 To better understand the nature of data gaps we consulted with data management experts at the World Bank to
-identify a list of explanatory factors which are described below. These "explanations" are defined such that they can be used
+develop a list of explanatory factors which are described below. These "explanations" are defined such that they can be used
 to consistently "tag" indicators to which they apply. They are particularly relevant to time series statistics.
 Using metadata in the World Bank API and interviews with members
 of the data management team, we examined each indicator through the lens of these explanations and recorded the results
 as dummy variables in a metadata database. It is possible that multiple explanations apply to any given indicator.
 
 The results of this tagging exercise were used to build a database along with other relevant metadata.
-The final database assembled for analysis has a total of 48 variables for a total of 134 indicators. 44 indicators are
-environmental indicators, 66 are social indicators, and 24 are governance indicators. The World Bank is the primary source of 36
-indicators, whereas the UN system is primary source of 66 indicators, and other organizations are the source for 32
-indicators.
-
-  Source     | Env  | Soc  | Gov | Total
-  ------     | ---: | ---: | ---:| ----:
-  WBG        | 10   | 12   | 14  | 36
-  UN System  | 9    | 49   | 8   | 66
-  Other orgs | 25   | 5    | 2   | 32
-  Total      | 44   | 24   | 66  | 134
+The final database assembled for analysis has a total of 48 variables for the 134 indicators.
 
 
 ## Description of Explanations ##
@@ -39,7 +19,7 @@ The World Bank API defines 217 countries and economies. Indicators that had obse
 was conducted in 2019) for at least 196 countries (90%) were considered "non gap" indicators and were not tagged with
 any further explanations. This category also includes 4 indicators comprised of modeled projections for future time periods.
 
-### A. Dropped or Deprecated ###
+### Dropped or Deprecated (A) ###
 
 While most major World Bank time series databases are updated on regular schedules, it is common for individual indicators
 and occasionally entire databases to be discontinued. This can occur if the original provider or program discontinues
@@ -55,7 +35,7 @@ Deprecated indicators in the WDI are typically removed and are available only in
 **Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
 
 
-### B. No Longer Updated ###
+### No Longer Updated (B) ###
 
 In other cases, an indicator may remain in an active database but fall out of active maintenance. This may be the case as a precursor
 to Explanation A above, or it may be attributable to lapsed oversight, i.e., there is no longer a person or team responsible
@@ -66,7 +46,7 @@ becomes increasingly obsolete as it is no longer updated.
 
 **Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
 
-### C. Methodology Lags ###
+### Methodology Lags (C) ###
 
 Some indicators by their nature may be especially time consuming to produce. For instance, if an indicator relies on
 administrative data or other underlying raw information, it cannot be calculated until that source is published. These
@@ -76,7 +56,7 @@ These delays may be compounded if multiple dependencies are involved.
 
 **Definition:** classification under this explanation was made through consultations with subject matter experts.
 
-### D. Curation Lags ###
+### Curation Lags (D) ###
 
 In many cases the World Bank is a distributor of indicators it obtains from dozens of external parties.
 There is some level of "curation" overhead costs to obtain, collate, validate and finalize data from these independent
@@ -86,7 +66,7 @@ for instance, an indicator published monthly by the original source may only be 
 
 **Definition:** classification under this explanation was made through consultations with the data curation team.
 
-### E. Licensing Constraints ###
+### Licensing Constraints (E) ###
 
 In some cases, the World Bank distributes indicators under legal agreements that affect its availability. The most common
 case are licenses that stipulate that the Bank cannot distribute the latest version of a dataset in order to protect that
@@ -95,7 +75,7 @@ legally prevented from distributing it for a period of time, which can constitut
 
 **Definition:** classification under this explanation was made through consultations with the data curation team.
 
-### F. Survey Dependencies ###
+### Survey Dependencies (F) ###
 
 Some indicators are calculated from underlying [microdata](https://stats.oecd.org/glossary/detail.asp?ID=1656) obtained from
 household-level or firm-level surveys conducted in country. The survey process constitutes a unique kind of methodological lag.
@@ -105,7 +85,7 @@ As a result, data availability may vary not only by time but by country.
 **Definition:** classification under this explanation was made through consultations with the data curation team.
 
 
-### G. Limited Relevance ###
+### Limited Relevance (G) ###
 
 Some indicators may not be relevant to or may not be interesting in the context of certain groups of economies. For example,
 very small economies may not have significant natural resource endowments or particular kinds of economic activity for particular
