@@ -89,7 +89,7 @@ This paper applies three separate approaches to better understand coverage gaps 
 
 The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:ciavailability), not all indicators are available in all countries neither they are available in all years. The bottom left of the chart shows the less available indicators, whereas the top right of the chart shows the most available indicators. From a different perspective, the availability of indicators goes from red to blue. Several insights are drawn from this chart. 
 
-```{r ciavailability, fig.width = 14, fig.height = 8, fig.fullwidth = TRUE, fig.cap = "Number of countries per indicator over time"}
+```{r ciavailability, fig.width = 12, fig.height = 8, fig.cap = "Number of countries per indicator over time"}
 pg1
 ```
 
