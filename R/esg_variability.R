@@ -6,7 +6,7 @@
 
 # coefficient of variation
 cv <- function(x) {
-  mean(x, na.rm = TRUE) / sd(x, na.rm = TRUE)
+  sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
 }
 
 
