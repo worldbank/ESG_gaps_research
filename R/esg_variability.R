@@ -77,7 +77,7 @@ var_ind <-  var_country %>%
 
 # Mean Coefficient of variation for each indicator
 g_cv <- var_ind %>% ggplot(aes(x = cv)) +
-  geom_histogram(aes(y = ..density..),
+  geom_histogram(aes(y = ..density..),    # histogram chart
                  alpha = 0.8,
                  position = 'identity',
                  bins = 15) +
@@ -91,23 +91,37 @@ g_cv <- var_ind %>% ggplot(aes(x = cv)) +
     panel.grid = element_blank()
   ) +
   xlab("Mean Coefficient of variation") +
-  ylab("K-density")
+  ylab("K-density") +
+  geom_density(alpha = .2, fill = "#CCFFFF") +     # add density char
+  geom_vline(aes(xintercept = mean(cv, na.rm = TRUE)),
+             color = "#FF3333", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = q_cv[1]),
+             color = "#3399FF", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = q_cv[2]),
+             color = "#3399FF", linetype = "dashed", size = 1)
 
 #--------- Breaking down histogram
-mean_cv <- var_ind %>% summarise(mean(cv, na.rm = TRUE))
+mean_cv <- var_ind %>%
+  summarise(mean(cv, na.rm = TRUE))
+
+q_cv <- quantile(var_ind$cv, na.rm = TRUE,
+                 probs = c(0.05, 0.95))
 
 # number of countries
-n_c <- summarise(var_ind, ind_n  = n_distinct(indicator))
+n_c <- var_ind %>%
+  filter(!is.na(cv)) %>%
+  summarise(ind_n  = n_distinct(indicator))
+
 n_c_low <- var_ind %>%
-            filter(cv < 1)  %>%
+            filter(cv < q_cv[1])  %>%
             summarise(ind_n  = n_distinct(indicator))
 
 n_c_high <- var_ind %>%
-            filter(cv > 2)  %>%
+            filter(cv > q_cv[2])  %>%
             summarise(ind_n  = n_distinct(indicator))
 
 n_c_mid <- var_ind %>%
-  filter(cv >= 1, cv <= 2)  %>%
+  filter(cv >= q_cv[1], cv <= q_cv[2])  %>%
   summarise(ind_n  = n_distinct(indicator))
 
 
