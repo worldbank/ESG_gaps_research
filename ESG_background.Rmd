@@ -147,12 +147,12 @@ Figure \@ref(fig:civar) presents a great amount of information. It allwos the us
 g_diff
 ```
 
-```{r high-range-cv, echo = FALSE, fig.width = 8, fig.fullwidth = FALSE, out.width= '40%'}
+```{r high-range-cv, echo = FALSE, fig.fullwidth = FALSE}
 
 diff_ind %>%
   select(ind_name, max_cty, max, min_cty, min, diff) %>%
   datatable(colnames = c("Indicator", "Country", "Max", "Country", "Min", "Diff"),
-            #container = sketch,
+            container = sketch,
             rownames = FALSE,
             filter = 'top', 
             extensions = 'FixedColumns',
@@ -173,14 +173,15 @@ diff_ind %>%
 ```
 
 
-In contrast to Figure \@ref(fig:civar), which presents detailed information of the volatility of each indicator at the country level, the average of CV across countries shows the overall volatility of each ESG indicators. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
 
-The average CV of most indicators (`r round(s_c_mid*100,1)`%) fall between `r round(q_cv[1],2)` and `r round(q_cv[2],2)`, which correspond to the 5th and 95th percentile of the average CV distribution. Since the CV is a relative measure of dispersion, a mean above (below) 1 conveys the idea that, in average, the ESG indicators have a relative high (low) volatility with respect to their own mean value. In this case, the overall mean is `r round(mean_cv, 2)`. 
+In contrast to Figure \@ref(fig:civar), which presents detailed information of the volatility of each indicator at the country level, the average of CV across countries shows the overall volatility of each ESG indicators. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
 
 ```{r esg-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Density of coefficient of variation of ESG indicators", fig.margin = TRUE, fig.width = 6}
 
 g_cv
 ```
+
+The average CV of most indicators (`r round(s_c_mid*100,1)`%) fall between `r round(q_cv[1],2)` and `r round(q_cv[2],2)`, which correspond to the 5th and 95th percentile of the average CV distribution. Since the CV is a relative measure of dispersion, a mean above (below) 1 conveys the idea that, in average, the ESG indicators have a relative high (low) volatility with respect to their own mean value. In this case, the overall mean is `r round(mean_cv, 2)`. 
 
 Given that the majority of indicators are around the mean, all indicators have similar volatility. The light left tail of the distribution---those that fall below `r round(q_cv[1],2)` in CV---is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`%), whereas the right tail---those indicators that fall above `r round(q_cv[2],2)` in CV---is composed by `r n_c_high` indicators (`r round(s_c_high*100,2)`%). Table \@ref(tab:t-lh-cv) shows the indicators that fall in the left and right tail of the distribution. However, as it was shown in Figure \@ref(fig:civar), the distribution of average of CVs is an aggegation of CVs across countries over time. The CV distriutions of some indicators may have heavy tails and still their average might be close to the overall mean, convey the misconception fact that they are not as volatile as they really are.
 
