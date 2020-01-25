@@ -145,6 +145,7 @@ t_lh <- var_ind %>%
 # CV vay country and indicator
 
 oc <- var_country %>%
+  filter(!is.na(cv), cv > 0) %>%
   group_by(iso3c) %>%
   summarise(mcv = mean(cv, na.rm = TRUE)) %>%
   arrange(mcv, iso3c) %>%
@@ -152,6 +153,7 @@ oc <- var_country %>%
             iso = factor(iso3c, levels = unique(iso3c)))
 
 oi <- var_country %>%
+  filter(!is.na(cv), cv > 0) %>%
   group_by(indicator) %>%
   summarise(mcv = mean(cv, na.rm = TRUE)) %>%
   arrange(mcv, indicator) %>%
@@ -159,6 +161,7 @@ oi <- var_country %>%
             indicator = indicator)
 
 g2 <- var_country %>%
+  filter(!is.na(cv), cv > 0) %>%
   inner_join(oc) %>%
   inner_join(oi) %>%
   inner_join(inames, by = c("indicator" = "indicatorID")) %>%
@@ -226,7 +229,21 @@ high_diff_ind <- diff_ind %>%
     mnc = paste0(min_cty, "(", round(min, 2), ")")
   )
 
-
+# container of DataTable DT
+sketch = htmltools::withTags(table(
+  class = 'display',
+  thead(
+    tr(
+      th(rowspan = 2, 'Indicator'),
+      th(colspan = 2, 'Highest Variability'),
+      th(colspan = 2, 'Lowest Variability')
+    ),
+    tr(
+      lapply(rep(c('Country', 'CV'), 2), th),
+      th("Diff")
+    )
+  )
+))
 
 
 
@@ -257,3 +274,24 @@ g_diff <- ggplot(data = diff_ind ,
              color = "#3399FF", linetype = "dashed", size = 1) +
   geom_vline(aes(xintercept = q_diff[2]),
              color = "#3399FF", linetype = "dashed", size = 1)
+
+
+
+# table with ESG indicators with lowest and highest volatility
+lvarn <- paste0("Low volatility (CV <= ", round(q_cv[1],2),")")
+hvarn <- paste0("High volatility (CV >= ", round(q_cv[2],2),")")
+
+t_lh2 <- t_lh %>% group_by(class_cv) %>%
+  mutate(n = row_number()) %>%
+  spread(class_cv, ind_name) %>%
+  mutate(High = replace_na(High, replace = "")) %>%
+  transmute(
+    Low  =  Low,
+    High =  High
+  ) %>%
+  mutate(
+    Low = replace_na(Low, ""),
+    High = replace_na(High, "")
+  ) %>%
+  # mutate_all(~str_replace(., "\\$", "&#36;"))
+  mutate_all(~str_replace(., "\\$", "\\\\$"))
