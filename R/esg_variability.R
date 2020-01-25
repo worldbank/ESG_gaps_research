@@ -37,10 +37,17 @@ norm_prox <- function(x) {
 
 esg_wdi <-  x %>%
   select(-iso2c, -country, -indicator) %>% # keep important variables
-  filter(date > 1990, date <= 2019, !is.na(iso3c)) %>% # filter older years
+  filter(date >= 2000, date <= 2019, !is.na(iso3c)) %>% # filter older years
   distinct(iso3c, date, indicatorID, .keep_all = TRUE) %>% #  Remove duplicates
   arrange(iso3c, date) %>%
   spread(indicatorID, value)       # Convert in wide form
+
+
+# Indicators ID
+ind_ID <- x %>%
+  distinct(indicator, indicatorID) %>%
+  rename(ind_name = indicator ,
+         indicator = indicatorID)
 
 # Scale variables
 esg_scaled <- esg_wdi %>%
