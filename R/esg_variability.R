@@ -135,8 +135,8 @@ s_c_mid <- n_c_mid/n_c
 t_lh <- var_ind %>%
   inner_join(inames, by = c("indicator" = "indicatorID")) %>%
   mutate(class_cv = case_when(
-    cv <= 1 ~ "Low",
-    cv >= 2 ~ "High"
+    cv <= q_cv[1] ~ "Low",
+    cv >= q_cv[2] ~ "High"
   )) %>%
   filter(!is.na(class_cv)) %>%
   select(class_cv, ind_name)
@@ -182,3 +182,78 @@ g2 <- var_country %>%
 
 pg2 <- ggplotly(g2, tooltip = "text")
 
+
+# country with highest CV per indicators
+max_cty_ind <- var_country %>%
+  group_by(indicator) %>%
+  filter(!is.na(cv), cv > 0) %>%
+  left_join(ci_name) %>%
+  summarise(rank = which.max(cv),
+            max_cty = country[rank]) %>%
+  select(-rank)
+
+
+# country with lowest CV per indicators
+min_cty_ind <- var_country %>%
+  group_by(indicator) %>%
+  filter(!is.na(cv), cv > 0) %>%
+  left_join(ci_name) %>%
+  summarise(rank = which.min(cv),
+            min_cty = country[rank]) %>%
+  select(-rank)
+
+
+# Indicators with highest variability range across countries
+diff_ind <- var_country %>%
+  group_by(indicator) %>%
+  filter(!is.na(cv), cv > 0) %>%  # get rid of NA and zero (old NAs)
+  summarise(                    # get diff of max and min
+    min = min(cv),
+    max = max(cv),
+    diff = max - min
+  ) %>%
+  left_join(ind_ID) %>%        # merge indicator name
+  left_join(max_cty_ind) %>%   # merge country with highest CV
+  left_join(min_cty_ind) %>%   # merge country with lowest CV
+  arrange(-diff) %>%
+  select(ind_name, min, max, diff, max_cty, min_cty)
+
+high_diff_ind <- diff_ind %>%
+  slice(1:6) %>%   # select 10 greatest diffs
+  transmute(
+    ind_name = ind_name,
+    mxc = paste0(max_cty, "(", round(max, 2), ")"),
+    mnc = paste0(min_cty, "(", round(min, 2), ")")
+  )
+
+
+
+
+
+q_diff <- quantile(diff_ind$diff, na.rm = TRUE,
+         probs = c(0.05, 0.95))
+
+g_diff <- ggplot(data = diff_ind ,
+       aes(x = diff)) +
+  geom_histogram(aes(y = ..density..),
+                 alpha = 0.8,
+                 position = 'identity',
+                 bins = 15) +
+  scale_fill_viridis(discrete=TRUE) +
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum() +
+  theme(
+    legend.position = "none",
+    panel.spacing = unit(0.1, "lines"),
+    strip.text.x = element_text(size = 8),
+    panel.grid = element_blank()
+  ) +
+  xlab("Range of coefficient of variation of indicators across countries") +
+  ylab("K-density") +
+  geom_density(alpha = .2, fill = "#CCFFFF") +     # add density char
+  geom_vline(aes(xintercept = mean(diff, na.rm = TRUE)),
+             color = "#FF3333", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = q_diff[1]),
+             color = "#3399FF", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = q_diff[2]),
+             color = "#3399FF", linetype = "dashed", size = 1)
