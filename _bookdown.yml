@@ -13,9 +13,10 @@ language:
 rmd_files: [
   "index.Rmd",
   "ESG_background.Rmd",
-  "ESG_methodology.Rmd",
-  "ESG_highlevelresults.Rmd",
-  "ESG_resultsbyexplanation.Rmd",
+  "ESG_coverage.Rmd",
+  "ESG_explanation.Rmd",
+  "ESG_variability.Rmd",
+  "ESG_discussion.Rmd",
   "ESG_recommendations.Rmd",
 ]
 

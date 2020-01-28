@@ -1,10 +1,7 @@
 # Background 
 
-```{r setupavail, echo=FALSE, message=FALSE, warning=FALSE}
+```{r setupbackground, echo=FALSE, message=FALSE, warning=FALSE}
 #--------- execute script of analysis
-source("R/load_data.R")
-source("R/esg_availability.R")
-source("R/esg_variability.R")
 ```
 
 This document builds upon research first presented in the discussion paper
@@ -70,6 +67,9 @@ defines a "data gap" as a significant difference between the current calendar ye
 (MRVs) for the indicators and economies under study. Gaps in metadata or in time periods before the MRV 
 are not a primary focus of this analysis.
 
+
+## How This Paper is Structured ##
+
 This paper applies three separate approaches to better understand coverage gaps in ESG indicators:
 
 1. **Coverage Analysis.** This approach provides a more detailed and visual picture of temporal gaps in the
@@ -81,120 +81,6 @@ This paper applies three separate approaches to better understand coverage gaps 
    understand the impacts of missing data for analysis. It may be possible to impute missing observations
    for indicators with low variance, mitigating the impact of data gaps.
 
-
-[2018-calcs]: https://docs.google.com/spreadsheets/d/1NDJQO7Ggl-zSf43YcQFhYqn6koOsEh_47O4Kh_rKQIs/edit#gid=1177047334
-[esg-ddh]:    https://datacatalog.worldbank.org/dataset/environment-social-and-governance-data
-
-## ESG Coverage
-
-The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:ciavailability), not all indicators are available in all countries neither they are available in all years. The bottom left of the chart shows the less available indicators, whereas the top right of the chart shows the most available indicators. From a different perspective, the availability of indicators goes from red to blue. Several insights are drawn from this chart. 
-
-```{r ciavailability, fig.width = 12, fig.height = 8, fig.cap = "Number of countries per indicator over time"}
-pg1
-```
-
-### Low coverage
-
-```{r echo = FALSE}
-tr_low <- 100
-d3 <- d2  %>%
-  mutate(max = max(mean),
-         less = (mean < tr_low)) %>%
-  summarise(sless = sum(less),
-            max = mean(max),
-            s   = sless/max)
-```
-
-Some indicators have very low availability over time. In general, `r d3[["sless"]]` (`r round(100*d3[["s"]],2)`%) indicators are available for less than `r tr_low` countries in average over time. Yet, not all indicators with low coverage have the same characteristics. For instance, 
-
-* __Indicator is available since the beginning of the 80's__. Indicators like _Gross National Savings_ or _Adult literacy rate_ are available since 1980. However, they are available YYY countries in average each year. 
-* __Indicator is available every few years__. Indicators like _Internal renewable freshwater resources_ or _Net migration_ are available for more than 160 countries but only every five years. Something similar happens to  _PM 2.5 air pollution_, but after 2010 this indicator becomes available every year rather than every five years. 
-* __High availability only in recent years.__ Some indicators like _Terrestrial and marine protected areas_ or _Strength of legal rights index_ have a high country coverage but low time span. The former started on 2016 with a coverage of 195 countries, whereas the latter started on 2013 with a coverage of 173 countries. Another indicator that started relatively late is _Scientific and technical journal articles_. It started on 2003 for about 180 countries but has a three-year gap as it is only available until 2016. 
-
-### Remarkable improvement over time
-
-There are a few indicators that show a remarkable improvement in country coverage over time. Despite their early appearance in the beginning of the 1980's, indicators that come from household surveys such as the _Poverty headcounts_ or _Gini index_ have shown a dramatic improvement in country coverage in the beginning of the 2000's.  The coverage improved from about five countries in the 80's to more than 70 countries per year in the decade of the 2000's.  However, these indicators suffer from a compilation lag that requires more than two years from time or recollection to the time of publication. 
-
-Other indicators, especially the ones related to the governance component.  have improved the frequency of publication. For instance, _Governance effectiveness_, _Political stability and absence of violence_, and _Voice and accountability_ were collected every three years at the decade of 1990, but increased their frequency to every year since the 2000. 
-
-### Remain stable over time but with middle coverage
-
-All the indicators with a stable yellow  vertical line are characterized by being stable over time but with a country coverage of about 120 countries per year. Among those, we could find _Prevalence of HIV in adult population_, _non-residents patents application_, or _Physicians per 1,000 people_. 
-
-### High coverage and sudden decline
-
-With the exception of a few indicators like _Ease of doing business index_ or _Total tax and contribution rate_, most recent value (MRV) of most indicators is two or more years old. However, some indicators with remarkable good coverage in the previous decade suddenly declined in the last five years. For instance, _CO2 emissions_ or _Renewable electricity output_ had a yearly coverage of more than 180 countries until 2014/15 and thereafter it suddenly declined to one country, Sudan, for _CO2 emissions_ or zero countries for _Renewable electricity output_. A similar story happened to _Net energy imports_, _Electricity production from nuclear sources_, or _Hospital beds_. However, this set of indicators did not have such a good coverage as _CO2 emissions_ before the decline. 
-
-### high coverage 
-
-Finally, the indicators at the right side of the chart present the best country coverage over time. They are characterized by their intense blue color. For instance, _Population density_, _Adjusted savings: mineral depletion_, or _Land area_ have a remarkable and stable high country coverage. 
-
-
-## volatility of ESG indicators
-
-ESG indicators belong to set of measures of wide diversity. Some of them are estimated every few years, whereas others are produced every three or six month. In addition, some indicators are bounded by construction---like percentages or indexes---, others are normalized across countries--like indicators in PPP values--, others are in units based on population size---like all the indicators of the type, *x by 1,000 people*---, among many other kinds of measures and units. This variety makes it difficult to compare directly one indicator to another, especially if some or all the indicators are weighted in any particular fashion. 
-
-To alleviate this problem, a standard measure of volatility could be applied to all indicators. Those indicators that vary the most, deserve the most attention by investors, whereas those that vary the less could be revisited every few years to recalibrate models.  To make volatility comparable across countries, it was necessary to rescale all indicators and linearly interpolate missing values by year. Then, the coefficient of variation (CV) was estimated at indicator/country level in order to capture  temporal volatility of each indicator at the country level, which is represented in Figure \@ref(fig:civar). 
-
-```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Coefficient of variation by country and indicators", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
-pg2
-```
-
-Figure \@ref(fig:civar) presents a great amount of information. It allwos the user to visualize for, all the countries, which indicators have the highest or lower volatilities, and apot, if any, countries that have outlier values in particular indicators. However, since the volatility of each indicator across countries is not the same for all countries, Figure \@ref(fig:civar) is not the best tool to find the dispersion of volatility of each indicator across all countries. The range volatility of some indicators is large, whereas in other is low. For instance, the coefficient of variation of _`r diff_ind[["ind_name"]][1]`_ varies from `r round(diff_ind[["min"]][1], 2)` in `r diff_ind[["min_cty"]][1]` to `r round(diff_ind[["max"]][1], 2)` in `r diff_ind[["max_cty"]][1]`. Also, the coefficient of variation of _`r diff_ind[["ind_name"]][2]`_ varies from `r round(diff_ind[["min"]][2], 2)` in `r diff_ind[["min_cty"]][2]` to `r round(diff_ind[["max"]][2], 2)` in `r diff_ind[["max_cty"]][2]`. Finally, the coefficient of variation of _`r diff_ind[["ind_name"]][3]`_ varies from `r round(diff_ind[["min"]][3], 2)` in `r diff_ind[["min_cty"]][3]` to `r round(diff_ind[["max"]][3], 2)` in `r diff_ind[["max_cty"]][3]`. Keep in mind that the CV of each indicator in each country does not reflect in any sense the level of the indicators but its volatility over time. Table \@ref(tab:high-range-cv) shows the highest and lowest value of the CV of each indicator and its corresponsing countries. It is organized from widest to norrowest range between highest CV and lowest CV. 
-
-```{r diff-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Range of coefficient of variation of indicators across countries", fig.margin = TRUE, fig.width = 6}
-
-g_diff
-```
-
-```{r high-range-cv, echo = FALSE, fig.fullwidth = FALSE}
-
-diff_ind %>%
-  select(ind_name, max_cty, max, min_cty, min, diff) %>%
-  datatable(colnames = c("Indicator", "Country", "Max", "Country", "Min", "Diff"),
-            container = sketch,
-            rownames = FALSE,
-            filter = 'top', 
-            extensions = 'FixedColumns',
-            options = list(pageLength = 6,
-                           autowidth = TRUE,
-                           columnDefs = list(list(width = '50px', targets = c(2, 4, 5)),
-                                              list(width = '100px', targets = c(1, 3)),
-                                              list(width = '300px', targets = 0)
-                           ),
-                           scrollX = TRUE,
-                           fixedColumns = TRUE)) %>%
-  formatRound(c("max", "min", "diff") , 2)
-
-# knitr::kable(high_diff_ind, 
-#              caption = "Indicators with highest volatility range across countries", 
-#              col.names = c("Indicator name", "highest CV", "lowest CV"))
-
-```
-
-
-
-In contrast to Figure \@ref(fig:civar), which presents detailed information of the volatility of each indicator at the country level, the average of CV across countries shows the overall volatility of each ESG indicators. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
-
-```{r esg-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Density of coefficient of variation of ESG indicators", fig.margin = TRUE, fig.width = 6}
-
-g_cv
-```
-
-The average CV of most indicators (`r round(s_c_mid*100,1)`%) fall between `r round(q_cv[1],2)` and `r round(q_cv[2],2)`, which correspond to the 5th and 95th percentile of the average CV distribution. Since the CV is a relative measure of dispersion, a mean above (below) 1 conveys the idea that, in average, the ESG indicators have a relative high (low) volatility with respect to their own mean value. In this case, the overall mean is `r round(mean_cv, 2)`. 
-
-Given that the majority of indicators are around the mean, all indicators have similar volatility. The light left tail of the distribution---those that fall below `r round(q_cv[1],2)` in CV---is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`%), whereas the right tail---those indicators that fall above `r round(q_cv[2],2)` in CV---is composed by `r n_c_high` indicators (`r round(s_c_high*100,2)`%). Table \@ref(tab:t-lh-cv) shows the indicators that fall in the left and right tail of the distribution. However, as it was shown in Figure \@ref(fig:civar), the distribution of average of CVs is an aggegation of CVs across countries over time. The CV distriutions of some indicators may have heavy tails and still their average might be close to the overall mean, convey the misconception fact that they are not as volatile as they really are.
-
-```{r t-lh-cv, echo = FALSE}
-
-knitr::kable(t_lh2, 
-             caption = "ESG indicators with lowest and highest volatility", 
-             col.names = c(lvarn, hvarn))
-
-```
-
-The first column of Table \@ref(tab:t-lh-cv) shows those indicators with low volatility. As expected, indicators like _`r t_lh2[[1,1]]`_, _`r t_lh2[[2,1]]`_, or _`r t_lh2[[3,1]]`_ do not change often and thus deserve little attention on a yearly basis for decision-investing processes. On the other hand, the right column of the table shows the most volatile indicators, whose standard deviations are two times higher than their means.
-
-
-
+The paper then concludes with a discussion section and set of recommendations based on the analysis and findings
+of each of these sections.
 
