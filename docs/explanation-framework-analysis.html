@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="2 Explanation Framework Analysis | ESG Gaps Research" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="ESG" />
+<meta name="github-repo" content="worldbank/ESG_gaps_research" />
+
+<meta name="author" content="The World Bank" />
+<meta name="author" content="Development economics, Data Group" />
+
+<meta name="date" content="2020-01-28" />
+
+
+<meta name="description" content="ESG">
+
+<title>2 Explanation Framework Analysis | ESG Gaps Research</title>
+
+<link href="libs/tufte-css/tufte.css" rel="stylesheet" />
+<link href="libs/tufte-css/envisioned.css" rel="stylesheet" />
+<link href="libs/msmb-css/msmb.css" rel="stylesheet" />
+<script>
+function toggle_visibility(id1, id2) {
+var e = document.getElementById(id1);
+var f = document.getElementById(id2);
+
+e.style.display = ((e.style.display!='none') ? 'none' : 'block');
+
+if(f.classList.contains('fa-plus-square')) {
+    f.classList.add('fa-minus-square')
+    f.classList.remove('fa-plus-square')
+} else {
+    f.classList.add('fa-plus-square')
+    f.classList.remove('fa-minus-square')
+}
+
+}
+</script>
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding/datatables.js"></script>
+<link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="libs/dt-ext-fixedcolumns/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="libs/dt-ext-fixedcolumns/js/dataTables.fixedColumns.min.js"></script>
+<link href="libs/nouislider/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider/jquery.nouislider.min.js"></script>
+<link href="libs/selectize/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize/selectize.min.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+
+
+
+
+<link rel="stylesheet" href="css/box.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul class="navbar">
+<li class="msmb"><p class="title">ESG Gaps Research<p><p class="author">The World Bank, Development economics, Data Group</p>
+<li class="dropdown" style="float:right">
+<a href="javascript:void(0)" class="dropbtn">&#x25BE; Chapters</a>
+<div class="dropdown-content">
+<a href="index.html">Introduction</a>
+<a href="background.html"><span class="toc-section-number">1</span> Background</a>
+<a id="active-page" href="explanation-framework-analysis.html"><span class="toc-section-number">2</span> Explanation Framework Analysis</a><ul class="toc-sections">
+<li class="toc"><a href="#description-of-explanations"> Description of Explanations</a></li>
+</ul>
+<a href="high-level-results.html"><span class="toc-section-number">3</span> High Level results</a>
+<a href="explanations-for-gaps.html"><span class="toc-section-number">4</span> Explanations for Gaps</a>
+<a href="recommendations.html"><span class="toc-section-number">5</span> Recommendations</a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><div id="explanation-framework-analysis" class="section level1">
+<h1>
+<span class="header-section-number">2</span> Explanation Framework Analysis</h1>
+<p>To better understand the nature of data gaps we consulted with data management experts at the World Bank to
+develop a list of explanatory factors which are described below. These “explanations” are defined such that they can be used
+to consistently “tag” indicators to which they apply. They are particularly relevant to time series statistics.
+Using metadata in the World Bank API and interviews with members
+of the data management team, we examined each indicator through the lens of these explanations and recorded the results
+as dummy variables in a metadata database. It is possible that multiple explanations apply to any given indicator.</p>
+<p>The results of this tagging exercise were used to build a database along with other relevant metadata.
+The final database assembled for analysis has a total of 48 variables for the 134 indicators.</p>
+<div id="description-of-explanations" class="section level2">
+<h2>
+<span class="header-section-number">2.1</span> Description of Explanations</h2>
+<div id="ideal-case" class="section level3">
+<h3>
+<span class="header-section-number">2.1.1</span> Ideal Case</h3>
+<p>The World Bank API defines 217 countries and economies. Indicators that had observations for 2018 or later (this research
+was conducted in 2019) for at least 196 countries (90%) were considered “non gap” indicators and were not tagged with
+any further explanations. This category also includes 4 indicators comprised of modeled projections for future time periods.</p>
+</div>
+<div id="dropped-or-deprecated-a" class="section level3">
+<h3>
+<span class="header-section-number">2.1.2</span> Dropped or Deprecated (A)</h3>
+<p>While most major World Bank time series databases are updated on regular schedules, it is common for individual indicators
+and occasionally entire databases to be discontinued. This can occur if the original provider or program discontinues
+support for the data, or if policies, programs, or methodologies evolve such that the data are no longer relevant.
+In these cases, the time series is no longer updated with recent observations, and the series becomes increasingly obsolete.
+Deprecated indicators in the WDI are typically removed and are available only in the <a href="https://datacatalog.worldbank.org/dataset/wdi-database-archives">WDI Archives</a>.</p>
+<p><strong>Definition:</strong> the indicator only exists in a discontinued or “archived” database, including:</p>
+<ul>
+<li>
+<a href="https://datacatalog.worldbank.org/dataset/wdi-database-archives">WDI Archives</a> (API source=2)</li>
+<li>
+<a href="https://datacatalog.worldbank.org/dataset/africa-development-indicators">Africa Development Indicators</a> (API source=11)</li>
+</ul>
+<p><strong>Notes:</strong> indicators tagged with this explanation are considered inactive and remaining explanations are not considered.</p>
+</div>
+<div id="no-longer-updated-b" class="section level3">
+<h3>
+<span class="header-section-number">2.1.3</span> No Longer Updated (B)</h3>
+<p>In other cases, an indicator may remain in an active database but fall out of active maintenance. This may be the case as a precursor
+to Explanation A above, or it may be attributable to lapsed oversight, i.e., there is no longer a person or team responsible
+for the indicator (e.g., program termination, department reorganization, personnel changes). In these cases as well, the time series
+becomes increasingly obsolete as it is no longer updated.</p>
+<p><strong>Definition:</strong> the indicator has no observations for any country for the last five years (2014-present)</p>
+<p><strong>Notes:</strong> indicators tagged with this explanation are considered inactive and remaining explanations are not considered.</p>
+</div>
+<div id="methodology-lags-c" class="section level3">
+<h3>
+<span class="header-section-number">2.1.4</span> Methodology Lags (C)</h3>
+<p>Some indicators by their nature may be especially time consuming to produce. For instance, if an indicator relies on
+administrative data or other underlying raw information, it cannot be calculated until that source is published. These
+source dependencies may be subject to their own production schedules and timeliness issues. The effect may be that an indicator
+may only be available significantly later than the time period of its observations.
+These delays may be compounded if multiple dependencies are involved.</p>
+<p><strong>Definition:</strong> classification under this explanation was made through consultations with subject matter experts.</p>
+</div>
+<div id="curation-lags-d" class="section level3">
+<h3>
+<span class="header-section-number">2.1.5</span> Curation Lags (D)</h3>
+<p>In many cases the World Bank is a distributor of indicators it obtains from dozens of external parties.
+There is some level of “curation” overhead costs to obtain, collate, validate and finalize data from these independent
+sources, and this overhead may itself affect data availability compared to that of the original sources.
+This may be especially true where the production cycle of the original indicator varies from that of the Bank’s curation team;
+for instance, an indicator published monthly by the original source may only be updated quarterly or annually by the World Bank.</p>
+<p><strong>Definition:</strong> classification under this explanation was made through consultations with the data curation team.</p>
+</div>
+<div id="licensing-constraints-e" class="section level3">
+<h3>
+<span class="header-section-number">2.1.6</span> Licensing Constraints (E)</h3>
+<p>In some cases, the World Bank distributes indicators under legal agreements that affect its availability. The most common
+case are licenses that stipulate that the Bank cannot distribute the latest version of a dataset in order to protect that
+dataset’s value in cases where providers sell the data commercially. Thus, while more recent data may exist, the Bank is
+legally prevented from distributing it for a period of time, which can constitute a significant availability gap.</p>
+<p><strong>Definition:</strong> classification under this explanation was made through consultations with the data curation team.</p>
+</div>
+<div id="survey-dependencies-f" class="section level3">
+<h3>
+<span class="header-section-number">2.1.7</span> Survey Dependencies (F)</h3>
+<p>Some indicators are calculated from underlying <a href="https://stats.oecd.org/glossary/detail.asp?ID=1656">microdata</a> obtained from
+household-level or firm-level surveys conducted in country. The survey process constitutes a unique kind of methodological lag.
+Surveys themselves are costly, and are frequently implemented irregularly or according to schedules that vary significantly by country.
+As a result, data availability may vary not only by time but by country.</p>
+<p><strong>Definition:</strong> classification under this explanation was made through consultations with the data curation team.</p>
+</div>
+<div id="limited-relevance-g" class="section level3">
+<h3>
+<span class="header-section-number">2.1.8</span> Limited Relevance (G)</h3>
+<p>Some indicators may not be relevant to or may not be interesting in the context of certain groups of economies. For example,
+very small economies may not have significant natural resource endowments or particular kinds of economic activity for particular
+indicators to be meaningful. Indicators designed to measure use of, say, forests or mineral deposits, or levels of trade, may
+be assumed to essentially be zero or “too small to measure.” Similarly, other indicators may not be relevant to industrialized
+economies, such as prevalence of certain diseases (thought to be eradicated), literacy rates, or foreign aid.</p>
+<p><strong>Definition:</strong> this explanation was considered for high-income “rich” countries (using the WBG income classification) and small economies,
+defined as those with populations under 120,000. This threshold represents a “natural” breakpoint at which population jumps by nearly
+40 percent, clearly differentiating economies above and below it. For both “rich” and “small” economies we identified a set of indicators
+for which at least 80% of economies had no observations at all. From these results we removed indicators that we still considered
+potentially relevant to rich/small economies despite the lack of available data.</p>
+
+</div>
+</div>
+</div></body></html>
+
+<p style="text-align: center;">
+<a href="background.html"><button class="btn btn-default">Previous</button></a>
+<a href="high-level-results.html"><button class="btn btn-default">Next</button></a>
+</p>
+<p class="build-date">Page built: 
+2020-01-28
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>
