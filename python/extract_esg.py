@@ -9,6 +9,8 @@ import sys
 reader = csv.reader(open(sys.argv[1], 'r'))
 writer = csv.writer(sys.stdout)
 
+wdi_countries = [row['id'] for row in wb.economy.list(skipAggs=True)]
+
 writer.writerow(['db', 'series', 'economy', 'time', 'value'])
 
 for row in reader:
@@ -24,6 +26,7 @@ for row in reader:
         print('Fetching {} ({})'.format(cets, db), file=sys.stderr)
 
         for elem in wb.data.fetch(cets, time=range(1990, 2020), skipAggs=True):
-            writer.writerow([db, elem['series'], elem['economy'], elem['time'], elem['value']])
+            if elem['economy'] in wdi_countries:
+                writer.writerow([db, elem['series'], elem['economy'], elem['time'], elem['value']])
     except wb.APIError as err:
         print('ERROR {} ({})'.format(cets, db), file=sys.stderr)
