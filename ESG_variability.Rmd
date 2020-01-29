@@ -7,6 +7,9 @@ source("R/esg_availability.R")
 source("R/esg_variability.R")
 ```
 
+**ANDRES: NOT SURE WHAT NEEDS TO HAPPEN HERE IN LIGHT OF WHAT WE DISCUSSED TODAY. DO YOU WANT TO DISCUSS MORE
+OR JUST PROCEED AND TAKE A FIRST CRACK?**
+
 ESG indicators belong to set of measures of wide diversity. Some of them are estimated every few years, whereas others are produced every three or six month. In addition, some indicators are bounded by construction---like percentages or indexes---, others are normalized across countries--like indicators in PPP values--, others are in units based on population size---like all the indicators of the type, *x by 1,000 people*---, among many other kinds of measures and units. This variety makes it difficult to compare directly one indicator to another, especially if some or all the indicators are weighted in any particular fashion. 
 
 To alleviate this problem, a standard measure of volatility could be applied to all indicators. Those indicators that vary the most, deserve the most attention by investors, whereas those that vary the less could be revisited every few years to recalibrate models.  To make volatility comparable across countries, it was necessary to rescale all indicators and linearly interpolate missing values by year. Then, the coefficient of variation (CV) was estimated at indicator/country level in order to capture  temporal volatility of each indicator at the country level, which is represented in Figure \@ref(fig:civar). 

@@ -10,6 +10,10 @@ as dummy variables in a metadata database. It is possible that multiple explanat
 The results of this tagging exercise were used to build a database along with other relevant metadata.
 The final database assembled for analysis has a total of 48 variables for the 134 indicators.
 
+The discusion below describes each of the explanations in detail. Each description includes a coverage heat
+map from the previous section which identifies the indicators "tagged" underneath it, showing how the explanation
+may impact gaps in data coverage.
+
 
 ## Description of Explanations ##
 
@@ -19,6 +23,8 @@ The World Bank API defines 217 countries and economies. Indicators that had obse
 was conducted in 2019) for at least 196 countries (90%) were considered "non gap" indicators and were not tagged with
 any further explanations. This category also includes 4 indicators comprised of modeled projections for future time periods.
 
+**ANDRES: INSERT FILTERED HEAT MAP FOR IDEAL CASE**
+
 ### Dropped or Deprecated (A) ###
 
 While most major World Bank time series databases are updated on regular schedules, it is common for individual indicators
@@ -26,6 +32,8 @@ and occasionally entire databases to be discontinued. This can occur if the orig
 support for the data, or if policies, programs, or methodologies evolve such that the data are no longer relevant.
 In these cases, the time series is no longer updated with recent observations, and the series becomes increasingly obsolete.
 Deprecated indicators in the WDI are typically removed and are available only in the [WDI Archives][wdi-archives].
+
+**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_A**
 
 **Definition:** the indicator only exists in a discontinued or "archived" database, including:
 
@@ -42,6 +50,8 @@ to Explanation A above, or it may be attributable to lapsed oversight, i.e., the
 for the indicator (e.g., program termination, department reorganization, personnel changes). In these cases as well, the time series
 becomes increasingly obsolete as it is no longer updated.
 
+**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_B**
+
 **Definition:** the indicator has no observations for any country for the last five years (2014-present)
 
 **Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
@@ -54,6 +64,8 @@ source dependencies may be subject to their own production schedules and timelin
 may only be available significantly later than the time period of its observations.
 These delays may be compounded if multiple dependencies are involved. 
 
+**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_C**
+
 **Definition:** classification under this explanation was made through consultations with subject matter experts.
 
 ### Curation Lags (D) ###
@@ -64,6 +76,8 @@ sources, and this overhead may itself affect data availability compared to that 
 This may be especially true where the production cycle of the original indicator varies from that of the Bank's curation team;
 for instance, an indicator published monthly by the original source may only be updated quarterly or annually by the World Bank.
 
+**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_D**
+
 **Definition:** classification under this explanation was made through consultations with the data curation team.
 
 ### Licensing Constraints (E) ###
@@ -73,6 +87,8 @@ case are licenses that stipulate that the Bank cannot distribute the latest vers
 dataset's value in cases where providers sell the data commercially. Thus, while more recent data may exist, the Bank is
 legally prevented from distributing it for a period of time, which can constitute a significant availability gap.
 
+**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_E**
+
 **Definition:** classification under this explanation was made through consultations with the data curation team.
 
 ### Survey Dependencies (F) ###
@@ -81,6 +97,8 @@ Some indicators are calculated from underlying [microdata](https://stats.oecd.or
 household-level or firm-level surveys conducted in country. The survey process constitutes a unique kind of methodological lag.
 Surveys themselves are costly, and are frequently implemented irregularly or according to schedules that vary significantly by country.
 As a result, data availability may vary not only by time but by country.
+
+**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_F**
 
 **Definition:** classification under this explanation was made through consultations with the data curation team.
 
@@ -93,6 +111,8 @@ indicators to be meaningful. Indicators designed to measure use of, say, forests
 be assumed to essentially be zero or "too small to measure." Similarly, other indicators may not be relevant to industrialized
 economies, such as prevalence of certain diseases (thought to be eradicated), literacy rates, or foreign aid.
 
+**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_G**
+
 **Definition:** this explanation was considered for high-income "rich" countries (using the WBG income classification) and small economies,
 defined as those with populations under 120,000. This threshold represents a "natural" breakpoint at which population jumps by nearly
 40 percent, clearly differentiating economies above and below it. For both "rich" and "small" economies we identified a set of indicators
@@ -101,6 +121,8 @@ potentially relevant to rich/small economies despite the lack of available data.
 
 
 ## Findings ##
+
+**TONY: ADD NEW SUMMARY CHARTS HERE AND WE CAN REWRITE THE ENSUING TEXT**
 
 *Figure 3.1* shows the results of the explanation framework disaggregated
 primarily by explanation, and secondarily by cluster (E, S and G) and
