@@ -1,4 +1,4 @@
-# Explanation Framework Analysis
+# Explanation Framework Analysis {#explanations}
 
 To better understand the nature of data gaps we consulted with data management experts at the World Bank to
 develop a list of explanatory factors which are described below. These "explanations" are defined such that they can be used
@@ -15,17 +15,19 @@ map from the previous section which identifies the indicators "tagged" underneat
 may impact gaps in data coverage.
 
 
-## Description of Explanations ##
+## Description of Explanations
 
-### Ideal Case ###
+### Ideal Case {-}
 
 The World Bank API defines 217 countries and economies. Indicators that had observations for 2018 or later (this research
 was conducted in 2019) for at least 196 countries (90%) were considered "non gap" indicators and were not tagged with
 any further explanations. This category also includes 4 indicators comprised of modeled projections for future time periods.
 
-**ANDRES: INSERT FILTERED HEAT MAP FOR IDEAL CASE**
+```{r hm-expl, fig.width = 8, fig.cap = "Ideal Case"}
+hm_expl(d1a, ideal, "Ideal case")
+```
 
-### Dropped or Deprecated (A) ###
+### Dropped or Deprecated (A) {-}
 
 While most major World Bank time series databases are updated on regular schedules, it is common for individual indicators
 and occasionally entire databases to be discontinued. This can occur if the original provider or program discontinues
@@ -33,7 +35,9 @@ support for the data, or if policies, programs, or methodologies evolve such tha
 In these cases, the time series is no longer updated with recent observations, and the series becomes increasingly obsolete.
 Deprecated indicators in the WDI are typically removed and are available only in the [WDI Archives][wdi-archives].
 
-**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_A**
+```{r hm-expla, fig.width = 8, fig.cap = "Dropped or Deprecated"}
+hm_expl(d1a, expl_a, "Dropped or Deprecated")
+```
 
 **Definition:** the indicator only exists in a discontinued or "archived" database, including:
 
@@ -43,20 +47,22 @@ Deprecated indicators in the WDI are typically removed and are available only in
 **Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
 
 
-### No Longer Updated (B) ###
+### No Longer Updated (B) {-}
 
 In other cases, an indicator may remain in an active database but fall out of active maintenance. This may be the case as a precursor
 to Explanation A above, or it may be attributable to lapsed oversight, i.e., there is no longer a person or team responsible
 for the indicator (e.g., program termination, department reorganization, personnel changes). In these cases as well, the time series
 becomes increasingly obsolete as it is no longer updated.
 
-**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_B**
+```{r hm-explb, fig.width = 8, fig.cap = "No Longer Updated"}
+hm_expl(d1a, expl_b, "No Longer Updated")
+```
 
 **Definition:** the indicator has no observations for any country for the last five years (2014-present)
 
 **Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
 
-### Methodology Lags (C) ###
+### Methodology Lags (C) {-}
 
 Some indicators by their nature may be especially time consuming to produce. For instance, if an indicator relies on
 administrative data or other underlying raw information, it cannot be calculated until that source is published. These
@@ -64,11 +70,13 @@ source dependencies may be subject to their own production schedules and timelin
 may only be available significantly later than the time period of its observations.
 These delays may be compounded if multiple dependencies are involved. 
 
-**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_C**
+```{r hm-explc, fig.width = 8, fig.cap = "Methodology Lags"}
+hm_expl(d1a, expl_c, "Methodology Lags")
+```
 
 **Definition:** classification under this explanation was made through consultations with subject matter experts.
 
-### Curation Lags (D) ###
+### Curation Lags (D) {-}
 
 In many cases the World Bank is a distributor of indicators it obtains from dozens of external parties.
 There is some level of "curation" overhead costs to obtain, collate, validate and finalize data from these independent
@@ -76,34 +84,40 @@ sources, and this overhead may itself affect data availability compared to that 
 This may be especially true where the production cycle of the original indicator varies from that of the Bank's curation team;
 for instance, an indicator published monthly by the original source may only be updated quarterly or annually by the World Bank.
 
-**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_D**
+```{r hm-expld, fig.width = 8, fig.cap = "Curation Lags"}
+hm_expl(d1a, expl_d, "Curation Lags")
+```
 
 **Definition:** classification under this explanation was made through consultations with the data curation team.
 
-### Licensing Constraints (E) ###
+### Licensing Constraints (E) {-}
 
 In some cases, the World Bank distributes indicators under legal agreements that affect its availability. The most common
 case are licenses that stipulate that the Bank cannot distribute the latest version of a dataset in order to protect that
 dataset's value in cases where providers sell the data commercially. Thus, while more recent data may exist, the Bank is
 legally prevented from distributing it for a period of time, which can constitute a significant availability gap.
 
-**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_E**
+```{r hm-exple, fig.width = 8, fig.cap = "Licensing Constraints"}
+hm_expl(d1a, expl_e, "Licensing Constraints")
+```
 
 **Definition:** classification under this explanation was made through consultations with the data curation team.
 
-### Survey Dependencies (F) ###
+### Survey Dependencies (F) {-}
 
 Some indicators are calculated from underlying [microdata](https://stats.oecd.org/glossary/detail.asp?ID=1656) obtained from
 household-level or firm-level surveys conducted in country. The survey process constitutes a unique kind of methodological lag.
 Surveys themselves are costly, and are frequently implemented irregularly or according to schedules that vary significantly by country.
 As a result, data availability may vary not only by time but by country.
 
-**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_F**
+```{r hm-explf, fig.width = 8, fig.cap = "Survey Dependencies"}
+hm_expl(d1a, expl_f, "Survey Dependencies")
+```
 
 **Definition:** classification under this explanation was made through consultations with the data curation team.
 
 
-### Limited Relevance (G) ###
+### Limited Relevance (G) {-}
 
 Some indicators may not be relevant to or may not be interesting in the context of certain groups of economies. For example,
 very small economies may not have significant natural resource endowments or particular kinds of economic activity for particular
@@ -111,7 +125,9 @@ indicators to be meaningful. Indicators designed to measure use of, say, forests
 be assumed to essentially be zero or "too small to measure." Similarly, other indicators may not be relevant to industrialized
 economies, such as prevalence of certain diseases (thought to be eradicated), literacy rates, or foreign aid.
 
-**ANDRES: INSERT FILTERED HEAT MAP FOR EXPL_G**
+```{r hm-explg, fig.width = 8, fig.cap = "Limited Relevance"}
+hm_expl(d1a, expl_g, "Limited Relevance")
+```
 
 **Definition:** this explanation was considered for high-income "rich" countries (using the WBG income classification) and small economies,
 defined as those with populations under 120,000. This threshold represents a "natural" breakpoint at which population jumps by nearly
@@ -120,7 +136,7 @@ for which at least 80% of economies had no observations at all. From these resul
 potentially relevant to rich/small economies despite the lack of available data.
 
 
-## Findings ##
+## Findings 
 
 **TONY: ADD NEW SUMMARY CHARTS HERE AND WE CAN REWRITE THE ENSUING TEXT**
 
@@ -157,7 +173,7 @@ definition not be relevant to high-income or very small economies. This explanat
 somewhat exceptional case, as it may suggest special treatment at the analytical level
 as opposed to strategies to improve country coverage in the data.
 
-### Results by Source and Cluster ###
+### Results by Source and Cluster {-}
 
 *Figures 3.2 and 3.2* show results of the explanation framework in percentage terms, disaggregated
 by primary source and cluster respectively.
