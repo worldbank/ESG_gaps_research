@@ -3,7 +3,6 @@
 ```{r setupvariability, echo=FALSE, message=FALSE, warning=FALSE}
 #--------- execute script of analysis
 source("R/load_data.R")
-source("R/esg_availability.R")
 source("R/esg_variability.R")
 ```
 
@@ -73,6 +72,28 @@ knitr::kable(t_lh2,
 
 The first column of Table \@ref(tab:t-lh-cv) shows those indicators with low volatility. As expected, indicators like _`r t_lh2[[1,1]]`_, _`r t_lh2[[2,1]]`_, or _`r t_lh2[[3,1]]`_ do not change often and thus deserve little attention on a yearly basis for decision-investing processes. On the other hand, the right column of the table shows the most volatile indicators, whose standard deviations are two times higher than their means.
 
+
+## Feasibility of extrapolating ESG indicators based on volatility
+
+When ESG indicators are used for investment purposes, the most recent value of each indicators is key. As seen on section [Coverage Analysis](#coverage), most ESG indicators are not available for recent years, due to several
+reasons exaplain in section [Explanation Framework Analysis](#explanations). Yet, as see in Figure
+\@ref(fig:esg-var), most of the indicators have low variability across countries. If that is the case,
+investors may be confident in the relative stability of the indicators and thus in forecasting values drawn from
+econometrics models. In this section, we show how feasibile it would be to extrapalote some ESG indicators based on their time coverage and volatility in each country. 
+
+The chart on the left of Figure \@ref(fig:lsty-rank), show country coverage of each indicator in 2018. Those like RRR and RRR are available for for all countries in 2018. Other indicators like TTT and TTT have no single observation available in 2018. Since some indciators are highly available in some countries over time, while others are not, we include in the analysis only those that have information available for at least 50% of the years from 2000 to 2018. Then, we calculate the coefficient of variation for each indicator-country pair and select those with very low volatility (coefficient of variation equal or less to 0.3). By assuming that for this subset of countries/indicators it is possible to make reliable forecast in 2018, the number of indicators with available and forcasted data would increase as shown in the chart to the right of Figure \@ref(fig:lsty-rank).
+
+You may use [this interactive tool]() to change the value of country coverage, threshold of coefficient of variation, base year, and target year. 
+
+```{r lsty-rank, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Feasibility of extrapolating ESG indicators based on volatility",fig.width = 8, fig.height = 8}
+y <- fn_lstrank(x)
+ialy <- y[["ialy"]]
+ialy2 <- y[["ialy2"]]
+
+p_irank  <- ggplotly(chbar(df = ialy))
+p_irank2 <- ggplotly(chbar(df = ialy2))
+plotly::subplot(p_irank, p_irank2)
+```
 
 
 
