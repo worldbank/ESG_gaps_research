@@ -39,3 +39,19 @@ plot_mosaic <- function(df,
 
   return(p)
 }
+
+# generating new theme
+
+theme_esg <- function(base_size = 12,
+                      base_family = "Calibri",
+                      base_line_size = base_size / 22,
+                      base_rect_size = base_size / 22){
+  theme_minimal(base_size = base_size,
+                base_family = base_family,
+                base_line_size = base_line_size) %+replace%
+    theme(
+      legend.position = "bottom",
+
+      complete = TRUE
+    )
+}
