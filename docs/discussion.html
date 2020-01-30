@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="5 Discussion | ESG Gaps Research" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="ESG" />
+<meta name="github-repo" content="worldbank/ESG_gaps_research" />
+
+<meta name="author" content="The World Bank" />
+<meta name="author" content="Development economics, Data Group" />
+
+<meta name="date" content="2020-01-28" />
+
+
+<meta name="description" content="ESG">
+
+<title>5 Discussion | ESG Gaps Research</title>
+
+<link href="libs/tufte-css/tufte.css" rel="stylesheet" />
+<link href="libs/tufte-css/envisioned.css" rel="stylesheet" />
+<link href="libs/msmb-css/msmb.css" rel="stylesheet" />
+<script>
+function toggle_visibility(id1, id2) {
+var e = document.getElementById(id1);
+var f = document.getElementById(id2);
+
+e.style.display = ((e.style.display!='none') ? 'none' : 'block');
+
+if(f.classList.contains('fa-plus-square')) {
+    f.classList.add('fa-minus-square')
+    f.classList.remove('fa-plus-square')
+} else {
+    f.classList.add('fa-plus-square')
+    f.classList.remove('fa-minus-square')
+}
+
+}
+</script>
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding/datatables.js"></script>
+<link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="libs/dt-ext-fixedcolumns/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="libs/dt-ext-fixedcolumns/js/dataTables.fixedColumns.min.js"></script>
+<link href="libs/nouislider/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider/jquery.nouislider.min.js"></script>
+<link href="libs/selectize/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize/selectize.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="css/box.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul class="navbar">
+<li class="msmb"><p class="title">ESG Gaps Research<p><p class="author">The World Bank, Development economics, Data Group</p>
+<li class="dropdown" style="float:right">
+<a href="javascript:void(0)" class="dropbtn">&#x25BE; Chapters</a>
+<div class="dropdown-content">
+<a href="index.html">Introduction</a>
+<a href="background.html"><span class="toc-section-number">1</span> Background</a>
+<a href="coverage-analysis.html"><span class="toc-section-number">2</span> Coverage Analysis</a>
+<a href="explanation-framework-analysis.html"><span class="toc-section-number">3</span> Explanation Framework Analysis</a>
+<a href="variability-analysis.html"><span class="toc-section-number">4</span> Variability Analysis</a>
+<a id="active-page" href="discussion.html"><span class="toc-section-number">5</span> Discussion</a><ul class="toc-sections">
+<li class="toc"><a href="#discourage-use-of-discontinued-indicators"> Discourage use of discontinued indicators</a></li>
+<li class="toc"><a href="#technical-approaches"> Technical Approaches</a></li>
+<li class="toc"><a href="#invest-in-higher-frequency-approaches-or-substitutes"> Invest in Higher Frequency Approaches or Substitutes</a></li>
+<li class="toc"><a href="#overall"> Overall</a></li>
+</ul>
+<a href="recommendations.html"><span class="toc-section-number">6</span> Recommendations</a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><div id="discussion" class="section level1">
+<h1>
+<span class="header-section-number">5</span> Discussion</h1>
+<p>Together, the Findings from the three analytical approaches suggest several options that could
+be taken to mitigate gaps in ESG data, or deal appropriately with gaps that are unavoidable.</p>
+<div id="discourage-use-of-discontinued-indicators" class="section level2">
+<h2>
+<span class="header-section-number">5.1</span> Discourage use of discontinued indicators</h2>
+<p>15 indicators, or 10% of those studied, have been discontinued by the World Bank and are no longer
+maintained. They continue to be available for historical purposes, and only reside in databases
+that are described as “archives” in the <a href="https://datacatalog.worldbank.org">World Bank Data Catalog</a>.
+None of these indicators appear in or affect the WBG dataset. Still, it is possible that external
+users may not be aware that the indicators are discontinued, particularly if they are accessing
+them through the API and not the data catalog.</p>
+<p>In most cases, discontinued indicators have been replaced by a more recent and more appropriate
+substitute (see Appendix A). It is strongly recommended that ESG users switch to more recent indicators
+and discontinue use of those that are no longer maintained.</p>
+</div>
+<div id="technical-approaches" class="section level2">
+<h2>
+<span class="header-section-number">5.2</span> Technical Approaches</h2>
+<ul>
+<li>Volatility analysis: are there indicators (particuarly in social &amp; governance) that change
+slowly enough that we could extrapolate or gap fill? <strong>ANDRES: NEED TO FILL IN RESULTS OF THE VOLATILITY
+SECTION HERE</strong>
+</li>
+<li>HIC/Small segments: could we “estimate” values for these (e.g., 0 or 100%)? Or better yet, improve
+the ESG methodology so that it simply dropped these indicators from the analysis where they don’t apply.</li>
+<li>One could imagine a platform that provides data along with “estimates” where possible, sort of like
+Zillow</li>
+</ul>
+</div>
+<div id="invest-in-higher-frequency-approaches-or-substitutes" class="section level2">
+<h2>
+<span class="header-section-number">5.3</span> Invest in Higher Frequency Approaches or Substitutes</h2>
+<ul>
+<li>103 indicators (77%) are category B, C or F.</li>
+<li>75% of these are dependent on external (non-Bank) sources</li>
+<li>It is likely that most of these are not designed or well suited for high frequency analysis,
+particularly the survey-based ones (expl_f)</li>
+<li>Our initial efforts in this area on select indicators suggest this it would be time and
+resource intense to improve frequency of existing indicators, particularly those that are
+sourced externally (we would likely need to fund these)</li>
+<li>Substitutes may be possible in some areas. Some emissions data may have slightly more recent
+data, but in the social pillar it is unlikely to result in significant improvements</li>
+<li>Satellite/geospatial data may be an alternative if it can be aggregated to the country or regional
+level. Again, this primarily affects environmental</li>
+<li>Other approaches may be possible; GDELT, social media</li>
+</ul>
+</div>
+<div id="overall" class="section level2">
+<h2>
+<span class="header-section-number">5.4</span> Overall</h2>
+<ul>
+<li>The best approach may be to develop an ESG platform that provides varieties of kinds of data,
+explains the appropriate uses and limitations of each, and lets users decide.</li>
+</ul>
+</div>
+</div></body></html>
+
+<p style="text-align: center;">
+<a href="variability-analysis.html"><button class="btn btn-default">Previous</button></a>
+<a href="recommendations.html"><button class="btn btn-default">Next</button></a>
+</p>
+<p class="build-date">Page built: 
+2020-01-28
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

@@ -41,7 +41,9 @@ pkg <-
     "ggmosaic",
     "ggiraph",
     "ggtext",
-    "extrafont"
+    "extrafont",
+    "bookdown",
+    "DT"
   )
 new.pkg <-
   pkg[!(pkg %in% installed.packages()[, "Package"])] # check installed packages

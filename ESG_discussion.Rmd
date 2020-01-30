@@ -1,0 +1,51 @@
+# Discussion
+
+
+Together, the Findings from the three analytical approaches suggest several options that could
+be taken to mitigate gaps in ESG data, or deal appropriately with gaps that are unavoidable.
+
+## Discourage use of discontinued indicators
+
+15 indicators, or 10% of those studied, have been discontinued by the World Bank and are no longer
+maintained. They continue to be available for historical purposes, and only reside in databases
+that are described as "archives" in the [World Bank Data Catalog](https://datacatalog.worldbank.org).
+None of these indicators appear in or affect the WBG dataset. Still, it is possible that external
+users may not be aware that the indicators are discontinued, particularly if they are accessing
+them through the API and not the data catalog.
+
+In most cases, discontinued indicators have been replaced by a more recent and more appropriate
+substitute (see Appendix A). It is strongly recommended that ESG users switch to more recent indicators
+and discontinue use of those that are no longer maintained.
+
+
+## Technical Approaches
+
+* Volatility analysis: are there indicators (particuarly in social & governance) that change
+  slowly enough that we could extrapolate or gap fill? **ANDRES: NEED TO FILL IN RESULTS OF THE VOLATILITY
+  SECTION HERE**
+* HIC/Small segments: could we "estimate" values for these (e.g., 0 or 100%)? Or better yet, improve
+  the ESG methodology so that it simply dropped these indicators from the analysis where they don't apply.
+* One could imagine a platform that provides data along with "estimates" where possible, sort of like
+  Zillow
+
+
+## Invest in Higher Frequency Approaches or Substitutes
+
+* 103 indicators (77%) are category B, C or F.
+* 75% of these are dependent on external (non-Bank) sources
+* It is likely that most of these are not designed or well suited for high frequency analysis,
+  particularly the survey-based ones (expl_f)
+* Our initial efforts in this area on select indicators suggest this it would be time and
+  resource intense to improve frequency of existing indicators, particularly those that are
+  sourced externally (we would likely need to fund these)
+* Substitutes may be possible in some areas. Some emissions data may have slightly more recent
+  data, but in the social pillar it is unlikely to result in significant improvements
+* Satellite/geospatial data may be an alternative if it can be aggregated to the country or regional
+  level. Again, this primarily affects environmental
+* Other approaches may be possible; GDELT, social media
+
+
+## Overall
+
+* The best approach may be to develop an ESG platform that provides varieties of kinds of data,
+  explains the appropriate uses and limitations of each, and lets users decide.
