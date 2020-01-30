@@ -1,4 +1,4 @@
-# Coverage Analysis {coverage}
+# Coverage Analysis {#coverage}
 
 ```{r setupcoverage, echo=FALSE, message=FALSE, warning=FALSE}
 #--------- execute script of analysis
