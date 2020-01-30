@@ -1,3 +1,4 @@
+source("R/utils.R")
 #----------------------------------------------------------
 #   Number of countries per indicator over time"
 #----------------------------------------------------------
@@ -8,8 +9,9 @@ d1 <- x %>%
   filter(date >= 2000, date <= 2018) %>%
   group_by(indicatorID,indicator, date) %>%
   count(date) %>%
-  mutate(text = paste0("Year: ", date, "\n",
-                       "Indicator: ", indicator, "\n",
+  mutate(text = paste0("Indicator: ", indicator, "\n",
+                       "Indicator ID: ", indicatorID, "\n",
+                       "Year: ", date, "\n",
                        "No. countries: ", n, "\n"))
 
 # Sort indicators from most data points to less overall
@@ -37,8 +39,9 @@ g1 <- ggplot(d1, aes( x = date,
                       fill = n,
                       text = text)) +
   geom_tile() +
-  scale_fill_distiller(palette = "Spectral",
-                       direction = 1) +
+  scale_fill_viridis_c(option = "A", alpha = .8,
+                       limits = c(0, 202),
+                       breaks = c(0, 50, 100, 150, 200)) +
   labs(x = "", y = "") +
   scale_x_continuous(breaks = c(2000:2018),
                      expand = c(0,0)) +
@@ -86,8 +89,9 @@ hm_expl <- function(x, expl,
     geom_tile(aes( x = date,
                    y = ind,
                    fill = n)) +
-    scale_fill_distiller(palette = "Spectral",
-                         direction = 1) +
+    scale_fill_viridis_c(option = "A", alpha = .8,
+                         limits = c(0, 202),
+                         breaks = c(0, 50, 100, 150, 200)) +
     labs(x = "", y = "") +
     scale_x_continuous(breaks = c(2000:2018),
                        expand = c(0,0)) +

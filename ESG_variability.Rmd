@@ -84,10 +84,10 @@ ialy2 <- y[["ialy2"]]
 ```
 
 When ESG indicators are used for investment purposes, the most recent value of each indicators is key. As seen on section [Coverage Analysis](#coverage), most ESG indicators are not available for recent years, due to several
-reasons exaplain in section [Explanation Framework Analysis](#explanations). Yet, as see in Figure
+reasons explained in section [Explanation Framework Analysis](#explanations). Yet, as see in Figure
 \@ref(fig:esg-var), most of the indicators have low variability across countries. If that is the case,
 investors may be confident in the relative stability of the indicators and thus in forecasting values drawn from
-econometrics models. In this section, we show how feasibile it would be to extrapalote some ESG indicators based on their time coverage and volatility in each country. 
+econometrics models. In this section, we show how feasible it would be to extrapalate some ESG indicators based on their time coverage and volatility in each country. 
 
 The chart on the left of Figure \@ref(fig:lsty-rank), show country coverage of each indicator in 2018. Those like RRR and RRR are available for for all countries in 2018. Other indicators like TTT and TTT have no single observation available in 2018. Since some indciators are highly available in some countries over time, while others are not, we include in the analysis only those that have information available for at least 50% of the years from 2000 to 2018. Then, we calculate the coefficient of variation for each indicator-country pair and select those with very low volatility (coefficient of variation equal or less to 0.3). By assuming that for this subset of countries/indicators it is possible to make reliable forecast in 2018, the number of indicators with available and forcasted data would increase as shown in the chart to the right of Figure \@ref(fig:lsty-rank).
 
@@ -95,8 +95,8 @@ You may use [this interactive tool]() to change the value of country coverage, t
 
 ```{r lsty-rank, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Feasibility of extrapolating ESG indicators based on volatility",fig.width = 8, fig.height = 8}
 
-p_irank  <- ggplotly(chbar(df = filter(ialy, lst_yd  > 0)))
-p_irank2 <- ggplotly(chbar(df = filter(ialy2, lst_yd > 0)))
+p_irank  <- ggplotly(chbar(df = filter(ialy, lst_yd  > 0)), tooltip = c("text")) %>% plotly::style(hoveron = "fill")
+p_irank2 <- ggplotly(chbar(df = filter(ialy2, lst_yd > 0)), tooltip = c("text")) %>% plotly::style(hoveron = "fill")
 plotly::subplot(p_irank, p_irank2)
 ```
 

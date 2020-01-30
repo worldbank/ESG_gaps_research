@@ -40,6 +40,11 @@ plot_mosaic <- function(df,
   return(p)
 }
 
+# Custom palettes
+my_palette2 <- c("#29115AFF", "#F4685CFF")
+my_palette3 <- c("#56147DFF", "#C03A76FF", "#FD9A6AFF")
+
+
 # generating new theme
 
 theme_esg <- function(base_size = 12,

@@ -1,3 +1,4 @@
+source("R/utils.R")
 # ==================================================
 # project:       Feasibility of extrapolation based on volatiliy and coverage
 # Author:        Andres Castaneda
@@ -116,10 +117,16 @@ chbar <- function(df) {
              aes(
                x = reorder(indicatorID, lst_yd),
                y = lst_yd,
-               fill = sector
+               fill = sector,
+               text = paste("Indicator ID:", indicatorID,
+                            "<br />Last year density:", lst_yd,
+                            "<br />Sector:", sector)
              ),
-             width = .75) +
+             width = .75,
+             alpah = .8) +
+    scale_fill_manual(values = my_palette3) +
     coord_flip() +
+
     #theme_clean() +
     theme(legend.position = "none",
           panel.grid = element_blank(),
