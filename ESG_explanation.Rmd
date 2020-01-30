@@ -24,7 +24,7 @@ was conducted in 2019) for at least 196 countries (90%) were considered "non gap
 any further explanations. This category also includes 4 indicators comprised of modeled projections for future time periods.
 
 ```{r hm-expl, fig.width = 8, fig.cap = "Ideal Case"}
-hm_expl(d1a, expl_a, "Ideal case")
+hm_expl(d1a, ideal, "Ideal case")
 ```
 
 ### Dropped or Deprecated (A) {-}
