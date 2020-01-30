@@ -64,7 +64,10 @@ pg1 <- ggplotly(g1, tooltip = "text")
 d1a <- d1 %>%
   filter(date >= 2000, date <= 2018) %>%
   inner_join(select(mtd, cetsid, matches("^expl")),
-             by = c("indicatorID" = "cetsid"))
+             by = c("indicatorID" = "cetsid")) %>%
+  ungroup() %>%
+  mutate(ideal = if_else(rowSums(select(., matches("^expl"))) == 0,
+                         1, 0))
 
 
 hm_expl <- function(x, expl,
