@@ -39,3 +39,24 @@ plot_mosaic <- function(df,
 
   return(p)
 }
+
+# Custom palettes
+my_palette2 <- c("#29115AFF", "#F4685CFF")
+my_palette3 <- c("#56147DFF", "#C03A76FF", "#FD9A6AFF")
+
+
+# generating new theme
+
+theme_esg <- function(base_size = 12,
+                      base_family = "Calibri",
+                      base_line_size = base_size / 22,
+                      base_rect_size = base_size / 22){
+  theme_minimal(base_size = base_size,
+                base_family = base_family,
+                base_line_size = base_line_size) %+replace%
+    theme(
+      legend.position = "bottom",
+      #legend.position = "none",
+      complete = TRUE
+    )
+}

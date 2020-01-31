@@ -1,4 +1,4 @@
-
+source("R/utils.R")
 #----------------------------------------------------------
 #   subfunctions
 #----------------------------------------------------------
@@ -22,7 +22,7 @@ qcd <- function(x) {
 
 norm_prox <- function(x) {
   #p <- (x - mean(x, na.rm = TRUE)) / sd(x, TRUE)  # normalize
-  p <- rescale(x, na.rm = TRUE)
+  p <- scales::rescale(x, na.rm = TRUE)
   p <- na.approx(p, na.rm = FALSE)                # interpolate missings
   return(p)
 }
@@ -173,12 +173,12 @@ g2 <- var_country %>%
              fill = cv,
              text = text)) +
   geom_tile() +
-  scale_fill_distiller(palette = "Spectral",
-                       direction = -1) +
+  scale_fill_viridis_c(option = "A", alpha = .8, direction = -1) +
   labs(x = "", y = "") +
   scale_x_discrete(expand = c(0, 0)) +
   scale_y_discrete(expand = c(0, 0)) +
   theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
         axis.text.y = element_text(size = rel(0.4),
                                    colour = "grey50")) +
   ggtitle(label = "Variability of ESG indicators by country")
