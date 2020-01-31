@@ -22,7 +22,7 @@ qcd <- function(x) {
 
 norm_prox <- function(x) {
   #p <- (x - mean(x, na.rm = TRUE)) / sd(x, TRUE)  # normalize
-  p <- rescale(x, na.rm = TRUE)
+  p <- scales::rescale(x, na.rm = TRUE)
   p <- na.approx(p, na.rm = FALSE)                # interpolate missings
   return(p)
 }
