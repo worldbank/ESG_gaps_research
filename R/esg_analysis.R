@@ -18,6 +18,7 @@
 
 library("tidyverse")
 library("plotly")
+library("ggiraph")
 library("zoo")
 library("wbstats")
 library("hrbrthemes")
@@ -27,6 +28,7 @@ library("scales")
 library("formattable")
 library("knitr")
 library("kableExtra")
+library("extrafont")
 
 
 #----------------------------------------------------------

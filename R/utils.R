@@ -56,7 +56,7 @@ theme_esg <- function(base_size = 12,
                 base_line_size = base_line_size) %+replace%
     theme(
       legend.position = "bottom",
-
+      #legend.position = "none",
       complete = TRUE
     )
 }
