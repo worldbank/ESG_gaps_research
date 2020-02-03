@@ -58,12 +58,12 @@ diff_ind %>%
 
 ## Volatility at the indicator level
 
-In contrast to Figure \@ref(fig:civar), which presents detailed information of the volatility of each indicator at the country level, the average of CV across countries shows the overall volatility of each ESG indicators. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
-
 ```{r esg-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Density of coefficient of variation of ESG indicators", fig.margin = TRUE, fig.width = 6}
-
 g_cv
 ```
+
+In contrast to Figure \@ref(fig:civar), which presents detailed information of the volatility of each indicator at the country level, the average of CV across countries shows the overall volatility of each ESG indicators. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
+
 
 The average CV of most indicators (`r round(s_c_mid*100,1)`%) fall between `r round(q_cv[1],2)` and `r round(q_cv[2],2)`, which correspond to the 5th and 95th percentile of the average CV distribution. Since the CV is a relative measure of dispersion, a mean above (below) 1 conveys the idea that, in average, the ESG indicators have a relative high (low) volatility with respect to their own mean value. In this case, the overall mean is `r round(mean_cv, 2)`. 
 

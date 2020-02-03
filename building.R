@@ -7,9 +7,11 @@
 #
 # file <- c("ESG_availability.Rmd")
 # file <- c("ESG_resultsbyexplanation.Rmd")
-#  file <- c("ESG_background.Rmd")
-#  bookdown::render_book(file, preview = TRUE)
-#  beepr::beep(10)
+# file <- c("ESG_variability.Rmd")
+# bookdown::render_book(file, preview = TRUE)
+# beepr::beep(10)
+# browseURL("docs/volatility.html")
+#
 # browseURL("docs/background.html")
 
 # bfile <- paste0("docs/", sub("(.*)(\\.Rmd)", "\\1", file), ".html")
