@@ -19,11 +19,11 @@
 
 # Blend and regions vector
 ic <- wb_cachelist$countries %>%
-  filter(!(lending  %in% c("Aggregates", "Blend")) ) %>%
+  filter(!(lending  == "Aggregates") ) %>%
   select(iso3c)
 
 ci_name <- wb_cachelist$countries %>%
-  filter(!(lending  %in% c("Aggregates", "Blend")) ) %>%
+  filter(!(lending  == "Aggregates") ) %>%
   select(country, iso3c, region)
 
 # Indicators codes and names
@@ -47,6 +47,6 @@ mtd <- read_csv("data/esg_metadata.csv",
 #x$date <-  as.numeric(x$date)
 # exclude blends and regions
 # x <- x[x$iso3c  %in% ic$iso3c, ]
-#save(x, file = "data/ESG_wdi.RData")
+# save(x, file = "data/ESG_wdi.RData")
 load(file = "data/ESG_wdi.RData")
 
