@@ -9,9 +9,14 @@ import sys
 reader = csv.reader(open(sys.argv[1], 'r'))
 writer = csv.writer(sys.stdout)
 
-wdi_countries = [row['id'] for row in wb.economy.list(skipAggs=True)]
+# for now, we limit countries to the WDI set. Could also limit to the ESG set which is smaller
+economy_filter = [row['id'] for row in wb.economy.list(skipAggs=True)]
 
-writer.writerow(['db', 'series', 'economy', 'time', 'value'])
+# limit
+time_range = range(1990, 2051)
+
+# writer.writerow(['db', 'series', 'economy', 'time', 'value'])
+writer.writerow(['db', 'iso3c', 'date', 'value', 'indicatorID', 'indicator', 'country'])
 
 for row in reader:
     (cets,db) = row[0:2]
@@ -25,8 +30,10 @@ for row in reader:
     try:
         print('Fetching {} ({})'.format(cets, db), file=sys.stderr)
 
-        for elem in wb.data.fetch(cets, time=range(1990, 2020), skipAggs=True):
-            if elem['economy'] in wdi_countries:
-                writer.writerow([db, elem['series'], elem['economy'], elem['time'], elem['value']])
+        for elem in wb.data.fetch(cets, time=time_range, skipAggs=True, labels=True):
+            if elem['economy']['id'] in economy_filter:
+                # writer.writerow([db, elem['series'], elem['economy'], elem['time'], elem['value']])
+                writer.writerow([db, elem['economy']['id'], elem['time']['value'], elem['value'], elem['series']['id'], elem['series']['value'], elem['economy']['value']])
     except wb.APIError as err:
         print('ERROR {} ({})'.format(cets, db), file=sys.stderr)
+        print(err, file=sys.stderr)
