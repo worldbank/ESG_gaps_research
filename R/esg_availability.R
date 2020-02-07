@@ -84,24 +84,30 @@ hm_expl <- function(x, expl,
     labelf <- "Number of countries over time per indicator"
   }
 
-  g1a <- ggplot(data = filter(x, !!expl == 1),
-                aes(text = text)) +
-    geom_tile(aes( x = date,
-                   y = ind,
-                   fill = n)) +
-    scale_fill_viridis_c(option = "A", alpha = .8,
-                         limits = c(0, 202),
-                         breaks = c(0, 50, 100, 150, 200)) +
-    labs(x = "", y = "") +
-    scale_x_continuous(breaks = c(2000:2018),
-                       expand = c(0,0)) +
-    theme(axis.text.x = element_text(size = rel(0.8),
-                                     angle = 330,
-                                     hjust = 0,
-                                     colour = "grey50"),
-          axis.text.y = element_text(size = rel(0.5),
-                                     colour = "grey50")) +
-    ggtitle(label = labelf)
-  ggplotly(g1a, tooltip = "text")
+  y <- filter(x, !!expl == 1)
+
+  if (dim(y)[[1]] == 0) {
+    invisible("")
+  } else {
+    g1a <- ggplot(data = y,
+                  aes(text = text)) +
+      geom_tile(aes( x = date,
+                     y = ind,
+                     fill = n)) +
+      scale_fill_viridis_c(option = "A", alpha = .8,
+                           limits = c(0, 202),
+                           breaks = c(0, 50, 100, 150, 200)) +
+      labs(x = "", y = "") +
+      scale_x_continuous(breaks = c(2000:2018),
+                         expand = c(0,0)) +
+      theme(axis.text.x = element_text(size = rel(0.8),
+                                       angle = 330,
+                                       hjust = 0,
+                                       colour = "grey50"),
+            axis.text.y = element_text(size = rel(0.5),
+                                       colour = "grey50")) +
+      ggtitle(label = labelf)
+    ggplotly(g1a, tooltip = "text")
+    }
 }
 
