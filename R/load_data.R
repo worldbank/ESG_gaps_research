@@ -50,5 +50,5 @@ mtd <- read_csv("data/esg_metadata.csv",
 # save(x, file = "data/ESG_wdi.RData")
 # write.csv(x, file = "data/ESG_wdi.csv", row.names = FALSE)
 # feather::write_feather(x, "data/ESG_wdi.feather")
-load(file = "data/ESG_wdi.RData")
-
+# load(file = "data/ESG_wdi.RData")
+x <- feather::read_feather("data/ESG_wdi.feather")
