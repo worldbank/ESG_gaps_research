@@ -2,9 +2,10 @@
 '''Utility functions for building the ESG data file from API data
 
 Typical use:
->from extract_esg import *
->extract_esg_data('data/esg_metadata.csv', 'data/ESG_wdi.csv')
->write_feather_file('data/ESG_wdi.csv', 'data/ESG_wdi.feather')
+>import esg_loader as loader
+>loader.extract_esg_data('data/esg_metadata.csv', 'data/ESG_wdi.csv')
+>loader.write_feather_file('data/ESG_wdi.csv', 'data/ESG_wdi.feather')
+>meta = loader.load_metadata('data/esg_metadata.csv', 'data/ESG_wdi.feather')
 '''
 import csv
 import wbgapi as wb
@@ -89,7 +90,7 @@ def write_feather_file(csv_path, feather_path):
     esg.to_feather(feather_path)
 
 
-def esg_prepare(metafile_path, datafile_path):
+def load_metadata(metafile_path, datafile_path):
     '''Loads the metadata file and dynamically calculates the expl_ variables
     based on business logic and the contents of the database
     '''
