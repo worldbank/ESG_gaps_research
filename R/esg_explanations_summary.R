@@ -4,12 +4,20 @@ library(reshape2)
 library(ggiraph)
 library(ggtext)
 library(patchwork)
+library(reticulate)
+# py_discover_config()
+# py_config()
 source("R/utils.R")
+source_python("python/esg_loader.py")
 
 
 # Load data ---------------------------------------------------------------
 
-esg <- read_csv("./data/esg_metadata.csv")
+esg <- load_metadata(metafile_path = "./data/esg_metadata.csv",
+                     datafile_path = "./data/ESG_wdi.feather")
+
+# New column that divides sources into WBG and all other external
+esg$domain <- if_else(esg$source_type != 'WBG', 'EXTERNAL', esg$source_type)
 
 # Create some vectors of key display and logic fields
 expl_a_g <- paste0('expl_', letters[1:7])
@@ -17,21 +25,11 @@ expl_c_g <- paste0('expl_', letters[3:7])
 explans <- c('no_gap', expl_a_g)
 core_fields <- c('sector','cetsid','input_name', explans)
 
-# 'no_gap' fields should not have any expl variables set
-esg[esg$no_gap == 1, expl_a_g] <- 0
-
-# expl_a and expl_b should not have any other explanatory variables set
-esg[esg$expl_a == 1 | esg$expl_b == 1, expl_c_g] <- 0
-
-# New column that divides sources into WBG and all other external
-esg$domain <- if_else(esg$source_type != 'WBG', 'EXTERNAL', esg$source_type)
-
-
 # Prep data for plotting --------------------------------------------------
 
 
 esg_copy <- esg %>%
-  pivot_longer(cols = explans, names_to = "explanations") %>%
+  pivot_longer(cols = all_of(explans), names_to = "explanations") %>%
   mutate(
     explanations = recode(explanations,
                           expl_a = "Archive",
