@@ -11,6 +11,7 @@ import wbgapi as wb
 import pandas as pd
 import numpy as np
 import sys
+import os
 import warnings
 
 def extract_esg_data(metafile_path, csv_path, progress=True):
@@ -20,10 +21,17 @@ def extract_esg_data(metafile_path, csv_path, progress=True):
     '''
 
     # for now, we limit countries to the WDI set. Could also limit to the ESG set which is smaller
-    economy_filter = [row['id'] for row in wb.economy.list(skipAggs=True)]
+    economies = {row['id']:row['value'] for row in wb.economy.list(skipAggs=True)}
+
+    ### TEMPORARY HACK ###
+    # API contains bogus values for Sudan that are throwing off the analysis so we need to suppress them
+    # Hopefully the API will fix these soon and when that happens we should remove this code or set to an empty list
+    suppress_values_after_2014 = ['EN.ATM.CO2E.PC-SDN', 'ER.H2O.INTR.PC-SDN']
 
     # limit to 1990 on
     time_range = range(1990, 2051)
+
+
 
     with open(metafile_path, 'r') as meta_fd, open(csv_path, 'w') as csv_fd:
         reader = csv.reader(meta_fd)
@@ -31,31 +39,44 @@ def extract_esg_data(metafile_path, csv_path, progress=True):
 
         writer.writerow(['db', 'iso3c', 'date', 'value', 'indicatorID', 'indicator', 'iso2c', 'country'])
 
+        next(reader)  # toss the header row
         for row in reader:
             (cets,db) = row[0:2]
-            if not db.isnumeric():
-                continue # could be header or something not in the API
-
-            if int(db) == 11 or int(db) == 57:
+            if db == '11' or db == '57':
                 continue    # archived databases
 
-            wb.db = db
-            try:
-                if progress:
-                    print('Fetching {} ({})'.format(cets, db), file=sys.stderr)
+            if progress:
+                print('Fetching {} ({})'.format(cets, db), file=sys.stderr)
 
-                for elem in wb.data.fetch(cets, time=time_range, skipAggs=True, skipBlanks=True, labels=True):
-                    if elem['economy']['id'] in economy_filter:
-                        # writer.writerow([db, elem['series'], elem['economy'], elem['time'], elem['value']])
-                        writer.writerow([db, elem['economy']['id'],
-                            elem['time']['value'],
-                            elem['value'],
-                            elem['series']['id'],
-                            elem['series']['value'],
-                            wb.economy.iso2(elem['economy']['id']),
-                            elem['economy']['value']])
-            except wb.APIError as err:
-                warnings.warn('ERROR {} ({})\n{}'.format(cets, db, err), RuntimeWarning)
+            localDataPath = os.path.sep.join([os.path.dirname(os.path.realpath(__file__)), 'local', '{}.csv'.format(cets)])
+            if os.path.isfile(localDataPath):
+                wb.db = 2 # Assume WDI countries and codes
+                with open(localDataPath) as localFile:
+                    localReader = csv.reader(localFile)
+                    next(localReader) # read and toss the header
+                    for elem in localReader:
+                        if elem[1] in economies:
+                            writer.writerow([0, elem[1], elem[2], elem[3], cets, elem[0], wb.economy.iso2(elem[1]), economies[elem[1]]])
+            else:
+                try:
+                    wb.db = db
+                    for elem in wb.data.fetch(cets, time=time_range, skipAggs=True, skipBlanks=True, labels=True, numericTimeKeys=True):
+                        cets2 = '-'.join([cets, elem['economy']['id']])
+                        tv = elem['time']['id']
+                        if cets2 in suppress_values_after_2014 and type(tv) is int and tv > 2014:
+                            continue
+
+                        if elem['economy']['id'] in economies:
+                            # writer.writerow([db, elem['series'], elem['economy'], elem['time'], elem['value']])
+                            writer.writerow([db, elem['economy']['id'],
+                                elem['time']['value'],
+                                elem['value'],
+                                elem['series']['id'],
+                                elem['series']['value'],
+                                wb.economy.iso2(elem['economy']['id']),
+                                elem['economy']['value']])
+                except wb.APIError as err:
+                    warnings.warn('ERROR {} ({})\n{}'.format(cets, db, err), RuntimeWarning)
 
 
 def write_feather_file(csv_path, feather_path):
@@ -80,12 +101,6 @@ def esg_prepare(metafile_path, datafile_path):
     meta = pd.read_csv(metafile_path)
     data = pd.read_feather(datafile_path)
     
-    ### TEMPORARY HACK ###
-    # Sudan has bogus values past 2014 for these 2 indicators, so we must delete them manually
-    data.drop(index=data[(data.indicatorID=='EN.ATM.CO2E.PC') & (data.date>2014)].index, inplace=True)
-    data.drop(index=data[(data.indicatorID=='ER.H2O.INTR.PC') & (data.date>2014)].index, inplace=True)
-    ### END TEMPORARY HACK ###
-
     # calculate no_pop, defined as any indicator with a value for 2018 or later for 90%+ of economies
     min_economies = len(data.iso3c.unique()) * 0.9
 
@@ -109,9 +124,6 @@ def esg_prepare(metafile_path, datafile_path):
 
     # ... but not any archived variables
     meta.loc[meta.expl_a, 'expl_b'] = False
-
-    # ... and not this special case (which is not in the API data)
-    meta.loc[meta.cetsid=='WBL', 'expl_b'] = False
 
     # apply additional business logic. convert 1:0 to booleans
     for row in expl_c_g:

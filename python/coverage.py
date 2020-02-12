@@ -165,7 +165,7 @@ for id in config['INDICATOR']:
     if os.path.isfile(localDataPath):
         with open(localDataPath) as localFile:
             localReader = csv.reader(localFile)
-            localReader.next() # read and toss the header: we assume SERIES_NAME,COUNTRY_ISO,DATE,VALUE
+            next(localReader)  # read and toss the header: we assume SERIES_NAME,COUNTRY_ISO,DATE,VALUE
             data = [{}, []]    # new minimal viable object we can iterate over
             src = ''
             for row in localReader:
