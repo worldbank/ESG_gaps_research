@@ -9,6 +9,7 @@ Typical use:
 import csv
 import wbgapi as wb
 import pandas as pd
+import numpy as np
 import sys
 import warnings
 
@@ -66,3 +67,60 @@ def write_feather_file(csv_path, feather_path):
     esg['date'] = esg['date'].astype('float64')
     esg.to_feather(feather_path)
 
+
+def esg_prepare(metafile_path, datafile_path):
+    '''Loads the metadata file and dynamically calculates the expl_ variables
+    based on business logic and the contents of the database
+    '''
+
+    # some helpful lists of columns
+    expl_a_g = list(map(lambda x: 'expl_'+x, list('abcdefg')))
+    expl_c_g = list(map(lambda x: 'expl_'+x, list('cdefg')))
+
+    meta = pd.read_csv(metafile_path)
+    data = pd.read_feather(datafile_path)
+    
+    ### TEMPORARY HACK ###
+    # Sudan has bogus values past 2014 for these 2 indicators, so we must delete them manually
+    data.drop(index=data[(data.indicatorID=='EN.ATM.CO2E.PC') & (data.date>2014)].index, inplace=True)
+    data.drop(index=data[(data.indicatorID=='ER.H2O.INTR.PC') & (data.date>2014)].index, inplace=True)
+    ### END TEMPORARY HACK ###
+
+    # calculate no_pop, defined as any indicator with a value for 2018 or later for 90%+ of economies
+    min_economies = len(data.iso3c.unique()) * 0.9
+
+    mrv = data[data.date>=2018]
+
+    # dataframe of indicators with counts of countries with at least one MRV
+    mrv_series = mrv.groupby(['indicatorID', 'iso3c']).count().groupby('indicatorID').count()
+    no_gaps = mrv_series[mrv_series.value>=min_economies]
+
+    # set no_gap for indicators in the previous dataframe
+    meta['no_gap'] = meta.join(no_gaps.value, on='cetsid').value.map(lambda x: not np.isnan(x))
+
+    # expl_a is defined as archived. That's databases 11 (Africa Development Indicators) or 57 (WRI archives)
+    meta['expl_a'] = (meta.database_id == '11') | (meta.database_id == '57')
+
+    # expl_b is defined as very stale: no values past 2014
+    tmp = data[data.date>2014].groupby('indicatorID').count() # count of values AFTER 2014
+
+    # set expl_b for indicators NOT in the previous dataframe (no values after 2014)
+    meta['expl_b'] = meta.join(tmp.value, on='cetsid').value.map(lambda x: np.isnan(x))
+
+    # ... but not any archived variables
+    meta.loc[meta.expl_a, 'expl_b'] = False
+
+    # ... and not this special case (which is not in the API data)
+    meta.loc[meta.cetsid=='WBL', 'expl_b'] = False
+
+    # apply additional business logic. convert 1:0 to booleans
+    for row in expl_c_g:
+        meta[row] = meta[row].map(lambda x: x==1)
+    
+    # if no_gap then all expls are false
+    meta.loc[meta.no_gap, expl_a_g] = False
+
+    # if a or b then c-g must be false
+    meta.loc[meta.expl_a | meta.expl_b, expl_c_g] = False
+
+    return meta
