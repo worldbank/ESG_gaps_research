@@ -40,7 +40,7 @@ g1 <- ggplot(d1, aes( x = date,
                       text = text)) +
   geom_tile() +
   scale_fill_viridis_c(option = "A", alpha = .8,
-                       limits = c(0, 202),
+                       limits = c(0, 220),
                        breaks = c(0, 50, 100, 150, 200)) +
   labs(x = "", y = "") +
   scale_x_continuous(breaks = c(2000:2018),
@@ -95,7 +95,7 @@ hm_expl <- function(x, expl,
                      y = ind,
                      fill = n)) +
       scale_fill_viridis_c(option = "A", alpha = .8,
-                           limits = c(0, 202),
+                           limits = c(0, 220),
                            breaks = c(0, 50, 100, 150, 200)) +
       labs(x = "", y = "") +
       scale_x_continuous(breaks = c(2000:2018),
