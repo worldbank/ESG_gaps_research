@@ -54,7 +54,7 @@ g1 <- ggplot(d1, aes( x = date,
   ggtitle(label = "Number of countries per indicator over time")
 #g1
 # make it interactive
-pg1 <- ggplotly(g1, tooltip = "text")
+pg1 <- plotly::ggplotly(g1, tooltip = "text")
 
 
 
@@ -107,7 +107,7 @@ hm_expl <- function(x, expl,
             axis.text.y = element_text(size = rel(0.5),
                                        colour = "grey50")) +
       ggtitle(label = labelf)
-    ggplotly(g1a, tooltip = "text")
+    plotly::ggplotly(g1a, tooltip = "text")
     }
 }
 

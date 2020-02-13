@@ -131,7 +131,7 @@ g1 <- ggplot(d1, aes( x = ind,
   ggtitle(label = "Number of countries per indicator over time")
 #g1
 # make it interactive
-pg1 <- ggplotly(g1, tooltip = "text")
+pg1 <- plotly::ggplotly(g1, tooltip = "text")
 
 
 #----------------------------------------------------------
@@ -234,7 +234,7 @@ g2 <- var_country %>%
                                    colour = "grey50")) +
   ggtitle(label = "Variability of ESG indicators by country")
 
-pg2 <- ggplotly(g2, tooltip = "text")
+pg2 <- plotly::ggplotly(g2, tooltip = "text")
 
 
 

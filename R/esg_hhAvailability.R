@@ -179,7 +179,7 @@ hh_map <- ggplot(data = wdf,
   guides(fill = guide_legend(title.position = "top")) +
   plain
 
-phh_map <- ggplotly(hh_map, tooltip = "text")
+phh_map <- plotly::ggplotly(hh_map, tooltip = "text")
 
 #----------------------------------------------------------
 #   Production of surveys over time
@@ -204,7 +204,7 @@ g_hhp <- ggplot(df3, aes(x = yrs,
        x = "Year",
        y = "Number of surveys")
 
-pg_hhp <- ggplotly(g_hhp)
+pg_hhp <- plotly::ggplotly(g_hhp)
 
 
 #----------------------------------------------------------

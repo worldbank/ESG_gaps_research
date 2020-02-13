@@ -29,7 +29,7 @@ core_fields <- c('sector','cetsid','input_name', explans)
 
 
 esg_copy <- esg %>%
-  pivot_longer(cols = all_of(explans), names_to = "explanations") %>%
+  pivot_longer(cols = tidyselect::all_of(explans), names_to = "explanations") %>%
   mutate(
     explanations = recode(explanations,
                           expl_a = "Archive",

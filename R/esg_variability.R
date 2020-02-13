@@ -183,7 +183,7 @@ g2 <- var_country %>%
                                    colour = "grey50")) +
   ggtitle(label = "Variability of ESG indicators by country")
 
-pg2 <- ggplotly(g2, tooltip = "text")
+pg2 <- plotly::ggplotly(g2, tooltip = "text")
 
 
 # country with highest CV per indicators

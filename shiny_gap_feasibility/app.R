@@ -73,8 +73,8 @@ server <- function(input, output) {
     ialy <- y[["ialy"]]
     ialy2 <- y[["ialy2"]]
 
-    p_irank  <- ggplotly(chbar(df = ialy))
-    p_irank2 <- ggplotly(chbar(df = ialy2))
+    p_irank  <- plotly::ggplotly(chbar(df = ialy))
+    p_irank2 <- plotly::ggplotly(chbar(df = ialy2))
     plotly::subplot(p_irank, p_irank2)
   }) # end of output$bars
 } # end of server
