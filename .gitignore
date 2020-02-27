@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 .Rprofile
+**/__pycache__/**
 
 R/dopar_parallel_example.R
 
