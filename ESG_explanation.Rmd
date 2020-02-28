@@ -18,6 +18,21 @@ The discusion below describes each of the explanations in detail. Each descripti
 map from the previous section which identifies the indicators "tagged" underneath it, showing how the explanation
 may impact gaps in data coverage.
 
+*TGH: Need to replace "Methodology" with "Structural" in all text and charts*
+
+*TGH: need to double check the heatmaps below as the indicator counts don't match the current metadata table. The counts
+don't match for "no_gap" and explanations B and E. F & G look right and I can't tell about C. But that's just summary counts
+we should really confirm they match at the indicator level. Here are the counts from the database.*
+
+*no_gap    12
+expl_a    15
+expl_b    15
+expl_c    66
+expl_d     2
+expl_e     8
+expl_f    32
+expl_g    12*
+
 
 ## Description of Explanations
 
@@ -66,7 +81,7 @@ hm_expl(d1a, expl_b, "No Longer Updated")
 
 **Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
 
-### Methodology Lags (C) {-}
+### Structural Lags (C) {-}
 
 Some indicators by their nature may be especially time consuming to produce. For instance, if an indicator relies on
 administrative data or other underlying raw information, it cannot be calculated until that source is published. These
@@ -142,7 +157,9 @@ potentially relevant to rich/small economies despite the lack of available data.
 
 ## Findings 
 
-**TONY: ADD NEW SUMMARY CHARTS HERE AND WE CAN REWRITE THE ENSUING TEXT**
+*TGH: I think we should keep the charts as is except possibly 3.11 and write narrative around them, but it would be great if they could
+all use the same x axis*
+
 
 Figure \@ref(fig:smry-exlp) shows the results of the explanation framework 
 disaggregated primarily by explanation, and secondarily by primary source 

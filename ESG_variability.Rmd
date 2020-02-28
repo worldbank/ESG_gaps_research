@@ -14,6 +14,13 @@ ESG indicators belong to set of measures of wide diversity. Some of them are est
 
 To alleviate this problem, a standard measure of volatility could be applied to all indicators. Those indicators that vary the most, deserve the most attention by investors, whereas those that vary the less could be revisited every few years to recalibrate models.  To make volatility comparable across countries, it was necessary to rescale all indicators and linearly interpolate missing values by year. Then, the coefficient of variation (CV) was estimated at indicator/country level in order to capture  temporal volatility of each indicator at the country level, which is represented in Figure \@ref(fig:civar). 
 
+*TGH: let's discuss this methodology. CV is s standard formula, stdev/mean so I don't think we need to describe it in depth. I don't think
+it requires normalization, and I'm concerned that the need for interpolation isn't correct and might be smoothing the calculation.*
+
+*TGH: 4.2 seems to be at cross purposes to conclusions of 4.1*
+
+*TGH: 4.4 can the left and right sides of the chart use the same vertical scale and show all indicators and possibly in the same order?*
+
 ```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Coefficient of variation by country and indicators", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
 pg2
 ```
