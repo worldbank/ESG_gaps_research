@@ -1,4 +1,23 @@
 
+'''
+This module defines functions to compute cofficients of variation (CV) scores
+at the indicator and country level, and return them as a data frame with cetsid
+for the index and iso3 codes as columns. Since this is very time intensive, the
+result is typically saved to a feather file or similar.
+
+Typical use:
+
+import pandas as pd
+from esg_cv import esg.cv
+data = pd.read_feather('data/ESG_wdi.feather')
+cv = esg_cv(data)
+cv.reset_index().to_feather('data/ESG_cv.feather')
+
+Then to read the saved file:
+
+cv = pd.read_feather('data/ESG_cv.feather').set_index('cetsid')
+'''
+
 import pandas as pd
 import numpy as np
 import warnings
