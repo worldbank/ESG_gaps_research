@@ -8,7 +8,7 @@ result is typically saved to a feather file or similar.
 Typical use:
 
 import pandas as pd
-from esg_cv import esg.cv
+from esg_cv import esg_cv
 data = pd.read_feather('data/ESG_wdi.feather')
 cv = esg_cv(data)
 cv.reset_index().to_feather('data/ESG_cv.feather')
