@@ -10,7 +10,7 @@ source("R/esg_availability.R")
 
 The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:ciavailability), not all indicators are available in all countries neither they are available in all years. The bottom left of the chart shows the less available indicators, whereas the top right of the chart shows the most available indicators. From a different perspective, the availability of indicators goes from red to blue. Several insights are drawn from this chart. 
 
-*TGH: How is the chart sorted? The description makes it sound like is sorted by descending coverage, but it doesn't look like it*
+*TGH: review the previous description - the color references are probably dated, and the bottom-left/top-right references are a bit misleading*
 
 ```{r ciavailability, fig.width = 12, fig.height = 10, fig.cap = "Number of countries per indicator over time"}
 pg1
@@ -19,11 +19,11 @@ pg1
 The characteristics of ESG indicator coverage vary significantly across the study area, but can be generally classified under one
 of five different patterns:
 
-*TGH: a couple of overall observations on 2.1 - 2.5. 1) 2.4 is by far the most important category, as MRV is now we defined a "data gap" in
-the introduction. Would be good to highlight this and perhaps elaborate more; 2) I'm not getting a detailed picture from the discussion yet,
-and I wonder if we could include a list in each section of the indicators that fit that section, absent that, a count or percentage of how
-many indicators are in each section. Might also think about a computed "coverage score" we could calculate for each indicator. Note that the
-indicators classified under 2.5 (High coverage) should match the "no gaps" classification in the next section.*
+*TGH: a couple of overall observations on 2.1 - 2.5. 1) the study period has changed (now starts at 2000) and the text hasn't really been updated to reflect
+that. Need to accordingly review and revise summary stats as well as description in 2.1; 2) I'm not sure 2.2 is relevant any more; 3) 2.4
+is the most important category since this is how we define "data gap" in the introduction, so let's underscore that point; 4) can we
+add a complete list of indicators for each section to help quantify the analysis? 5) 2.5 (high coverage) corresponds to "no gaps" classification
+in the next section so let's make that point and make sure the indicators align.*
 
 
 ## Low coverage

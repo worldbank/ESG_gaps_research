@@ -34,7 +34,7 @@ esg_copy <- esg %>%
     explanations = recode(explanations,
                           expl_a = "Archive",
                           expl_b = "Stale",
-                          expl_c = "Method Lag",
+                          expl_c = "Structural Lag",
                           expl_d = "Curation Lag",
                           expl_e = "Licensing",
                           expl_f = "Survey",
@@ -89,7 +89,7 @@ esg_tmp <- bind_rows(esg_all_tmp,
   mutate(
     explanations = factor(explanations),
     explanations = fct_relevel(explanations,
-                               c("Curation Lag",
+                               c("Structural Lag",
                                  "Licensing",
                                  "Stale",
                                  "High income\nSmall country",
@@ -153,7 +153,7 @@ esg_tmp <- bind_rows(esg_all_tmp,
                                  "High income\nSmall country",
                                  "Archive",
                                  "Survey",
-                                 "Method Lag"))
+                                 "Structural Lag"))
   )
 
 
@@ -184,7 +184,7 @@ esg_tmp <- esg_tmp %>%
                                  "High income\nSmall country",
                                  "Archive",
                                  "Survey",
-                                 "Method Lag"))
+                                 "Structural Lag"))
   )
 
 smry_expl_sctr2 <- ggplot(esg_tmp) +

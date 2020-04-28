@@ -7,7 +7,7 @@
 This document builds upon research first presented in the discussion paper
 *Options for Improving Use of ESG for Sovereign Bond Analysis* (World Bank, 2018).
 
-Interviews ESG data providers found that most obtain at least some and often a substantial amount
+Interviews with ESG data providers found that most obtain at least some and often a substantial amount
 of data from World Bank databases.
 137 indicators were specifically identified from these interviews, of which 127 could be mapped to
 active databases in the World Bank's data API, enabling the authors to [perform a rapid
@@ -41,12 +41,14 @@ analysis were performed today with 2019 as a reference the results would likely 
 this document attempts to provide a more comprehensive and current understanding of data availability and coverage as context
 for the gaps analysis.
 
-Table XX provides a summary of the 134 indicators analyzed in this report,
+Table \@ref(tab:summ)  provides a summary of the 134 indicators analyzed in this report,
 disaggregated by pillar and origin.  44 indicators are environmental
 indicators, 66 are social indicators, and 24 are governance indicators.  The
 World Bank is the primary source of 36 indicators, whereas the UN system is
 primary source of 66 indicators, and other organizations are the source for 32
 indicators.
+
+  Table: (\#tab:summ) Indicators by origin and sector
 
   Origin     | Env  | Soc  | Gov | Total
   ------     | ---: | ---: | ---:| ----:
@@ -73,7 +75,7 @@ are not a primary focus of this analysis.
 This paper applies three separate approaches to better understand coverage gaps in ESG indicators:
 
 1. **Coverage Analysis.** This approach provides a more detailed and visual picture of temporal gaps in the
-   ESG indicator set, both historically and by MRV
+   ESG indicator set, both historically and by MRV.
 2. **Explanation Framework Analysis.** This approach sets out a set of reasons why data gaps might occur
    as a framework for classifying ESG indicators, and looking at what approaches might be used to mitigate
    coverage issues.
@@ -84,3 +86,5 @@ This paper applies three separate approaches to better understand coverage gaps 
 The paper then concludes with a discussion section and set of recommendations based on the analysis and findings
 of each of these sections.
 
+[2018-calcs]: #TODO
+[esg-ddh]: https://datacatalog.worldbank.org/dataset/environment-social-and-governance-data
