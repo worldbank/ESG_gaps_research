@@ -59,15 +59,62 @@ d4 %>%
 
 ## Remarkable improvement over time
 
-There are a few indicators that show a remarkable improvement in country coverage over time. Despite their early appearance in the beginning of the 1980's, indicators that come from household surveys such as the _Poverty headcounts_ or _Gini index_ have shown a dramatic improvement in country coverage in the beginning of the 2000's.  The coverage improved from about five countries in the 80's to more than 70 countries per year in the decade of the 2000's.  However, these indicators suffer from a compilation lag that requires more than two years from time or recollection to the time of publication. 
-*TGH: again, the comparison to the 1980's isn't really relevant anymore*
+There are a few indicators that show a remarkable improvement in country coverage over time. Indicators that come from household surveys such as the _Poverty headcounts_ or _Gini index_ have shown a dramatic improvement in country coverage in the beginning of the 2000's. The table below shows the average growth of number of countries in each indicator. The higher the number the more consistent has been the indicator on adding country coverage since 2000.   
 
-Other indicators, especially the ones related to the governance component.  have improved the frequency of publication. For instance, _Governance effectiveness_, _Political stability and absence of violence_, and _Voice and accountability_ were collected every three years at the decade of 1990, but increased their frequency to every year since the 2000. 
+```{r agcbi}
+lmdi %>% 
+  DT::datatable(
+    colnames = c("Code", "Indicator", "Avg. growth of No. of countries"),
+    rownames = FALSE,
+    filter = 'top', 
+    width = '55%', 
+    extensions = 'FixedColumns',
+    options = list(pageLength = 5)
+  ) %>% 
+  DT::formatRound("beta" , 1)
+```
+
+
 
 ## Remain stable over time but with middle coverage
 
-All the indicators with a stable yellow  vertical line are characterized by being stable over time but with a country coverage of about 120 countries per year. Among those, we could find _Prevalence of HIV in adult population_, _non-residents patents application_, or _Physicians per 1,000 people_. 
-*TGH: the color map changed, so these are no longer yellow. I'm not sure what it is: burgundy perhaps?*
+```{r fullystind}
+fsi <- si %>% 
+  filter(sd == 0) %>% 
+  count() %>% 
+  pull()
+
+
+avfsi <- si %>% 
+  filter(sd == 0) %>% 
+  summarise(mm = mean(mean, na.rm = TRUE)) %>% 
+  pull()
+
+cfsi <- si %>% 
+  filter(sd == 0) %>% 
+  distinct(indicator) %>% 
+  pull() %>% 
+  add_and()
+
+```
+
+The country coverage of some indicators have remained relatively stable over time. Only `r fsi` indicators have not changed their country coverage over the period of analysis. In average, they cover `r round(avfsi, digit = 1)` countries.  These indicators are `r cfsi`. 
+
+The table below shows how stable each indicator is over time and the average number of countries covered in each year.  
+
+```{r dtsi}
+si %>% 
+  DT::datatable(
+    colnames = c("Code", "Indicator", "Avg. of countries", "Standard Dev."),
+    rownames = FALSE,
+    filter = 'top', 
+    width = '55%', 
+    extensions = 'FixedColumns',
+    options = list(pageLength = 5)
+  ) %>% 
+  DT::formatRound("mean" , 1) %>% 
+  DT::formatRound("sd" , 2) 
+```
 
 ## High coverage and sudden decline
 
