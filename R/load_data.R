@@ -16,7 +16,8 @@
 #----------------------------------------------------------
 #   Load and prepare data
 #----------------------------------------------------------
-
+library(tidyverse)
+library(wbstats)
 # Blend and regions vector
 ic <- wb_cachelist$countries %>%
   filter(!(lending  == "Aggregates") ) %>%
