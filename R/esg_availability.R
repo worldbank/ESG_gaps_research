@@ -32,12 +32,71 @@ d2 <- x %>%
   summarise(mean = mean(n, na.rm = TRUE)) %>%
   ungroup()
 
+#----------------------------------------------------------
+#   Average growth of countries per year in each indicator
+#----------------------------------------------------------
+
+lmdi <- x %>%  # improvement
+  filter(date >= 2000, date <= 2018) %>%
+  group_by(indicatorID,indicator, date) %>%
+  summarise(n = n_distinct(iso3c)) %>%
+  ungroup() %>%
+  nest(data = -c(indicator, indicatorID)) %>%
+  mutate(
+    fit  = purrr::map(data, ~lm(n ~ date, data = .)),  # regression
+    beta = purrr::map(fit, ~broom::tidy(.)[["estimate"]][2])  # extract beta
+  ) %>%
+  unnest(beta) %>%
+  select(indicatorID, indicator, beta) %>%
+  arrange(-beta)
+
+
+#----------------------------------------------------------
+#   Indicators stable over time
+#----------------------------------------------------------
+
+fillin <- expand_grid(
+  date        = c(2000:2018),
+  indicatorID = unique(x$indicatorID)
+  ) %>%
+  inner_join(
+    tibble(
+      indicatorID  = unique(x$indicatorID),
+      indicator    = unique(x$indicator)
+    )
+  )
+
+si <- x %>%
+  filter(date >= 2000, date <= 2018) %>%
+  group_by(indicatorID,indicator, date) %>%
+  summarise(nc = n_distinct(iso3c))   %>%
+  full_join(fillin) %>%
+  arrange(indicatorID, date) %>%
+  mutate(
+    nc = if_else(is.na(nc), 0L, nc)
+  ) %>%
+  group_by(indicatorID, indicator) %>%
+  summarise(
+    mean = mean(nc, na.rm = TRUE),
+    sd   = sd(nc, na.rm = TRUE)
+    ) %>%
+  filter(mean > 0) %>%
+  ungroup() %>%
+  arrange(sd, -mean)
+
+
+
+#----------------------------------------------------------
+#   Charts
+#----------------------------------------------------------
+
 
 # Plot Heatmap
-g1 <- ggplot(d1, aes( x = date,
-                      y = ind,
-                      fill = n,
-                      text = text)) +
+g1 <- ggplot(data = filter(d1, date >= 2000, date <= 2018),
+             aes( x = date,
+                  y = ind,
+                  fill = n,
+                  text = text)) +
   geom_tile() +
   scale_fill_viridis_c(option = "A", alpha = .8,
                        limits = c(0, 220),
