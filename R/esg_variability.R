@@ -1,3 +1,4 @@
+
 source("R/utils.R")
 #----------------------------------------------------------
 #   subfunctions
@@ -23,7 +24,7 @@ qcd <- function(x) {
 norm_prox <- function(x) {
   #p <- (x - mean(x, na.rm = TRUE)) / sd(x, TRUE)  # normalize
   p <- scales::rescale(x, na.rm = TRUE)
-  p <- na.approx(p, na.rm = FALSE)                # interpolate missings
+  p <- zoo::na.approx(p, na.rm = FALSE)                # interpolate missings
   return(p)
 }
 
@@ -49,7 +50,7 @@ ind_ID <- x %>%
   rename(ind_name = indicator ,
          indicator = indicatorID)
 
-# Scale variables
+# Scale variablese
 esg_scaled <- esg_wdi %>%
   group_by(iso3c) %>%   # calculations done by country
   mutate_at(vars(matches("\\.")), norm_prox)  # normalize and Interpolate data (linear)
@@ -81,9 +82,9 @@ g_cv <- var_ind %>% ggplot(aes(x = cv)) +
                  alpha = 0.8,
                  position = 'identity',
                  bins = 15) +
-  scale_fill_viridis(discrete=TRUE) +
-  scale_color_viridis(discrete=TRUE) +
-  theme_ipsum() +
+  viridis::scale_fill_viridis(discrete=TRUE) +
+  viridis::scale_color_viridis(discrete=TRUE) +
+  hrbrthemes::theme_ipsum() +
   theme(
     legend.position = "none",
     panel.spacing = unit(0.1, "lines"),
