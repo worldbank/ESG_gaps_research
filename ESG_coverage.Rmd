@@ -4,20 +4,17 @@
 #--------- execute script of analysis
 source("R/load_data.R")
 source("R/esg_availability.R")
-#source("R/esg_variability.R")
 ```
 
 
-The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:ciavailability), not all indicators are available in all countries neither they are available in all years. The bottom left of the chart shows the less available indicators, whereas the top right of the chart shows the most available indicators. From a different perspective, the availability of indicators goes from red to blue. Several insights are drawn from this chart. 
-
-*TGH: review the previous description - the color references are probably dated, and the bottom-left/top-right references are a bit misleading*
+The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:ciavailability), not all indicators are available in all countries neither they are available in all years. The availability of indicators goes from darker to lighter. The lighter the color the more the greater the number of countries per indicator in each year. Several insights are drawn from this chart. 
 
 ```{r ciavailability, fig.width = 12, fig.height = 10, fig.cap = "Number of countries per indicator over time"}
 pg1
 ```
 
-The characteristics of ESG indicator coverage vary significantly across the study area, but can be generally classified under one
-of five different patterns:
+The characteristics of ESG indicators coverage vary significantly across the study area, 
+but can be classified under one of five different patterns:
 
 *TGH: a couple of overall observations on 2.1 - 2.5. 1) the study period has changed (now starts at 2000) and the text hasn't really been updated to reflect
 that. Need to accordingly review and revise summary stats as well as description in 2.1; 2) I'm not sure 2.2 is relevant any more; 3) 2.4
@@ -29,21 +26,36 @@ in the next section so let's make that point and make sure the indicators align.
 ## Low coverage
 
 ```{r echo = FALSE}
-tr_low <- 100
+tr_low <- 100  # number of countries. 
 d3 <- d2  %>%
   mutate(max = max(mean),
          less = (mean < tr_low)) %>%
   summarise(sless = sum(less),
             max = mean(max),
             s   = sless/max)
+d4 <- d2 %>% 
+  filter(mean < tr_low)
+
+
 ```
 
 Some indicators have very low availability over time. In general, `r d3[["sless"]]` (`r round(100*d3[["s"]],2)`%) indicators are available for less than `r tr_low` countries in average over time. Yet, not all indicators with low coverage have the same characteristics. For instance, 
 
-* __Indicator is available since the beginning of the 80's__. Indicators like _Gross National Savings_ or _Adult literacy rate_ are available since 1980. However, they are available YYY countries in average each year. 
-*TGH: no longer relevant since the chart starts at 2000*
-* __Indicator is available every few years__. Indicators like _Internal renewable freshwater resources_ or _Net migration_ are available for more than 160 countries but only every five years. Something similar happens to  _PM 2.5 air pollution_, but after 2010 this indicator becomes available every year rather than every five years. 
-* __High availability only in recent years.__ Some indicators like _Terrestrial and marine protected areas_ or _Strength of legal rights index_ have a high country coverage but low time span. The former started on 2016 with a coverage of 195 countries, whereas the latter started on 2013 with a coverage of 173 countries. Another indicator that started relatively late is _Scientific and technical journal articles_. It started on 2003 for about 180 countries but has a three-year gap as it is only available until 2016. 
+```{r dtlc, options}
+d4 %>% 
+  arrange(mean) %>% 
+  DT::datatable(
+    colnames = c("Code", "Indicator", "Average of countries per year"),
+    rownames = FALSE,
+    filter = 'top', 
+    width = '55%', 
+    extensions = 'FixedColumns',
+    options = list(pageLength = 5)
+  ) %>% 
+  DT::formatRound("mean" , 1)
+
+```
+
 
 ## Remarkable improvement over time
 
