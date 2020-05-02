@@ -118,7 +118,20 @@ si %>%
 
 ## High coverage and sudden decline
 
-With the exception of a few indicators like _Ease of doing business index_ or _Total tax and contribution rate_, most recent value (MRV) of most indicators is two or more years old. However, some indicators with remarkable good coverage in the previous decade suddenly declined in the last five years. For instance, _CO2 emissions_ or _Renewable electricity output_ had a yearly coverage of more than 180 countries until 2014/15 and thereafter it suddenly declined to one country, Sudan, for _CO2 emissions_ or zero countries for _Renewable electricity output_. A similar story happened to _Net energy imports_, _Electricity production from nuclear sources_, or _Hospital beds_. However, this set of indicators did not have such a good coverage as _CO2 emissions_ before the decline. 
+Most recent value (MRV) of most indicators is two or more years old. However, some indicators with remarkable good coverage in the previous decade suddenly declined in the last five years. The table below shows the year in which the country coverage of each indicator plummeted and the number countries that were dropped. 
+
+```{r sdd}
+sdd %>% 
+  DT::datatable(
+    colnames = c("Code", "Indicator", "Year", "No. Countries dropped"),
+    rownames = FALSE,
+    filter = 'top', 
+    width = '55%', 
+    extensions = 'FixedColumns',
+    options = list(pageLength = 5)
+  ) 
+```
+
 
 ## high coverage 
 

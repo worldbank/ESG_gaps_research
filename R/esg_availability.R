@@ -85,6 +85,33 @@ si <- x %>%
   arrange(sd, -mean)
 
 
+#----------------------------------------------------------
+#   Sudden decline
+#----------------------------------------------------------
+
+sdd <- x %>%
+  filter(date >= 2000, date <= 2018) %>%
+  group_by(indicatorID,indicator, date) %>%
+  summarise(nc = n_distinct(iso3c))   %>%
+  full_join(fillin,
+            by = c("indicatorID", "indicator", "date")
+            ) %>%
+  arrange(indicatorID, date) %>%
+  mutate(
+    nc = if_else(is.na(nc), 0L, nc)
+  ) %>%
+  group_by(indicatorID, indicator) %>%
+  mutate(
+    sdi = nc - lag(nc)
+  ) %>%
+  group_by(indicatorID) %>%
+  filter(sdi == min(sdi, na.rm = TRUE)) %>%
+  filter(sdi < 0) %>%
+  filter(date == max(date)) %>%
+  mutate(sdi = sdi*-1) %>%
+  arrange(-sdi) %>%
+  select(indicatorID, indicator, date, sdi)
+
 
 #----------------------------------------------------------
 #   Charts
