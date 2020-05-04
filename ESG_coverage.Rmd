@@ -135,6 +135,27 @@ sdd %>%
 
 ## high coverage 
 
-Finally, the indicators at the right side of the chart present the best country coverage over time. They are characterized by their intense blue color. For instance, _Population density_, _Adjusted savings: mineral depletion_, or _Land area_ have a remarkable and stable high country coverage. 
+```{r hcex}
+hcex <- hc  %>% 
+  slice(1:4) %>% 
+  pull(input_name) %>% 
+  add_and()
+```
+
+
+Finally, the indicators at the top of the chart show the best country coverage over time. They are characterized by their bright yellow color. For example `r hcex` show remarkable coverage. The table below shows the `r nrow(hc)` indicators with high coverage.
+
+
+```{r hcdt}
+hc %>% 
+  DT::datatable(
+    colnames = c("Code", "Indicator", "Sector"),
+    rownames = FALSE,
+    filter = 'top', 
+    width = '55%', 
+    extensions = 'FixedColumns',
+    options = list(pageLength = 6)
+  ) 
+```
 
 
