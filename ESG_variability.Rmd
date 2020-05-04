@@ -6,20 +6,37 @@ source("R/load_data.R")
 source("R/esg_variability.R")
 ```
 
-In this section, we analyze three different aspects of the volatility of the ESG indicators. First, we see the volatility at the country-indicator level. That is, the volatility that each country has over time for each particular indicators. This is useful for country level analysis and cross-country comparison of volatility. Then, we aggregate one level up the analysis and present the volatility at the indicator level. That is, we are able to compara volatilities across indicators to identy which are the ones that vary the most across across countries which vary the less. Finally, we present a simple exercise for investors on the feasibility of filling gaps for the most recent year based on the volatility of  those indicators with no available data. 
+ESG indicators belong to set of measures of wide diversity. Some of them are estimated every few years, whereas others are produced every three or six month. In addition, some indicators are bounded by construction---like percentages or indexes---, others are normalized across countries--like indicators in PPP values--, others are in units based on population size---like all the indicators of the type, *x by 1,000 people*---, among many other kinds of measures and units. This variety makes it difficult to compare directly one indicator to another, especially if some or all the indicators are weighted in any particular fashion. 
+
+To alleviate this problem, a standard measure of volatility could be applied to all indicators. Those indicators that vary the most, deserve the most attention by investors, whereas those that vary the less could be revisited every few years to recalibrate models.  To make volatility comparable across countries, it was necessary to rescale all indicators and linearly interpolate missing values by year. Then, the coefficient of variation (CV) was estimated at indicator/country level in order to capture  temporal volatility of each indicator at the country level, which is represented in Figure \@ref(fig:civar).
+
+In this section, we analyze three different aspects of the volatility of the ESG indicators. First, we present the volatility at the indicator level. That is, volatility at acroos indicator without taking into account that the same indicator may vary widely in some countries and little in others. Then, we see the volatility one level down and disaggregate the previous estimates at the country-indicator level. That is, the volatility that each indicator has over time in each country. This is useful for country level analysis and cross-country comparison of volatility. Finally, we present a simple exercise for investors on the feasibility of filling gaps for the most recent year based on the volatility of  those indicators with no available data. 
+
+## Volatility at the indicator level
+
+```{r esg-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Density of coefficient of variation of ESG indicators", fig.margin = TRUE, fig.width = 6}
+g_cv
+```
+
+The average of CV across countries shows the overall volatility of each ESG indicator. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
+
+The average CV of most indicators (`r round(s_c_mid*100,1)`%) fall between `r round(q_cv[1],2)` and `r round(q_cv[2],2)`, which correspond to the 5th and 95th percentile of the average CV distribution. Since the CV is a relative measure of dispersion, a mean above (below) 1 conveys the idea that, in average, the ESG indicators have a relative high (low) volatility with respect to their own mean value. In this case, the overall mean is `r round(mean_cv, 2)`. 
+
+Given that the majority of indicators are around the mean, all indicators have similar volatility. The light left tail of the distribution---those that fall below `r round(q_cv[1],2)` in CV---is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`%), whereas the right tail---those indicators that fall above `r round(q_cv[2],2)` in CV---is composed by `r n_c_high` indicators (`r round(s_c_high*100,2)`%). Table \@ref(tab:t-lh-cv) shows the indicators that fall in the left and right tail of the distribution.
+
+```{r t-lh-cv, echo = FALSE}
+
+knitr::kable(t_lh2, 
+             caption = "ESG indicators with lowest and highest volatility", 
+             col.names = c(lvarn, hvarn))
+
+```
+
+The first column of Table \@ref(tab:t-lh-cv) shows those indicators with low volatility. As expected, indicators like _`r t_lh2[[1,1]]`_, _`r t_lh2[[2,1]]`_, or _`r t_lh2[[3,1]]`_ do not change often and thus deserve little attention on a yearly basis for decision-investing processes. On the other hand, the right column of the table shows the most volatile indicators, whose standard deviations are two times higher than their means.
 
 ## Volatility at the country-indicator level
 
-ESG indicators belong to set of measures of wide diversity. Some of them are estimated every few years, whereas others are produced every three or six month. In addition, some indicators are bounded by construction---like percentages or indexes---, others are normalized across countries--like indicators in PPP values--, others are in units based on population size---like all the indicators of the type, *x by 1,000 people*---, among many other kinds of measures and units. This variety makes it difficult to compare directly one indicator to another, especially if some or all the indicators are weighted in any particular fashion. 
-
-To alleviate this problem, a standard measure of volatility could be applied to all indicators. Those indicators that vary the most, deserve the most attention by investors, whereas those that vary the less could be revisited every few years to recalibrate models.  To make volatility comparable across countries, it was necessary to rescale all indicators and linearly interpolate missing values by year. Then, the coefficient of variation (CV) was estimated at indicator/country level in order to capture  temporal volatility of each indicator at the country level, which is represented in Figure \@ref(fig:civar). 
-
-*TGH: let's discuss this methodology. CV is s standard formula, stdev/mean so I don't think we need to describe it in depth. I don't think
-it requires normalization, and I'm concerned that the need for interpolation isn't correct and might be smoothing the calculation.*
-
-*TGH: 4.2 seems to be at cross purposes to conclusions of 4.1*
-
-*TGH: 4.4 can the left and right sides of the chart use the same vertical scale and show all indicators and possibly in the same order?*
+The distribution of average of CVs is an aggegation of CVs across countries over time. It provides a general idea of the volatility of each indicator but is insufficient for investment decision making. This section explores volatility one more level in lepth, moving from indicator level to country-indicator level. 
 
 ```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Coefficient of variation by country and indicators", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
 pg2
@@ -41,7 +58,7 @@ Figure \@ref(fig:civar) presents a great amount of information. It allwos the us
 
 diff_ind %>%
   select(ind_name, max_cty, max, min_cty, min, diff) %>%
-  datatable(colnames = c("Indicator", "Country", "Max", "Country", "Min", "Diff"),
+  DT::datatable(colnames = c("Indicator", "Country", "Max", "Country", "Min", "Diff"),
             container = sketch,
             rownames = FALSE,
             filter = 'top', 
@@ -55,36 +72,13 @@ diff_ind %>%
                            ),
                            scrollX = TRUE,
                            fixedColumns = TRUE)) %>%
-  formatRound(c("max", "min", "diff") , 2)
+  DT::formatRound(c("max", "min", "diff") , 2)
 
 # knitr::kable(high_diff_ind, 
 #              caption = "Indicators with highest volatility range across countries", 
 #              col.names = c("Indicator name", "highest CV", "lowest CV"))
 
 ```
-
-## Volatility at the indicator level
-
-```{r esg-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Density of coefficient of variation of ESG indicators", fig.margin = TRUE, fig.width = 6}
-g_cv
-```
-
-In contrast to Figure \@ref(fig:civar), which presents detailed information of the volatility of each indicator at the country level, the average of CV across countries shows the overall volatility of each ESG indicators. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
-
-
-The average CV of most indicators (`r round(s_c_mid*100,1)`%) fall between `r round(q_cv[1],2)` and `r round(q_cv[2],2)`, which correspond to the 5th and 95th percentile of the average CV distribution. Since the CV is a relative measure of dispersion, a mean above (below) 1 conveys the idea that, in average, the ESG indicators have a relative high (low) volatility with respect to their own mean value. In this case, the overall mean is `r round(mean_cv, 2)`. 
-
-Given that the majority of indicators are around the mean, all indicators have similar volatility. The light left tail of the distribution---those that fall below `r round(q_cv[1],2)` in CV---is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`%), whereas the right tail---those indicators that fall above `r round(q_cv[2],2)` in CV---is composed by `r n_c_high` indicators (`r round(s_c_high*100,2)`%). Table \@ref(tab:t-lh-cv) shows the indicators that fall in the left and right tail of the distribution. However, as it was shown in Figure \@ref(fig:civar), the distribution of average of CVs is an aggegation of CVs across countries over time. The CV distriutions of some indicators may have heavy tails and still their average might be close to the overall mean, convey the misconception fact that they are not as volatile as they really are.
-
-```{r t-lh-cv, echo = FALSE}
-
-knitr::kable(t_lh2, 
-             caption = "ESG indicators with lowest and highest volatility", 
-             col.names = c(lvarn, hvarn))
-
-```
-
-The first column of Table \@ref(tab:t-lh-cv) shows those indicators with low volatility. As expected, indicators like _`r t_lh2[[1,1]]`_, _`r t_lh2[[2,1]]`_, or _`r t_lh2[[3,1]]`_ do not change often and thus deserve little attention on a yearly basis for decision-investing processes. On the other hand, the right column of the table shows the most volatile indicators, whose standard deviations are two times higher than their means.
 
 
 ## Feasibility of extrapolating ESG indicators based on volatility
@@ -106,10 +100,18 @@ The chart on the left of Figure \@ref(fig:lsty-rank), show country coverage of e
 
 You may use [this interactive tool]() to change the value of country coverage, threshold of coefficient of variation, base year, and target year. 
 
+*TGH: 4.4 can the left and right sides of the chart use the same vertical scale and show all indicators and possibly in the same order?*
+
 ```{r lsty-rank, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Feasibility of extrapolating ESG indicators based on volatility",fig.width = 8, fig.height = 8}
 
-p_irank  <- plotly::ggplotly(chbar(df = filter(ialy, lst_yd  > 0)), tooltip = c("text")) %>% plotly::style(hoveron = "fill")
-p_irank2 <- plotly::ggplotly(chbar(df = filter(ialy2, lst_yd > 0)), tooltip = c("text")) %>% plotly::style(hoveron = "fill")
+p_irank  <- plotly::ggplotly(chbar(df = filter(ialy, lst_yd  > 0)), 
+                             tooltip = c("text")) %>% 
+  plotly::style(hoveron = "fill")
+
+p_irank2 <- plotly::ggplotly(chbar(df = filter(ialy2, lst_yd > 0)), 
+                             tooltip = c("text")) %>% 
+  plotly::style(hoveron = "fill")
+
 plotly::subplot(p_irank, p_irank2)
 ```
 
