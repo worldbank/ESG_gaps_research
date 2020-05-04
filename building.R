@@ -7,10 +7,10 @@
 #
 # file <- c("ESG_availability.Rmd")
 # file <- c("ESG_resultsbyexplanation.Rmd")
-# file <- c("ESG_variability.Rmd")
-# bookdown::render_book(file, preview = TRUE)
-# beepr::beep(10)
-# browseURL("docs/volatility.html")
+file <- c("ESG_coverage.Rmd")
+bookdown::render_book(file, preview = TRUE)
+beepr::beep(10)
+browseURL("docs/coverage.html")
 #
 # browseURL("docs/background.html")
 

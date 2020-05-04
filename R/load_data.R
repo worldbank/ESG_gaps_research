@@ -45,14 +45,15 @@ mtd <- read_csv("data/esg_metadata.csv",
 # x <- as_tibble(x)
 
 # cleaning
-#x$date <-  as.numeric(x$date)
+# x$date <-  as.numeric(x$date)
 # exclude blends and regions
 # x <- x[x$iso3c  %in% ic$iso3c, ]
 # save(x, file = "data/ESG_wdi.RData")
 # write.csv(x, file = "data/ESG_wdi.csv", row.names = FALSE)
 # feather::write_feather(x, "data/ESG_wdi.feather")
 # load(file = "data/ESG_wdi.RData")
-x <- feather::read_feather("data/ESG_wdi.feather")
+x <- feather::read_feather("data/ESG_wdi.feather") %>%
+  filter(date >= 2000, date <= 2018)
 
 
 #----------------------------------------------------------
