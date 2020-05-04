@@ -21,8 +21,19 @@ documentclass: book
 ```{r setup1, include=FALSE}
 library(tufte)
 # invalidate cache when the tufte version changes
-knitr::opts_chunk$set(tidy = FALSE, 
-                      cache.extra = packageVersion('tufte'))
+
+
+knitr::opts_chunk$set(
+  warning     = FALSE,
+  collapse    = TRUE,
+  message     = FALSE,
+  echo        = FALSE,
+  fig.retina  = 3,
+  fig.width   = 10,
+  tidy        = FALSE, 
+  cache.extra = packageVersion('tufte')
+)
+
 options(htmltools.dir.version = FALSE)
 
 ```
