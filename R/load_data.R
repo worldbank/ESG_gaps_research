@@ -53,7 +53,7 @@ mtd <- read_csv("data/esg_metadata.csv",
 # feather::write_feather(x, "data/ESG_wdi.feather")
 # load(file = "data/ESG_wdi.RData")
 x <- feather::read_feather("data/ESG_wdi.feather") %>%
-  filter(date >= 2000, date <= 2018)
+  filter(date >= 2000, date <= 2019)
 
 
 #----------------------------------------------------------

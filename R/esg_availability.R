@@ -6,7 +6,6 @@ source("R/utils.R")
 #--------- heatmap indicators years and No. of countries
 
 d1 <- x %>%
-  filter(date >= 2000, date <= 2018) %>%
   group_by(indicatorID,indicator, date) %>%
   count(date) %>%
   mutate(text = paste0("Indicator: ", indicator, "\n",
@@ -25,7 +24,6 @@ d1 <- inner_join(d1, o)
 
 
 d2 <- x %>%
-  filter(date >= 2000, date <= 2018) %>%
   group_by(indicatorID,indicator, date) %>%
   summarise(n = n_distinct(iso3c)) %>%
   group_by(indicatorID,indicator)  %>%
@@ -37,7 +35,6 @@ d2 <- x %>%
 #----------------------------------------------------------
 
 lmdi <- x %>%  # improvement
-  filter(date >= 2000, date <= 2018) %>%
   group_by(indicatorID,indicator, date) %>%
   summarise(n = n_distinct(iso3c)) %>%
   ungroup() %>%
@@ -67,7 +64,7 @@ fillin <- expand_grid(
   )
 
 si <- x %>%
-  filter(date >= 2000, date <= 2018) %>%
+
   group_by(indicatorID,indicator, date) %>%
   summarise(nc = n_distinct(iso3c))   %>%
   full_join(fillin) %>%
@@ -90,7 +87,6 @@ si <- x %>%
 #----------------------------------------------------------
 
 sdd <- x %>%
-  filter(date >= 2000, date <= 2018) %>%
   group_by(indicatorID,indicator, date) %>%
   summarise(nc = n_distinct(iso3c))   %>%
   full_join(fillin,
@@ -160,7 +156,6 @@ pg1 <- plotly::ggplotly(g1, tooltip = "text")
 
 
 d1a <- d1 %>%
-  filter(date >= 2000, date <= 2018) %>%
   inner_join(select(mtd, cetsid, matches("^expl")),
              by = c("indicatorID" = "cetsid")) %>%
   ungroup() %>%
