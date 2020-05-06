@@ -58,12 +58,12 @@ d4 %>%
 
 ## Remarkable improvement over time
 
-There are a few indicators that show a remarkable improvement in country coverage over time. Indicators that come from household surveys such as the _Poverty headcounts_ or _Gini index_ have shown a dramatic improvement in country coverage in the beginning of the 2000's. The table below shows the average growth of number of countries in each indicator. The higher the number the more consistent the indicator has been on increasing country coverage since 2000.   
+Most indicators have improved their coverage over time, but some of them show a remarkable improvement over time. Ranking indicators according to their improvement in country coverage is not straightforward. The coverage growth in many indicators is not consistent, fluctuating over time. In other cases, indicators that come from household surveys like the _Poverty headcounts_ or the _Gini index_ have shown a dramatic improvement in country coverage in the beginning of the 2000's. Thus, the table below shows the average growth of number of countries in each indicator penalized by the number of years in which they have no data at all. The higher the number in the third column the more consistent the indicator has been on increasing country coverage since 2000.
 
 ```{r agcbi}
 lmdi %>% 
   DT::datatable(
-    colnames = c("Code", "Indicator", "Avg. growth of No. of countries"),
+    colnames = c("Code", "Indicator", "Avg. growth in coverage (penalized)", "No. of years with data"),
     rownames = FALSE,
     filter = 'top', 
     width = '55%', 
