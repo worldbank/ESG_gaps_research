@@ -10,7 +10,6 @@ library(reticulate)
 source("R/utils.R")
 source_python("python/esg_loader.py")
 
-
 # Load data ---------------------------------------------------------------
 
 esg <- load_metadata(metafile_path = "./data/esg_metadata.csv",
