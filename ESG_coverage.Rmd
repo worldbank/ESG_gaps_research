@@ -7,14 +7,13 @@ source("R/esg_availability.R")
 ```
 
 
-The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:ciavailability), not all indicators are available in all countries neither they are available in all years. The availability of indicators goes from darker to lighter. The lighter the color the more the greater the number of countries per indicator in each year. Several insights are drawn from this chart. 
+The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:ciavailability), not all indicators are available in all countries neither they are available in all years. The availability of indicators goes from darker to lighter. The lighter the color the more the greater the number of countries per indicator in each year.  
 
 ```{r ciavailability, fig.width = 12, fig.height = 10, fig.cap = "Number of countries per indicator over time"}
 pg1
 ```
 
-The characteristics of ESG indicators coverage vary significantly across the study area, 
-but can be classified under one of five different patterns:
+Several insights are drawn from this chart. The following country-coverage categories are relevant for this study even though are not exahustive or mutually exclusive:
 
 *TGH: a couple of overall observations on 2.1 - 2.5. 1) the study period has changed (now starts at 2000) and the text hasn't really been updated to reflect
 that. Need to accordingly review and revise summary stats as well as description in 2.1; 2) I'm not sure 2.2 is relevant any more; 3) 2.4
@@ -59,7 +58,7 @@ d4 %>%
 
 ## Remarkable improvement over time
 
-There are a few indicators that show a remarkable improvement in country coverage over time. Indicators that come from household surveys such as the _Poverty headcounts_ or _Gini index_ have shown a dramatic improvement in country coverage in the beginning of the 2000's. The table below shows the average growth of number of countries in each indicator. The higher the number the more consistent has been the indicator on adding country coverage since 2000.   
+There are a few indicators that show a remarkable improvement in country coverage over time. Indicators that come from household surveys such as the _Poverty headcounts_ or _Gini index_ have shown a dramatic improvement in country coverage in the beginning of the 2000's. The table below shows the average growth of number of countries in each indicator. The higher the number the more consistent the indicator has been on increasing country coverage since 2000.   
 
 ```{r agcbi}
 lmdi %>% 
