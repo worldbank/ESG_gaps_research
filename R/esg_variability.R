@@ -1,33 +1,8 @@
 
-source("R/utils.R")
 #----------------------------------------------------------
 #   subfunctions
 #----------------------------------------------------------
-
-
-# coefficient of variation
-cv <- function(x) {
-  sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
-}
-
-
-# Quartile coefficient of dispersion
-qcd <- function(x) {
-  q <- quantile(x, na.rm = TRUE)
-
-  a <- (q[[4]] - q[[2]])/2 # Interquantile range
-  b <-  (q[[4]] + q[[2]])/2 # Midhinge
-  c <- a/b  # qcd
-  return(c)
-}
-
-norm_prox <- function(x) {
-  #p <- (x - mean(x, na.rm = TRUE)) / sd(x, TRUE)  # normalize
-  p <- scales::rescale(x, na.rm = TRUE)
-  p <- zoo::na.approx(p, na.rm = FALSE)                # interpolate missings
-  return(p)
-}
-
+source("R/utils.R")
 
 
 #----------------------------------------------------------

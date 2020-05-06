@@ -71,7 +71,8 @@ fillin <- expand_grid(
     by = "indicatorID"
   )
 
-lmdi <- x %>%  # coverage improvement over time
+
+x2 <- x %>%  # coverage improvement over time
   group_by(indicatorID,indicator, date) %>%
   summarise(nc = n_distinct(iso3c)) %>%
   ungroup() %>%
@@ -79,7 +80,10 @@ lmdi <- x %>%  # coverage improvement over time
   arrange(indicatorID, date) %>%
   mutate(
     nc = if_else(is.na(nc), 0L, nc)
-  ) %>%
+  )
+
+
+lmdi <- x2 %>%
   nest(data = -c(indicator, indicatorID)) %>%
   mutate(
 
@@ -116,15 +120,44 @@ lmdi <- x %>%  # coverage improvement over time
 #     nc = if_else(is.na(nc), 0L, nc)
 #   )
 #
-# indtest <- "IC.TAX.TOTL.CP.ZS"
-#
-# ggplot(data = filter(cci, indicatorID == indtest),
-#        aes(
-#          x = date,
-#          y = nc
-#          )) +
-#   geom_bar(stat="identity")
+indtest <- "EN.POP.EL5M.ZS"
 
+ggplot(data = filter(cci, indicatorID == indtest),
+       aes(
+         x = date,
+         y = nc
+         )) +
+  geom_bar(stat="identity")
+
+
+#----------------------------------------------------------
+#   Intermittent coverage
+#----------------------------------------------------------
+
+ici <- x2 %>%
+  group_by(indicatorID) %>%
+  mutate(
+    nyc = if_else(nc > 0, TRUE, FALSE)
+  ) %>%
+  summarise(
+    nyc = sum(nyc, na.rm = TRUE),
+    cv  = cv(nc)
+  ) %>%
+  mutate(
+    aci   = max(nyc)/nyc, # average coverage interval
+    cv2   = round((cv^2)/aci, digits = 5),
+    tcv2  = mean(cv2, na.rm = TRUE),
+    taci  = mean(aci, na.rm = TRUE)
+  ) %>%
+  arrange(-aci, -cv2)
+
+ggplot(data = filter(ici, cv2 < 50),
+       aes(
+         x = cv2,
+         y = aci
+       )
+       ) +
+  geom_point()
 
 
 
@@ -133,15 +166,7 @@ lmdi <- x %>%  # coverage improvement over time
 #   Indicators stable over time
 #----------------------------------------------------------
 
-
-si <- x %>%
-  group_by(indicatorID,indicator, date) %>%
-  summarise(nc = n_distinct(iso3c))   %>%
-  full_join(fillin, by = c("indicatorID", "indicator", "date")) %>%
-  arrange(indicatorID, date) %>%
-  mutate(
-    nc = if_else(is.na(nc), 0L, nc)
-  ) %>%
+si <- x2 %>%
   group_by(indicatorID, indicator) %>%
   summarise(
     mean = mean(nc, na.rm = TRUE),
