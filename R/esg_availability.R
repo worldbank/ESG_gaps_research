@@ -120,14 +120,17 @@ lmdi <- x2 %>%
 #     nc = if_else(is.na(nc), 0L, nc)
 #   )
 #
-indtest <- "EN.POP.EL5M.ZS"
 
-ggplot(data = filter(cci, indicatorID == indtest),
-       aes(
-         x = date,
-         y = nc
-         )) +
-  geom_bar(stat="identity")
+
+
+# indtest <- "SH.STA.DIAB.ZS"
+#
+# ggplot(data = filter(cci, indicatorID == indtest),
+#        aes(
+#          x = date,
+#          y = nc
+#          )) +
+#   geom_bar(stat="identity")
 
 
 #----------------------------------------------------------
@@ -135,31 +138,44 @@ ggplot(data = filter(cci, indicatorID == indtest),
 #----------------------------------------------------------
 
 ici <- x2 %>%
-  group_by(indicatorID) %>%
+  arrange(indicatorID, date) %>%
+  group_by(indicatorID, indicator) %>%
   mutate(
-    nyc = if_else(nc > 0, TRUE, FALSE)
+    nyc = if_else(nc > 0, 1, 0),
+
+    # Beginning of each new intercval
+    cnyc = case_when(
+      nyc == 0 & row_number() == 1 ~ 1,
+      nyc == 0 & nyc != lag(nyc)   ~ 1,
+      TRUE ~ 0
+    ),
+
+    # cumulative intervals
+    ni = cumsum(cnyc)
+
   ) %>%
   summarise(
     nyc = sum(nyc, na.rm = TRUE),
-    cv  = cv(nc)
+    cv  = cv(nc),
+    ni  = max(ni) # numer of intervals
   ) %>%
+  ungroup() %>%
   mutate(
     aci   = max(nyc)/nyc, # average coverage interval
-    cv2   = round((cv^2)/aci, digits = 5),
-    tcv2  = mean(cv2, na.rm = TRUE),
-    taci  = mean(aci, na.rm = TRUE)
+
+    # lumpinnes index
+    li   = round((cv^2)/aci, digits = 5)
   ) %>%
-  arrange(-aci, -cv2)
+  arrange(-ni, -aci, -cv) %>%
+  select(-cv)
 
-ggplot(data = filter(ici, cv2 < 50),
-       aes(
-         x = cv2,
-         y = aci
-       )
-       ) +
-  geom_point()
-
-
+# ggplot(data = filter(ici, cv2 < 50),
+#        aes(
+#          x = cv2,
+#          y = aci
+#        )
+#        ) +
+#   geom_point()
 
 
 #----------------------------------------------------------
