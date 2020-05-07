@@ -49,7 +49,8 @@ d4 %>%
     filter = 'top', 
     width = '55%', 
     extensions = 'FixedColumns',
-    options = list(pageLength = 5)
+    options = list(pageLength = 5, 
+                   autowidth = TRUE)
   ) %>% 
   DT::formatRound("mean" , 1)
 
@@ -68,7 +69,8 @@ lmdi %>%
     filter = 'top', 
     width = '55%', 
     extensions = 'FixedColumns',
-    options = list(pageLength = 5)
+    options = list(pageLength = 5, 
+                   autowidth = TRUE)
   ) %>% 
   DT::formatRound("beta" , 1)
 ```
@@ -109,7 +111,8 @@ si %>%
     filter = 'top', 
     width = '55%', 
     extensions = 'FixedColumns',
-    options = list(pageLength = 5)
+    options = list(pageLength = 5, 
+                   autowidth = TRUE)
   ) %>% 
   DT::formatRound("mean" , 1) %>% 
   DT::formatRound("sd" , 2) 
@@ -127,12 +130,13 @@ sdd %>%
     filter = 'top', 
     width = '55%', 
     extensions = 'FixedColumns',
-    options = list(pageLength = 5)
+    options = list(pageLength = 5, 
+                   autowidth = TRUE)
   ) 
 ```
 
 ## Intermittent and Lumpy coverage
-Some indicators have intermittent coverage with excellent coverage in some years and no coverage at all in others. Other indicators are very lumpy in the sense that the number of countries covered varies from year to year. The table below tries to characterize all the indicators by their level of intermittentness and lumpiness. The *No. years covered* column shows the number of years with at least one country covered during the studied period. The *No. intervals with  no data* is the number of intervals in which no country is covered. The higher this number the more intermittent the indicator is. The *Avg. coverage interval*  indicates the number of years between successive years with country coverage. In other words, it indicates how often a year has information  or how intermittent the information of this indicator is. For examples, if the *Avg. coverage interval* is 2, it means that in average every two years this indicator covers at least one country. Finally, the *Lumpiness* index how lumpy an indicator is. The higher it is, the more lumpy its country coverage is. 
+Some indicators have intermittent coverage with excellent coverage in some years and no coverage at all in others. Other indicators are very lumpy in the sense that the number of countries covered varies from year to year. The table below tries to characterize all the indicators by their level of intermittentness and lumpiness. The *No. years covered* column shows the number of years with at least one country covered during the studied period. The *No. intervals with  no data* is the number of intervals in which no country is covered. The higher this number the more intermittent the indicator is. The *Avg. coverage interval*  indicates the number of years between successive years with country coverage. In other words, it indicates how often a year has information  or how intermittent the information of this indicator is. For examples, if the *Avg. coverage interval* is 2, it means that in average every two years this indicator covers at least one country. Finally, the *Lumpiness* index how lumpy an indicator is. The higher it is, the more lumpy its country coverage is. For more information on these measure see @syntetos_categorization_2005 and @williams_stock_1984. 
 
 ```{r icli}
 ici %>% 
@@ -140,9 +144,14 @@ ici %>%
     colnames = c("Code", "Indicator", "No. Years covered", "No. intervals with no data (intermittentness)", "Avg. coverage interval", "Lumpiness index"),
     rownames = FALSE,
     filter = 'top', 
-    width = '70%', 
+    width = '55%', 
     extensions = 'FixedColumns',
-    options = list(pageLength = 5)
+    options = list(pageLength = 5,
+                   autowidth = TRUE,
+                   columnDefs = list(list(width = '380px', targets = 1),
+                                     list(width = '35px', targets = c(2:5))
+                                     )
+                   )
   ) %>% 
   DT::formatRound(c("aci", "li") , 2) 
 
@@ -169,7 +178,8 @@ hc %>%
     filter = 'top', 
     width = '55%', 
     extensions = 'FixedColumns',
-    options = list(pageLength = 6)
+    options = list(pageLength = 6, 
+                   autowidth = TRUE)
   ) 
 ```
 

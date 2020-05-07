@@ -9,7 +9,7 @@
 # library("tidyverse")
 # library("hrbrthemes")
 # library("plotly")
-# library("viridis")
+library("viridis")
 # library("zoo")
 # library("paletteer")
 # library("lubridate")
