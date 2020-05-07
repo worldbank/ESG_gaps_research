@@ -3,6 +3,7 @@
 #   subfunctions
 #----------------------------------------------------------
 source("R/utils.R")
+library("viridis")
 
 
 #----------------------------------------------------------
@@ -234,7 +235,7 @@ g_diff <- ggplot(data = diff_ind ,
                  bins = 15) +
   scale_fill_viridis(discrete=TRUE) +
   scale_color_viridis(discrete=TRUE) +
-  theme_ipsum() +
+  hrbrthemes::theme_ipsum() +
   theme(
     legend.position = "none",
     panel.spacing = unit(0.1, "lines"),

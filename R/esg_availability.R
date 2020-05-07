@@ -16,7 +16,7 @@
 #----------------------------------------------------------
 #   Load libraries
 #----------------------------------------------------------
-
+library("viridis")
 # find if load_data.R has been executed
 
 if (!all(c("mtd", "mrv_series", "x")  %in% ls())) {
