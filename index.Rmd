@@ -4,7 +4,7 @@ author: ["The World Bank", "Development economics, Data Group"]
 date: "`r Sys.Date()`" 
 knit: "bookdown::preview_chapter"
 site: bookdown::bookdown_site 
-bibliography:  
+bibliography: "bib/ESG coverage.bib" 
 biblio-style: "apalike" 
 link-citations: true
 links-as-notes: true
