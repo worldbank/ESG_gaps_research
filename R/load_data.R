@@ -40,7 +40,7 @@ guess <- guess_encoding(meta_csv)
 # mtd <- read_csv("data/esg_metadata.csv",
 #                 locale = readr::locale(encoding = guess[[1,1]]))
 
-source_python("python/esg_loader.py")
+reticulate::source_python("python/esg_loader.py")
 mtd <- load_metadata(metafile_path = "./data/esg_metadata.csv",
                      datafile_path = "./data/ESG_wdi.feather")
 # FIX classes
