@@ -197,10 +197,7 @@ smry_expl_sctr2 <- ggplot(esg_tmp) +
   coord_flip() +
   theme_esg() +
   facet_wrap(.~dataset,
-             scales = "free_y") #+
-  # theme(
-  #   legend.position = "bottom"
-  # )
+             scales = "free_y")
 
 
 

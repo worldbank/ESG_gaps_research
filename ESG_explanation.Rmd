@@ -187,7 +187,9 @@ smry_expl <- smry_expl +
     fill = "Data producer"
   )
 
-plotly::ggplotly(smry_expl, tooltip = "text") %>% plotly::style(hoveron = "fill")
+plotly::ggplotly(smry_expl, tooltip = "text") %>% 
+  plotly::style(hoveron = "fill") %>%
+  plotly::layout(legend = list(orientation = 'h', y = -0.1))
 
 ```
 
@@ -203,7 +205,9 @@ smry_expl_sctr <- smry_expl_sctr +
     fill = "Sector"
   )
 
-plotly::ggplotly(smry_expl_sctr, tooltip = "text") %>% plotly::style(hoveron = "fill")
+plotly::ggplotly(smry_expl_sctr, tooltip = "text") %>% 
+  plotly::style(hoveron = "fill") %>%
+  plotly::layout(legend = list(orientation = 'h', y = -0.1))
 ```
 
 **ANOTHER WAY TO LOOK AT THE SAME INFORMATION AS CHART ABOVE**
@@ -220,7 +224,9 @@ smry_expl_sctr2 <- smry_expl_sctr2 +
     fill = "Explanation"
   )
 
-plotly::ggplotly(smry_expl_sctr2, tooltip = "text") %>% plotly::style(hoveron = "fill")
+plotly::ggplotly(smry_expl_sctr2, tooltip = "text") %>% 
+  plotly::style(hoveron = "fill") %>%
+  plotly::layout(legend = list(orientation = 'h', y = -0.1))
 ```
 
 
