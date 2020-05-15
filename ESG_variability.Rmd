@@ -108,10 +108,13 @@ You may use [this interactive tool]() to change the value of country coverage, t
 
 ```{r lsty-rank, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Feasibility of extrapolating ESG indicators based on volatility",fig.width = 8, fig.height = 8}
 
-p_irank  <- plotly::ggplotly(chbar(df = filter(ialy, lst_yd  > 0)), tooltip = c("text")) %>% plotly::style(hoveron = "fill")
-p_irank2 <- plotly::ggplotly(chbar(df = filter(ialy2, lst_yd > 0)), tooltip = c("text")) %>% plotly::style(hoveron = "fill")
-plotly::subplot(p_irank, p_irank2)
+# p_irank  <- plotly::ggplotly(chbar(df = filter(ialy, lst_yd  > 0)), tooltip = c("text")) %>% plotly::style(hoveron = "fill")
+# p_irank2 <- plotly::ggplotly(chbar(df = filter(ialy2, lst_yd > 0)), tooltip = c("text")) %>% plotly::style(hoveron = "fill")
+# plotly::subplot(p_irank, p_irank2)
 ```
 
+```{r fig.width = 14}
+knitr::include_app("https://datanalytics.worldbank.org/esg_imputation", height = "800px")
+```
 
 
