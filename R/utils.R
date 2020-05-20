@@ -60,3 +60,47 @@ theme_esg <- function(base_size = 12,
       complete = TRUE
     )
 }
+
+add_and <- function(x) {
+  if (!(is.character(x))) {
+    warning("`x` must be character. coercing to character")
+    x <- as.character(x)
+  }
+
+  lx <- length(x)
+  if (lx == 1) {
+    y <- x
+  }
+  else if (lx == 2) {
+    y <- paste(x[1], "and", x[2])
+  }
+  else {
+    y <- c(x[1:lx-1], paste("and", x[lx]))
+    y <- paste(y, collapse = ", ")
+  }
+  return(y)
+}
+
+# coefficient of variation
+cv <- function(x) {
+  sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+}
+
+
+# Quartile coefficient of dispersion
+qcd <- function(x) {
+  q <- quantile(x, na.rm = TRUE)
+
+  a <- (q[[4]] - q[[2]])/2 # Interquantile range
+  b <-  (q[[4]] + q[[2]])/2 # Midhinge
+  c <- a/b  # qcd
+  return(c)
+}
+
+norm_prox <- function(x) {
+  #p <- (x - mean(x, na.rm = TRUE)) / sd(x, TRUE)  # normalize
+  p <- scales::rescale(x, na.rm = TRUE)
+  p <- zoo::na.approx(p, na.rm = FALSE)                # interpolate missings
+  return(p)
+}
+

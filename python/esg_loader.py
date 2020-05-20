@@ -24,11 +24,6 @@ def extract_esg_data(metafile_path, csv_path, progress=True):
     # for now, we limit countries to the WDI set. Could also limit to the ESG set which is smaller
     economies = {row['id']:row['value'] for row in wb.economy.list(skipAggs=True)}
 
-    ### TEMPORARY HACK ###
-    # API contains bogus values for Sudan that are throwing off the analysis so we need to suppress them
-    # Hopefully the API will fix these soon and when that happens we should remove this code or set to an empty list
-    suppress_values_after_2014 = ['EN.ATM.CO2E.PC-SDN', 'ER.H2O.INTR.PC-SDN']
-
     # limit to 1990 on
     time_range = range(1990, 2051)
 
@@ -64,8 +59,6 @@ def extract_esg_data(metafile_path, csv_path, progress=True):
                     for elem in wb.data.fetch(cets, time=time_range, skipAggs=True, skipBlanks=True, labels=True, numericTimeKeys=True):
                         cets2 = '-'.join([cets, elem['economy']['id']])
                         tv = elem['time']['id']
-                        if cets2 in suppress_values_after_2014 and type(tv) is int and tv > 2014:
-                            continue
 
                         if elem['economy']['id'] in economies:
                             # writer.writerow([db, elem['series'], elem['economy'], elem['time'], elem['value']])

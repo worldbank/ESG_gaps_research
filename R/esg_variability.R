@@ -1,32 +1,9 @@
-source("R/utils.R")
+
 #----------------------------------------------------------
 #   subfunctions
 #----------------------------------------------------------
-
-
-# coefficient of variation
-cv <- function(x) {
-  sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
-}
-
-
-# Quartile coefficient of dispersion
-qcd <- function(x) {
-  q <- quantile(x, na.rm = TRUE)
-
-  a <- (q[[4]] - q[[2]])/2 # Interquantile range
-  b <-  (q[[4]] + q[[2]])/2 # Midhinge
-  c <- a/b  # qcd
-  return(c)
-}
-
-norm_prox <- function(x) {
-  #p <- (x - mean(x, na.rm = TRUE)) / sd(x, TRUE)  # normalize
-  p <- scales::rescale(x, na.rm = TRUE)
-  p <- na.approx(p, na.rm = FALSE)                # interpolate missings
-  return(p)
-}
-
+source("R/utils.R")
+library("viridis")
 
 
 #----------------------------------------------------------
@@ -49,7 +26,7 @@ ind_ID <- x %>%
   rename(ind_name = indicator ,
          indicator = indicatorID)
 
-# Scale variables
+# Scale variablese
 esg_scaled <- esg_wdi %>%
   group_by(iso3c) %>%   # calculations done by country
   mutate_at(vars(matches("\\.")), norm_prox)  # normalize and Interpolate data (linear)
@@ -81,9 +58,9 @@ g_cv <- var_ind %>% ggplot(aes(x = cv)) +
                  alpha = 0.8,
                  position = 'identity',
                  bins = 15) +
-  scale_fill_viridis(discrete=TRUE) +
-  scale_color_viridis(discrete=TRUE) +
-  theme_ipsum() +
+  viridis::scale_fill_viridis(discrete=TRUE) +
+  viridis::scale_color_viridis(discrete=TRUE) +
+  hrbrthemes::theme_ipsum() +
   theme(
     legend.position = "none",
     panel.spacing = unit(0.1, "lines"),
@@ -258,7 +235,7 @@ g_diff <- ggplot(data = diff_ind ,
                  bins = 15) +
   scale_fill_viridis(discrete=TRUE) +
   scale_color_viridis(discrete=TRUE) +
-  theme_ipsum() +
+  hrbrthemes::theme_ipsum() +
   theme(
     legend.position = "none",
     panel.spacing = unit(0.1, "lines"),
