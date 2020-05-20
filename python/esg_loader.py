@@ -94,6 +94,7 @@ def load_metadata(metafile_path, datafile_path):
 
     meta = pd.read_csv(metafile_path)
     data = pd.read_feather(datafile_path)
+    data = data[data.date <= 2018]
     
     # calculate no_pop, defined as any indicator with a value for 2018 or later for 90%+ of economies
     min_economies = len(data.iso3c.unique()) * 0.9

@@ -11,7 +11,7 @@ plot_mosaic <- function(df,
   # my_subtitle <- paste0('<b style="color:#cf455c">Red areas</b> show the proportion of excluded indicators')
 
   p <- ggplot(data = df) +
-    geom_mosaic(aes(x = product(sector), fill = factor(status), na.rm = TRUE), alpha = alpha) +
+    ggmosaic::geom_mosaic(aes(x = ggmosaic::product(sector), fill = factor(status), na.rm = TRUE), alpha = alpha) +
     labs(#title = my_title,
          #subtitle = my_subtitle,
          x = "",

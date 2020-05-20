@@ -11,7 +11,6 @@ library(viridis)
 source("R/utils.R")
 source_python("python/esg_loader.py")
 
-
 # Load data ---------------------------------------------------------------
 
 esg <- load_metadata(metafile_path = "./data/esg_metadata.csv",
@@ -199,10 +198,7 @@ smry_expl_sctr2 <- ggplot(esg_tmp) +
   coord_flip() +
   theme_esg() +
   facet_wrap(.~dataset,
-             scales = "free_y") #+
-  # theme(
-  #   legend.position = "bottom"
-  # )
+             scales = "free_y")
 
 
 
