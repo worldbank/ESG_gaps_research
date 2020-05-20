@@ -1,8 +1,8 @@
-
+source("R/utils.R")
+source("R/esg_variability_utils.R")
 #----------------------------------------------------------
 #   subfunctions
 #----------------------------------------------------------
-source("R/utils.R")
 library("viridis")
 
 
@@ -272,3 +272,56 @@ t_lh2 <- t_lh %>% group_by(class_cv) %>%
   ) %>%
   # mutate_all(~str_replace(., "\\$", "&#36;"))
   mutate_all(~str_replace(., "\\$", "\\\\$"))
+
+
+# Create dataset for interactive viz -------------------------------------------
+
+# Load data
+cvs <- feather::read_feather('./data/ESG_cv.feather') %>%
+  arrange(cetsid) %>%
+  pivot_longer(cols = -cetsid, names_to = "iso3", values_to = "cv")
+
+mrv <- create_mrv(path = './data/ESG_wdi.feather')
+
+n_indicators <- length(unique(mrv$indicatorID))
+n_countries <- length(unique(mrv$iso3))
+
+# Create multiple dfs
+years_vector <- seq(from = 2010, to = 2019, by = 1)
+cv_max_vector <- seq(from = 0.1, to = 1, by = .1)
+years_to_impute_vector <- seq(from = 1, to = 3, by = 1)
+
+dfs_list <- vector(mode = "list", length = length(years_vector) * length(cv_max_vector) * length(years_to_impute_vector))
+
+i <- 1
+for (year in seq_along(years_vector)) {
+  for (cv_max in seq_along(cv_max_vector)) {
+    for (nyears in seq_along(years_to_impute_vector)) {
+
+      out <- create_baseline_imputed_df(mrv = mrv,
+                                        cvs = cvs,
+                                        cv_max = cv_max_vector[cv_max],
+                                        years_to_impute = years_to_impute_vector[nyears],
+                                        year_select = years_vector[year],
+                                        n_countries = n_countries)
+
+      out$year <- years_vector[year]
+      out$cv_max <- cv_max_vector[cv_max]
+      out$years_to_impute <- years_to_impute_vector[nyears]
+
+      dfs_list[[i]] <- out
+
+      i <- i + 1
+    }
+
+    i <- i + 1
+  }
+
+  i <- i + 1
+}
+
+imputed_dfs <- dplyr::bind_rows(dfs_list)
+# readr::write_rds(imputed_dfs, path = "./data/imputed_years.rds")
+# pins::board_register_rsconnect(key    = Sys.getenv("connect_key_ext"),
+#                                server = Sys.getenv("connect_ext_server2"))
+# pins::pin(imputed_dfs, "esg_imputed_dfs", board = "rsconnect")
