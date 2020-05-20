@@ -5,11 +5,11 @@ library(ggiraph)
 library(ggtext)
 library(patchwork)
 library(reticulate)
+library(viridis)
 # py_discover_config()
 # py_config()
 source("R/utils.R")
 source_python("python/esg_loader.py")
-
 
 # Load data ---------------------------------------------------------------
 
@@ -198,10 +198,7 @@ smry_expl_sctr2 <- ggplot(esg_tmp) +
   coord_flip() +
   theme_esg() +
   facet_wrap(.~dataset,
-             scales = "free_y") #+
-  # theme(
-  #   legend.position = "bottom"
-  # )
+             scales = "free_y")
 
 
 
