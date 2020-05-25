@@ -6,6 +6,10 @@ source("R/load_data.R")
 source("R/esg_availability.R")
 ```
 
+**Note:** this appendix includes technical information about the definitions of the coverage patterns
+defined and identified in the body of this analysis, and may be useful for future research purposes.
+
+**TODO:** revise text to make it suitable as an appendix.
 
 The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:ciavailability), not all indicators are available in all countries neither they are available in all years. The availability of indicators goes from darker to lighter. The lighter the color the more the greater the number of countries per indicator in each year.  
 
@@ -14,13 +18,6 @@ pg1
 ```
 
 Several insights are drawn from this chart. The following country-coverage categories are relevant for this study even though are not exahustive or mutually exclusive:
-
-*TGH: a couple of overall observations on 2.1 - 2.5. 1) the study period has changed (now starts at 2000) and the text hasn't really been updated to reflect
-that. Need to accordingly review and revise summary stats as well as description in 2.1; 2) I'm not sure 2.2 is relevant any more; 3) 2.4
-is the most important category since this is how we define "data gap" in the introduction, so let's underscore that point; 4) can we
-add a complete list of indicators for each section to help quantify the analysis? 5) 2.5 (high coverage) corresponds to "no gaps" classification
-in the next section so let's make that point and make sure the indicators align.*
-
 
 ## Low coverage
 
