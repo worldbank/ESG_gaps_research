@@ -318,10 +318,17 @@ for (year in seq_along(years_vector)) {
   print(i)
 }
 
-imputed_dfs <- dplyr::bind_rows(dfs_list) %>%
-  mutate(
-    cv_max = as.numeric(cv_max)
-  )
+imputed_dfs <- dplyr::bind_rows(dfs_list)
+# Add missings explicitly
+# This is necessery to keep the width of the column chart constant
+esg_lkup <- imputed_dfs %>%
+  dplyr::select(indicatorID, year, cv_max, years_to_impute) %>%
+  dplyr::distinct() %>%
+  tidyr::expand(indicatorID, year, cv_max, years_to_impute)
+
+imputed_dfs <- esg_lkup %>%
+  dplyr::left_join(imputed_dfs)
+
 
 # readr::write_rds(imputed_dfs, path = "./data/imputed_years.rds")
 # pins::board_register_rsconnect(key    = Sys.getenv("connect_key_ext"),
