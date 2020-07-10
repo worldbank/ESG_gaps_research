@@ -36,9 +36,10 @@ is beyond the scope of this analysis, we can use indicator volatility as a proxy
 for these techniques.
 
 For instance, building off the approach demonstrated by the interactive tool in the previous chapter,
-if one stipulates that country/indicator series with a volatility coefficient no higher than 0.588
-(the median) can be extrapolated or estimated one year forward, coverage in 2018 would improve from 31% to 39%
-of potential observations for all indicators and countries. At that level, the number of indicators with some level
+if one stipulates that country/indicator series with a volatility coefficient no higher than 0.65 (slightly
+less than the median)
+can be extrapolated or estimated one year forward, data coverage in 2018 would improve from 31% to 37%
+of potential observations for all indicators and countries. At that level the number of indicators with some level
 of 2018 coverage would improve from 54 to 77 out of 115 total. An additional 28 of the original 54 indicators
 would see at least some level of improved coverage.
 While the choice of median CV is somewhat arbitrary, it gives some reference for what
