@@ -290,8 +290,8 @@ n_indicators <- length(unique(mrv$indicatorID))
 n_countries <- length(unique(mrv$iso3))
 
 # Create multiple dfs
-years_vector <- seq(from = 2010, to = 2019, by = 1)
-cv_max_vector <- seq(from = 0.1, to = 1, by = .1)
+years_vector <- seq(from = 2010, to = 2018, by = 1)
+cv_max_vector <- seq(from = 0.1, to = 1, by = .05)
 years_to_impute_vector <- seq(from = 1, to = 3, by = 1)
 
 dfs_list <- vector(mode = "list", length = length(years_vector) * length(cv_max_vector) * length(years_to_impute_vector))
@@ -311,19 +311,28 @@ for (year in seq_along(years_vector)) {
       out$year <- years_vector[year]
       out$cv_max <- cv_max_vector[cv_max]
       out$years_to_impute <- years_to_impute_vector[nyears]
+      #print(head(out))
 
       dfs_list[[i]] <- out
 
       i <- i + 1
     }
-
-    i <- i + 1
   }
-
-  i <- i + 1
+  print(i)
 }
 
 imputed_dfs <- dplyr::bind_rows(dfs_list)
+# Add missings explicitly
+# This is necessery to keep the width of the column chart constant
+esg_lkup <- imputed_dfs %>%
+  dplyr::select(indicatorID, year, cv_max, years_to_impute) %>%
+  dplyr::distinct() %>%
+  tidyr::expand(indicatorID, year, cv_max, years_to_impute)
+
+imputed_dfs <- esg_lkup %>%
+  dplyr::left_join(imputed_dfs)
+
+
 # readr::write_rds(imputed_dfs, path = "./data/imputed_years.rds")
 # pins::board_register_rsconnect(key    = Sys.getenv("connect_key_ext"),
 #                                server = Sys.getenv("connect_ext_server2"))
