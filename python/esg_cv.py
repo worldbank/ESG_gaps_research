@@ -5,6 +5,9 @@ at the indicator and country level, and return them as a data frame with cetsid
 for the index and iso3 codes as columns. Since this is very time intensive, the
 result is typically saved to a feather file or similar.
 
+NB: this file is now deprecated. On the python side cvs are calculated at runtime
+much more efficiently than done here, so it is no longer time intensive.
+
 Typical use:
 
 import pandas as pd
@@ -35,8 +38,13 @@ def esg_cv(data):
     µ=0: cv=nan
     '''
 
+    def cv(s):
+        if len(s) == 0:
+            
+        return np.std(s, ddof=1) / np.mean(s)
+
     cvs = pd.DataFrame()
-    pd.index.name = 'cetsid'
+    cvs.index.name = 'cetsid'
     with warnings.catch_warnings():
         warnings.simplefilter('error')
 
@@ -47,7 +55,7 @@ def esg_cv(data):
                 if len(s) == 0:
                     cv = np.nan
                 else:
-                    std = np.std(s)
+                    std = np.std(s, ddof=1)
                     mean = np.mean(s)
                     if std == 0:
                         cv = 0
