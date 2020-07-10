@@ -3,6 +3,9 @@
 # library(ggtext)
 # library(extrafont)
 
+nf <- function(n) {
+  prettyNum(n, big.mark = ',')
+}
 plot_mosaic <- function(df,
                         explanation = "explanation A",
                         fill_colors = c("#cf455c", "#444444"),
@@ -81,9 +84,17 @@ add_and <- function(x) {
   return(y)
 }
 
+# population sd:
+popsd <- function(x) {
+  sqrt( sum((x - mean(x, na.rm=TRUE))^2, na.rm = TRUE) / length(which(!is.na(xx))) )
+}
+
 # coefficient of variation
 cv <- function(x) {
+  # one of the following lines computes the sample stdev but returns NA if there is only 1 value
+  # popsd computes the population stdev and will return 0 if there is only 1 value
   sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+  # popsd(x) / mean(x, na.rm = TRUE)
 }
 
 
@@ -100,7 +111,7 @@ qcd <- function(x) {
 norm_prox <- function(x) {
   #p <- (x - mean(x, na.rm = TRUE)) / sd(x, TRUE)  # normalize
   p <- scales::rescale(x, na.rm = TRUE)
-  p <- zoo::na.approx(p, na.rm = FALSE)                # interpolate missings
+  #p <- zoo::na.approx(p, na.rm = FALSE)                # interpolate missings
   return(p)
 }
 

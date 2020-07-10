@@ -12,9 +12,11 @@ library("viridis")
 
 #--------- Calculations
 
-esg_wdi <-  x %>%
+esg_wdi <-  inner_join(x, select(mtd, cetsid, no_gap), by=c("indicatorID"="cetsid")) %>%
+  mutate(indicatorID=ifelse(indicatorID=='WBL', 'WBL.', indicatorID)) %>% # needs a '.' to be included below
+  # filter(no_gap==0) %>%
   select(-iso2c, -country, -indicator) %>% # keep important variables
-  filter(date >= 2000, date <= 2019, !is.na(iso3c)) %>% # filter older years
+  filter(date >= 2000, date <= 2018, !is.na(iso3c)) %>% # filter older years
   distinct(iso3c, date, indicatorID, .keep_all = TRUE) %>% #  Remove duplicates
   arrange(iso3c, date) %>%
   spread(indicatorID, value)       # Convert in wide form
@@ -22,6 +24,7 @@ esg_wdi <-  x %>%
 
 # Indicators ID
 ind_ID <- x %>%
+  mutate(indicatorID=ifelse(indicatorID=='WBL', 'WBL.', indicatorID)) %>% # needs a '.' to be included below
   distinct(indicator, indicatorID) %>%
   rename(ind_name = indicator ,
          indicator = indicatorID)
@@ -138,7 +141,7 @@ oi <- var_country %>%
             indicator = indicator)
 
 g2 <- var_country %>%
-  filter(!is.na(cv), cv > 0) %>%
+  filter(!is.na(cv), cv >= 0) %>%
   inner_join(oc) %>%
   inner_join(oi) %>%
   inner_join(inames, by = c("indicator" = "indicatorID")) %>%
