@@ -5,8 +5,13 @@ Together, the Findings from the three analytical approaches suggest several opti
 be taken to mitigate gaps in ESG data, or deal appropriately with gaps that are unavoidable.
 
 ## Discourage use of discontinued indicators
+```{r echo=FALSE}
+nDiscontinued = nrow(filter(mtd, expl_a==1))
+pDiscontinued = nDiscontinued / nrow(mtd)
+```
 
-15 indicators, or 10% of those studied, have been discontinued by the World Bank and are no longer
+`r nDiscontinued` indicators, or
+`r sprintf("%0.0f%%", pDiscontinued)` of those studied, have been discontinued by the World Bank and are no longer
 maintained. They continue to be available for historical purposes, and only reside in databases
 that are described as "archives" in the [World Bank Data Catalog](https://datacatalog.worldbank.org).
 None of these indicators appear in or affect the WBG dataset. Still, it is possible that external
@@ -18,34 +23,132 @@ substitute (see Appendix A). It is strongly recommended that ESG users switch to
 and discontinue use of those that are no longer maintained.
 
 
-## Technical Approaches
+## Technical enhancements to existing indicators
 
-* Volatility analysis: are there indicators (particuarly in social & governance) that change
-  slowly enough that we could extrapolate or gap fill? **ANDRES: NEED TO FILL IN RESULTS OF THE VOLATILITY
-  SECTION HERE**
-* HIC/Small segments: could we "estimate" values for these (e.g., 0 or 100%)? Or better yet, improve
-  the ESG methodology so that it simply dropped these indicators from the analysis where they don't apply.
-* One could imagine a platform that provides data along with "estimates" where possible, sort of like
-  Zillow
+<!-- Note: the calculations in this section come from coverage-analysis.ipynb, I couldn't figure out
+how to do it in R -->
 
+The previous two sections explored a couple of ways in which technical approaches could be used to improve
+the coverage and quality of ESG data. First, it may be possible, as suggested in the previous volatility
+analysis, that statistical techniques could be used to impute, extrapolate, or estimate missing values in
+some cases. Although discussion of specific techniques
+is beyond the scope of this analysis, we can use indicator volatility as a proxy to estimate the potential
+for these techniques.
 
-## Invest in Higher Frequency Approaches or Substitutes
+For instance, building off the approach demonstrated by the interactive tool in the previous chapter,
+if one stipulates that country/indicator series with a volatility coefficient no higher than 0.588
+(the median) can be extrapolated or estimated one year forward, coverage in 2018 would improve from 31% to 39%
+of potential observations for all indicators and countries. At that level, the number of indicators with some level
+of 2018 coverage would improve from 54 to 77 out of 115 total. An additional 28 of the original 54 indicators
+would see at least some level of improved coverage.
+While the choice of median CV is somewhat arbitrary, it gives some reference for what
+could be accomplished through established techniques and econometiric modeling.
 
-* 103 indicators (77%) are category B, C or F.
-* 75% of these are dependent on external (non-Bank) sources
-* It is likely that most of these are not designed or well suited for high frequency analysis,
-  particularly the survey-based ones (expl_f)
-* Our initial efforts in this area on select indicators suggest this it would be time and
-  resource intense to improve frequency of existing indicators, particularly those that are
-  sourced externally (we would likely need to fund these)
-* Substitutes may be possible in some areas. Some emissions data may have slightly more recent
-  data, but in the social pillar it is unlikely to result in significant improvements
-* Satellite/geospatial data may be an alternative if it can be aggregated to the country or regional
-  level. Again, this primarily affects environmental
-* Other approaches may be possible; GDELT, social media
+The second possible approach involves the "limited relevance" indicators identified in the explanations
+framework. These are indicators where gaps in coverage may be due to the indicator being irrelevant to certain
+countries, either because they are very small or very rich. As a result, it may be possible to "assume" a
+reasonable value for indicators that fall into this explanation. For instance, it is reasonable to assume
+that "Net official development assistance" for  high-income countries that are missing this value is $0.
+Likewise, it may be
+reasonable to assume that "Electricity production from nuclear sources" is 0 for small island economies.
+The other indicators in this cluster might similarly be inferred for certain groups of countries, effectively
+eliminating coverage gaps with little effort or cost. Alternatively, it may be possible to drop these indicators
+at the analytical level for countries for which they are clearly not relevant.
 
+While use of statistical techniques to "enhance" data may sound enticing, great care would be necessary to
+make clear to data users which data are "actual" compared to which are "estimated." Ideally, data users
+would be able to choose between an "actual" and a "estimated" dataset with full transparency and information on the
+implications of using estimated data. That said, "estimated" data are becoming increasingly common in the age of machine learning and artificial intelligence (e.g. weather forecasts or Zillow real estate estimates),
+so users may not find the concept to be especially exotic or concerning.
 
-## Overall
+## Consider higher frequency approaches or substitutes
 
-* The best approach may be to develop an ESG platform that provides varieties of kinds of data,
-  explains the appropriate uses and limitations of each, and lets users decide.
+```{r echo=FALSE}
+bcf = filter(mtd, expl_b==1 | expl_c==1 | expl_f==1)
+bcf_ext = filter(bcf, source_type!='WBG')
+
+```
+
+The third option is to selectively improve the frequency of indicators where MRV is a significant issue, or find
+better sources where it not cost effective to make these improvements. The explanations analysis identified 
+`r nrow(bcf) ` indicators `r sprintf("(%0.1f%%)", nrow(bcf)*100 / nrow(mtd))` as either active but not recently updated or as
+likely having a "structural lag" of some sort in the production process that results in frequency gaps.
+However, `r nrow(bcf_ext)`
+of `r nrow(bcf)` indicators are primarily produced by the UN or other outside organizations.
+This is an important consideration, because it means that investments to improve the frequency of *existing*
+indicators are really investments in the capacity of third party providers. Alternatively, if it is determined
+that this is not a practical approach, then the remaining option is to build this capacity internally.
+
+Theoretically, there are several approaches that could at least partially fill gaps in ESG data, including:
+
+* **Sentiment analysis** derived from social media channels such as Twitter, Facebook, and Instagram.
+  Within some domains, keyword and sentiment analysis could be used to detect high frequency changes in economic
+  indicators such as employment, or conditions affecting governance or social stability. Online news
+  sources could be analyzed in a similar fashion, leveraging services such as [GDELT](https://www.gdeltproject.org).
+* **Mobile phone data** such as Call Detail Records (CDR)--the metadata from cell phone calls--have been used to
+  measure [changes in migration](https://www.nature.com/articles/s41599-019-0242-9)
+  as well as response to
+  [natural disasters](https://reliefweb.int/report/world/call-detail-records-use-mobile-phone-data-track-and-predict-population-displacement)
+  and other disruptive events. There are also efforts to
+  [measure changes in living conditions via cell phones](https://www.worldbank.org/en/programs/listening-to-africa).
+  It is possible these efforts might provide higher frequency tools for measuring poverty, income inequality, and
+  a range of socio-economic conditions.
+* **Geospatial data**, especially satellite imagery and low altitude imagery from unmanned aerial vehicles (UAVs)
+  are increasingly cost effective means to obtain current, high resolution data. Satellite and drone imagery can
+  be used to monitor ecosystems, agriculture production, soil moisture, and other environmental conditions.
+  [Night lights analysis](https://disasters.nasa.gov/news/new-night-lights-maps-open-possible-real-time-applications)
+  has been suggested as a way to measure levels of economic activity, access to electricity, and
+  impact from natural disasters.
+* **Private sector sources** are sometimes used as proxies or leading indicators in certain sectors. For instance,
+  [SafeGraph](https://www.safegraph.com/dashboard/reopening-the-economy-foot-traffic?s=US&d=06-28-2020&i=all) recently
+  used geolocation data from cell phones to estimate foot traffic patterns to commercial storefronts as a proxy for
+  economic activity during the 2020 coronavirus pandemic. Data from
+  [OpenTable](https://www.opentable.com/state-of-industry), a restaurant reservation service, can provide
+  high-frequency estimates of consumer spending. Activity data from ride sharing services such as Uber and Lyft
+  might also provide proxies for economic activity.
+  Google search trends could provide insights into emerging issues and potential hot spots.
+
+Further research is necessary to determine the potential of each of these technologies to provide suitable
+substitute data, and which indicators they could replace. Even at this point, however, some general caveats
+can be made about the potential for alternative sources. With the exception of night lights data, none of the examples
+listed above has been produced at a global level or even for a critical mass of countries. While mobile phone
+data and sentiment analysis have been used extensively in many countries, examples of alternative data collection
+that targets multiple countries simultaneously is still limited. Obtaining alternative data from disparate countries
+comes with its own set of issues. For instance, sentiment analysis, which infers data from text, must account
+for language differences across countries. Data from technology platforms is only available in countries where those
+platforms have achieved significant penetration, and must correct for selection bias where the user base is
+not representative of the broader population. Furthermore, since most of these techniques have only be used in small
+areas, it is not clear if, when operated at a global scale, if they could actually produce data with higher
+frequency than traditional techniques.
+
+More broadly, it is unclear whether non-traditional data sources would be compatible with traditional statistics. The
+indicators currently in the ESG database are designed to be producible and comparable across a large number of
+countries, and consistent over time. These design considerations are not necessarily true for the examples above.
+For instance, geospatial analysis may need to be recalibrated for local terrain, and sentiment analysis
+recalibrated for continually changing slang.  Furthermore, most of the non-traditional methods listed above are
+not collected at regular, consistent intervals as statistics are.
+Thus, what may be cost effective and feasible for small area data production may not
+be practical for large area or global data production. These questions of cost and scale must all be carefully
+weighed. On the other hand, geographic or temporal comparability is required in all cases, depending on the 
+analytical framework in which the data are being used.
+
+## Conclusion and Next Steps
+
+This analysis employed a range of techniques to better understand the extent and nature of gaps in ESG data,
+and explore options for improving data coverage. While some improvements can be made relatively easily and
+represent "low hanging fruit," other options are likely to be more expensive and entail greater risk.
+
+An implicit premise in this analysis is that the existing set of ESG indicators, coverage gaps notwithstanding,
+is ideally suited for ESG analysis and decision making. Significant investments in further reserach and alternative
+data sources should be predicated on first determining if the data fit well within the anticipated ESG
+analytical framework. At the time of this writing, the Bank's ESG analytical framework is still under
+development. Accordingly, the most appropriate next step may be to further define the optimal ESG framework
+to more fully inform investments in data.
+
+Similarly, the Bank's ESG data strategy is a factor in assessing options to improve quality. If the strategy
+is simply to provide data in support of an analytical framework then the choice of indicators would be
+straight forward and defined by the framework. However, if the strategy is to provide an broad portfolio
+of data to support any number of frameworks (including ones that users may define) then the data effort
+may be similarly broad, and include a wide range of data types--including traditional statistics, geospatial
+data, microdata, high frequency data and so forth--to encourage innovation among ESG investors.
+
