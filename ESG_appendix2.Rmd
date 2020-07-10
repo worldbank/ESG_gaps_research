@@ -1,6 +1,6 @@
-# Coverage Analysis {#coverage}
+# Appendix: Coverage Analysis
 
-```{r setupcoverage, echo=FALSE, message=FALSE, warning=FALSE}
+```{r setupappendix2, echo=FALSE, message=FALSE, warning=FALSE}
 #--------- execute script of analysis
 source("R/load_data.R")
 source("R/esg_availability.R")
@@ -11,9 +11,9 @@ defined and identified in the body of this analysis, and may be useful for futur
 
 **TODO:** revise text to make it suitable as an appendix.
 
-The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:ciavailability), not all indicators are available in all countries neither they are available in all years. The availability of indicators goes from darker to lighter. The lighter the color the more the greater the number of countries per indicator in each year.  
+The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:app-ciavailability), not all indicators are available in all countries neither they are available in all years. The availability of indicators goes from darker to lighter. The lighter the color the more the greater the number of countries per indicator in each year.  
 
-```{r ciavailability, fig.width = 12, fig.height = 10, fig.cap = "Number of countries per indicator over time"}
+```{r app-ciavailability, fig.width = 12, fig.height = 10, fig.cap = "Number of countries per indicator over time"}
 pg1
 ```
 

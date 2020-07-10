@@ -17,8 +17,10 @@ rmd_files: [
   "ESG_explanation.Rmd",
   "ESG_variability.Rmd",
   "ESG_discussion.Rmd",
-  "ESG_recommendations.Rmd",
-  "ESG_references.Rmd",
+  "ESG_appendix1.Rmd",
+  "ESG_appendix2.Rmd",
+  # "ESG_recommendations.Rmd",
+  # "ESG_references.Rmd",
 ]
 
 before_chapter_script: "_common.R"
