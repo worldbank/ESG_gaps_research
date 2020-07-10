@@ -1,4 +1,4 @@
-# Appendix: Coverage Analysis
+# Appendix: Extended Coverage Analysis
 
 ```{r setupappendix2, echo=FALSE, message=FALSE, warning=FALSE}
 #--------- execute script of analysis
