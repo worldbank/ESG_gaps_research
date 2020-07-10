@@ -285,7 +285,7 @@ hm_expl <- function(x, expl,
     labelf <- "Number of countries over time per indicator"
   }
 
-  y <- filter(x, !!expl == 1)
+  y <- filter(x, !!expl == 1, date >= 2000, date <= 2018)
 
   if (dim(y)[[1]] == 0) {
     invisible("")
@@ -299,7 +299,7 @@ hm_expl <- function(x, expl,
                            limits = c(0, 220),
                            breaks = c(0, 50, 100, 150, 200)) +
       labs(x = "", y = "") +
-      scale_x_continuous(breaks = c(2000:2018),
+      scale_x_continuous(breaks = c(2000:2018), limits=c(2000,2018),
                          expand = c(0,0)) +
       theme(axis.text.x = element_text(size = rel(0.8),
                                        angle = 330,

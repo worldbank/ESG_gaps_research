@@ -32,13 +32,14 @@ esg_copy <- esg %>%
   pivot_longer(cols = tidyselect::all_of(explans), names_to = "explanations") %>%
   mutate(
     explanations = recode(explanations,
-                          expl_a = "Archive",
-                          expl_b = "Stale",
+                          no_gap = "Ideal Case",
+                          expl_a = "Deprecated",
+                          expl_b = "No Longer Updated",
                           expl_c = "Structural Lag",
                           expl_d = "Curation Lag",
                           expl_e = "Licensing",
-                          expl_f = "Survey",
-                          expl_g = "High income\nSmall country"
+                          expl_f = "Survey-Based",
+                          expl_g = "Limited Relevance"
     )
   )
 
@@ -89,13 +90,14 @@ esg_tmp <- bind_rows(esg_all_tmp,
   mutate(
     explanations = factor(explanations),
     explanations = fct_relevel(explanations,
-                               c("Structural Lag",
+                               c("Limited Relevance",
+                                 "Survey-Based",
                                  "Licensing",
-                                 "Stale",
-                                 "High income\nSmall country",
-                                 "Archive",
-                                 "Survey",
-                                 "Method Lag"))
+                                 "Curation Lag",
+                                 "Structural Lag",
+                                 "No Longer Updated",
+                                 "Deprecated",
+                                 "Ideal Case"))
   )
 
 
@@ -147,13 +149,14 @@ esg_tmp <- bind_rows(esg_all_tmp,
   mutate(
     explanations = factor(explanations),
     explanations = fct_relevel(explanations,
-                               c("Curation Lag",
+                               c("Limited Relevance",
+                                 "Survey-Based",
                                  "Licensing",
-                                 "Stale",
-                                 "High income\nSmall country",
-                                 "Archive",
-                                 "Survey",
-                                 "Structural Lag"))
+                                 "Curation Lag",
+                                 "Structural Lag",
+                                 "No Longer Updated",
+                                 "Deprecated",
+                                 "Ideal Case"))
   )
 
 
@@ -178,13 +181,14 @@ esg_tmp <- esg_tmp %>%
                                        "GOV"))
                      ),
     explanations = fct_relevel(explanations,
-                               c("Curation Lag",
+                               c("Limited Relevance",
+                                 "Survey-Based",
                                  "Licensing",
-                                 "Stale",
-                                 "High income\nSmall country",
-                                 "Archive",
-                                 "Survey",
-                                 "Structural Lag"))
+                                 "Curation Lag",
+                                 "Structural Lag",
+                                 "No Longer Updated",
+                                 "Deprecated",
+                                 "Ideal Case"))
   )
 
 smry_expl_sctr2 <- ggplot(esg_tmp) +

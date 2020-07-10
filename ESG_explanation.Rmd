@@ -1,35 +1,30 @@
 # Explanation Framework Analysis {#explanations}
 
 ```{r setupexplanation, echo=FALSE, message=FALSE, warning=FALSE}
+source("R/esg_availability.R")
 source("R/esg_explanations_summary.R")
+
+# to correctly described the metadata database, we need the original copy before any transforms
+original_metadata = read.csv('./data/esg_metadata.csv')
 ```
+
+The previous chapter sought to provide insights into the patterns of coverage gaps currently found
+in ESG data. This section seeks to provide further insight into why these gaps occur.
 
 To better understand the nature of data gaps we consulted data management experts at the World Bank to
 develop a list of explanatory factors which are described below. These "explanations" are defined such that they can be used
 to consistently "tag" indicators to which they apply. They are particularly relevant to time series statistics.
 Using metadata in the World Bank API and interviews with members
 of the data management team, we examined each indicator through the lens of these explanations and recorded the results
-as dummy variables in a metadata database. It is possible that multiple explanations apply to any given indicator.
+as dummy (i.e., yes/no) values in a metadata database. It is possible that multiple explanations apply to any given indicator.
 
 The results of this tagging exercise were used to build a database along with other relevant metadata.
-The final database assembled for analysis has a total of 48 variables for the 134 indicators.
+The final database assembled for analysis has a total of `r ncol(original_metadata)` variables for 
+`r nrow(original_metadata)` indicators.
 
 The discusion below describes each of the explanations in detail. Each description includes a coverage heat
 map from the previous section which identifies the indicators "tagged" underneath it, showing how the explanation
 may impact gaps in data coverage.
-
-*TGH: need to double check the heatmaps below as the indicator counts don't match the current metadata table. The counts
-don't match for "no_gap" and explanations B and E. F & G look right and I can't tell about C. But that's just summary counts
-we should really confirm they match at the indicator level. Here are the counts from the database.*
-
-*no_gap    12
-expl_a    15
-expl_b    15
-expl_c    66
-expl_d     2
-expl_e     8
-expl_f    32
-expl_g    12*
 
 
 ## Description of Explanations
@@ -38,7 +33,7 @@ expl_g    12*
 
 The World Bank API defines 217 countries and economies. Indicators that had observations for 2018 or later (this research
 was conducted in 2019) for at least 196 countries (90%) were considered "non gap" indicators and were not tagged with
-any further explanations. This category also includes 4 indicators comprised of modeled projections for future time periods.
+any further explanations.
 
 ```{r hm-expl, fig.width = 8, fig.cap = "Ideal Case"}
 hm_expl(d1a, ideal, "Ideal case")
@@ -51,10 +46,19 @@ and occasionally entire databases to be discontinued. This can occur if the orig
 support for the data, or if policies, programs, or methodologies evolve such that the data are no longer relevant.
 In these cases, the time series is no longer updated with recent observations, and the series becomes increasingly obsolete.
 Deprecated indicators in the WDI are typically removed and are available only in the [WDI Archives][wdi-archives].
+Accordingly, it is not possible to provide a heatmap of these indicators.
 
-```{r hm-expla, fig.width = 8, fig.cap = "Dropped or Deprecated"}
-hm_expl(d1a, expl_a, "Dropped or Deprecated")
-```
+ ```{r hm-expla}
+ ex <- c('SM.POP.NETM', 'SH.DTH.COMM.ZS', 'ER.H2O.INTR.K3', 'ER.H2O.INTR.PC',
+  'NW.NCA.SACO.TO', 'NW.NCA.SAOI.TO', 'NW.NCA.SAGA.TO',
+  'SH.STA.DIAB.ZS', 'ER.H2O.FWTL.ZS', 'EN.POP.EL5M.ZS', 'EN.MAM.THRD.NO', 'EN.CLC.MDAT.ZS', 'WBL')
+ 
+gsub('\\$', '\\\\$', knitr::kable(mtd %>% filter(expl_a==TRUE) %>% select(input_name,cetsid),
+  "html", escape=FALSE,
+  col.names=c('Indicator', 'Code'), table.attr='class="striped"',
+  caption="Dropped or Deprecated") )
+  
+ ```
 
 **Definition:** the indicator only exists in a discontinued or "archived" database, including:
 
@@ -69,7 +73,9 @@ hm_expl(d1a, expl_a, "Dropped or Deprecated")
 In other cases, an indicator may remain in an active database but fall out of active maintenance. This may be the case as a precursor
 to Explanation A above, or it may be attributable to lapsed oversight, i.e., there is no longer a person or team responsible
 for the indicator (e.g., program termination, department reorganization, personnel changes). In these cases as well, the time series
-becomes increasingly obsolete as it is no longer updated.
+becomes increasingly obsolete as it is no longer updated. Some indicators that fit this definition however,
+may simply be subject to very long update cycles of 4-5 years or more, meaning that they may still be actively
+maintained.
 
 ```{r hm-explb, fig.width = 8, fig.cap = "No Longer Updated"}
 hm_expl(d1a, expl_b, "No Longer Updated")
@@ -85,7 +91,17 @@ Some indicators by their nature may be especially time consuming to produce. For
 administrative data or other underlying raw information, it cannot be calculated until that source is published. These
 source dependencies may be subject to their own production schedules and timeliness issues. The effect may be that an indicator
 may only be available significantly later than the time period of its observations.
-These delays may be compounded if multiple dependencies are involved. 
+These delays may be compounded if multiple dependencies are involved. In Figure \@ref(fig:hm-explc)
+indicators that embody this characteristic exhibit low or non-existent coverage on the right side of the heat map.
+
+A different kind of structural lag manifests itself as consistent but relatively low country coverage
+compared to the "ideal case" scenario. For instance, an indicator may have consistent temporal coverage, but for
+only 85% or less of possible countries, even though the indicator may be relevant to nearly all countries.
+Low country coverage may be explained by resource constraints, in that data are more costly to collect in countries
+where capacity is limited. It may also be that certain economies (for instance, low population or island states) were
+considered out of scope by data producers. In Figure \@ref(fig:hm-explc) indicators that embody this characteristic
+exhibit consistent coverage (i.e., uniformly light orange or yellow) along the horizontal axis.
+
 
 ```{r hm-explc, fig.width = 8, fig.cap = "Structural Lags"}
 hm_expl(d1a, expl_c, "Structural Lags")
@@ -138,7 +154,7 @@ hm_expl(d1a, expl_f, "Survey Dependencies")
 
 Some indicators may not be relevant to or may not be interesting in the context of certain groups of economies. For example,
 very small economies may not have significant natural resource endowments or particular kinds of economic activity for particular
-indicators to be meaningful. Indicators designed to measure use of, say, forests or mineral deposits, or levels of trade, may
+indicators to be meaningful. Indicators designed to measure use of, say, forests, mineral deposits, or levels of trade may
 be assumed to essentially be zero or "too small to measure." Similarly, other indicators may not be relevant to industrialized
 economies, such as prevalence of certain diseases (thought to be eradicated), literacy rates, or foreign aid.
 
@@ -149,31 +165,31 @@ hm_expl(d1a, expl_g, "Limited Relevance")
 **Definition:** this explanation was considered for high-income "rich" countries (using the WBG income classification) and small economies,
 defined as those with populations under 120,000. This threshold represents a "natural" breakpoint at which population jumps by nearly
 40 percent, clearly differentiating economies above and below it. For both "rich" and "small" economies we identified a set of indicators
-for which at least 80% of economies had no observations at all. From these results we removed indicators that we still considered
-potentially relevant to rich/small economies despite the lack of available data.
+for which at least 80% of economies in the group had no observations at all, as this might suggest a deliberate
+decision on the part of data producers to exclude the group.
+From these results we removed indicators that we still considered potentially relevant to rich/small
+economies despite the lack of available data.
 
 
 ## Findings 
-
-*TGH: I think we should keep the charts as is except possibly 3.11 and write narrative around them, but it would be great if they could
-all use the same x axis*
+```{r echo=FALSE}
+n_total_all = nrow(mtd)
+n_total_wbg = nrow(filter(mtd, wbgv1==TRUE))
+n_struc_all = nrow(filter(mtd, expl_c==TRUE))
+n_struc_wbg = nrow(filter(mtd, expl_c==TRUE, wbgv1==TRUE))
+n_surv_all = nrow(filter(mtd, expl_f==TRUE))
+n_surv_wbg = nrow(filter(mtd, expl_f==TRUE, wbgv1==TRUE))
+n_stale_all = nrow(filter(mtd, expl_b==TRUE))
+n_stale_wbg = nrow(filter(mtd, expl_b==TRUE, wbgv1==TRUE))
+n_retired_all = nrow(filter(mtd, expl_a==TRUE))
+n_retired_wbg = nrow(filter(mtd, expl_a==TRUE, wbgv1==TRUE))
+n_curation_all = nrow(filter(mtd, expl_d==TRUE))
+```
 
 
 Figure \@ref(fig:smry-exlp) shows the results of the explanation framework 
 disaggregated primarily by explanation, and secondarily by primary source 
-(WBG and all external sources).  
-
-Overall, the "Structural Lags" explanation is by far the most dominant cause 
-of gaps in ESG data, where it is a contributing factor for 72 of 134 indicators 
-overall, and 40 of 67 indicators in the WBG's ESG dataset. This frequency likely
-reflects prevalence of traditional statistical indicators used in ESG, many of 
-which rely on inter-agency cooperation and other intrinsically time consuming 
-modalities to produce comparable data for all countries.
-
-"Survey Dependencies" is the second most significant explanation, contributing 
-to gaps for 32 of 134 indicators overall, and 18 of 67 indicators in the WBG's 
-dataset. Most of these indicators (75% and 83% respectively) fall under the 
-"Social" pillar (See Figure \@ref(fig:smry-exlp-sctr)).
+(WBG and all external sources).
 
 ```{r smry-exlp, fig.width = 12, fig.height = 5.5, fig.cap = "Explanations for data gaps"}
 smry_expl <- smry_expl +
@@ -194,6 +210,28 @@ plotly::ggplotly(smry_expl, tooltip = "text") %>%
 ```
 
 
+
+Overall, the "Structural Lags" explanation is by far the most dominant cause 
+of gaps in ESG data, where it is a contributing factor for `r n_struc_all` of `r n_total_all` indicators 
+overall, and `r n_struc_wbg` of `r n_total_wbg` indicators in the WBG's ESG dataset. This frequency likely
+reflects the prevalence of traditional statistical indicators currently used in ESG, many of 
+which happen to rely on inter-agency cooperation and other intrinsically time consuming 
+modalities to produce comparable data for all countries.
+
+"Survey Dependencies" is the second most significant explanation, contributing 
+to gaps for `r n_surv_all` of `r n_total_all` indicators overall, and
+`r n_surv_wbg` of `r n_total_wbg` indicators in the WBG's dataset.
+"No Longer Updated" is the third most significant explanation, accounting for `r n_stale_all` of `r n_total_all`
+indicators overall, and `r n_stale_wbg` of `r n_total_wbg` indicators in the WBG's dataset. "Deprecated" is close
+behind, accounting for `r n_retired_all` of `r n_total_all` indicators overall, but is not a factor in the WBG's dataset.
+
+Of the remaining factors, "Licensing" and "Limited Relevance" are the most significant, and in the WBG dataset these
+are equal to "No Longer Updated" in terms of prevalence. The least significant explanation in both datasets was
+"Curation Lags," which accounted for just `r n_curation_all` indicators in both datasets.
+
+Figure \@ref(fig:smry-exlp-sctr) is similar to Figure \@ref(fig:smry-exlp) but disaggregates by explanation and sector.
+
+
 ```{r smry-exlp-sctr, fig.width = 12, fig.height = 5.5, fig.cap = "Explanations for data gaps, by sector"}
 smry_expl_sctr <- smry_expl_sctr +
   labs(
@@ -210,90 +248,11 @@ plotly::ggplotly(smry_expl_sctr, tooltip = "text") %>%
   plotly::layout(legend = list(orientation = 'h', y = -0.1))
 ```
 
-**ANOTHER WAY TO LOOK AT THE SAME INFORMATION AS CHART ABOVE**
-**I like this one because it is easy to focus what is going on sector by sector**
-**I thought there would be double counting, but there is not. Your logic probably took care of this**
-```{r smry-exlp-sctr2, fig.width = 12, fig.height = 5.5, fig.cap = "Explanations for data gaps, by sector"}
-smry_expl_sctr2 <- smry_expl_sctr2 +
-  labs(
-    title = "Explanations for gaps by sector: All indicators vs WBG dataset",
-    subtitle = "Not only most data gaps are due to structural lags, it is one of
-    the most frequent explanation for all three ESG sectors.",
-    y = "Frequency",
-    x = "",
-    fill = "Explanation"
-  )
-
-plotly::ggplotly(smry_expl_sctr2, tooltip = "text") %>% 
-  plotly::style(hoveron = "fill") %>%
-  plotly::layout(legend = list(orientation = 'h', y = -0.1))
-```
-
-
-
-#### DEPRECATED MATERIAL TO DELETE ###
-
-```{r shr-ext, fig.width = 10, fig.height = 5, fig.cap = "Share of externally-sourced indicators"}
-shr_ext <- shr_ext +
- labs(
-    title = "Share of externally sourced indicators by explanation",
-    x = "",
-    y = ""
-  )
-
-plotly::ggplotly(shr_ext, tooltip = "text")
-```
-
-*Figure 3.1* shows the results of the explanation framework disaggregated
-primarily by explanation, and secondarily by cluster (E, S and G) and
-primary source (WBG and all external sources).  Table X reflects the
-entire universe of indicators studied (134 indicators total) while Table Y includes only those
-in the current version of the WBG ESG-specific dataset (67 indicators total).
-
-Overall, the "Methodology Lags" explanation is by far the dominant cause of gaps in ESG data,
-where it is a contributing factor for 72 of 134 indicators overall, and 40 of 67 indicators in the
-WBG's ESG dataset. This frequency likely reflects prevalence of traditional statistical indicators
-used in ESG, many of which rely on inter-agency cooperation and other intrinsically time consuming
-modalities to produce comparable data for all countries.
-
-"Survey Dependencies" is the second most significant explanation, contributing to gaps for 32 of
-134 indicators overall, and 18 of 67 indicators in the WBG's dataset. Most of these indicators
-(75% and 83% respectively) fall under the "Social" pillar.
-
-15 of 134 indicators overall have been dropped or deprecated by the World Bank and are no longer
-maintained. Fortunately, the WBG's dataset does not contain any deprecated indicators. An
-additional 11 indicators overall of which 4 are the WBG dataset have not been updated in
-at least 5 years, suggesting that the underlying program may have been discontinued in some
-fashion. Alternatively, some of these indicators may actually reflect an especially long "methodology
-lags"; for instance, indicators produced on 5- or even 10-year intervals.
-
-8 of 134 indicators overall and 6 of 67 indicators in the WBG dataset are subject to licensing
-restrictions which may adversely impact the availability of recent data. Only 2 indicators are
-affected by differences in the curation cycle, in which the WBG updates its data less frequently
-than does the originating source.
-
-Finally, 12 of 134 indicators overall and 6 of 67 indicators in the WBG dataset may by
-definition not be relevant to high-income or very small economies. This explanation is a
-somewhat exceptional case, as it may suggest special treatment at the analytical level
-as opposed to strategies to improve country coverage in the data.
-
-### Results by Source and Cluster {-}
-
-*Figures 3.2 and 3.2* show results of the explanation framework in percentage terms, disaggregated
-by primary source and cluster respectively.
-Overall, just over 73% of ESG indicators studied originate from sources other than the World Bank.
-Figure X shows how this factor varies by explanation. Not surprisingly, all indicators restricted
-by licenses come from external sources. On the other hand, the two explanations with the lowest
-share of externally sourced indicators (and thus the highest share of World Bank sourced indicators)
-are 'Curation Lags' (which only includes 2 indicators) and 'Survey Dependencies.' This is significant
-because it may be easier for the World Bank to improve data coverage in areas where it is the primary
-source for a significant portion of data.
-
-Results vary significantly by cluster and explanation. All indicators classified as 'Deprecated' along
-with all indicators subject to Licensing restraints are in the Environmental cluster, whereas both
-indicators in the 'Curation Lags' explanation are in the Social cluster. 'Survey Dependencies' is also heavily
-weighted with indicators in the Social cluster. The remaining explanations are distributed 
-among clusters in roughly line with their respective portions of the overall sample.
+This provides a slightly different perspective. Looking at the top 2 explanatory factors, indicators in the
+social and governance pillars are overly represented within "Structural Lags" and "Survey Dependencies," suggesting
+that efforts in these areas would disproportionaately improve these pillars. By comparison, nearly all indicators
+in the "No Longer Updated" group belong to the environment pillar. The "Licensing" explanation also consists entirely
+of indicators in the environment pillar.
 
 
 
