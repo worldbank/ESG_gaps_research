@@ -15,7 +15,7 @@
 <meta name="author" content="The World Bank" />
 <meta name="author" content="Development economics, Data Group" />
 
-<meta name="date" content="2020-05-06" />
+<meta name="date" content="2020-07-09" />
 
 
 <meta name="description" content="ESG">
@@ -42,30 +42,11 @@ if(f.classList.contains('fa-plus-square')) {
 
 }
 </script>
-<script src="libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="libs/plotly-binding/plotly.js"></script>
-<script src="libs/typedarray/typedarray.min.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
-<link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main/plotly-latest.min.js"></script>
-<link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding/datatables.js"></script>
-<link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
-<link href="libs/dt-ext-fixedcolumns/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
-<script src="libs/dt-ext-fixedcolumns/js/dataTables.fixedColumns.min.js"></script>
-<link href="libs/nouislider/jquery.nouislider.min.css" rel="stylesheet" />
-<script src="libs/nouislider/jquery.nouislider.min.js"></script>
-<link href="libs/selectize/selectize.bootstrap3.css" rel="stylesheet" />
-<script src="libs/selectize/selectize.min.js"></script>
 
 
 
 
-<link rel="stylesheet" href="css\box.css" type="text/css" />
+<link rel="stylesheet" href="css/box.css" type="text/css" />
 
 </head>
 
@@ -88,12 +69,12 @@ if(f.classList.contains('fa-plus-square')) {
 <a href="volatility.html"><span class="toc-section-number">4</span> Volatility Analysis</a>
 <a id="active-page" href="discussion.html"><span class="toc-section-number">5</span> Discussion</a><ul class="toc-sections">
 <li class="toc"><a href="#discourage-use-of-discontinued-indicators"> Discourage use of discontinued indicators</a></li>
-<li class="toc"><a href="#technical-approaches"> Technical Approaches</a></li>
-<li class="toc"><a href="#invest-in-higher-frequency-approaches-or-substitutes"> Invest in Higher Frequency Approaches or Substitutes</a></li>
-<li class="toc"><a href="#overall"> Overall</a></li>
+<li class="toc"><a href="#technical-enhancements-to-existing-indicators"> Technical enhancements to existing indicators</a></li>
+<li class="toc"><a href="#consider-higher-frequency-approaches-or-substitutes"> Consider higher frequency approaches or substitutes</a></li>
+<li class="toc"><a href="#conclusion-and-next-steps"> Conclusion and Next Steps</a></li>
 </ul>
-<a href="recommendations.html"><span class="toc-section-number">6</span> Recommendations</a>
-<a href="references.html">References</a>
+<a href="appendix-1-deprecated-indicators.html"><span class="toc-section-number">6</span> Appendix 1: Deprecated Indicators</a>
+<a href="appendix-coverage-analysis.html"><span class="toc-section-number">7</span> Appendix: Coverage Analysis</a>
 </div>
 </li>
 </ul>
@@ -111,7 +92,8 @@ be taken to mitigate gaps in ESG data, or deal appropriately with gaps that are 
 <div id="discourage-use-of-discontinued-indicators" class="section level2">
 <h2>
 <span class="header-section-number">5.1</span> Discourage use of discontinued indicators</h2>
-<p>15 indicators, or 10% of those studied, have been discontinued by the World Bank and are no longer
+<p>15 indicators, or
+0% of those studied, have been discontinued by the World Bank and are no longer
 maintained. They continue to be available for historical purposes, and only reside in databases
 that are described as “archives” in the <a href="https://datacatalog.worldbank.org">World Bank Data Catalog</a>.
 None of these indicators appear in or affect the WBG dataset. Still, it is possible that external
@@ -121,54 +103,138 @@ them through the API and not the data catalog.</p>
 substitute (see Appendix A). It is strongly recommended that ESG users switch to more recent indicators
 and discontinue use of those that are no longer maintained.</p>
 </div>
-<div id="technical-approaches" class="section level2">
+<div id="technical-enhancements-to-existing-indicators" class="section level2">
 <h2>
-<span class="header-section-number">5.2</span> Technical Approaches</h2>
-<ul>
-<li>Volatility analysis: are there indicators (particuarly in social &amp; governance) that change
-slowly enough that we could extrapolate or gap fill? <strong>ANDRES: NEED TO FILL IN RESULTS OF THE VOLATILITY
-SECTION HERE</strong>
-</li>
-<li>HIC/Small segments: could we “estimate” values for these (e.g., 0 or 100%)? Or better yet, improve
-the ESG methodology so that it simply dropped these indicators from the analysis where they don’t apply.</li>
-<li>One could imagine a platform that provides data along with “estimates” where possible, sort of like
-Zillow</li>
-</ul>
+<span class="header-section-number">5.2</span> Technical enhancements to existing indicators</h2>
+<!-- Note: the calculations in this section come from coverage-analysis.ipynb, I couldn't figure out
+how to do it in R -->
+<p>The previous two sections explored a couple of ways in which technical approaches could be used to improve
+the coverage and quality of ESG data. First, it may be possible, as suggested in the previous volatility
+analysis, that statistical techniques could be used to impute, extrapolate, or estimate missing values in
+some cases. Although discussion of specific techniques
+is beyond the scope of this analysis, we can use indicator volatility as a proxy to estimate the potential
+for these techniques.</p>
+<p>For instance, building off the approach demonstrated by the interactive tool in the previous chapter,
+if one stipulates that country/indicator series with a volatility coefficient no higher than 0.65 (slightly
+less than the median)
+can be extrapolated or estimated one year forward, data coverage in 2018 would improve from 31% to 37%
+of potential observations for all indicators and countries. At that level the number of indicators with some level
+of 2018 coverage would improve from 54 to 77 out of 115 total. An additional 28 of the original 54 indicators
+would see at least some level of improved coverage.
+While the choice of median CV is somewhat arbitrary, it gives some reference for what
+could be accomplished through established techniques and econometiric modeling.</p>
+<p>The second possible approach involves the “limited relevance” indicators identified in the explanations
+framework. These are indicators where gaps in coverage may be due to the indicator being irrelevant to certain
+countries, either because they are very small or very rich. As a result, it may be possible to “assume” a
+reasonable value for indicators that fall into this explanation. For instance, it is reasonable to assume
+that “Net official development assistance” for high-income countries that are missing this value is $0.
+Likewise, it may be
+reasonable to assume that “Electricity production from nuclear sources” is 0 for small island economies.
+The other indicators in this cluster might similarly be inferred for certain groups of countries, effectively
+eliminating coverage gaps with little effort or cost. Alternatively, it may be possible to drop these indicators
+at the analytical level for countries for which they are clearly not relevant.</p>
+<p>While use of statistical techniques to “enhance” data may sound enticing, great care would be necessary to
+make clear to data users which data are “actual” compared to which are “estimated.” Ideally, data users
+would be able to choose between an “actual” and a “estimated” dataset with full transparency and information on the
+implications of using estimated data. That said, “estimated” data are becoming increasingly common in the age of machine learning and artificial intelligence (e.g. weather forecasts or Zillow real estate estimates),
+so users may not find the concept to be especially exotic or concerning.</p>
 </div>
-<div id="invest-in-higher-frequency-approaches-or-substitutes" class="section level2">
+<div id="consider-higher-frequency-approaches-or-substitutes" class="section level2">
 <h2>
-<span class="header-section-number">5.3</span> Invest in Higher Frequency Approaches or Substitutes</h2>
+<span class="header-section-number">5.3</span> Consider higher frequency approaches or substitutes</h2>
+<p>The third option is to selectively improve the frequency of indicators where MRV is a significant issue, or find
+better sources where it not cost effective to make these improvements. The explanations analysis identified
+102 indicators (76.1%) as either active but not recently updated or as
+likely having a “structural lag” of some sort in the production process that results in frequency gaps.
+However, 78
+of 102 indicators are primarily produced by the UN or other outside organizations.
+This is an important consideration, because it means that investments to improve the frequency of <em>existing</em>
+indicators are really investments in the capacity of third party providers. Alternatively, if it is determined
+that this is not a practical approach, then the remaining option is to build this capacity internally.</p>
+<p>Theoretically, there are several approaches that could at least partially fill gaps in ESG data, including:</p>
 <ul>
-<li>103 indicators (77%) are category B, C or F.</li>
-<li>75% of these are dependent on external (non-Bank) sources</li>
-<li>It is likely that most of these are not designed or well suited for high frequency analysis,
-particularly the survey-based ones (expl_f)</li>
-<li>Our initial efforts in this area on select indicators suggest this it would be time and
-resource intense to improve frequency of existing indicators, particularly those that are
-sourced externally (we would likely need to fund these)</li>
-<li>Substitutes may be possible in some areas. Some emissions data may have slightly more recent
-data, but in the social pillar it is unlikely to result in significant improvements</li>
-<li>Satellite/geospatial data may be an alternative if it can be aggregated to the country or regional
-level. Again, this primarily affects environmental</li>
-<li>Other approaches may be possible; GDELT, social media</li>
+<li>
+<strong>Sentiment analysis</strong> derived from social media channels such as Twitter, Facebook, and Instagram.
+Within some domains, keyword and sentiment analysis could be used to detect high frequency changes in economic
+indicators such as employment, or conditions affecting governance or social stability. Online news
+sources could be analyzed in a similar fashion, leveraging services such as <a href="https://www.gdeltproject.org">GDELT</a>.</li>
+<li>
+<strong>Mobile phone data</strong> such as Call Detail Records (CDR)–the metadata from cell phone calls–have been used to
+measure <a href="https://www.nature.com/articles/s41599-019-0242-9">changes in migration</a>
+as well as response to
+<a href="https://reliefweb.int/report/world/call-detail-records-use-mobile-phone-data-track-and-predict-population-displacement">natural disasters</a>
+and other disruptive events. There are also efforts to
+<a href="https://www.worldbank.org/en/programs/listening-to-africa">measure changes in living conditions via cell phones</a>.
+It is possible these efforts might provide higher frequency tools for measuring poverty, income inequality, and
+a range of socio-economic conditions.</li>
+<li>
+<strong>Geospatial data</strong>, especially satellite imagery and low altitude imagery from unmanned aerial vehicles (UAVs)
+are increasingly cost effective means to obtain current, high resolution data. Satellite and drone imagery can
+be used to monitor ecosystems, agriculture production, soil moisture, and other environmental conditions.
+<a href="https://disasters.nasa.gov/news/new-night-lights-maps-open-possible-real-time-applications">Night lights analysis</a>
+has been suggested as a way to measure levels of economic activity, access to electricity, and
+impact from natural disasters.</li>
+<li>
+<strong>Private sector sources</strong> are sometimes used as proxies or leading indicators in certain sectors. For instance,
+<a href="https://www.safegraph.com/dashboard/reopening-the-economy-foot-traffic?s=US&amp;d=06-28-2020&amp;i=all">SafeGraph</a> recently
+used geolocation data from cell phones to estimate foot traffic patterns to commercial storefronts as a proxy for
+economic activity during the 2020 coronavirus pandemic. Data from
+<a href="https://www.opentable.com/state-of-industry">OpenTable</a>, a restaurant reservation service, can provide
+high-frequency estimates of consumer spending. Activity data from ride sharing services such as Uber and Lyft
+might also provide proxies for economic activity.
+Google search trends could provide insights into emerging issues and potential hot spots.</li>
 </ul>
+<p>Further research is necessary to determine the potential of each of these technologies to provide suitable
+substitute data, and which indicators they could replace. Even at this point, however, some general caveats
+can be made about the potential for alternative sources. With the exception of night lights data, none of the examples
+listed above has been produced at a global level or even for a critical mass of countries. While mobile phone
+data and sentiment analysis have been used extensively in many countries, examples of alternative data collection
+that targets multiple countries simultaneously is still limited. Obtaining alternative data from disparate countries
+comes with its own set of issues. For instance, sentiment analysis, which infers data from text, must account
+for language differences across countries. Data from technology platforms is only available in countries where those
+platforms have achieved significant penetration, and must correct for selection bias where the user base is
+not representative of the broader population. Furthermore, since most of these techniques have only be used in small
+areas, it is not clear if, when operated at a global scale, if they could actually produce data with higher
+frequency than traditional techniques.</p>
+<p>More broadly, it is unclear whether non-traditional data sources would be compatible with traditional statistics. The
+indicators currently in the ESG database are designed to be producible and comparable across a large number of
+countries, and consistent over time. These design considerations are not necessarily true for the examples above.
+For instance, geospatial analysis may need to be recalibrated for local terrain, and sentiment analysis
+recalibrated for continually changing slang. Furthermore, most of the non-traditional methods listed above are
+not collected at regular, consistent intervals as statistics are.
+Thus, what may be cost effective and feasible for small area data production may not
+be practical for large area or global data production. These questions of cost and scale must all be carefully
+weighed. On the other hand, geographic or temporal comparability is required in all cases, depending on the
+analytical framework in which the data are being used.</p>
 </div>
-<div id="overall" class="section level2">
+<div id="conclusion-and-next-steps" class="section level2">
 <h2>
-<span class="header-section-number">5.4</span> Overall</h2>
-<ul>
-<li>The best approach may be to develop an ESG platform that provides varieties of kinds of data,
-explains the appropriate uses and limitations of each, and lets users decide.</li>
-</ul>
+<span class="header-section-number">5.4</span> Conclusion and Next Steps</h2>
+<p>This analysis employed a range of techniques to better understand the extent and nature of gaps in ESG data,
+and explore options for improving data coverage. While some improvements can be made relatively easily and
+represent “low hanging fruit,” other options are likely to be more expensive and entail greater risk.</p>
+<p>An implicit premise in this analysis is that the existing set of ESG indicators, coverage gaps notwithstanding,
+is ideally suited for ESG analysis and decision making. Significant investments in further reserach and alternative
+data sources should be predicated on first determining if the data fit well within the anticipated ESG
+analytical framework. At the time of this writing, the Bank’s ESG analytical framework is still under
+development. Accordingly, the most appropriate next step may be to further define the optimal ESG framework
+to more fully inform investments in data.</p>
+<p>Similarly, the Bank’s ESG data strategy is a factor in assessing options to improve quality. If the strategy
+is simply to provide data in support of an analytical framework then the choice of indicators would be
+straight forward and defined by the framework. However, if the strategy is to provide an broad portfolio
+of data to support any number of frameworks (including ones that users may define) then the data effort
+may be similarly broad, and include a wide range of data types–including traditional statistics, geospatial
+data, microdata, high frequency data and so forth–to encourage innovation among ESG investors.</p>
+
 </div>
 </div></body></html>
 
 <p style="text-align: center;">
 <a href="volatility.html"><button class="btn btn-default">Previous</button></a>
-<a href="recommendations.html"><button class="btn btn-default">Next</button></a>
+<a href="appendix-1-deprecated-indicators.html"><button class="btn btn-default">Next</button></a>
 </p>
 <p class="build-date">Page built: 
-2020-05-06
+2020-07-09
 </p>
 </div>
 </div>
