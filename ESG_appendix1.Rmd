@@ -1,0 +1,5 @@
+# Appendix 1: Deprecated Indicators
+
+Deprecated Indicator Code | Deprecated Indicator Name | Substitute Indicator Code | Substitute Indicator Name
+------------------------- | ------------------------- | ------------------------- | -------------------------
+TBC                       | TBC                       | TBC                       | TBC
