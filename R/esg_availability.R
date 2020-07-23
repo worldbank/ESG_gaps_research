@@ -1,3 +1,28 @@
+# ==================================================
+# project:       Country coverage (availability) of indicators
+#                Over time
+# Author:        Andres Castaneda
+# Dependencies:  The World Bank
+# ----------------------------------------------------
+# Creation Date:    2019
+# Modification Date:
+# Script version:    01
+# References:
+#
+#
+# Output:             output
+# ==================================================
+
+#----------------------------------------------------------
+#   Load libraries
+#----------------------------------------------------------
+library("viridis")
+# find if load_data.R has been executed
+
+if (!all(c("mtd", "mrv_series", "x")  %in% ls())) {
+  source("R/load_data.R")
+}
+
 source("R/utils.R")
 #----------------------------------------------------------
 #   Number of countries per indicator over time"
@@ -6,7 +31,6 @@ source("R/utils.R")
 #--------- heatmap indicators years and No. of countries
 
 d1 <- x %>%
-  filter(date >= 2000, date <= 2018) %>%
   group_by(indicatorID,indicator, date) %>%
   count(date) %>%
   mutate(text = paste0("Indicator: ", indicator, "\n",
@@ -25,7 +49,6 @@ d1 <- inner_join(d1, o)
 
 
 d2 <- x %>%
-  filter(date >= 2000, date <= 2018) %>%
   group_by(indicatorID,indicator, date) %>%
   summarise(n = n_distinct(iso3c)) %>%
   group_by(indicatorID,indicator)  %>%
@@ -36,45 +59,130 @@ d2 <- x %>%
 #   Average growth of countries per year in each indicator
 #----------------------------------------------------------
 
-lmdi <- x %>%  # improvement
-  filter(date >= 2000, date <= 2018) %>%
-  group_by(indicatorID,indicator, date) %>%
-  summarise(n = n_distinct(iso3c)) %>%
-  ungroup() %>%
-  nest(data = -c(indicator, indicatorID)) %>%
-  mutate(
-    fit  = purrr::map(data, ~lm(n ~ date, data = .)),  # regression
-    beta = purrr::map(fit, ~broom::tidy(.)[["estimate"]][2])  # extract beta
-  ) %>%
-  unnest(beta) %>%
-  select(indicatorID, indicator, beta) %>%
-  arrange(-beta)
-
-
-#----------------------------------------------------------
-#   Indicators stable over time
-#----------------------------------------------------------
-
 fillin <- expand_grid(
-  date        = c(2000:2018),
+  date        = c(2000:2019),
   indicatorID = unique(x$indicatorID)
   ) %>%
   inner_join(
     tibble(
       indicatorID  = unique(x$indicatorID),
       indicator    = unique(x$indicator)
-    )
+    ),
+    by = "indicatorID"
   )
 
-si <- x %>%
-  filter(date >= 2000, date <= 2018) %>%
+
+x2 <- x %>%  # coverage improvement over time
   group_by(indicatorID,indicator, date) %>%
-  summarise(nc = n_distinct(iso3c))   %>%
-  full_join(fillin) %>%
+  summarise(nc = n_distinct(iso3c)) %>%
+  ungroup() %>%
+  full_join(fillin, by = c("indicatorID", "indicator", "date")) %>%
   arrange(indicatorID, date) %>%
   mutate(
     nc = if_else(is.na(nc), 0L, nc)
+  )
+
+
+lmdi <- x2 %>%
+  nest(data = -c(indicator, indicatorID)) %>%
+  mutate(
+
+    # linear regression
+    fit  = purrr::map(data, ~lm(nc ~ date, data = .)),
+
+    # extract beta
+    beta = purrr::map(fit, ~broom::tidy(.)[["estimate"]][2]),
+
+    # Find number of year with at least one coutnry
+    nyc  = purrr::map(data, ~count(nyc = nc > 0, x = .) %>%
+                             filter(nyc == TRUE) %>%
+                             pull(n)
+                      )
   ) %>%
+  unnest(c(beta, nyc)) %>%
+  select(indicatorID, indicator, beta, nyc) %>%
+  mutate(
+    penalty = nyc/(2019-2000),
+    beta    = penalty*beta
+  ) %>%
+  arrange(-beta) %>%
+  select(-penalty)
+
+
+
+# cci <- x %>%  # coverage improvement over time
+#   group_by(indicatorID,indicator, date) %>%
+#   summarise(nc = n_distinct(iso3c)) %>%
+#   ungroup() %>%
+#   full_join(fillin, by = c("indicatorID", "indicator", "date")) %>%
+#   arrange(indicatorID, date) %>%
+#   mutate(
+#     nc = if_else(is.na(nc), 0L, nc)
+#   )
+#
+
+
+
+# indtest <- "SH.STA.DIAB.ZS"
+#
+# ggplot(data = filter(cci, indicatorID == indtest),
+#        aes(
+#          x = date,
+#          y = nc
+#          )) +
+#   geom_bar(stat="identity")
+
+
+#----------------------------------------------------------
+#   Intermittent coverage
+#----------------------------------------------------------
+
+ici <- x2 %>%
+  arrange(indicatorID, date) %>%
+  group_by(indicatorID, indicator) %>%
+  mutate(
+    nyc = if_else(nc > 0, 1, 0),
+
+    # Beginning of each new intercval
+    cnyc = case_when(
+      nyc == 0 & row_number() == 1 ~ 1,
+      nyc == 0 & nyc != lag(nyc)   ~ 1,
+      TRUE ~ 0
+    ),
+
+    # cumulative intervals
+    ni = cumsum(cnyc)
+
+  ) %>%
+  summarise(
+    nyc = sum(nyc, na.rm = TRUE),
+    cv  = cv(nc),
+    ni  = max(ni) # numer of intervals
+  ) %>%
+  ungroup() %>%
+  mutate(
+    aci   = max(nyc)/nyc, # average coverage interval
+
+    # lumpinnes index
+    li   = round((cv^2)/aci, digits = 5)
+  ) %>%
+  arrange(-ni, -aci, -cv) %>%
+  select(-cv)
+
+# ggplot(data = filter(ici, cv2 < 50),
+#        aes(
+#          x = cv2,
+#          y = aci
+#        )
+#        ) +
+#   geom_point()
+
+
+#----------------------------------------------------------
+#   Indicators stable over time
+#----------------------------------------------------------
+
+si <- x2 %>%
   group_by(indicatorID, indicator) %>%
   summarise(
     mean = mean(nc, na.rm = TRUE),
@@ -90,7 +198,6 @@ si <- x %>%
 #----------------------------------------------------------
 
 sdd <- x %>%
-  filter(date >= 2000, date <= 2018) %>%
   group_by(indicatorID,indicator, date) %>%
   summarise(nc = n_distinct(iso3c))   %>%
   full_join(fillin,
@@ -160,7 +267,6 @@ pg1 <- plotly::ggplotly(g1, tooltip = "text")
 
 
 d1a <- d1 %>%
-  filter(date >= 2000, date <= 2018) %>%
   inner_join(select(mtd, cetsid, matches("^expl")),
              by = c("indicatorID" = "cetsid")) %>%
   ungroup() %>%

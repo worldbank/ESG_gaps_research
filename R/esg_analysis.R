@@ -179,8 +179,8 @@ g_cv <- var_ind %>% ggplot(aes(x = cv)) +
                  alpha = 0.8,
                  position = 'identity',
                  bins = 10) +
-  scale_fill_viridis(discrete=TRUE) +
-  scale_color_viridis(discrete=TRUE) +
+  viridis::scale_fill_viridis(discrete=TRUE) +
+  viridis::scale_color_viridis(discrete=TRUE) +
   theme_ipsum() +
   theme(
     legend.position = "none",
