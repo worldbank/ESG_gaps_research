@@ -1,4 +1,4 @@
-# Appendix: Extended Coverage Analysis
+# Extended Coverage Analysis {#extcoverage}
 
 ```{r setupappendix2, echo=FALSE, message=FALSE, warning=FALSE}
 #--------- execute script of analysis
@@ -7,19 +7,12 @@ source("R/esg_availability.R")
 ```
 
 **Note:** this appendix includes technical information about the definitions of the coverage patterns
-defined and identified in the body of this analysis, and may be useful for future research purposes.
+defined and identified in chapter \@ref(coverage), and may be useful for future research purposes.
 
-**TODO:** revise text to make it suitable as an appendix.
+In contrast to the tables in chapter \@ref(coverage), the tables in this appendix include many more ESG indicators ranked according to the measure of interest in each section.
 
-The availability of ESG indicators by country is dynamic over time. As shown in Figure \@ref(fig:app-ciavailability), not all indicators are available in all countries neither they are available in all years. The availability of indicators goes from darker to lighter. The lighter the color the more the greater the number of countries per indicator in each year.  
 
-```{r app-ciavailability, fig.width = 12, fig.height = 10, fig.cap = "Number of countries per indicator over time"}
-pg1
-```
-
-Several insights are drawn from this chart. The following country-coverage categories are relevant for this study even though are not exahustive or mutually exclusive:
-
-## Low coverage
+## Country Coverage
 
 ```{r echo = FALSE}
 tr_low <- 100  # number of countries. 
@@ -30,18 +23,26 @@ d3 <- d2  %>%
             max = mean(max),
             s   = sless/max)
 d4 <- d2 %>% 
-  filter(mean < tr_low)
+  arrange(mean)
 
 
 ```
 
-Some indicators have very low availability over time. In general, `r d3[["sless"]]` (`r round(100*d3[["s"]],2)`%) indicators are available for less than `r tr_low` countries in average over time. Yet, not all indicators with low coverage have the same characteristics. For instance, 
+Country coverage is defined as follows,  
+
+$$
+C_j = \frac{1}{y_f - y_i +1} \sum_{y = y_i}^{y_f}{n_{j}^{y}}
+$$
+Basically, it is the the average of the number of countries for which there is information available in indicator $j$ over the period $y_i-y_f$. In this case, $n_{j}^{y}$ is the number of countries with information available for indicator $j$ in year $y$. $y_i$ and  $y_f$ refer to the initial and final years of the analysis, which at the time of this publication they are `r first_year` `r last_year`, respectively.  
+
+The table below is an expanded version of the table presented in section \@ref(consistently-low-coverage). Indicators are organized from the lowest to highest country coverage.
 
 ```{r dtlc, options}
-d4 %>% 
-  arrange(mean) %>% 
-  DT::datatable(
-    colnames = c("Code", "Indicator", "Average of countries per year"),
+
+  DT::datatable(d4, 
+    colnames = c("Code", 
+                 "Indicator", 
+                 "Average of countries per year"),
     rownames = FALSE,
     filter = 'top', 
     width = '55%', 
@@ -54,14 +55,18 @@ d4 %>%
 ```
 
 
-## Remarkable improvement over time
+## Improvement over time
+
+In section \@ref(measurable-improvement) 
 
 Most indicators have improved their coverage over time, but some of them show a remarkable improvement over time. Ranking indicators according to their improvement in country coverage is not straightforward. The coverage growth in many indicators is not consistent, fluctuating over time. In other cases, indicators that come from household surveys like the _Poverty headcounts_ or the _Gini index_ have shown a dramatic improvement in country coverage in the beginning of the 2000's. Thus, the table below shows the average growth of number of countries in each indicator penalized by the number of years in which they have no data at all. The higher the number in the third column the more consistent the indicator has been on increasing country coverage since 2000.
 
 ```{r agcbi}
-lmdi %>% 
-  DT::datatable(
-    colnames = c("Code", "Indicator", "Avg. growth in coverage (penalized)", "No. of years with data"),
+
+  DT::datatable(lmdi,
+    colnames = c("Code", 
+                 "Indicator", "Avg. growth in coverage (penalized)", 
+                 "No. of years with data"),
     rownames = FALSE,
     filter = 'top', 
     width = '55%', 
