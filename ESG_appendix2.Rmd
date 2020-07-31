@@ -154,13 +154,28 @@ The remarkable coverage of some indicators in the previous decade suddenly decli
 
 ## Intermittent and Lumpy coverage
 
-Some indicators have *intermittent* coverage with excellent coverage in some years and no coverage at all in others. Other indicators are very *lumpy* in the sense that the number of countries covered varies up and down from year to year. Following @syntetos_categorization_2005 and @williams_stock_1984, we calculated an *Average coverage interval* and the *Lumpiness* index  for all indicators. 
+Some indicators have *intermittent* coverage with excellent coverage in some years and no coverage at all in others. Other indicators are very *lumpy* in the sense that the number of countries covered varies up and down from year to year. Following @syntetos_categorization_2005 and @williams_stock_1984, we calculated the *Average coverage interval* and the *Lumpiness* index  for all indicators. 
 
-The *Average coverage interval* indicates the number of years between successive years with country coverage. 
+The *Average coverage interval* indicates the average number of years between successive years with country coverage. For example, if the *Avg. coverage interval* is 24, it means that in average every four years this indicator covers at least one country.
+
+\begin{equation} 
+  aci_j = \frac{Y}{Q_j}
+  (\#eq:aci)
+\end{equation} 
+
+Where $Y$ is the total number of years in the period of analysis and $Q_j$ is the number of years for which there is at least one country available in indicator $j$, exactly the same as in equation \@ref(eq:penalty). The higher the $aci$, the more intervals with  no information the indicator has.
+
+The *Lumpiness* index shows how lumpy the indicator is. The higher it is, the more lumpy the country coverage is. It is calcualted as follows, 
+
+\begin{equation} 
+  L = \frac{cv(n_{j})^2}{aci}
+  (\#eq:lump)
+\end{equation} 
+
+Where $cv(n_{j})$ is the coefficient of variation of the number of countries avialable over time in indicator $j$ and $aci$ is the derived in equation \@ref(eq:aci). 
 
 
-
-The table below tries to characterize all the indicators by their level of intermittentness and lumpiness. The *No. years covered* column shows the number of years with at least one country covered during the studied period. The *No. intervals with  no data* is the number of intervals in which no country is covered. The higher this number the more intermittent the indicator is. The *Avg. coverage interval*  indicates the number of years between successive years with country coverage. In other words, it indicates how often a year has information  or how intermittent the information of this indicator is. For examples, if the *Avg. coverage interval* is 2, it means that in average every two years this indicator covers at least one country. Finally, the *Lumpiness* index how lumpy an indicator is. The higher it is, the more lumpy its country coverage is. For more information on these measure see @syntetos_categorization_2005 and @williams_stock_1984. 
+The table below tries to characterize all the indicators by their level of intermittentness and lumpiness. The *No. years covered* column shows the number of years with at least one country covered during the studied period. The *No. intervals with  no data* is the number of intervals in which no country is covered. The higher this number the more intermittent the indicator is. The *Avg. coverage interval* indicates how often the indicator has information or how intermittent the information of this indicator is. The last columns contains the *Lumpiness* index. 
 
 ```{r icli}
 
@@ -180,31 +195,4 @@ The table below tries to characterize all the indicators by their level of inter
   DT::formatRound(c("aci", "li") , 2) 
 
 ```
-
-## high coverage 
-
-```{r hcex}
-hcex <- hc  %>% 
-  slice(1:4) %>% 
-  pull(input_name) %>% 
-  add_and()
-```
-
-
-Finally, the indicators at the top of the chart show the best country coverage over time. They are characterized by their bright yellow color. For example `r hcex` show remarkable coverage. The table below shows the `r nrow(hc)` indicators with high coverage.
-
-
-```{r hcdt}
-
-  DT::datatable(hc,
-    colnames = c("Code", "Indicator", "Sector"),
-    rownames = FALSE,
-    filter = 'top', 
-    width = '55%', 
-    extensions = 'FixedColumns',
-    options = list(pageLength = 6, 
-                   autowidth = TRUE)
-  ) 
-```
-
 
