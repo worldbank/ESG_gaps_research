@@ -6,10 +6,8 @@ source("R/load_data.R")
 source("R/esg_availability.R")
 ```
 
-**Note:** this appendix includes technical information about the definitions of the coverage patterns
-defined and identified in chapter \@ref(coverage), and may be useful for future research purposes.
-
-In contrast to the tables in chapter \@ref(coverage), the tables in this appendix include many more ESG indicators ranked according to the measure of interest in each section.
+This appendix includes technical information about the definitions of the coverage patterns
+defined and identified in chapter \@ref(coverage), and may be useful for future research purposes. In contrast to the tables in chapter \@ref(coverage), the tables in this appendix include many more ESG indicators ranked according to the measure of interest in each section.
 
 
 ## Country Coverage
@@ -195,4 +193,7 @@ The table below tries to characterize all the indicators by their level of inter
   DT::formatRound(c("aci", "li") , 2) 
 
 ```
+
+
+## References {-}
 
