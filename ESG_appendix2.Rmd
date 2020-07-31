@@ -30,9 +30,11 @@ d4 <- d2 %>%
 
 Country coverage is defined as follows,  
 
-$$
-C_j = \frac{1}{y_f - y_i +1} \sum_{y = y_i}^{y_f}{n_{j}^{y}}
-$$
+\begin{equation} 
+  C_j = \frac{1}{y_f - y_i +1} \sum_{y = y_i}^{y_f}{n_{j}^{y}}
+  (\#eq:cj)
+\end{equation} 
+
 Basically, it is the the average of the number of countries for which there is information available in indicator $j$ over the period $y_i-y_f$. In this case, $n_{j}^{y}$ is the number of countries with information available for indicator $j$ in year $y$. $y_i$ and  $y_f$ refer to the initial and final years of the analysis, which at the time of this publication they are `r first_year` `r last_year`, respectively.  
 
 The table below is an expanded version of the table presented in section \@ref(consistently-low-coverage). Indicators are organized from the lowest to highest country coverage.
@@ -57,9 +59,23 @@ The table below is an expanded version of the table presented in section \@ref(c
 
 ## Improvement over time
 
-In section \@ref(measurable-improvement) 
+In section \@ref(measurable-improvement) we present how some indicators have presented a remarkable improvement over time. In order to find these countries systematically and taking into account that The coverage growth in many indicators is inconsistent and fluctuating over time, we estimate the average *growth* in the number of countries $\hat{G_j}$ in indicator $j$ (this is different from $C_j$ in equation \@ref(eq:cj)),
 
-Most indicators have improved their coverage over time, but some of them show a remarkable improvement over time. Ranking indicators according to their improvement in country coverage is not straightforward. The coverage growth in many indicators is not consistent, fluctuating over time. In other cases, indicators that come from household surveys like the _Poverty headcounts_ or the _Gini index_ have shown a dramatic improvement in country coverage in the beginning of the 2000's. Thus, the table below shows the average growth of number of countries in each indicator penalized by the number of years in which they have no data at all. The higher the number in the third column the more consistent the indicator has been on increasing country coverage since 2000.
+\begin{equation} 
+   n_{j}^{y} = \alpha + G_jy + e
+  (\#eq:gcj)
+\end{equation} 
+
+Where $n_{j}^{y}$ refers to number of countries with information available for indicator $j$ in time $y$. As $n_{j}^{y}$ could be zero for any $y$, we penalize the value of $\hat{G_j}$ by the number of years in which they have no data at all, $p_j$, 
+
+\begin{equation} 
+  p_j = \frac{Q_j}{y_f - y_i +1}
+  (\#eq:penalty)
+\end{equation}
+
+where $Q_j$ refers to the number of years for which there is at least one country available in indicator $j$. $y_i$ and $y_f$ refer to the initial and final years as in equation \@ref(eq:cj).
+
+Most indicators have improved their coverage over time, but some of them show a remarkable improvement. The table below shows the average growth of number of countries in each indicator penalized by the number of years in which they have no data at all. The higher the number in column **Avg. growth in coverage (penalized)** the more consistent the indicator has been on increasing country coverage since 2000.
 
 ```{r agcbi}
 
@@ -76,8 +92,6 @@ Most indicators have improved their coverage over time, but some of them show a 
   ) %>% 
   DT::formatRound("beta" , 1)
 ```
-
-
 
 ## Remain stable over time but with middle coverage
 
@@ -101,13 +115,14 @@ cfsi <- si %>%
 
 ```
 
-The country coverage of some indicators have remained relatively stable over time. Only `r fsi` indicators have not changed their country coverage over the period of analysis. In average, they cover `r round(avfsi, digit = 1)` countries.  These indicators are `r cfsi`. 
+Stability of country coverage over time can be seen as the standard deviation of the number of countries available for each indicator in each year. The lower the standard deviation, the more stable the country coverage of the indicator is. 
+
+The country coverage of some indicators have remained relatively stable over time. Among the `r fsi` indicators that have not changed their country coverage over the period of analysis, the average of countries covered is `r round(avfsi, digit = 1)`.  These indicators are `r cfsi`. 
 
 The table below shows how stable each indicator is over time and the average number of countries covered in each year.  
 
 ```{r dtsi}
-si %>% 
-  DT::datatable(
+  DT::datatable(si,
     colnames = c("Code", "Indicator", "Avg. of countries", "Standard Dev."),
     rownames = FALSE,
     filter = 'top', 
@@ -122,11 +137,11 @@ si %>%
 
 ## High coverage and sudden decline
 
-Most recent value (MRV) of most indicators is two or more years old. However, some indicators with remarkable good coverage in the previous decade suddenly declined in the last five years. The table below shows the year in which the country coverage of each indicator plummeted and the number countries that were dropped. 
+The remarkable coverage of some indicators in the previous decade suddenly declined and has remained either null or very low since then. The table below shows the year in which the country coverage of each indicator plummeted and the number countries dropped in that year. 
 
 ```{r sdd}
-sdd %>% 
-  DT::datatable(
+
+  DT::datatable(sdd,
     colnames = c("Code", "Indicator", "Year", "No. Countries dropped"),
     rownames = FALSE,
     filter = 'top', 
@@ -138,11 +153,18 @@ sdd %>%
 ```
 
 ## Intermittent and Lumpy coverage
-Some indicators have intermittent coverage with excellent coverage in some years and no coverage at all in others. Other indicators are very lumpy in the sense that the number of countries covered varies from year to year. The table below tries to characterize all the indicators by their level of intermittentness and lumpiness. The *No. years covered* column shows the number of years with at least one country covered during the studied period. The *No. intervals with  no data* is the number of intervals in which no country is covered. The higher this number the more intermittent the indicator is. The *Avg. coverage interval*  indicates the number of years between successive years with country coverage. In other words, it indicates how often a year has information  or how intermittent the information of this indicator is. For examples, if the *Avg. coverage interval* is 2, it means that in average every two years this indicator covers at least one country. Finally, the *Lumpiness* index how lumpy an indicator is. The higher it is, the more lumpy its country coverage is. For more information on these measure see @syntetos_categorization_2005 and @williams_stock_1984. 
+
+Some indicators have *intermittent* coverage with excellent coverage in some years and no coverage at all in others. Other indicators are very *lumpy* in the sense that the number of countries covered varies up and down from year to year. Following @syntetos_categorization_2005 and @williams_stock_1984, we calculated an *Average coverage interval* and the *Lumpiness* index  for all indicators. 
+
+The *Average coverage interval* indicates the number of years between successive years with country coverage. 
+
+
+
+The table below tries to characterize all the indicators by their level of intermittentness and lumpiness. The *No. years covered* column shows the number of years with at least one country covered during the studied period. The *No. intervals with  no data* is the number of intervals in which no country is covered. The higher this number the more intermittent the indicator is. The *Avg. coverage interval*  indicates the number of years between successive years with country coverage. In other words, it indicates how often a year has information  or how intermittent the information of this indicator is. For examples, if the *Avg. coverage interval* is 2, it means that in average every two years this indicator covers at least one country. Finally, the *Lumpiness* index how lumpy an indicator is. The higher it is, the more lumpy its country coverage is. For more information on these measure see @syntetos_categorization_2005 and @williams_stock_1984. 
 
 ```{r icli}
-ici %>% 
-  DT::datatable(
+
+  DT::datatable(ici,
     colnames = c("Code", "Indicator", "No. Years covered", "No. intervals with no data (intermittentness)", "Avg. coverage interval", "Lumpiness index"),
     rownames = FALSE,
     filter = 'top', 
@@ -173,8 +195,8 @@ Finally, the indicators at the top of the chart show the best country coverage o
 
 
 ```{r hcdt}
-hc %>% 
-  DT::datatable(
+
+  DT::datatable(hc,
     colnames = c("Code", "Indicator", "Sector"),
     rownames = FALSE,
     filter = 'top', 
