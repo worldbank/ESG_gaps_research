@@ -30,3 +30,25 @@
   color: #FF3399;
   font-weight: 900
 }
+
+table.striped {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-bottom: 1px solid #111;
+}
+
+table.striped td, table.striped th {
+  padding: 6px 8px;
+}
+
+table.striped tbody td {
+  border-top: 1px solid #ddd;
+}
+
+table.striped tbody tr.first-child td {
+  border-top: none;
+}
+
+table.striped tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}

@@ -92,30 +92,25 @@ def load_metadata(metafile_path, datafile_path):
     expl_a_g = list(map(lambda x: 'expl_'+x, list('abcdefg')))
     expl_c_g = list(map(lambda x: 'expl_'+x, list('cdefg')))
 
-    meta = pd.read_csv(metafile_path)
+    meta = pd.read_csv(metafile_path).set_index('cetsid')
     data = pd.read_feather(datafile_path)
     data = data[data.date <= 2018]
     
     # calculate no_pop, defined as any indicator with a value for 2018 or later for 90%+ of economies
     min_economies = len(data.iso3c.unique()) * 0.9
 
-    mrv = data[data.date>=2018]
-
     # dataframe of indicators with counts of countries with at least one MRV
-    mrv_series = mrv.groupby(['indicatorID', 'iso3c']).count().groupby('indicatorID').count()
-    no_gaps = mrv_series[mrv_series.value>=min_economies]
-
-    # set no_gap for indicators in the previous dataframe
-    meta['no_gap'] = meta.join(no_gaps.value, on='cetsid').value.map(lambda x: not np.isnan(x))
+    mrv = data[data.date>=2018].groupby(['indicatorID', 'iso3c']).count().groupby('indicatorID').count()
+    meta['no_gap'] = mrv.value>=min_economies
+    meta['no_gap'] = meta['no_gap'].fillna(False) # to fix indicators not found in mrv
 
     # expl_a is defined as archived. That's databases 11 (Africa Development Indicators) or 57 (WRI archives)
     meta['expl_a'] = (meta.database_id == '11') | (meta.database_id == '57')
 
     # expl_b is defined as very stale: no values past 2014
-    tmp = data[data.date>2014].groupby('indicatorID').count() # count of values AFTER 2014
-
-    # set expl_b for indicators NOT in the previous dataframe (no values after 2014)
-    meta['expl_b'] = meta.join(tmp.value, on='cetsid').value.map(lambda x: np.isnan(x))
+    tmp = data.groupby('indicatorID').max()['date']  # max year for each indicator
+    meta['expl_b'] = tmp <= 2014
+    meta['expl_b'] = meta['expl_b'].fillna(False)    # fix indicators not in database (e.g., archives)
 
     # ... but not any archived variables
     meta.loc[meta.expl_a, 'expl_b'] = False
@@ -130,4 +125,4 @@ def load_metadata(metafile_path, datafile_path):
     # if a or b then c-g must be false
     meta.loc[meta.expl_a | meta.expl_b, expl_c_g] = False
 
-    return meta
+    return meta.reset_index()

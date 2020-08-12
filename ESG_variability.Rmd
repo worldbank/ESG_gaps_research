@@ -6,23 +6,130 @@ source("R/load_data.R")
 source("R/esg_variability.R")
 ```
 
-ESG indicators belong to set of measures of wide diversity. Some of them are estimated every few years, whereas others are produced every three or six month. In addition, some indicators are bounded by construction---like percentages or indexes---, others are normalized across countries--like indicators in PPP values--, others are in units based on population size---like all the indicators of the type, *x by 1,000 people*---, among many other kinds of measures and units. This variety makes it difficult to compare directly one indicator to another, especially if some or all the indicators are weighted in any particular fashion. 
+The previous two chapters sought to provide insights into the patterns of coverage gaps found in
+ESG data, and the reasons why those gaps occur from a data production standpoint. This chapter
+starts to explore the potential for correcting certain gaps using statistical methods. For instance,
+missing values might (within limits) be interpolated or extrapolated from existing observations,
+or estimated using linear regression or other modelling techniques. While these techniques are
+an imperfect substitute for observed data, they may be able to play a limited role within a broader strategy for improving ESG data coverage.
 
-To alleviate this problem, a standard measure of volatility could be applied to all indicators. Those indicators that vary the most, deserve the most attention by investors, whereas those that vary the less could be revisited every few years to recalibrate models.  To make volatility comparable across countries, it was necessary to rescale all indicators and linearly interpolate missing values by year. Then, the coefficient of variation (CV) was estimated at indicator/country level in order to capture  temporal volatility of each indicator at the country level, which is represented in Figure \@ref(fig:civar).
+Note that the scope of this paper is limited to analysis of the *potential* for use of statistical
+and does not look in detail at specific techniques or tools for doing so. In all likelihood, the most appropriate approach will vary by indicator, and will depend on the definition fo the indicator,
+the availability of proxies and independent variables (for modelling) and other ideosyncratic factors. 
 
-In this section, we analyze three different aspects of the volatility of the ESG indicators. First, we present the volatility at the indicator level. That is, volatility at acroos indicator without taking into account that the same indicator may vary widely in some countries and little in others. Then, we see the volatility one level down and disaggregate the previous estimates at the country-indicator level. That is, the volatility that each indicator has over time in each country. This is useful for country level analysis and cross-country comparison of volatility. Finally, we present a simple exercise for investors on the feasibility of filling gaps for the most recent year based on the volatility of  those indicators with no available data. 
+In general though, statistical techniques work best when indicator values move according to observable
+patterns, and in particular, when temporal variance is relatively low. That is, the less that an indicator
+varies from period to period for a particular country, the easier it is to reasonably estimate missing values.
+Consequently, indicator variance can be used as a proxy of the general potential to fill gaps using
+statistical methods, with low variance suggesting greater potential. In this analysis, we used a
+standard cofficient of variation (standard deviation divided by mean) to estimate variance for each
+indicator and country, and scaled all values to a 0-1 range to make values comparable across indicators.
 
-## Volatility at the indicator level
+Figure \@ref(fig:civar) shows the coefficients of variation (CV) for each indicator and country displayed
+as an interactive heat map with indicators on the vertical axis and countries on the horizontal axis.
+Relatively low CV values appear in light yellow, while high values appear in dark purple.
 
-```{r esg-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Density of coefficient of variation of ESG indicators", fig.margin = TRUE, fig.width = 6}
-g_cv
+Note that indicator/country series consisting of a single year are not included in \@ref(fig:civar) since there is
+no "variation" in a domain of just one observation.
+
+```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Coefficient of variation by country and indicators", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
+pg2
 ```
 
-The average of CV across countries shows the overall volatility of each ESG indicator. Figure \@ref(fig:esg-var), shows the distribution of such estimates. 
 
-The average CV of most indicators (`r round(s_c_mid*100,1)`%) fall between `r round(q_cv[1],2)` and `r round(q_cv[2],2)`, which correspond to the 5th and 95th percentile of the average CV distribution. Since the CV is a relative measure of dispersion, a mean above (below) 1 conveys the idea that, in average, the ESG indicators have a relative high (low) volatility with respect to their own mean value. In this case, the overall mean is `r round(mean_cv, 2)`. 
 
-Given that the majority of indicators are around the mean, all indicators have similar volatility. The light left tail of the distribution---those that fall below `r round(q_cv[1],2)` in CV---is composed by `r n_c_low` indicators (`r round(s_c_low*100,2)`%), whereas the right tail---those indicators that fall above `r round(q_cv[2],2)` in CV---is composed by `r n_c_high` indicators (`r round(s_c_high*100,2)`%). Table \@ref(tab:t-lh-cv) shows the indicators that fall in the left and right tail of the distribution.
+Figure \@ref(fig:esg-var) is a very dense display of data, but its advantage is that it makes it easy
+to spot outlying instances of country/indicator combinations that are relatively volatile over time,
+i.e., the dark points with high CV values. These are cases where statistical techniques would be likely be
+especially unreliable and should be avoided. In the majority of cases, however, ESG indicators appear consistently stable over time.
+
+Table \@ref(tab:esg-var-percs) shows the percentile thresholds for the CV values in Figure \@ref(fig:esg-var). Figure \@ref(fig:esg-var-percs2) shows the same data in a histogram; the red
+line marks the median, while the blue lines mark the 5th and 95th percentiles.
+
+```{r esg-var-percs}
+
+cvp = c(0, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 1.0)
+cvp_values = quantile(var_country$cv, na.rm = TRUE, probs = cvp)
+cvp_names = names(cvp_values)
+cvp_names[1] = "Min"
+cvp_names[length(cvp_names)] = "Max"
+
+ knitr::kable(data.frame(Percentile=cvp_names, CV=cvp_values), "html",
+  row.names=FALSE, table.attr='class="striped"',
+  caption="CV Percentiles")
+```
+
+```{r esg-var-percs2, fig.cap = "Density of of ESG indicator CV", fig.margin = FALSE, fig.width = 6}
+
+var_country %>% ggplot(aes(x = cv)) +
+  geom_histogram(aes(y = ..density..),    # histogram chart
+                 alpha = 0.8,
+                 position = 'identity',
+                 bins = 50) +
+  viridis::scale_fill_viridis(discrete=TRUE) +
+  viridis::scale_color_viridis(discrete=TRUE) +
+  hrbrthemes::theme_ipsum() +
+  theme(
+    legend.position = "none",
+    panel.spacing = unit(0.1, "lines"),
+    strip.text.x = element_text(size = 8),
+    panel.grid = element_blank()
+  ) +
+  xlab("Coefficient of variation") +
+  ylab("K-density") +
+  geom_density(alpha = .2, fill = "#CCFFFF") +     # add density char
+  geom_vline(aes(xintercept = median(cv, na.rm = TRUE)), color = "#FF3333", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = cvp_values["5%"]), color = "#3399FF", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = cvp_values["95%"]), color = "#3399FF", linetype = "dashed", size = 1)
+
+```
+
+One important feature of \@ref(tab:esg-var-percs) and \@ref(fig:esg-var-percs2) is the presence of a substantial number
+of zero values, which account for
+`r sprintf("%.1f%%", nrow(filter(var_country, cv==0)) *100 / nrow(filter(var_country, !is.na(cv))))`
+of the total number of data points. This occurs when all observations for a country/indicator series are exactly the same
+value. Examples include highly stable statistics such as land area, renewable freshwater resources, and electricity mix (coal, nuclear, etc). In some countries, health indicators such as AIDS prevalence also exhibit no variation. Other cases
+may be greater cause for concern. For instance, the fact that the "net migration" statistics for Madagascar, Comoros, and Burkina Faso have not changed over 15 years seems dubious at first glance.
+
+
+A similar-looking spike in distribution occurs around the 95th percentile. This spike is dominated by a handful
+of indicators that include observations for only 2-4 years, such as "Population living in areas of elevation below
+5 meters," such that any variation at all results in a significant standard deviation and thus an outsized CV value.
+
+Figure \@ref(fig:esg-var) shows the distribution of mean CV values for the ESG indicator dataset. Again, the the red
+line marks the median, while the blue lines mark the 5th and 95th percentiles.
+The mean CV value may help economists assess whether gap filling is practical for a given indicator.
+Indicators with low mean CVs may be especially good candidates for gap filling except for the small number of countries with
+individually high CV values. Indicators with relatively high mean CVs may not be good candidates.
+
+```{r esg-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Density of mean ESG indicator CV", fig.margin = FALSE, fig.width = 6}
+
+cvimean_values = quantile(var_ind$cv, na.rm = TRUE, probs = c(0.05, 0.95))
+
+var_ind %>% ggplot(aes(x = cv)) +
+  geom_histogram(aes(y = ..density..),    # histogram chart
+                 alpha = 0.8,
+                 position = 'identity',
+                 bins = 15) +
+  viridis::scale_fill_viridis(discrete=TRUE) +
+  viridis::scale_color_viridis(discrete=TRUE) +
+  hrbrthemes::theme_ipsum() +
+  theme(
+    legend.position = "none",
+    panel.spacing = unit(0.1, "lines"),
+    strip.text.x = element_text(size = 8),
+    panel.grid = element_blank()
+  ) +
+  xlab("Mean Coefficient of variation") +
+  ylab("K-density") +
+  geom_density(alpha = .2, fill = "#CCFFFF") +     # add density char
+  geom_vline(aes(xintercept = median(cv, na.rm = TRUE)), color = "#FF3333", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = cvimean_values["5%"]), color = "#3399FF", linetype = "dashed", size = 1) +
+  geom_vline(aes(xintercept = cvimean_values["95%"]), color = "#3399FF", linetype = "dashed", size = 1)
+
+```
+
+Table \@ref(tab:t-lh-cv) shows the indicators whose mean CVs fall below the 5th percentile or above the 95th percentile:
 
 ```{r t-lh-cv, echo = FALSE}
 
@@ -32,84 +139,63 @@ knitr::kable(t_lh2,
 
 ```
 
-The first column of Table \@ref(tab:t-lh-cv) shows those indicators with low volatility. As expected, indicators like _`r t_lh2[[1,1]]`_, _`r t_lh2[[2,1]]`_, or _`r t_lh2[[3,1]]`_ do not change often and thus deserve little attention on a yearly basis for decision-investing processes. On the other hand, the right column of the table shows the most volatile indicators, whose standard deviations are two times higher than their means.
+## Implications for Gap Filling ##
 
-## Volatility at the country-indicator level
+While gaps in ESG data follow several patterns as described in the [Coverage Analysis](#coverage) chapter, the most
+significant issue is likely indicators whose most recent value (MRV) is 2 years out of date or more, as investment
+decisions are made in the context of current and near future conditions. The CV analysis in this chapter and summarized
+in Figures \@ref(fig:esg-var-percs2) and \@ref(fig:esg-var) suggest that (normalized) indicator values fall within a fairly narrow range with few outliers, and that the majority of values are below 1.0.
+In [several probability fields](https://en.wikipedia.org/wiki/Coefficient_of_variation#Applications)
+values below 1.0 are considered low-variance. While it's not clear whether this benchmark applies in the context of some
+or all ESG indicators, it provides a starting point for thinking--conservatively--about the potential for using
+statistical methods for filling gaps in ESG data. Again, it is beyond the scope of this analysis to suggest
+specific gap filling techniques, but stipulating that gap filling will be more robust where indicator variance is low, we can start to think about the impacts of doing so.
 
-The distribution of average of CVs is an aggegation of CVs across countries over time. It provides a general idea of the volatility of each indicator but is insufficient for investment decision making. This section explores volatility one more level in lepth, moving from indicator level to country-indicator level. 
+```{r, echo=FALSE}
+# would be great to replace this with live code...
+nCountry = select(var_country, iso3c) %>% unique() %>% nrow()
+nSeries = select(var_country, indicator) %>% unique() %>% nrow()
+nPairs = nCountry * nSeries
+n2018Values = 7659
+n2018ValuesB = 8559
 
-```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Coefficient of variation by country and indicators", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
-pg2
-```
-
-```{marginfigure, echo = TRUE}
-<br/>
-<br/>
-```
-
-```{r diff-var, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Range of coefficient of variation of indicators across countries", fig.margin = TRUE, fig.width = 6}
-g_diff
-```
-
-Figure \@ref(fig:civar) presents a great amount of information. It allwos the user to visualize for, all the countries, which indicators have the highest or lower volatilities, and apot, if any, countries that have outlier values in particular indicators. However, since the volatility of each indicator across countries is not the same for all countries, Figure \@ref(fig:civar) is not the best tool to find the dispersion of volatility of each indicator across all countries. The range volatility of some indicators is large, whereas in other is low. For instance, the coefficient of variation of _`r diff_ind[["ind_name"]][1]`_ varies from `r round(diff_ind[["min"]][1], 2)` in `r diff_ind[["min_cty"]][1]` to `r round(diff_ind[["max"]][1], 2)` in `r diff_ind[["max_cty"]][1]`. Also, the coefficient of variation of _`r diff_ind[["ind_name"]][2]`_ varies from `r round(diff_ind[["min"]][2], 2)` in `r diff_ind[["min_cty"]][2]` to `r round(diff_ind[["max"]][2], 2)` in `r diff_ind[["max_cty"]][2]`. Finally, the coefficient of variation of _`r diff_ind[["ind_name"]][3]`_ varies from `r round(diff_ind[["min"]][3], 2)` in `r diff_ind[["min_cty"]][3]` to `r round(diff_ind[["max"]][3], 2)` in `r diff_ind[["max_cty"]][3]`. Keep in mind that the CV of each indicator in each country does not reflect in any sense the level of the indicators but its volatility over time. Table \@ref(tab:high-range-cv) shows the highest and lowest value of the CV of each indicator and its corresponsing countries. It is organized from widest to norrowest range between highest CV and lowest CV. 
-
-
-```{r high-range-cv, echo = FALSE, fig.fullwidth = FALSE}
-
-diff_ind %>%
-  select(ind_name, max_cty, max, min_cty, min, diff) %>%
-  DT::datatable(colnames = c("Indicator", "Country", "Max", "Country", "Min", "Diff"),
-            container = sketch,
-            rownames = FALSE,
-            filter = 'top', 
-            width = '55%', 
-            extensions = 'FixedColumns',
-            options = list(pageLength = 5,
-                           autowidth = TRUE,
-                           columnDefs = list(list(width = '35px', targets = c(2, 4, 5)),
-                                              list(width = '80px', targets = c(1, 3)),
-                                              list(width = '340px', targets = 0)
-                           ),
-                           scrollX = TRUE,
-                           fixedColumns = TRUE)) %>%
-  DT::formatRound(c("max", "min", "diff") , 2)
-
-# knitr::kable(high_diff_ind, 
-#              caption = "Indicators with highest volatility range across countries", 
-#              col.names = c("Indicator name", "highest CV", "lowest CV"))
+select_estimates <- data.frame(
+  cv_thresh=c(0.551, 0.688, 0.873, 0.873),
+  years_to_extrapolate=c(1, 1, 1, 2),
+  result=sprintf('%0.f', c(0.35, 0.39, 0.43, 0.50) * 100))
 
 ```
 
+For instance, in this analysis there are `r nCountry` countries and `r nSeries` indicators for a total of
+`r nPairs` country/indicator pairs. `r n2018Values` country/indicator series have an MRV value of 2018 or later.
+So we can say that the year 2018 has coverage of *`r nf(n2018Values)` / `r nf(nPairs)`,* or
+`r sprintf('%.0f%%', n2018Values*100/nPairs)`. To
+estimate the potential for gap filling techniques, let's say that we can confidently extrapolate
+or estimate an additional year of data from observed values beyond the current MRV for any country/indicator series with
+a CV value below the 25th percentile of `r cvp_values['25%']`. Again, while we don't know exactly how the estimate
+would be obtained,  we can assume the effect would be to increase the MRV year by 1, raising 
+2016 to 2017, 2017 to 2018, etc. The resulting new estimates mean that we now have `r nf(n2018ValuesB)` country/indicator series with at least a 2018 MRV value, which raises our coverage to
+*`r nf(n2018ValuesB)` / `r nf(nPairs)`* or
+`r sprintf('%.0f%%', n2018ValuesB*100/nPairs)`. One could vary the study year, CV threshold and number of years
+to extrapolate in various combinations, as shown by Table \@ref(tab:cv-estimates).
 
-## Feasibility of extrapolating ESG indicators based on volatility
+```{r cv-estimates}
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-source("R/esg_filling_gap_feasibility.R")
-y <- fn_lstrank(x)
-ialy <- y[["ialy"]]
-ialy2 <- y[["ialy2"]]
+ knitr::kable(select_estimates, "html",
+  col.names=c('CV Threshold', 'Years To Extrapolate', 'Resulting Coverage (%)'),
+  row.names=FALSE, table.attr='class="striped"',
+  align=rep('r', 3),
+  caption='Effects of selected CV thresholds and lengths of imputation on coverage in 2018')
 ```
 
-When ESG indicators are used for investment purposes, the most recent value of each indicators is key. As seen on section [Coverage Analysis](#coverage), most ESG indicators are not available for recent years, due to several
-reasons explained in section [Explanation Framework Analysis](#explanations). Yet, as see in Figure
-\@ref(fig:esg-var), most of the indicators have low variability across countries. If that is the case,
-investors may be confident in the relative stability of the indicators and thus in forecasting values drawn from
-econometrics models. In this section, we show how feasible it would be to extrapalate some ESG indicators based on their time coverage and volatility in each country. 
+Alternatively, the tool below provides an interactive way to test
+various combinations of assumptions and see both the aggregate impacts and the effects on
+individual indicators. Area under the curve (AUC) is equivalent to the percent coverage for any
+set of assumptions (100% being "perfect" coverage of a value for every indicator and country). 
 
-The chart on the left of Figure \@ref(fig:lsty-rank), show country coverage of each indicator in 2018. Those like RRR and RRR are available for for all countries in 2018. Other indicators like TTT and TTT have no single observation available in 2018. Since some indciators are highly available in some countries over time, while others are not, we include in the analysis only those that have information available for at least 50% of the years from 2000 to 2018. Then, we calculate the coefficient of variation for each indicator-country pair and select those with very low volatility (coefficient of variation equal or less to 0.3). By assuming that for this subset of countries/indicators it is possible to make reliable forecast in 2018, the number of indicators with available and forcasted data would increase as shown in the chart to the right of Figure \@ref(fig:lsty-rank).
 
-You may use [this interactive tool]() to change the value of country coverage, threshold of coefficient of variation, base year, and target year. 
 
-*TGH: 4.4 can the left and right sides of the chart use the same vertical scale and show all indicators and possibly in the same order?*
-
-```{r lsty-rank, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Feasibility of extrapolating ESG indicators based on volatility",fig.width = 8, fig.height = 8}
-
-# p_irank  <- plotly::ggplotly(chbar(df = filter(ialy, lst_yd  > 0)), tooltip = c("text")) %>% plotly::style(hoveron = "fill")
-# p_irank2 <- plotly::ggplotly(chbar(df = filter(ialy2, lst_yd > 0)), tooltip = c("text")) %>% plotly::style(hoveron = "fill")
-# plotly::subplot(p_irank, p_irank2)
-```
-
-```{r fig.width = 14}
+```{r cv-interactive, fig.width = 14}
 knitr::include_app("https://datanalytics.worldbank.org/esg_imputation", height = "800px")
 ```
 
