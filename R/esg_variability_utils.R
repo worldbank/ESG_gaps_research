@@ -15,6 +15,8 @@ create_mrv <- function(path = './data/ESG_wdi.feather') {
   out <- feather::read_feather(path)
 
   out <- out %>%
+    dplyr::filter(date >= 2000,
+                  date <= 2018) %>%
     dplyr::select(indicatorID, indicator, iso3 = iso3c, year = date) %>%
     dplyr::group_by(indicatorID, indicator, iso3) %>%
     dplyr::summarise(
