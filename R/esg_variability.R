@@ -318,7 +318,7 @@ for (year in seq_along(years_vector)) {
       i <- i + 1
     }
   }
-  print(i)
+  #print(i)
 }
 
 imputed_dfs <- dplyr::bind_rows(dfs_list)
