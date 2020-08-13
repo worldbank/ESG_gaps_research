@@ -3,20 +3,16 @@
 #' create_mrv
 #' Create a table of most recent values
 #'
-#' @param path character: Path to table of WDI indicators
+#' @param df data.frame: data.frame (x) created by load_data.R
 #'
 #' @return data.frame
 #' @importFrom magrittr %>%
 #' @export
 #'
 
-create_mrv <- function(path = './data/ESG_wdi.feather') {
+create_mrv <- function(df) {
 
-  out <- feather::read_feather(path)
-
-  out <- out %>%
-    dplyr::filter(date >= 2000,
-                  date <= 2018) %>%
+  out <- df %>%
     dplyr::select(indicatorID, indicator, iso3 = iso3c, year = date) %>%
     dplyr::group_by(indicatorID, indicator, iso3) %>%
     dplyr::summarise(
@@ -50,11 +46,13 @@ impute_years <- function(cvs, mrv, cv_max = 0.5, years_to_impute = 1) {
 
   out <- cvs %>%
     dplyr::mutate(
-      imputed_years = dplyr::if_else(cv <= !!cv_max, !!years_to_impute, 0)
+      imputed_years = dplyr::if_else(cv <= !!cv_max, !!years_to_impute, 0),
+      imputed_years = dplyr::if_else(is.na(imputed_years), 0, imputed_years) # handle cases imputed years cannot be assigned
     ) %>%
-    dplyr::select(indicatorID = cetsid, iso3, imputed_years) %>%
+    dplyr::select(indicatorID = indicator, iso3 = iso3c, imputed_years) %>%
     dplyr::right_join(mrv) %>%
     dplyr::mutate(
+      imputed_years = dplyr::if_else(is.na(imputed_years), 0, imputed_years), # handle cases were merge is not successful
       year = year + imputed_years
     ) %>%
     dplyr::select(indicatorID, indicator, iso3, year)
@@ -82,9 +80,14 @@ create_baseline_imputed_df <- function(mrv, cvs, cv_max, years_to_impute, year_s
   # Combine dfs
   out <- dplyr::full_join(baseline, imputed)
   out <- dplyr::mutate(out,
-                baseline = tidyr::replace_na(baseline, 0),
-                gain = imputed - baseline,
-                indicator = fct_reorder(indicator, -baseline))
+                       baseline = tidyr::replace_na(baseline, 0),
+                       imputed = dplyr::if_else(
+                         (!is.na(baseline)) & is.na(imputed),
+                         0,
+                         imputed),
+                       gain = imputed - baseline,
+                       indicator = fct_reorder(indicator, -baseline)
+  )
   out$indicator <- factor(out$indicator, levels = unique(out$indicator)[order(out$imputed, decreasing = TRUE)])
 
   return(out)
