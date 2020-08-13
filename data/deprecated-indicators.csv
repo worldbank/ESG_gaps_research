@@ -1,0 +1,16 @@
+﻿OLDID,OLDDB,OLDNAME,NEWID,NEWDB,NEWNAME
+SN.ITK.DFCT,57,Depth of the food deficit (kilocalories per person per day),SN.ITK.DEFC.ZS,2,Prevalence of undernourishment (% of population)
+ER.BDV.TOTL.XQ,57,GEF benefits index for biodiversity (0 = no biodiversity potential to 100 = maximum),,,
+NY.GEN.DNGY.GD.ZS,57,Genuine savings: energy depletion (% of GDP),NY.ADJ.DNGY.GN.ZS,2,Adjusted savings: energy depletion (% of GNI)
+IT.NET.USER.P3,57,"Internet users (per 1,000 people)",IT.NET.USER.ZS,2,Individuals using the Internet (% of population)
+SL.TLF.SECO.ZS,57,Labor force with secondary education (% of total),SL.TLF.INTM.ZS,12,Labor force with intermediate education (% of total working-age population with intermediate education)
+SL.TLF.TERT.ZS,57,Labor force with tertiary education (% of total),SL.TLF.ADVN.ZS,12,Labor force with advanced education (% of total working-age population with advanced education)
+EN.ATM.PM10.MC.M3,57,"PM10, country level (micrograms per cubic meter)",EN.ATM.PM25.MC.M3,2,"PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)"
+IT.MLT.MAIN.P3,57,"Telephone mainlines (per 1,000 people)",IT.MLT.MAIN.P2,2,Fixed telephone subscriptions (per 100 people)
+GC.BAL.CASH.CD,11,"Fiscal balance, cash surplus/deficit (current US$)",GC.NLD.TOTL.GD.ZS,2,Net lending (+) / net borrowing (-) (% of GDP)
+GB.BAL.OVRX.CN,11,"Overall surplus/deficit, excluding current grants (current LCU)",GC.REV.GOTR.ZS,2,Grants and other revenue (% of revenue)
+IC.ELC.OUTG.HR,11,Average duration of power outages (hours),IC.ELC.OUTG.ZS,2,Firms experiencing electrical outages (% of firms)
+TX.CONC.IND.XQ,11,Export product concentration index,EF.EFM.UNIV.XD,70,Universal Economic Fitness Metric
+NY.GNS.PUBL.CD,11,"Gross national savings, public (current US$)",NY.GNS.ICTR.CD,2,Gross savings (current US$)
+IBP.OBI.XQ,11,Open Budget Index Overall Country Score,IQ.CPA.FINQ.XQ,2,CPIA quality of budgetary and financial management rating (1=low to 6=high)
+SH.TBS.PREV.LW,11,"Tuberculosis prevalence rate, low uncertainty bound (per 1000,000 population, WHO)",SH.TBS.INCD,2,"Incidence of tuberculosis (per 100,000 people)"
