@@ -160,8 +160,8 @@ g2 <- var_country %>%
   theme(axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.text.y = element_text(size = rel(0.4),
-                                   colour = "grey50")) +
-  ggtitle(label = "Variability of ESG indicators by country")
+                                   colour = "grey50"))
+  # ggtitle(label = "Variability of ESG indicators by country")
 
 pg2 <- plotly::ggplotly(g2, tooltip = "text")
 

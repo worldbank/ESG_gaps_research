@@ -252,8 +252,8 @@ g1 <- ggplot(data = filter(d1, date >= 2000, date <= 2018),
                                    hjust = 0,
                                    colour = "grey50"),
         axis.text.y = element_text(size = rel(0.5),
-                                   colour = "grey50")) +
-  ggtitle(label = "Number of countries per indicator over time")
+                                   colour = "grey50"))
+  # ggtitle(label = "Number of countries per indicator over time")
 #g1
 # make it interactive
 pg1 <- plotly::ggplotly(g1, tooltip = "text")
@@ -306,8 +306,8 @@ hm_expl <- function(x, expl,
                                        hjust = 0,
                                        colour = "grey50"),
             axis.text.y = element_text(size = rel(0.5),
-                                       colour = "grey50")) +
-      ggtitle(label = labelf)
+                                       colour = "grey50"))
+      # ggtitle(label = labelf)
     plotly::ggplotly(g1a, tooltip = "text")
     }
 }
