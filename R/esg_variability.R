@@ -11,7 +11,7 @@ library("viridis")
 #----------------------------------------------------------
 
 #--------- Calculations
-
+# x object is created by load_data.R
 esg_wdi <-  inner_join(x, select(mtd, cetsid, no_gap), by=c("indicatorID"="cetsid")) %>%
   mutate(indicatorID=ifelse(indicatorID=='WBL', 'WBL.', indicatorID)) %>% # needs a '.' to be included below
   # filter(no_gap==0) %>%
@@ -280,11 +280,11 @@ t_lh2 <- t_lh %>% group_by(class_cv) %>%
 # Create dataset for interactive viz -------------------------------------------
 
 # Load data
-cvs <- feather::read_feather('./data/ESG_cv.feather') %>%
-  arrange(cetsid) %>%
-  pivot_longer(cols = -cetsid, names_to = "iso3", values_to = "cv")
+# cvs <- feather::read_feather('./data/ESG_cv.feather') %>%
+#   arrange(cetsid) %>%
+#   pivot_longer(cols = -cetsid, names_to = "iso3", values_to = "cv")
 
-mrv <- create_mrv(path = './data/ESG_wdi.feather')
+mrv <- create_mrv(df = x)
 
 n_indicators <- length(unique(mrv$indicatorID))
 n_countries <- length(unique(mrv$iso3))
@@ -302,7 +302,7 @@ for (year in seq_along(years_vector)) {
     for (nyears in seq_along(years_to_impute_vector)) {
 
       out <- create_baseline_imputed_df(mrv = mrv,
-                                        cvs = cvs,
+                                        cvs = var_country,
                                         cv_max = cv_max_vector[cv_max],
                                         years_to_impute = years_to_impute_vector[nyears],
                                         year_select = years_vector[year],
