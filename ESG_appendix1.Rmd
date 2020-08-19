@@ -1,11 +1,4 @@
----
-title: Deprecrated Indicators
-output:
-  html_document:
-    mathjax: null
----
-
-# Appendix 1: Deprecated Indicators
+# Appendix: Deprecated Indicators
 
 ```{r substitutes}
 di_table = read_csv('data/deprecated-indicators.csv') %>%
