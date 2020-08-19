@@ -13,32 +13,32 @@ missing values might (within limits) be interpolated or extrapolated from existi
 or estimated using linear regression or other modelling techniques. While these techniques are
 an imperfect substitute for observed data, they may be able to play a limited role within a broader strategy for improving ESG data coverage.
 
-Note that the scope of this paper is limited to analysis of the *potential* for use of statistical
+Note that the scope of this paper is limited to analysis of the *potential* impact of gap filling
 and does not look in detail at specific techniques or tools for doing so. In all likelihood, the most appropriate approach will vary by indicator, and will depend on the definition fo the indicator,
-the availability of proxies and independent variables (for modelling) and other ideosyncratic factors. 
+the availability of proxies and independent variables (for modelling) and other indicator-specific factors. 
 
 In general though, statistical techniques work best when indicator values move according to observable
 patterns, and in particular, when temporal variance is relatively low. That is, the less that an indicator
 varies from period to period for a particular country, the easier it is to reasonably estimate missing values.
 Consequently, indicator variance can be used as a proxy of the general potential to fill gaps using
 statistical methods, with low variance suggesting greater potential. In this analysis, we used a
-standard cofficient of variation (standard deviation divided by mean) to estimate variance for each
+standard *cofficient of variation* (standard deviation divided by mean) to estimate variance for each
 indicator and country, and scaled all values to a 0-1 range to make values comparable across indicators.
 
 Figure \@ref(fig:civar) shows the coefficients of variation (CV) for each indicator and country displayed
 as an interactive heat map with indicators on the vertical axis and countries on the horizontal axis.
 Relatively low CV values appear in light yellow, while high values appear in dark purple.
 
-Note that indicator/country series consisting of a single year are not included in \@ref(fig:civar) since there is
-no "variation" in a domain of just one observation.
+Note that indicator/country series consisting of a single year are not included in Figure \@ref(fig:civar)
+since there is no "variation" in a domain of just one observation.
 
-```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Coefficient of variation by country and indicators", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
+```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Coefficient of variation by country and indicator", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
 pg2
 ```
 
 
 
-Figure \@ref(fig:esg-var) is a very dense display of data, but its advantage is that it makes it easy
+Figure \@ref(fig:civar) is a very dense display of data, but its advantage is that it makes it easy
 to spot outlying instances of country/indicator combinations that are relatively volatile over time,
 i.e., the dark points with high CV values. These are cases where statistical techniques would be likely be
 especially unreliable and should be avoided. In the majority of cases, however, ESG indicators appear consistently stable over time.
@@ -56,10 +56,10 @@ cvp_names[length(cvp_names)] = "Max"
 
  knitr::kable(data.frame(Percentile=cvp_names, CV=cvp_values), "html",
   row.names=FALSE, table.attr='class="striped"',
-  caption="CV Percentiles")
+  caption="CV percentiles")
 ```
 
-```{r esg-var-percs2, fig.cap = "Density of of ESG indicator CV", fig.margin = FALSE, fig.width = 6}
+```{r esg-var-percs2, fig.cap = "Density of ESG indicator CV", fig.margin = FALSE, fig.width = 6}
 
 var_country %>% ggplot(aes(x = cv)) +
   geom_histogram(aes(y = ..density..),    # histogram chart
@@ -84,7 +84,7 @@ var_country %>% ggplot(aes(x = cv)) +
 
 ```
 
-One important feature of \@ref(tab:esg-var-percs) and \@ref(fig:esg-var-percs2) is the presence of a substantial number
+One important feature of Table \@ref(tab:esg-var-percs) and Figure \@ref(fig:esg-var-percs2) is the presence of a substantial number
 of zero values, which account for
 `r sprintf("%.1f%%", nrow(filter(var_country, cv==0)) *100 / nrow(filter(var_country, !is.na(cv))))`
 of the total number of data points. This occurs when all observations for a country/indicator series are exactly the same
@@ -96,7 +96,8 @@ A similar-looking spike in distribution occurs around the 95th percentile. This 
 of indicators that include observations for only 2-4 years, such as "Population living in areas of elevation below
 5 meters," such that any variation at all results in a significant standard deviation and thus an outsized CV value.
 
-Figure \@ref(fig:esg-var) shows the distribution of mean CV values for the ESG indicator dataset. Again, the the red
+Figure \@ref(fig:esg-var) shows the distribution of mean CV values (at the indicator level)
+for the ESG indicator dataset. Again, the the red
 line marks the median, while the blue lines mark the 5th and 95th percentiles.
 The mean CV value may help economists assess whether gap filling is practical for a given indicator.
 Indicators with low mean CVs may be especially good candidates for gap filling except for the small number of countries with
@@ -177,7 +178,7 @@ would be obtained,  we can assume the effect would be to increase the MRV year b
 2016 to 2017, 2017 to 2018, etc. The resulting new estimates mean that we now have `r nf(n2018ValuesB)` country/indicator series with at least a 2018 MRV value, which raises our coverage to
 *`r nf(n2018ValuesB)` / `r nf(nPairs)`* or
 `r sprintf('%.0f%%', n2018ValuesB*100/nPairs)`. One could vary the study year, CV threshold and number of years
-to extrapolate in various combinations, as shown by Table \@ref(tab:cv-estimates).
+to extrapolate in various combinations, as shown in Table \@ref(tab:cv-estimates).
 
 ```{r cv-estimates}
 

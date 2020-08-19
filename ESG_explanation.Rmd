@@ -31,8 +31,8 @@ may impact gaps in data coverage.
 
 ### Ideal Case {-}
 
-The World Bank API defines 217 countries and economies. Indicators that had observations for 2018 or later (this research
-was conducted in 2019) for at least 196 countries (90%) were considered "non gap" indicators and were not tagged with
+The World Bank API defines 217 countries and economies. Indicators that had observations for 2018 or later
+for at least 196 countries (90%) were considered "non gap" indicators and were not tagged with
 any further explanations.
 
 ```{r hm-expl, fig.width = 8, fig.cap = "Ideal Case"}
@@ -81,7 +81,7 @@ maintained.
 hm_expl(d1a, expl_b, "No Longer Updated")
 ```
 
-**Definition:** the indicator has no observations for any country for the last five years (2014-present)
+**Definition:** the indicator has no observations for any country for the last four years (2015-2018)
 
 **Notes:** indicators tagged with this explanation are considered inactive and remaining explanations are not considered.
 
@@ -126,9 +126,9 @@ hm_expl(d1a, expl_d, "Curation Lags")
 ### Licensing Constraints (E) {-}
 
 In some cases, the World Bank distributes indicators under legal agreements that affect its availability. The most common
-case are licenses that stipulate that the Bank cannot distribute the latest version of a dataset in order to protect that
+cases are licenses that stipulate that the Bank cannot distribute the latest version of a dataset to protect that
 dataset's value in cases where providers sell the data commercially. Thus, while more recent data may exist, the Bank is
-legally prevented from distributing it for a period of time, which can constitute a significant availability gap.
+legally prevented from distributing it for a period of time, which can result in an availability gap.
 
 ```{r hm-exple, fig.width = 8, fig.cap = "Licensing Constraints"}
 hm_expl(d1a, expl_e, "Licensing Constraints")
@@ -155,7 +155,8 @@ hm_expl(d1a, expl_f, "Survey Dependencies")
 Some indicators may not be relevant to or may not be interesting in the context of certain groups of economies. For example,
 very small economies may not have significant natural resource endowments or particular kinds of economic activity for particular
 indicators to be meaningful. Indicators designed to measure use of, say, forests, mineral deposits, or levels of trade may
-be assumed to essentially be zero or "too small to measure." Similarly, other indicators may not be relevant to industrialized
+be assumed to essentially be zero or "too small to measure."
+In a similar vein, some indicators may not be relevant to industrialized
 economies, such as prevalence of certain diseases (thought to be eradicated), literacy rates, or foreign aid.
 
 ```{r hm-explg, fig.width = 8, fig.cap = "Limited Relevance"}
@@ -163,7 +164,7 @@ hm_expl(d1a, expl_g, "Limited Relevance")
 ```
 
 **Definition:** this explanation was considered for high-income "rich" countries (using the WBG income classification) and small economies,
-defined as those with populations under 120,000. This threshold represents a "natural" breakpoint at which population jumps by nearly
+defined as those with populations under 120,000. This population threshold represents a "natural" breakpoint at which population jumps by nearly
 40 percent, clearly differentiating economies above and below it. For both "rich" and "small" economies we identified a set of indicators
 for which at least 80% of economies in the group had no observations at all, as this might suggest a deliberate
 decision on the part of data producers to exclude the group.
@@ -191,10 +192,10 @@ Figure \@ref(fig:smry-exlp) shows the results of the explanation framework
 disaggregated primarily by explanation, and secondarily by primary source 
 (WBG and all external sources).
 
-```{r smry-exlp, fig.width = 12, fig.height = 5.5, fig.cap = "Explanations for data gaps"}
+```{r smry-exlp, fig.width = 12, fig.height = 5.5, fig.cap = "Explanations for data gaps, by source"}
 smry_expl <- smry_expl +
   labs(
-    title = "Explanations for gaps: All indicators vs WBG dataset",
+    # title = "Explanations for gaps: All indicators vs WBG dataset",
     subtitle = "Most data gaps are due to structural lag and lack of survey data. 
     This is true both when considering all indicators, or the subset of indicators
     contained in the WBG dataset.",
@@ -235,7 +236,7 @@ Figure \@ref(fig:smry-exlp-sctr) is similar to Figure \@ref(fig:smry-exlp) but d
 ```{r smry-exlp-sctr, fig.width = 12, fig.height = 5.5, fig.cap = "Explanations for data gaps, by sector"}
 smry_expl_sctr <- smry_expl_sctr +
   labs(
-    title = "Explanations for gaps by sector: All indicators vs WBG dataset",
+    # title = "Explanations for gaps by sector: All indicators vs WBG dataset",
     subtitle = "Not only most data gaps are due to structural lags, it is one of
     the most frequent explanation for all three ESG sectors.",
     y = "Frequency",

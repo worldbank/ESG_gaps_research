@@ -10,6 +10,7 @@
 file <- c("ESG_coverage.Rmd")
 bookdown::render_book(file, preview = TRUE)
 bookdown::render_book("index.Rmd", preview = TRUE)
+bookdown::render_book("ESG_background.Rmd", preview = TRUE)
 bookdown::render_book("ESG_coverage.Rmd", preview = TRUE)
 bookdown::render_book("ESG_explanation.Rmd", preview = TRUE)
 bookdown::render_book("ESG_variability.Rmd", preview = TRUE)

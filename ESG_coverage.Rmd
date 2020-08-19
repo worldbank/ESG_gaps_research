@@ -11,7 +11,7 @@ analysis we wanted to develop a more detailed approach to identify different typ
 time span. Accordingly, we develeloped the heat map shown in Figure \@ref(fig:ciavailability). In this chart,
 discrete indicators are arranged along the Y axis while time is plotted on the X axis for the 2000-2018 period.
 Colors indicate the number of observations (i.e., countries) for the corresponding indicator and year.
-Darker colors in the purple part of the spectrum indicate relatively low-density coverage, while lighter colors in the yellow part of the spectrum represent high-density coverage, up to the maxium of 217 countries. Blanks areas
+Darker colors in the purple part of the spectrum indicate relatively low-density coverage, while lighter colors in the yellow part of the spectrum represent high-density coverage, up to the maximum of 217 countries. Blank areas
 indicate no data for that particular indicator and year.
 
 
@@ -20,7 +20,9 @@ pg1
 ```
 
 Several patterns emerge from a visual assessment of Figure \@ref(fig:ciavailability). These patterns are not
-necessarily mutually exclusive; their precise technical definitions are detailed in Appendix 1.
+necessarily mutually exclusive, nor are they the only approach to identifying clusters and patterns
+of indicators. Appendix 2 includes several alternatives to and in-depth definitions of the patterns discussed
+in this section.
 
 
 ## Consistently low coverage
@@ -38,29 +40,28 @@ d3 <- d0 %>% filter(max_count<tr_low)
 ```
 
 One group of indicators is characterized by consistently low country coverage over the 2000-2018 time period.
-In particular, `r nrow(d3)` indicators have values for less than `r tr_low` countries in any given year. These indicators generally appear
+In this case we've defined "low coverage" has having values for no more than `r tr_low` countries in any
+given year. These indicators generally appear
 as steady and consistently dark horizontal lines towards the bottom of Figure \@ref(fig:ciavailability).
 
  ```{r lowcov}
 
- knitr::kable(d3 %>% select(indicator,indicatorID),
-  "html", col.names=c('Indicator', 'Code'), table.attr='class="striped"',
+ knitr::kable(d3 %>% select(indicator,indicatorID, max_count) %>% arrange(max_count),
+  "html", col.names=c('Indicator', 'Code', 'Max. Countries'), table.attr='class="striped"',
   caption="Indicators with consistently low coverage")
  ```
-
 
 It's important to note, however, that while total country coverage may be low for these indicators in any given
 year, the country composition often varies from year to year for reasons discussed in the next section. For
 example, "Poverty Headcount Ratio" is available for no more than
-`r d3[d3$indicatorID=="SI.POV.NAHC",3]` indicators in any
+`r d3[d3$indicatorID=="SI.POV.NAHC", 'max_count']` countries in any
 given year, but includes values for
 `r nrow(x %>% filter(indicatorID=="SI.POV.NAHC") %>% group_by(iso3c) %>% summarise(n()))`
 countries across all years. By comparison, "Incidence of Malaria" is available for 
-`r d3[d3$indicatorID=="SH.MLR.INCD.P3",3]` countries in nearly all years with very little variation
+`r d3[d3$indicatorID=="SH.MLR.INCD.P3", 'max_count']` countries in nearly all years with very little variation
 in any given year. These patterns may be important for ESG analysis if it is possible to extrapolate or impute
-missing values from prior years; indicators with varying but larger aggregate country coverage may benefit
-to a greater degree.
-
+missing values from prior years; indicators whose countries vary from year-to-year (and thus have larger
+coverage in the aggregate) may benefit to a greater degree.
 
 
 ## Moderate to high coverage
@@ -72,23 +73,38 @@ By contrast, most indicators include values for at least 100 countries in at lea
 In Figure \@ref(fig:ciavailability) these indicators range from magenta to light yellow
 in the middle to upper sections of the heat map.
 
-`r nrow(mtd %>% filter(no_gap==TRUE))` indicators in this cluster include values for 2018 or later for at least
+`r nrow(filter(mtd, no_gap==TRUE))` indicators in this cluster include values for 2018 or later for at least
 90% of countries. These indicators appear at the top-most section of Figure \@ref(fig:ciavailability) and correspond to the "perfect case" classification in the next chapter.
 
-The remaining indicators exhibit a range of additional patterns and commonalities. Similar to indicators in the
-"consistently low coverage group" the year-to-year composition of countries for indicators in this group often
-varies for methodological reasons, as discussed in the next section.
+Among the remaining indicators, year-to-year composition of coverage can vary in a manner similar to those
+in the "consistently low coverage" group for methodological reasons, as discussed in the next section.
 
 
 
 ## Measurable improvement
 
-A handful of indicators demonstrate significant, measureable improvement in country coverage over time. In
-Figure \@ref(fig:ciavailability) these appear as indicators that appear in dark purple or magenta on the left side
-of their coverage with increasingly light colors as the time dimension increases. Examples include:
+A handful of indicators demonstrate significant, measureable improvement in country coverage over time. We
+define "measurable improvement" by regressing country coverage over time for each indicator (gap-filling
+for years where coverage is missing entirely). Indicators with a coefficient greater than 1 are shown
+in Table \@ref(tab:tabimproved).  In Figure \@ref(fig:ciavailability) these appear as indicators that are 
+colored dark purple or magenta on the left side of their coverage with increasingly light colors on the
+right side.
+
  
  ```{r tabimproved}
- ex <- c('EG.ELC.ACCS.ZS', 'SG.GEN.PARL.ZS', 'IT.NET.BBND.P2', 'IC.REG.DURS', 'ENF.CONT.COEN.COST.ZS')
+ex <- c('IT.NET.BBND.P2',
+'ENF.CONT.COEN.COST.ZS',
+'IC.REG.DURS',
+'IC.TAX.TOTL.CP.ZS',
+'SE.ADT.LITR.ZS',
+'IP.PAT.NRES',
+'EG.ELC.ACCS.ZS',
+'IP.PAT.RESD',
+'GFDD.DM.06',
+'SG.GEN.PARL.ZS',
+'SI.SPR.PCAP.ZG',
+'BN.CAB.XOKA.GD.ZS')
+
  knitr::kable(x %>% select(indicator,indicatorID) %>% distinct()
   %>% filter(indicatorID %in% ex), "html",
   col.names=c('Indicator', 'Code'), table.attr='class="striped"',
@@ -97,10 +113,8 @@ of their coverage with increasingly light colors as the time dimension increases
 
 These and similar indicators may warrant further study to better understand the factors behind the increases
 in country coverage. For instance, if country coverage improved as a result of better methodologies,
-increased production capacity, or broader demand, they may provide a model for increasing country coverage of
-indicators that have comparably low coverage.
-
-
+increased production capacity, or broader demand, they may provide a model for improving country coverage
+for indicators that need it.
 
 
 ## High coverage and sudden decline
@@ -109,10 +123,12 @@ d1 <- x %>% group_by(indicatorID) %>% summarise(max_year=max(date)) %>% arrange(
 
 ```
 
-A significant groups of indicators has consistent coverage through most of the time period, but with declining
+A significant group of indicators has consistent coverage through most of the time period, but with declining
 coverage or no coverage in recent years. In Figure \@ref(fig:ciavailability) these tend to appear as "truncated" series
 with no coloring for large portions of the right side of the chart. Table \@ref(tab:mrv) summarizes indicators
-in this group by the the year of their most recent available value (MRV).
+by the the year of their most recent available value (MRV). As shown, over 50% of ESG indicators in the
+study period have no values for the most recent study year, and 13% of indicators have no values for the most
+recent four years or more.
 
 ```{r mrv}
 columns <- c('2018+', '2017', '2016', '2015', '<2015')
@@ -127,7 +143,6 @@ values <- c(nrow(d1 %>% filter(max_year>=2018)),
   caption="Indicators by Most Recent Available Year")
 ```
   
-
 As noted previously, MRV years are a significant factor in ESG data use, as older data is less relevant to investment
 decisions being made today and in the near future. Many important factors could explain the wide variance in MRV years, and this is the focus of the next chapter.
 
@@ -136,7 +151,8 @@ decisions being made today and in the near future. Many important factors could 
 
 A handful of indicators are only available for periodic years with no values available for intermediate years.
 These appear in Figure \@ref(fig:ciavailability) as as intermittent series resembling "dashed" lines, the majority
-(but not all) of which are environmental indicators:
+(but not all) of which are environmental indicators. Appendix 2 provides a technical description of indicators
+in this category.
 
  ```{r tabintermittent}
  ex <- c('SM.POP.NETM', 'SH.DTH.COMM.ZS', 'ER.H2O.INTR.K3', 'ER.H2O.INTR.PC',
@@ -152,11 +168,9 @@ gsub('\\$', '\\\\$', knitr::kable(x %>% select(indicator,indicatorID) %>% distin
 
 While not the primary focus of this analysis, there are a handful of factors that could explain the coverage
 characteristics of this group. The most obvious explanation is that indicators may simply not be designed as
-time-series data. This is the most likely explanation for Retirement Age and Threatended Mammal Species, which
-are available for only a single year. In other cases, there may not be resources to collect data on an annual basis,
-even if doing so would be useful.
-Other indicators may measure environmental or social phenomena that change gradually so that annual data collection would not be efficient. This last possibility is material to ESG data use because it implies that older data
-may still be relevant if properly understood.
+time-series data. This is the most likely explanation for Retirement Age and Threatened Mammal Species, which
+are available for only a single year. In other cases, there may not be resources to collect data on an annual basis, even if doing so would be useful.
+Other indicators may measure environmental or social phenomena that change gradually so that annual data collection would not be efficient. This last possibility is material to ESG data use because it implies that older data may still be relevant if properly understood.
 
 
 
