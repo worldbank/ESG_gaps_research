@@ -55,7 +55,7 @@ d2 <- x %>%
   summarise(mean = mean(n, na.rm = TRUE)) %>%
   ungroup()
 
-#----------------------------------------------------------
+#--------------- -------------------------------------------
 #   Average growth of countries per year in each indicator
 #----------------------------------------------------------
 
@@ -93,7 +93,7 @@ lmdi <- x2 %>%
     # extract beta
     beta = purrr::map(fit, ~broom::tidy(.)[["estimate"]][2]),
 
-    # Find number of year with at least one coutnry
+    # Find number of year with at least one count ry
     nyc  = purrr::map(data, ~count(nyc = nc > 0, x = .) %>%
                              filter(nyc == TRUE) %>%
                              pull(n)
@@ -102,7 +102,7 @@ lmdi <- x2 %>%
   unnest(c(beta, nyc)) %>%
   select(indicatorID, indicator, beta, nyc) %>%
   mutate(
-    penalty = nyc/(2019-2000),
+    penalty = nyc/(2019-2000+1),
     beta    = penalty*beta
   ) %>%
   arrange(-beta) %>%
@@ -143,7 +143,7 @@ ici <- x2 %>%
   mutate(
     nyc = if_else(nc > 0, 1, 0),
 
-    # Beginning of each new intercval
+    # Beginning of each new interval
     cnyc = case_when(
       nyc == 0 & row_number() == 1 ~ 1,
       nyc == 0 & nyc != lag(nyc)   ~ 1,
@@ -212,7 +212,7 @@ sdd <- x %>%
     sdi = nc - lag(nc)
   ) %>%
   group_by(indicatorID) %>%
-  filter(sdi == min(sdi, na.rm = TRUE)) %>%
+  filter(sdi == min(sdi, na.rm = TRUE)) %>% # min because they are negative values.
   filter(sdi < 0) %>%
   filter(date == max(date)) %>%
   mutate(sdi = sdi*-1) %>%
@@ -262,7 +262,7 @@ pg1 <- plotly::ggplotly(g1, tooltip = "text")
 
 
 #----------------------------------------------------------
-#   heatmap by explantion
+#   heatmap by explanation
 #----------------------------------------------------------
 
 

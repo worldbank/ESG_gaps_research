@@ -59,6 +59,14 @@ mtd[] <- lapply(mtd, function(x) {
 mtd[] <- map_if(mtd, is.character, stringr::str_trim)
 
 
+#----------------------------------------------------------
+#   Initial parameters
+#----------------------------------------------------------
+
+first_year <- 2000
+last_year  <- 2019
+
+
 
 # x <- wb(indicator = codes$code)
 # x <- as_tibble(x)
@@ -72,7 +80,7 @@ mtd[] <- map_if(mtd, is.character, stringr::str_trim)
 # feather::write_feather(x, "data/ESG_wdi.feather")
 # load(file = "data/ESG_wdi.RData")
 x <- feather::read_feather("data/ESG_wdi.feather") %>%
-  filter(date >= 2000, date <= 2019)
+  filter(date >= first_year, date <= last_year)
 
 
 #----------------------------------------------------------
