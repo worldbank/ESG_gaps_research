@@ -19,9 +19,10 @@ indicate no data for that particular indicator and year.
 pg1
 ```
 
-Several patterns emerge from a visual assessment of Figure \@ref(fig:ciavailability). These patterns are not
-necessarily mutually exclusive, nor are they the only approach to identifying clusters and patterns
-of indicators. Appendix 2 includes several alternatives to and in-depth definitions of the patterns discussed
+Several patterns emerge from a visual assessment of Figure \@ref(fig:ciavailability),
+which are not necessarily mutually exclusive, nor is a visual assessment the only approach to identifying
+indicator clusters.
+[Appendix 2](appendix-coverage-analysis.html) includes several alternatives to and in-depth definitions of the patterns discussed
 in this section.
 
 

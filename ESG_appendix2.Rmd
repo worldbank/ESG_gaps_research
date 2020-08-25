@@ -6,9 +6,12 @@ source("R/load_data.R")
 source("R/esg_availability.R")
 ```
 
-This appendix includes technical information about the definitions of the coverage patterns
-defined and identified in chapter \@ref(coverage), and may be useful for future research purposes. In contrast to the tables in chapter \@ref(coverage), the tables in this appendix include many more ESG indicators ranked according to the measure of interest in each section.
-
+This appendix includes a range of options and definitions for classifying indicator coverage
+as discussed in the section on [coverage analysis](coverage.html).
+Throughout our research we discussed several options for thinking about clusters of indicators,
+and the complete list, along with their formulas and definitions, are included here for reference.
+Several of these approaches have strong similarities to the ones that appear in the coverage analysis
+section, but with slightly different or more precise definitions that may be useful in future research.
 
 ## Country Coverage
 
