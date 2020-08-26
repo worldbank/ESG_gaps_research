@@ -15,8 +15,14 @@
 <meta name="author" content="The World Bank" />
 <meta name="author" content="Development economics, Data Group" />
 
-<meta name="date" content="2020-07-09" />
+<meta name="date" content="2020-08-26" />
 
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
 
 <meta name="description" content="ESG">
 
@@ -85,13 +91,14 @@ if(f.classList.contains('fa-plus-square')) {
 <a id="active-page" href="background.html"><span class="toc-section-number">1</span> Background</a><ul class="toc-sections">
 <li class="toc"><a href="#what-is-a-data-gap"> What is a “Data Gap”?</a></li>
 <li class="toc"><a href="#how-this-paper-is-structured"> How This Paper is Structured</a></li>
+<li class="toc"><a href="#about-the-data"> About the Data Used in This Report</a></li>
 </ul>
 <a href="coverage.html"><span class="toc-section-number">2</span> Coverage Analysis</a>
 <a href="explanations.html"><span class="toc-section-number">3</span> Explanation Framework Analysis</a>
 <a href="volatility.html"><span class="toc-section-number">4</span> Volatility Analysis</a>
 <a href="discussion.html"><span class="toc-section-number">5</span> Discussion</a>
-<a href="appendix-1-deprecated-indicators.html"><span class="toc-section-number">6</span> Appendix 1: Deprecated Indicators</a>
-<a href="appendix-coverage-analysis.html"><span class="toc-section-number">7</span> Appendix: Coverage Analysis</a>
+<a href="appendix-deprecated-indicators.html"><span class="toc-section-number">6</span> Appendix: Deprecated Indicators</a>
+<a href="appendix-coverage-analysis.html"><span class="toc-section-number">7</span> Appendix: Extended Coverage Analysis</a>
 </div>
 </li>
 </ul>
@@ -109,8 +116,8 @@ if(f.classList.contains('fa-plus-square')) {
 <p>Interviews with ESG data providers found that most obtain at least some and often a substantial amount
 of data from World Bank databases.
 137 indicators were specifically identified from these interviews, of which 127 could be mapped to
-active databases in the World Bank’s data API, enabling the authors to <a href="#TODO">perform a rapid
-assessment</a> of data coverage and gaps.
+active databases in the World Bank’s data API, enabling the authors to perform a rapid
+assessment of data coverage and gaps, as included in the 2018 discussion paper.
 The 2018 paper found that “data coverage is a significant issue in WBG data used for ESG.”
 Looking at most recent available values (MRVs) by indicator and country, the paper found that
 just 41 ESG indicators (out of 127) had a value from 2017 or later (1 year old) for at least 50% of countries;
@@ -120,24 +127,63 @@ ESG data, it stopped short of further investigating the reasons that might give 
 or suggesting specific strategies to address them.</p>
 <p>The objective of this report is to pick up where the previous paper left off, and to better understand
 the circumstances that explain gaps in data coverage. The hope is that with a better understanding
-of why gaps occur and the pervasiveness of various explanatory factors, effective steps can be established to
+of why gaps occur and the significance of various explanatory factors, effective steps can be established to
 eliminate or mitigate gaps, and better understand which kinds of gaps are most relevant for ESG analysis.</p>
-<p>This report uses a different selection of ESG indicators than that used in the 2018 report.
+<p>The study set of ESG indicators in this report is different than the one in the 2018 report.
 Whereas the 2018 report excluded indicators used by providers that the Bank no longer actively maintains,
 this report includes those since they are relevant to the analysis. Additionally, this report includes
-indicators from two products introduced since the 2018 report: the Blackrock Sovereign Sustainability
-Index (BSSI) and the World Bank’s own <a href="https://datacatalog.worldbank.org/dataset/environment-social-and-governance-data">curated ESG dataset</a>. Further research into the original
-group of data providers has produced additional indicators that have been included. Conversely, we decided
-to remove a set of indicators used exclusively by Versk-Maplecroft because the strong similarities
+indicators from various products introduced since the 2018 report, including the
+World Bank’s own <a href="https://datacatalog.worldbank.org/dataset/environment-social-and-governance-data">curated ESG dataset</a>. Conversely, we decided
+to remove a subset of indicators used by a single provider because the strong similarities
 among them (e.g., very similar trade or debt measures) were resulting in double-counting that could
-potentially skew the findings. Accordingly, this report is based on a body of 137 indicators, compared
-to 134 in the 2018 report.</p>
-<p>The other major difference between the indicators of the two reports is that many of them have been updated
+potentially skew the findings. Accordingly, this report is based on a body of 134 indicators, compared
+to 137 in the 2018 report.</p>
+<p>The other major difference between the indicators in the two reports is that many of them have been updated
 since the 2018 report was completed. Many statistical indicators have been updated several times. Accordingly, if the 2018
-analysis were re-run using the indicators from this analysis (which date from October, 2019), the findings would likely be quite different,
+analysis were re-run using the <a href="background.html#about-the-data">indicators from this analysis</a>, the findings would likely be quite different,
 and different yet again if the analysis were run a year hence. One of the goals of this analysis is to
 provide a framework for thinking about data availability and coverage that is reasonably independent of
 the data curation cycles for the indicators under study.</p>
+<div id="what-is-a-data-gap" class="section level2">
+<h2>
+<span class="header-section-number">1.1</span> What is a “Data Gap”?</h2>
+<p>The term “data gap” is somewhat ambiguous, so we should start by discussing what kinds of gaps can exist
+in datasets.
+For instance, data could be unavailable for a number of relevant economies, or there
+could be gaps in the time series over a relevant time period. There could also be gaps in metadata and other
+documentation. Data could also simply be unavailable or undefined for important concepts (such as “resilience”), necessitating the
+use of data proxies. While all of these are potentially relevant, the most important gaps in the context of ESG
+likely involve the most recently available values compared to the current time period, since ESG
+analysis concerns investment decisions being made today and in the near future. Accordingly, this paper
+defines a “data gap” as a significant difference between the current calendar year and the most recent available value(s)
+(MRVs) for the indicators and economies under study. Gaps in metadata or in time periods before the MRV
+are not a primary focus of this analysis.</p>
+</div>
+<div id="how-this-paper-is-structured" class="section level2">
+<h2>
+<span class="header-section-number">1.2</span> How This Paper is Structured</h2>
+<p>This paper applies three separate approaches to better understand coverage gaps in ESG indicators:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Coverage Analysis.</strong> This approach provides a more detailed and visual picture of temporal gaps in the
+ESG indicator set, both historically and by MRV.</li>
+<li>
+<strong>Explanation Framework Analysis.</strong> This approach sets out a set of reasons why data gaps might occur
+as a framework for classifying ESG indicators, and looking at what approaches might be used to mitigate
+coverage issues.</li>
+<li>
+<strong>Variance Analysis.</strong> This approach looks at the temporal variance of ESG indicators to better
+understand the impacts of missing data for analysis. It may be possible to impute missing observations
+for indicators with low variance, mitigating the impact of data gaps.</li>
+</ol>
+<p>The paper then concludes with a discussion section and set of recommendations based on the analysis and findings
+of each of these sections.</p>
+</div>
+<div id="about-the-data" class="section level2">
+<h2>
+<span class="header-section-number">1.3</span> About the Data Used in This Report</h2>
+<p>The indicator database used in this report consists of 134 indicators extracted from the
+<a href="https://datacatalog.worldbank.org/dataset/world-development-indicators">World Development Indicators</a> and other World Bank Databases in October, 2019.</p>
 <p>Table <a href="background.html#tab:summ">1.1</a> provides a summary of the 134 indicators analyzed in this report
 disaggregated by pillar and origin. 44 indicators are environmental
 indicators, 66 are social indicators, and 24 are governance indicators. The
@@ -185,40 +231,11 @@ indicators.</p>
 </tr>
 </tbody>
 </table>
-<div id="what-is-a-data-gap" class="section level2">
-<h2>
-<span class="header-section-number">1.1</span> What is a “Data Gap”?</h2>
-<p>The term “data gap” is somewhat ambiguous, so we should start by discussing what kinds of gaps can exist
-in datasets.
-For instance, data could be unavailable for a number of relevant economies, or there
-could be gaps in the time series over a relevant time period. There could also be gaps in metadata and other
-documentation. Data could also simply be unavailable or undefined for important concepts (such as “resilience”), necessitating the
-use of data proxies. While all of these are potentially relevant, the most important gaps in the context of ESG
-likely involve the most recently available values compared to the current time period, since ESG
-analysis concerns investment decisions being made today and in the near future. Accordingly, this paper
-defines a “data gap” as a significant difference between the current calendar year and the most recent available value(s)
-(MRVs) for the indicators and economies under study. Gaps in metadata or in time periods before the MRV
-are not a primary focus of this analysis.</p>
-</div>
-<div id="how-this-paper-is-structured" class="section level2">
-<h2>
-<span class="header-section-number">1.2</span> How This Paper is Structured</h2>
-<p>This paper applies three separate approaches to better understand coverage gaps in ESG indicators:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Coverage Analysis.</strong> This approach provides a more detailed and visual picture of temporal gaps in the
-ESG indicator set, both historically and by MRV.</li>
-<li>
-<strong>Explanation Framework Analysis.</strong> This approach sets out a set of reasons why data gaps might occur
-as a framework for classifying ESG indicators, and looking at what approaches might be used to mitigate
-coverage issues.</li>
-<li>
-<strong>Variance Analysis.</strong> This approach looks at the temporal variance of ESG indicators to better
-understand the impacts of missing data for analysis. It may be possible to impute missing observations
-for indicators with low variance, mitigating the impact of data gaps.</li>
-</ol>
-<p>The paper then concludes with a discussion section and set of recommendations based on the analysis and findings
-of each of these sections.</p>
+<p>Unless otherwise noted, the study period is limited to 2000-2018 since collection of 2019 data
+was still in its early stages at the time of compilation. 4 indicators include only projections
+data for the year 2050, and thus have been excluded from analysis unless otherwise noted. Another
+15 indicators have been dropped or deprecated and, except as noted in the chapter on “Explanation
+Framework Analysis,” have also been excluded, leaving 115 indicators as the primary focus of analysis.</p>
 
 </div>
 </div></body></html>
@@ -228,7 +245,7 @@ of each of these sections.</p>
 <a href="coverage.html"><button class="btn btn-default">Next</button></a>
 </p>
 <p class="build-date">Page built: 
-2020-07-09
+2020-08-26
 </p>
 </div>
 </div>
