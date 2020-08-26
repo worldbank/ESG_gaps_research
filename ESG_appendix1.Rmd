@@ -1,5 +1,9 @@
 # Appendix: Deprecated Indicators
 
+This appendix lists the indicators classified as "Dropped or Deprecated"
+in the [explanation framework analysis](explanations.html) section, along
+with recommended substitutions where available.
+
 ```{r substitutes}
 di_table = read_csv('data/deprecated-indicators.csv') %>%
   mutate(oldid=paste(OLDID, ' (', OLDDB, ')', sep=''), newid=paste(NEWID, ' (', NEWDB, ')', sep='')) %>%
