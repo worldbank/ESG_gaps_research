@@ -20,11 +20,11 @@ library(tidyverse)
 library(wbstats)
 # Blend and regions vector
 ic <- wb_cachelist$countries %>%
-  filter(!(lending  == "Aggregates") ) %>%
+  filter(!(lending_type  == "Aggregates") ) %>%
   select(iso3c)
 
 ci_name <- wb_cachelist$countries %>%
-  filter(!(lending  == "Aggregates") ) %>%
+  filter(!(lending_type  == "Aggregates") ) %>%
   select(country, iso3c, region)
 
 # Indicators codes and names

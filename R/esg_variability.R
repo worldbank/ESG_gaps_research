@@ -113,7 +113,9 @@ s_c_mid <- n_c_mid/n_c
 #--------- table with Low and High CV
 
 t_lh <- var_ind %>%
-  inner_join(inames, by = c("indicator" = "indicatorID")) %>%
+  #rename(indicator_id = indicator) %>%
+  inner_join(inames, by = c("indicator" = "indicator_id")) %>%
+  #rename(ind_name = indicator) %>%
   mutate(class_cv = case_when(
     cv <= q_cv[1] ~ "Low",
     cv >= q_cv[2] ~ "High"
@@ -144,7 +146,7 @@ g2 <- var_country %>%
   filter(!is.na(cv), cv >= 0) %>%
   inner_join(oc) %>%
   inner_join(oi) %>%
-  inner_join(inames, by = c("indicator" = "indicatorID")) %>%
+  inner_join(inames, by = c("indicator" = "indicator_id")) %>%
   mutate(text = paste0("Country: ", iso, "\n",
                        "Indicator: ", ind_name, "\n",
                        "value: ", round(cv, 2), "\n")) %>%
