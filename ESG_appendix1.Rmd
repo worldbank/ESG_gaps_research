@@ -5,14 +5,30 @@ in the [explanation framework analysis](explanations.html) section, along
 with recommended substitutions where available.
 
 ```{r substitutes}
-di_table = read_csv('data/deprecated-indicators.csv') %>%
-  mutate(oldid=paste(OLDID, ' (', OLDDB, ')', sep=''), newid=paste(NEWID, ' (', NEWDB, ')', sep='')) %>%
-  mutate(newid=replace(newid, is.na(NEWID), 'NA')) %>%
-  # this is a hack to sanitize '$' in variable names so they don't get interpreted as LaTeX expressions
-  mutate(OLDNAME=gsub('\\$', '\\\\$', OLDNAME), NEWNAME=gsub('\\$', '\\\\$', NEWNAME))
 
-select(di_table, oldid, OLDNAME, newid, NEWNAME) %>%
-  knitr::kable(col.names=c('Deprecated ID (DB)', 'Deprecated Indicator', 'Replacement ID (DB)', 'Replacement Indicator'), escape=TRUE, table.attr='class="striped small"')
+read_csv('data/deprecated-indicators.csv') %>%
+  mutate(
+    oldid = paste(OLDID, ' (', OLDDB, ')', sep = ''),
+    newid = paste(NEWID, ' (', NEWDB, ')', sep = '')
+  ) %>%
+  mutate(newid = replace(newid, is.na(NEWID), 'NA')) %>%
+  # this is a hack to sanitize '$' in variable names so they don't get interpreted as LaTeX expressions
+  mutate(
+    OLDNAME = gsub('\\$', '\\\\$', OLDNAME),
+    NEWNAME = gsub('\\$', '\\\\$', NEWNAME)
+  ) %>% 
+select(oldid, OLDNAME, newid, NEWNAME) %>%
+  knitr::kable(
+    col.names = c(
+      'Deprecated ID (DB)',
+      'Deprecated Indicator',
+      'Replacement ID (DB)',
+      'Replacement Indicator'
+     ) ,
+     escape = TRUE,
+    # table.attr = 'class="striped small"'
+  )
+
 ```
 
 **List of Databases**

@@ -15,8 +15,14 @@
 <meta name="author" content="The World Bank" />
 <meta name="author" content="Development economics, Data Group" />
 
-<meta name="date" content="2020-08-26" />
+<meta name="date" content="2020-09-23" />
 
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
 
 <meta name="description" content="ESG">
 
@@ -42,11 +48,31 @@ if(f.classList.contains('fa-plus-square')) {
 
 }
 </script>
+<script src="libs/accessible-code-block/empty-anchor.js"></script>
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding/datatables.js"></script>
+<link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="libs/dt-ext-fixedcolumns/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="libs/dt-ext-fixedcolumns/js/dataTables.fixedColumns.min.js"></script>
+<link href="libs/nouislider/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider/jquery.nouislider.min.js"></script>
+<link href="libs/selectize/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize/selectize.min.js"></script>
 
 
 
 
-<link rel="stylesheet" href="css/box.css" type="text/css" />
+<link rel="stylesheet" href="css\box.css" type="text/css" />
 
 </head>
 
@@ -85,234 +111,7 @@ if(f.classList.contains('fa-plus-square')) {
 <p>This appendix lists the indicators classified as “Dropped or Deprecated”
 in the <a href="explanations.html">explanation framework analysis</a> section, along
 with recommended substitutions where available.</p>
-<table class="striped small">
-<thead><tr>
-<th style="text-align:left;">
-Deprecated ID (DB)
-</th>
-<th style="text-align:left;">
-Deprecated Indicator
-</th>
-<th style="text-align:left;">
-Replacement ID (DB)
-</th>
-<th style="text-align:left;">
-Replacement Indicator
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-SN.ITK.DFCT (57)
-</td>
-<td style="text-align:left;">
-Depth of the food deficit (kilocalories per person per day)
-</td>
-<td style="text-align:left;">
-SN.ITK.DEFC.ZS (2)
-</td>
-<td style="text-align:left;">
-Prevalence of undernourishment (% of population)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ER.BDV.TOTL.XQ (57)
-</td>
-<td style="text-align:left;">
-GEF benefits index for biodiversity (0 = no biodiversity potential to 100 = maximum)
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NY.GEN.DNGY.GD.ZS (57)
-</td>
-<td style="text-align:left;">
-Genuine savings: energy depletion (% of GDP)
-</td>
-<td style="text-align:left;">
-NY.ADJ.DNGY.GN.ZS (2)
-</td>
-<td style="text-align:left;">
-Adjusted savings: energy depletion (% of GNI)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-IT.NET.USER.P3 (57)
-</td>
-<td style="text-align:left;">
-Internet users (per 1,000 people)
-</td>
-<td style="text-align:left;">
-IT.NET.USER.ZS (2)
-</td>
-<td style="text-align:left;">
-Individuals using the Internet (% of population)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SL.TLF.SECO.ZS (57)
-</td>
-<td style="text-align:left;">
-Labor force with secondary education (% of total)
-</td>
-<td style="text-align:left;">
-SL.TLF.INTM.ZS (12)
-</td>
-<td style="text-align:left;">
-Labor force with intermediate education (% of total working-age population with intermediate education)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SL.TLF.TERT.ZS (57)
-</td>
-<td style="text-align:left;">
-Labor force with tertiary education (% of total)
-</td>
-<td style="text-align:left;">
-SL.TLF.ADVN.ZS (12)
-</td>
-<td style="text-align:left;">
-Labor force with advanced education (% of total working-age population with advanced education)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-EN.ATM.PM10.MC.M3 (57)
-</td>
-<td style="text-align:left;">
-PM10, country level (micrograms per cubic meter)
-</td>
-<td style="text-align:left;">
-EN.ATM.PM25.MC.M3 (2)
-</td>
-<td style="text-align:left;">
-PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-IT.MLT.MAIN.P3 (57)
-</td>
-<td style="text-align:left;">
-Telephone mainlines (per 1,000 people)
-</td>
-<td style="text-align:left;">
-IT.MLT.MAIN.P2 (2)
-</td>
-<td style="text-align:left;">
-Fixed telephone subscriptions (per 100 people)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-GC.BAL.CASH.CD (11)
-</td>
-<td style="text-align:left;">
-Fiscal balance, cash surplus/deficit (current US$)
-</td>
-<td style="text-align:left;">
-GC.NLD.TOTL.GD.ZS (2)
-</td>
-<td style="text-align:left;">
-Net lending (+) / net borrowing (-) (% of GDP)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-GB.BAL.OVRX.CN (11)
-</td>
-<td style="text-align:left;">
-Overall surplus/deficit, excluding current grants (current LCU)
-</td>
-<td style="text-align:left;">
-GC.REV.GOTR.ZS (2)
-</td>
-<td style="text-align:left;">
-Grants and other revenue (% of revenue)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-IC.ELC.OUTG.HR (11)
-</td>
-<td style="text-align:left;">
-Average duration of power outages (hours)
-</td>
-<td style="text-align:left;">
-IC.ELC.OUTG.ZS (2)
-</td>
-<td style="text-align:left;">
-Firms experiencing electrical outages (% of firms)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-TX.CONC.IND.XQ (11)
-</td>
-<td style="text-align:left;">
-Export product concentration index
-</td>
-<td style="text-align:left;">
-EF.EFM.UNIV.XD (70)
-</td>
-<td style="text-align:left;">
-Universal Economic Fitness Metric
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NY.GNS.PUBL.CD (11)
-</td>
-<td style="text-align:left;">
-Gross national savings, public (current US$)
-</td>
-<td style="text-align:left;">
-NY.GNS.ICTR.CD (2)
-</td>
-<td style="text-align:left;">
-Gross savings (current US$)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-IBP.OBI.XQ (11)
-</td>
-<td style="text-align:left;">
-Open Budget Index Overall Country Score
-</td>
-<td style="text-align:left;">
-IQ.CPA.FINQ.XQ (2)
-</td>
-<td style="text-align:left;">
-CPIA quality of budgetary and financial management rating (1=low to 6=high)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SH.TBS.PREV.LW (11)
-</td>
-<td style="text-align:left;">
-Tuberculosis prevalence rate, low uncertainty bound (per 1000,000 population, WHO)
-</td>
-<td style="text-align:left;">
-SH.TBS.INCD (2)
-</td>
-<td style="text-align:left;">
-Incidence of tuberculosis (per 100,000 people)
-</td>
-</tr>
-</tbody>
-</table>
+
 <p><strong>List of Databases</strong></p>
 <table>
 <thead><tr class="header">
@@ -349,7 +148,7 @@ Incidence of tuberculosis (per 100,000 people)
 <a href="appendix-coverage-analysis.html"><button class="btn btn-default">Next</button></a>
 </p>
 <p class="build-date">Page built: 
-2020-08-26
+2020-09-23
 </p>
 </div>
 </div>

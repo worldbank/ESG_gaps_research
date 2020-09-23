@@ -23,8 +23,6 @@ browseURL("docs/coverage.html")
 #
 # browseURL("docs/background.html")
 
-#--------- redner as PDF ---------
-
 
 # bfile <- paste0("docs/", sub("(.*)(\\.Rmd)", "\\1", file), ".html")
 
@@ -39,3 +37,5 @@ browseURL("docs/index.html")
 #                      preview = TRUE)
 
 
+#--------- render as PDF ---------
+bookdown::render_book("index.Rmd", "bookdown::pdf_book")
