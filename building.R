@@ -23,6 +23,9 @@ browseURL("docs/coverage.html")
 #
 # browseURL("docs/background.html")
 
+#--------- redner as PDF ---------
+
+
 # bfile <- paste0("docs/", sub("(.*)(\\.Rmd)", "\\1", file), ".html")
 
 # render the whole book
