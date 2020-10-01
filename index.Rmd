@@ -15,6 +15,7 @@ monofontoptions: "Scale=0.7"
 github-repo: worldbank/ESG_gaps_research
 description: "ESG " 
 documentclass: book
+classoption: openany
 ---
 
 ```{r setup1, include=FALSE}
