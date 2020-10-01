@@ -1,4 +1,5 @@
-msmbstyle::msmb_html_book:
+bookdown::tufte_html_book:
+  tufte_variant: "envisioned"
   toc: TRUE
   toc_depth: 1
   split_by: chapter
@@ -7,9 +8,21 @@ msmbstyle::msmb_html_book:
   margin_references: FALSE
   number_sections: yes
   highlight: tango
-bookdown::tufte_book2:
-  latex_engine: xelatex
+tufte::tufte_book:
   citation_package: natbib
-  keep_tex: yes
-bookdown::epub_book:
-  stylesheet: style.css
+  latex_engine: xelatex
+  toc: FALSE
+  includes:
+    in_header: mystyles.sty
+bookdown::tufte_book2:
+  citation_package: natbib
+  latex_engine: xelatex
+  toc: FALSE
+  includes:
+    in_header: mystyles.sty
+tufte::tufte_handout:
+  citation_package: natbib
+  latex_engine: xelatex
+  toc: FALSE
+  includes:
+    in_header: mystyles.sty

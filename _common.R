@@ -70,6 +70,8 @@ if (length(load.pkg)) {
 set.seed(1234)
 options(digits = 3)
 
+# fonts
+extrafont::loadfonts()
 
 #----------------------------------------------------------
 #   Knit options
