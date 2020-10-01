@@ -7,9 +7,11 @@
 #
 # file <- c("ESG_availability.Rmd")
 # file <- c("ESG_resultsbyexplanation.Rmd")
-file <- c("ESG_coverage.Rmd")
-bookdown::render_book(file, preview = TRUE)
-bookdown::render_book("index.Rmd")
+# file <- c("ESG_coverage.Rmd")
+# bookdown::render_book(file, preview = TRUE)
+
+
+# bookdown::render_book("index.Rmd", preview = TRUE)
 # bookdown::render_book("ESG_background.Rmd", preview = TRUE)
 # bookdown::render_book("ESG_coverage.Rmd", preview = TRUE)
 # bookdown::render_book("ESG_explanation.Rmd", preview = TRUE)
@@ -19,7 +21,7 @@ bookdown::render_book("index.Rmd")
 # bookdown::render_book("ESG_appendix2.Rmd", preview = TRUE)
 beepr::beep(10)
 # browseURL("docs/volatility.html")
-browseURL("docs/coverage.html")
+# browseURL("docs/coverage.html")
 #
 # browseURL("docs/background.html")
 
@@ -41,7 +43,3 @@ browseURL("docs/index.html")
 bookdown::render_book("index.Rmd", "bookdown::tufte_book2")
 # bookdown::render_book("index.Rmd", "tufte::tufte_handout")
 # bookdown::render_book("index.Rmd", "tufte::tufte_book")
-
-
-bookdown::render_book("ESG_background.Rmd", "bookdown::tufte_book2")
-bookdown::render_book("ESG_appendix2.Rmd", "bookdown::tufte_book2")

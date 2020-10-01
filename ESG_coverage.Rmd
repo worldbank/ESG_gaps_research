@@ -1,6 +1,6 @@
 # Coverage Analysis {#coverage}
 
-```{r setupcoverage, cache=TRUE,echo=FALSE, message=FALSE, warning=FALSE}
+```{r setupcoverage, cache=FALSE,echo=FALSE, message=FALSE, warning=FALSE}
 #--------- execute script of analysis
 source("R/load_data.R")
 source("R/esg_availability.R")
