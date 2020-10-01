@@ -62,7 +62,7 @@ d2 <- x %>%
 fillin <- expand_grid(
   date        = c(2000:2019),
   indicatorID = unique(x$indicatorID)
-  ) %>%
+) %>%
   inner_join(
     tibble(
       indicatorID  = unique(x$indicatorID),
@@ -95,9 +95,9 @@ lmdi <- x2 %>%
 
     # Find number of year with at least one count ry
     nyc  = purrr::map(data, ~count(nyc = nc > 0, x = .) %>%
-                             filter(nyc == TRUE) %>%
-                             pull(n)
-                      )
+                        filter(nyc == TRUE) %>%
+                        pull(n)
+    )
   ) %>%
   unnest(c(beta, nyc)) %>%
   select(indicatorID, indicator, beta, nyc) %>%
@@ -187,7 +187,7 @@ si <- x2 %>%
   summarise(
     mean = mean(nc, na.rm = TRUE),
     sd   = sd(nc, na.rm = TRUE)
-    ) %>%
+  ) %>%
   filter(mean > 0) %>%
   ungroup() %>%
   arrange(sd, -mean)
@@ -202,7 +202,7 @@ sdd <- x %>%
   summarise(nc = n_distinct(iso3c))   %>%
   full_join(fillin,
             by = c("indicatorID", "indicator", "date")
-            ) %>%
+  ) %>%
   arrange(indicatorID, date) %>%
   mutate(
     nc = if_else(is.na(nc), 0L, nc)
@@ -253,9 +253,15 @@ g1 <- ggplot(data = filter(d1, date >= 2000, date <= 2018),
                                    colour = "grey50"),
         axis.text.y = element_text(size = rel(0.5),
                                    colour = "grey50"))
-  # ggtitle(label = "Number of countries per indicator over time")
+# ggtitle(label = "Number of countries per indicator over time")
 #g1
 # make it interactive
+ggsave("figs/ciavailability.png",
+       plot = g1,
+       width = 7,
+       height = 7,
+       dpi = "retina")
+
 pg1 <- plotly::ggplotly(g1, tooltip = "text")
 
 
@@ -280,7 +286,7 @@ hm_expl <- function(x, expl,
 
   if (length(label) > 0) {
     labelf <-  paste0("Number of countries over time per indicator (",
-                     label, ")")
+                      label, ")")
   } else {
     labelf <- "Number of countries over time per indicator"
   }
@@ -307,8 +313,8 @@ hm_expl <- function(x, expl,
                                        colour = "grey50"),
             axis.text.y = element_text(size = rel(0.5),
                                        colour = "grey50"))
-      # ggtitle(label = labelf)
+    # ggtitle(label = labelf)
     plotly::ggplotly(g1a, tooltip = "text")
-    }
+  }
 }
 
