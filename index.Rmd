@@ -4,8 +4,8 @@ author: Castaneda, Fuhs, Herzog, & Maeda
 date: "`r Sys.Date()`" 
 knit: "bookdown::preview_chapter"
 site: bookdown::bookdown_site 
-# bibliography: "bib/ESG coverage.bib" 
-# biblio-style: "apalike" 
+bibliography: "bib/ESG coverage.bib" 
+biblio-style: "apalike" 
 link-citations: true
 links-as-notes: true
 colorlinks: yes

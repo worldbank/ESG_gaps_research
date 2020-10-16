@@ -15,7 +15,7 @@ tufte::tufte_book:
   includes:
     in_header: mystyles.sty
 bookdown::tufte_book2:
-  citation_package: natbib
+#  citation_package: natbib
   latex_engine: xelatex
   toc: FALSE
   includes:
