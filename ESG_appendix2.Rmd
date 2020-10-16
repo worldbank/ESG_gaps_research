@@ -1,4 +1,4 @@
-# Appendix: Extended Coverage Analysis {#appendix-coverage-analysis}
+# Extended Coverage Analysis
 
 ```{r setupappendix2, echo=FALSE, message=FALSE, warning=FALSE}
 #--------- execute script of analysis
@@ -40,23 +40,18 @@ Basically, it is the the average of the number of countries for which there is i
 
 The table below is an expanded version of the table presented in section \@ref(consistently-low-coverage). Indicators are organized from the lowest to highest country coverage.
 
-```{r dtlc, options}
+```{r dtlc}
 
-  DT::datatable(d4, 
-    colnames = c("Code", 
+  report.datatable(d4, c("Code", 
                  "Indicator", 
                  "Average of countries per year"),
-    rownames = FALSE,
-    filter = 'top', 
-    width = '55%', 
-    extensions = 'FixedColumns',
-    options = list(pageLength = 5, 
-                   autowidth = TRUE)
-  ) %>% 
-  DT::formatRound("mean" , 1)
+                 "Average Countries per Indicator",
+                 precision=list(mean=1),
+                 pdf=list(
+                   widths=list(12, 25, 10))
+                 )
 
 ```
-
 
 ## Improvement over time
 
@@ -80,18 +75,13 @@ Most indicators have improved their coverage over time, but some of them show a 
 
 ```{r agcbi}
 
-  DT::datatable(lmdi,
-    colnames = c("Code", 
+report.datatable(lmdi, c("Code", 
                  "Indicator", "Avg. growth in coverage (penalized)", 
                  "No. of years with data"),
-    rownames = FALSE,
-    filter = 'top', 
-    width = '55%', 
-    extensions = 'FixedColumns',
-    options = list(pageLength = 5, 
-                   autowidth = TRUE)
-  ) %>% 
-  DT::formatRound("beta" , 1)
+                 "Average Coverage Growth Per Indicator",
+              precision=list(beta=1),
+              pdf=list(widths=list(12, 25, 5, 5))
+            )
 ```
 
 ## Remain stable over time but with middle coverage
@@ -123,17 +113,12 @@ The country coverage of some indicators have remained relatively stable over tim
 The table below shows how stable each indicator is over time and the average number of countries covered in each year.  
 
 ```{r dtsi}
-  DT::datatable(si,
-    colnames = c("Code", "Indicator", "Avg. of countries", "Standard Dev."),
-    rownames = FALSE,
-    filter = 'top', 
-    width = '55%', 
-    extensions = 'FixedColumns',
-    options = list(pageLength = 5, 
-                   autowidth = TRUE)
-  ) %>% 
-  DT::formatRound("mean" , 1) %>% 
-  DT::formatRound("sd" , 2) 
+
+  report.datatable(si,
+    c("Code", "Indicator", "Avg. of countries", "Standard Dev."),
+    "Indicator Stability Over Time",
+    precision=list(mean=1, sd=2),
+    pdf=list(widths=list(12, 25, 5, 5)))
 ```
 
 ## High coverage and sudden decline
@@ -142,15 +127,11 @@ The remarkable coverage of some indicators in the previous decade suddenly decli
 
 ```{r sdd}
 
-  DT::datatable(sdd,
-    colnames = c("Code", "Indicator", "Year", "No. Countries dropped"),
-    rownames = FALSE,
-    filter = 'top', 
-    width = '55%', 
-    extensions = 'FixedColumns',
-    options = list(pageLength = 5, 
-                   autowidth = TRUE)
-  ) 
+  report.datatable(sdd,
+    c("Code", "Indicator", "Year", "No. Countries dropped"),
+      "Coverage Decline Per Indicator",
+      pdf=list(widths=list(12, 25, 5, 5))
+    )
 ```
 
 ## Intermittent and Lumpy coverage
@@ -180,20 +161,20 @@ The table below tries to characterize all the indicators by their level of inter
 
 ```{r icli}
 
-  DT::datatable(ici,
-    colnames = c("Code", "Indicator", "No. Years covered", "No. intervals with no data (intermittentness)", "Avg. coverage interval", "Lumpiness index"),
-    rownames = FALSE,
-    filter = 'top', 
-    width = '55%', 
-    extensions = 'FixedColumns',
-    options = list(pageLength = 5,
-                   autowidth = TRUE,
-                   columnDefs = list(list(width = '380px', targets = 1),
-                                     list(width = '35px', targets = c(2:5))
-                                     )
-                   )
-  ) %>% 
-  DT::formatRound(c("aci", "li") , 2) 
+  report.datatable(ici,
+    c("Code", "Indicator", "No. Years covered", "No. intervals with no data (intermittentness)", "Avg. coverage interval", "Lumpiness index"),
+    "Indicators and 'Lumpy' Coverage",
+    precision=list(aci=1, li=2),
+    html=list(
+      args=list(
+        columnDefs=list(
+          list(width = '380px', targets = 1),
+          list(width = '35px', targets = c(2:5))
+        )        
+      )
+    ),
+    pdf=list(widths=list(12, 10, 5, 5, 5, 5, 5))
+    )
 
 ```
 

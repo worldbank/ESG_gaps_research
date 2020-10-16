@@ -3,6 +3,8 @@
 # library(ggtext)
 # library(extrafont)
 
+source("R/report.R")
+
 nf <- function(n) {
   prettyNum(n, big.mark = ',')
 }

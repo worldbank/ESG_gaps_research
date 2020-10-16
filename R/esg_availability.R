@@ -246,23 +246,17 @@ g1 <- ggplot(data = filter(d1, date >= 2000, date <= 2018),
                        breaks = c(0, 50, 100, 150, 200)) +
   labs(x = "", y = "") +
   scale_x_continuous(breaks = c(2000:2018),
+                     # leaves some padding on either side of the heatmap - necessary for PDF versions
+                     limits=c(1999,2019),
                      expand = c(0,0)) +
-  theme(axis.text.x = element_text(size = rel(0.8),
-                                   angle = 330,
-                                   hjust = 0,
-                                   colour = "grey50"),
-        axis.text.y = element_text(size = rel(0.5),
-                                   colour = "grey50"))
+  theme(axis.text.x = element_text(size = rel(0.8), angle = 330, hjust = 0, colour = "grey50"),
+        axis.text.y = element_text(size = rel(0.5), colour = "grey50"))
+
 # ggtitle(label = "Number of countries per indicator over time")
 #g1
 # make it interactive
-ggsave("figs/ciavailability.png",
-       plot = g1,
-       width = 7,
-       height = 7,
-       dpi = "retina")
-
-pg1 <- plotly::ggplotly(g1, tooltip = "text")
+# ggsave("figs/ciavailability.png", plot = g1, width = 7, height = 7, dpi = "retina")
+# pg1 <- plotly::ggplotly(g1, tooltip = "text")
 
 
 
@@ -281,7 +275,7 @@ d1a <- d1 %>%
 
 
 hm_expl <- function(x, expl,
-                    label = NULL) {
+                    label = NULL, png_layers=theme()) {
   expl <- enquo(expl)
 
   if (length(label) > 0) {
@@ -305,7 +299,9 @@ hm_expl <- function(x, expl,
                            limits = c(0, 220),
                            breaks = c(0, 50, 100, 150, 200)) +
       labs(x = "", y = "") +
-      scale_x_continuous(breaks = c(2000:2018), limits=c(2000,2018),
+      scale_x_continuous(breaks = c(2000:2018),
+                         # leaves some padding on either side of the heatmap - necessary for PDF versions
+                         limits=c(1999,2019),
                          expand = c(0,0)) +
       theme(axis.text.x = element_text(size = rel(0.8),
                                        angle = 330,
@@ -314,7 +310,15 @@ hm_expl <- function(x, expl,
             axis.text.y = element_text(size = rel(0.5),
                                        colour = "grey50"))
     # ggtitle(label = labelf)
-    plotly::ggplotly(g1a, tooltip = "text")
+    name = paste('expl-', str_replace_all(tolower(label), ' ', ''), sep='')
+    # plotly::ggplotly(g1a, tooltip = "text")
+    report.graphic(g1a, name,
+        pdf=list(
+          layers=theme(
+            axis.text.x = element_text(size=rel(0.5))
+            # plot.margin=margin(t=20)
+          ),
+          args=list(width=4)
+        ))
   }
 }
-

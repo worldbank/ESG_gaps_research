@@ -33,7 +33,19 @@ Note that indicator/country series consisting of a single year are not included 
 since there is no "variation" in a domain of just one observation.
 
 ```{r civar, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Coefficient of variation by country and indicator", fig.fullwidth = TRUE, fig.width = 14, fig.height = 8}
-pg2
+
+report.graphic(g2, "civariability",
+  pdf=list(
+      layers=list(
+        labs(x="Countries", y="Indicators"),
+        theme(axis.text.y=element_blank(),
+            axis.ticks.y=element_blank(),
+            axis.title.x=element_text(size=rel(0.5)),
+            axis.title.y=element_text(size=rel(0.5)),
+            plot.margin=margin(t=20))
+      ),
+      args=list(width=4, height=5))
+)
 ```
 
 
@@ -54,14 +66,13 @@ cvp_names = names(cvp_values)
 cvp_names[1] = "Min"
 cvp_names[length(cvp_names)] = "Max"
 
- knitr::kable(data.frame(Percentile=cvp_names, CV=cvp_values), "html",
-  row.names=FALSE, table.attr='class="striped"',
-  caption="CV percentiles")
+report.table(data.frame(cvp_names, cvp_values), c('Percentile', 'CV'), "CV Percentiles")
+
 ```
 
 ```{r esg-var-percs2, fig.cap = "Density of ESG indicator CV", fig.margin = FALSE, fig.width = 6}
 
-var_country %>% ggplot(aes(x = cv)) +
+plot = var_country %>% ggplot(aes(x = cv)) +
   geom_histogram(aes(y = ..density..),    # histogram chart
                  alpha = 0.8,
                  position = 'identity',
@@ -82,6 +93,7 @@ var_country %>% ggplot(aes(x = cv)) +
   geom_vline(aes(xintercept = cvp_values["5%"]), color = "#3399FF", linetype = "dashed", size = 1) +
   geom_vline(aes(xintercept = cvp_values["95%"]), color = "#3399FF", linetype = "dashed", size = 1)
 
+report.graphic(plot, "esg-indicator-cv")
 ```
 
 One important feature of Table \@ref(tab:esg-var-percs) and Figure \@ref(fig:esg-var-percs2) is the presence of a substantial number
@@ -107,7 +119,7 @@ individually high CV values. Indicators with relatively high mean CVs may not be
 
 cvimean_values = quantile(var_ind$cv, na.rm = TRUE, probs = c(0.05, 0.95))
 
-var_ind %>% ggplot(aes(x = cv)) +
+plot = var_ind %>% ggplot(aes(x = cv)) +
   geom_histogram(aes(y = ..density..),    # histogram chart
                  alpha = 0.8,
                  position = 'identity',
@@ -128,16 +140,16 @@ var_ind %>% ggplot(aes(x = cv)) +
   geom_vline(aes(xintercept = cvimean_values["5%"]), color = "#3399FF", linetype = "dashed", size = 1) +
   geom_vline(aes(xintercept = cvimean_values["95%"]), color = "#3399FF", linetype = "dashed", size = 1)
 
+report.graphic(plot, "mean-esg-indicator-cv")
+
 ```
 
 Table \@ref(tab:t-lh-cv) shows the indicators whose mean CVs fall below the 5th percentile or above the 95th percentile:
 
 ```{r t-lh-cv, echo = FALSE}
 
-knitr::kable(t_lh2, 
-             caption = "ESG indicators with lowest and highest volatility", 
-             col.names = c(lvarn, hvarn))
-
+report.table(t_lh2, c(lvarn, hvarn), "ESG indicators with lowest and highest volatility",
+             pdf=list(widths=list(12, 12)))
 ```
 
 ## Implications for Gap Filling ##
@@ -182,22 +194,35 @@ to extrapolate in various combinations, as shown in Table \@ref(tab:cv-estimates
 
 ```{r cv-estimates}
 
- knitr::kable(select_estimates, "html",
-  col.names=c('CV Threshold', 'Years To Extrapolate', 'Resulting Coverage (%)'),
-  row.names=FALSE, table.attr='class="striped"',
-  align=rep('r', 3),
-  caption='Effects of selected CV thresholds and lengths of imputation on coverage in 2018')
+report.table(select_estimates,
+             c('CV Threshold', 'Years To Extrapolate', 'Resulting Coverage (%)'),
+             'Effects of selected CV thresholds and lengths of imputation on coverage in 2018',
+             align='r')
+#knitr::kable(select_estimates, "html",
+#  col.names=,
+#  row.names=FALSE, table.attr='class="striped"',
+#  align=rep('r', 3),
+#  caption='Effects of selected CV thresholds and lengths of imputation on coverage in 2018')
 ```
 
-Alternatively, the tool below provides an interactive way to test
+```{r tool_paragraph, results='asis'}
+
+if( knitr::is_html_output() ) {
+  insert = "below"
+} else {
+  insert = sprintf("[available here](%s)", metadata$imputation_tool_url)
+}
+
+cat("Alternatively, the tool", insert, " provides an interactive way to test
 various combinations of assumptions and see both the aggregate impacts and the effects on
 individual indicators. Area under the curve (AUC) is equivalent to the percent coverage for any
-set of assumptions (100% being "perfect" coverage of a value for every indicator and country). 
+set of assumptions (100% being \"perfect\" coverage of a value for every indicator and country).")
 
-
-
-```{r cv-interactive, fig.width = 14}
-knitr::include_app("https://datanalytics.worldbank.org/esg_imputation", height = "800px")
 ```
+
+```{r cv-interactive, fig.width = 14, eval=knitr::is_html_output()}
+knitr::include_app(metadata$imputation_tool_url, height = "800px")
+```
+
 
 

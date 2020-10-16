@@ -1,11 +1,11 @@
 ---
-title: "ESG Gaps Research" 
-author: "The World Bank"
+title: "An Analysis of Coverage Gaps in ESG Data" 
+author: Castaneda, Fuhs, Herzog, & Maeda
 date: "`r Sys.Date()`" 
 knit: "bookdown::preview_chapter"
 site: bookdown::bookdown_site 
-bibliography: "bib/ESG coverage.bib" 
-biblio-style: "apalike" 
+# bibliography: "bib/ESG coverage.bib" 
+# biblio-style: "apalike" 
 link-citations: true
 links-as-notes: true
 colorlinks: yes
@@ -16,12 +16,16 @@ github-repo: worldbank/ESG_gaps_research
 description: "ESG " 
 documentclass: book
 classoption: openany
+github_url: "https://github.com/worldbank.org/ESG_gaps_research"
+report_url: "https://worldbank.github.io/ESG_gaps_research"
+imputation_tool_url: "https://datanalytics.worldbank.org/esg_imputation"
 ---
 
 ```{r setup1, include=FALSE}
 library(tufte)
 library(knitr)
 library(kableExtra)
+library(rmarkdown)
 
 # invalidate cache when the tufte version changes
 
@@ -64,8 +68,12 @@ contributed substantial research support.
 
 ## Replicability and license {.unnumbered}
 
-This document is fully replicable. All the text files, codes, underlying
-data, and dashboards can be found in its GitHub repository
-[worldbank/ESG\_gaps\_research](https://github.com/worldbank/ESG_gaps_research).
+This document is fully replicable and was produced in R using the [Bookdown][bookdown] package.
+All the text files, codes, underlying
+data, and dashboards can be found in its GitHub repository [worldbank/ESG_gaps_research][github].
+The online version of this report with interactive charts is also [available in Github][report].
 
-`
+[report]: `r metadata$report_url`
+[github]: `r metadata$github_url`
+[bookdown]: https://bookdown.org/
+

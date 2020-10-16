@@ -116,9 +116,7 @@ smry_expl <- ggplot(esg_tmp) +
   scale_fill_manual(values = my_palette2) +
   scale_x_reordered() +
   coord_flip() +
-  theme_esg() +
-  facet_wrap(~dataset,
-             nrow = 1)
+  theme_esg()
 
 
 # Main explanations for data gaps by sector---------------------------
@@ -169,9 +167,8 @@ smry_expl_sctr <- ggplot(esg_tmp) +
   scale_fill_manual(values = my_palette3) +
   scale_x_reordered() +
   coord_flip() +
-  theme_esg() +
-  facet_grid(.~dataset,
-             scales = "free_y")
+  theme_esg()
+
 # Sector view
 esg_tmp <- esg_tmp %>%
   mutate(

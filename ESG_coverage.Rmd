@@ -21,14 +21,19 @@ Blank areas indicate no data for that particular indicator and year.
 
 ```{r ciavailability, fig.width = 12, fig.height = 10, fig.cap = "Number of countries per indicator over time"}
 
-if(knitr::is_html_output()) {
-  pg1
-}
+report.graphic(g1, 'ciavailability',
+    pdf=list(
+      layers=list(
+        labs(y="Indicators"),
+        theme(axis.text.y=element_blank(),
+          axis.ticks.y=element_blank(),
+          axis.text.x = element_text(size=rel(0.5)),
+          axis.title.y=element_text(size=rel(0.5)),
+          plot.margin=margin(t=20))
+      ),
+      args=list(width=4, height=5)
+    ))
 
-if (knitr::is_latex_output()) {
-  # g1
-  knitr::include_graphics("figs/ciavailability.png")
-}
 ```
 
 Several patterns emerge from a visual assessment of Figure
@@ -65,35 +70,13 @@ dark horizontal lines towards the bottom of Figure
 
 dd3 <- d3 %>% 
   select(indicator,indicatorID, max_count) %>% 
-  arrange(max_count) %>% 
-  mutate(
-    indicator = gsub("&", "\\\\&", indicator)
-  ) 
+  arrange(max_count)
 
-if(knitr::is_html_output()) {
-
-  knitr::kable(dd3, 
-               format = "html",
-               col.names=c('Indicator', 'Code', 'Max. Countries'),
-               table.attr='class="striped"',
-               caption="Indicators with consistently low coverage") %>% 
-    column_spec(1, width = "20em")
-
-}
-
-if (knitr::is_latex_output()) {
-
-  knitr::kable(dd3, 
-               booktabs = T,
-               col.names=c('Indicator', 'Code', 'Max. Countries'),
-               caption="Indicators with consistently low coverage") %>% 
-    kableExtra::kable_styling(latex_options = "striped") %>% 
-    column_spec(1, width = "15em") %>% 
-    column_spec(2, width = "9em") %>% 
-    column_spec(3, width = "2em") 
-
-}
-
+report.table(dd3,
+             c('Indicator', 'Code', 'Max. Countries'),
+             "Indicators with consistently low coverage",
+             html=list(widths=list(20)),
+             pdf=list(widths=list(15, 9, 2)))
 
 ```
 
@@ -162,31 +145,11 @@ ex <- c('IT.NET.BBND.P2',
 timpx <- x %>% 
   select(indicator,indicatorID) %>% 
   distinct() %>% 
-  filter(indicatorID %in% ex)  %>% 
-  mutate(
-    indicator = gsub("&", "\\\\&", indicator)
-  )
+  filter(indicatorID %in% ex)
 
-if(knitr::is_html_output()) {
-
-  knitr::kable(timpx, 
-               format = "html",
-               col.names=c('Indicator', 'Code'), 
-               table.attr='class="striped"',
-               caption="Select indicators that improve over time")
-}
-
-if (knitr::is_latex_output()) {
-
-  knitr::kable(timpx,
-               booktabs = T,
-               col.names=c('Indicator', 'Code'),
-               caption="Select indicators that improve over time") %>% 
-    kableExtra::kable_styling(latex_options = "striped") %>% 
-    column_spec(1, width = "15em") %>% 
-    column_spec(2, width = "12em") 
-    
-}
+report.table(timpx, c('Indicator', 'Code'),
+             "Select indicators that improve over time",
+             pdf=list(widths=list(15, 12)))
 
 ```
 
@@ -225,22 +188,8 @@ values <- c(nrow(d1 %>% filter(max_year>=2018)),
             nrow(d1 %>% filter(max_year==2015)),
             nrow(d1 %>% filter(max_year<2015)))
 
-
-if(knitr::is_html_output()) {
-  knitr::kable(data.frame(columns, values), 
-               format = "html",
-               col.names=c('Year of MRV', '# Indicators'), 
-               table.attr='class="striped"',
-               caption="Indicators by Most Recent Available Year")
-}
-
-if (knitr::is_latex_output()) {
-  knitr::kable(data.frame(columns, values), 
-               booktabs = T,
-               col.names=c('Year of MRV', '# Indicators'),
-               caption="Indicators by Most Recent Available Year") %>% 
-    kableExtra::kable_styling(latex_options = "striped") 
-}
+report.table(data.frame(columns, values), c('Year of MRV', '# Indicators'),
+             "Indicators by Most Recent Available Year")
 
 ```
 
@@ -282,31 +231,10 @@ tix <-
     distinct() %>% 
     filter(indicatorID %in% ex) 
 
-if(knitr::is_html_output()) {
-  tix %>% 
-    mutate(
-      indicator = gsub('\\$', '\\\\$', indicator),
-      indicator = gsub("&", "\\\\&", indicator),
-      indicator = gsub("%", "\\\\%", indicator)
-    ) %>% 
-  knitr::kable(tix, 
-               format = "html", 
-               escape=FALSE,
-               col.names=c('Indicator', 'Code'), 
-               table.attr='class="striped"',
-               caption="Indicators with intermittent coverage")
-}
-
-if (knitr::is_latex_output()) {
-  knitr::kable(tix, 
-               booktabs = T,
-               col.names=c('Indicator', 'Code'), 
-               caption="Indicators with intermittent coverage") %>% 
-    kableExtra::kable_styling(latex_options = "striped") %>% 
-    column_spec(1, width = "20em")
-}  
-
-  
+report.table(tix,
+             c('Indicator', 'Code'),
+             "Indicators with intermittent coverage",
+             pdf=list(widths=list(20)))
  
 ```
 

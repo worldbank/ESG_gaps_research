@@ -12,3 +12,19 @@
 \usepackage{threeparttablex}
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
+
+\hypersetup{colorlinks=true}
+
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+% \fancypagestyle{plain}{}
+\fancyhf{}
+% these next commands reformat \leftmark (chapter) and \rightmark (section)
+\renewcommand{\chaptermark}[1]{ \markboth{\chaptername\ \thechapter.\ #1}{} }
+\renewcommand{\sectionmark}[1]{ \markright{#1}{} }
+
+\lfoot{World Bank White Paper}
+\rfoot{Page \thepage}
+\lhead{Coverage Gaps in ESG Data}
+\rhead{\fancyplain{}{\leftmark}}
+

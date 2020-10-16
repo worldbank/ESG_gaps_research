@@ -49,14 +49,14 @@ Deprecated indicators in the WDI are typically removed and are available only in
 Accordingly, it is not possible to provide a heatmap of these indicators.
 
  ```{r hm-expla}
- ex <- c('SM.POP.NETM', 'SH.DTH.COMM.ZS', 'ER.H2O.INTR.K3', 'ER.H2O.INTR.PC',
+ ex_deprecate <- c('SM.POP.NETM', 'SH.DTH.COMM.ZS', 'ER.H2O.INTR.K3', 'ER.H2O.INTR.PC',
   'NW.NCA.SACO.TO', 'NW.NCA.SAOI.TO', 'NW.NCA.SAGA.TO',
   'SH.STA.DIAB.ZS', 'ER.H2O.FWTL.ZS', 'EN.POP.EL5M.ZS', 'EN.MAM.THRD.NO', 'EN.CLC.MDAT.ZS', 'WBL')
- 
-gsub('\\$', '\\\\$', knitr::kable(mtd %>% filter(expl_a==TRUE) %>% select(input_name,cetsid),
-  "html", escape=FALSE,
-  col.names=c('Indicator', 'Code'), table.attr='class="striped"',
-  caption="Dropped or Deprecated") )
+
+report.table(mtd %>% filter(expl_a==TRUE) %>% select(input_name,cetsid),
+  c('Indicator', 'Code'),
+  "Dropped or Deprecated",
+  pdf=list(widths=list(15)))
   
  ```
 
@@ -104,7 +104,9 @@ exhibit consistent coverage (i.e., uniformly light orange or yellow) along the h
 
 
 ```{r hm-explc, fig.width = 8, fig.cap = "Structural Lags"}
-hm_expl(d1a, expl_c, "Structural Lags")
+hm_expl(d1a, expl_c, "Structural Lags", png_layers=theme(
+  axis.text.y=element_text(size=rel(0.25))
+))
 ```
 
 **Definition:** classification under this explanation was made through consultations with subject matter experts.
@@ -196,17 +198,32 @@ disaggregated primarily by explanation, and secondarily by primary source
 smry_expl <- smry_expl +
   labs(
     # title = "Explanations for gaps: All indicators vs WBG dataset",
-    subtitle = "Most data gaps are due to structural lag and lack of survey data. 
-    This is true both when considering all indicators, or the subset of indicators
-    contained in the WBG dataset.",
+    # subtitle = "Most data gaps are due to structural lag and lack of survey data. 
+    # This is true both when considering all indicators, or the subset of indicators
+    # contained in the WBG dataset.",
     y = "Frequency",
     x = "",
     fill = "Data producer"
   )
 
-plotly::ggplotly(smry_expl, tooltip = "text") %>% 
-  plotly::style(hoveron = "fill") %>%
-  plotly::layout(legend = list(orientation = 'h', y = -0.1))
+report.graphic(smry_expl, 'summary-explanation',
+      html=list(post=function(g) {
+        return(g %>%
+          plotly::style(hoveron="fill") %>%
+          plotly::layout(legend=list(orientation='h', y=-0.1)))
+      },
+        layers=facet_wrap(~dataset, nrow=1)
+      ),
+      pdf=list(
+        layers=list(
+          facet_wrap(~dataset, ncol=1),
+          theme(axis.text.y = element_text(size = rel(0.75))),
+          theme(axis.title.x = element_text(size = rel(0.75))),
+          theme(legend.title=element_text(size=rel(0.6))),
+          theme(legend.text=element_text(size=rel(0.6)))),
+        args=list(height=4)
+      )
+)
 
 ```
 
@@ -237,16 +254,33 @@ Figure \@ref(fig:smry-exlp-sctr) is similar to Figure \@ref(fig:smry-exlp) but d
 smry_expl_sctr <- smry_expl_sctr +
   labs(
     # title = "Explanations for gaps by sector: All indicators vs WBG dataset",
-    subtitle = "Not only most data gaps are due to structural lags, it is one of
-    the most frequent explanation for all three ESG sectors.",
+    # subtitle = "Not only most data gaps are due to structural lags, it is one of
+    # the most frequent explanation for all three ESG sectors.",
     y = "Frequency",
     x = "",
     fill = "Sector"
   )
 
-plotly::ggplotly(smry_expl_sctr, tooltip = "text") %>% 
-  plotly::style(hoveron = "fill") %>%
-  plotly::layout(legend = list(orientation = 'h', y = -0.1))
+report.graphic(smry_expl_sctr, 'summary-explanation-by-sector',
+      html=list(post=function(g) {
+        return(g %>%
+          plotly::style(hoveron="fill") %>%
+          plotly::layout(legend=list(orientation='h', y=-0.1)))
+      },
+        layers=facet_wrap(~dataset, nrow=1)
+      ),
+      pdf=list(
+        layers=list(
+          facet_wrap(~dataset, ncol=1),
+          theme(axis.text.y = element_text(size = rel(0.75))),
+          theme(axis.title.x = element_text(size = rel(0.75))),
+          theme(legend.title=element_text(size=rel(0.6))),
+          theme(legend.text=element_text(size=rel(0.6)))),
+        args=list(height=4)
+      )
+      # facet_grid(.~dataset, scales = "free_y")
+)
+
 ```
 
 This provides a slightly different perspective. Looking at the top 2 explanatory factors, indicators in the

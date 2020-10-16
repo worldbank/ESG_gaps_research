@@ -1,10 +1,29 @@
-# Appendix: Deprecated Indicators
+
+<!-- these latex commands adjust the running header and the fig/tab references for
+     the appendix:
+     
+     - \setcounter resets the chapter counter so the next one will increment to 1
+     - redefine \thechapter to be ALPHA (A, B, C...)
+     - reset the chapter identifier to just the chapter name w/o preceding "Chapter #"
+     
+\setcounter{chapter}{0}
+\renewcommand{\thechapter}{\Alph{chapter}}
+-->
+
+\renewcommand{\chaptermark}[1]{ \markboth{Appendix \thechapter.\ #1}{} }
+\renewcommand{\sectionmark}[1]{ \markright{#1}{} }
+
+# (APPENDIX) Appendix {-}
+
+# Deprecated Indicators
 
 This appendix lists the indicators classified as "Dropped or Deprecated"
 in the [explanation framework analysis](explanations.html) section, along
 with recommended substitutions where available.
 
-```{r substitutes}
+\newpage
+
+```{r substitutes, eval=TRUE}
 
 read_csv('data/deprecated-indicators.csv') %>%
   mutate(
@@ -13,21 +32,19 @@ read_csv('data/deprecated-indicators.csv') %>%
   ) %>%
   mutate(newid = replace(newid, is.na(NEWID), 'NA')) %>%
   # this is a hack to sanitize '$' in variable names so they don't get interpreted as LaTeX expressions
-  mutate(
-    OLDNAME = gsub('\\$', '\\\\$', OLDNAME),
-    NEWNAME = gsub('\\$', '\\\\$', NEWNAME)
-  ) %>% 
-select(oldid, OLDNAME, newid, NEWNAME) %>%
-  knitr::kable(
-    col.names = c(
-      'Deprecated ID (DB)',
+#  mutate(
+#    OLDNAME = gsub('\\$', '\\\\$', OLDNAME),
+#    NEWNAME = gsub('\\$', '\\\\$', NEWNAME)
+#  ) %>% 
+  select(oldid, OLDNAME, newid, NEWNAME) %>%
+  report.table(
+    c('Deprecated ID (DB)',
       'Deprecated Indicator',
       'Replacement ID (DB)',
-      'Replacement Indicator'
-     ) ,
-     escape = TRUE,
-    # table.attr = 'class="striped small"'
-  )
+      'Replacement Indicator'), 'Recommended Substitutes for Deprecated Indicators', pdf=list(
+                  args=list(font_size=6),
+                  widths=list(9, 13, 9, 13))
+    )
 
 ```
 
