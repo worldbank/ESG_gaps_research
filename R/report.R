@@ -23,8 +23,8 @@ report.graphic <- function(viz, name, html=list(), pdf=list()) {
 
   if( knitr::is_latex_output() ) {
     common_themes = list(
-      theme(legend.title=element_text(size=rel(0.75))),
-      theme(legend.text=element_text(size=rel(0.75)))
+      theme(legend.title=element_text(size=rel(0.5))),
+      theme(legend.text=element_text(size=rel(0.5)))
     )
     args = list(plot=viz + common_themes + pdf[['layers']], width=3, units="in", dpi="retina")
     if( !is.null(pdf[['args']]) ) args = modifyList(args, pdf[['args']])
