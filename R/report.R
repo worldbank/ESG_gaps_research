@@ -50,7 +50,7 @@ report.table <- function(t, columns, caption, align=NULL, html=list(), pdf=list(
     args = list(latex_options="striped")
     if( !is.null(pdf[['args']]) ) args = modifyList(args, pdf[['args']])
 
-    kt = knitr::kable(t, booktabs = TRUE, table.envir="figure", col.names=columns, caption=caption,
+    kt = knitr::kable(t, booktabs = TRUE, col.names=columns, caption=caption,
                       row.names=FALSE, align=align)
     kt = do.call(kableExtra::kable_styling, c(list(kt), args))
     widths = pdf[['widths']]
