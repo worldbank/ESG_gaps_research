@@ -1,4 +1,14 @@
 
+mathjax_fix <- function(file='docs/extended-coverage-analysis.html') {
+  # Automated fix for https://github.com/worldbank/ESG_gaps_research/issues/34
+  if( require(stringr) ) {
+    doc = readLines(file)
+    writeLines(doc[!str_detect(doc, 'plotly-latest.min.js')], file)
+  }
+  else {
+    print('stringr must be installed to use this function')
+  }
+}
 
 report.graphic <- function(viz, name, html=list(), pdf=list()) {
   # generates an output-specific chart or interacive graphic
