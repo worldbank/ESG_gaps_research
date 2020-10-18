@@ -1,6 +1,6 @@
 ---
 title: "An Analysis of Coverage Gaps in ESG Data" 
-author: Castaneda, Fuhs, Herzog, & Maeda
+author: Castaneda, Fujs, Herzog, & Maeda
 date: "`r Sys.Date()`" 
 knit: "bookdown::preview_chapter"
 site: bookdown::bookdown_site 
