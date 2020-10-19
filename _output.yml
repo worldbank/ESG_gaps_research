@@ -2,6 +2,7 @@ bookdown::tufte_html_book:
   tufte_variant: "envisioned"
   toc: TRUE
   toc_depth: 1
+  toc_float: TRUE
   split_by: chapter
   css: [css/box.css]
   split_bib: no
@@ -26,3 +27,12 @@ tufte::tufte_handout:
   toc: FALSE
   includes:
     in_header: mystyles.sty
+msmbstyle::msmb_html_book:
+  toc: TRUE
+  toc_depth: 1
+  split_by: chapter
+  css: [css/box.css]
+  split_bib: no
+  margin_references: FALSE
+  number_sections: yes
+  highlight: tango
