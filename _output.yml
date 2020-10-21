@@ -19,7 +19,7 @@ bookdown::tufte_book2:
 
 # these styles aren't used
 tufte::tufte_book:
-  citation_package: natbib
+#  citation_package: natbib
   latex_engine: xelatex
   toc: FALSE
   includes:

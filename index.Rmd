@@ -1,7 +1,7 @@
 ---
 title: "An Analysis of Coverage Gaps in ESG Data" 
 author: Castaneda, Fujs, Herzog, & Maeda
-date: "`r Sys.Date()`" 
+date: "August 26, 2020"
 knit: "bookdown::preview_chapter"
 site: bookdown::bookdown_site 
 bibliography: "bib/ESG coverage.bib" 
