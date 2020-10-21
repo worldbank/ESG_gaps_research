@@ -1,0 +1,65 @@
+
+#TOC {
+  position: fixed;;
+  display: block;
+  right: 0;
+  top: 0;
+  padding: 4px;
+  width: 250px;
+  background: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.25rem;
+  width: 100%;
+  text-align: right;
+}
+
+#TOC ul {
+  font-size: 1.1rem;
+  color: black;
+  font-weight: normal;
+}
+
+#TOC::before {
+  content: "Table of Contents";
+}
+
+#TOC ul {
+  display: none;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  background: #eee;
+  margin: 0;
+  padding: 4px;
+  list-style-type: none;
+  text-align: left;
+}
+
+#TOC li {
+  padding: 0.5rem 1rem;
+}
+
+#TOC a {
+  text-decoration: none;
+}
+
+#TOC a:link {
+  text-shadow: none;
+  background: none;
+}
+
+#TOC a:hover {
+  text-decoration: underline;
+}
+
+@media (hover: none) {
+    #TOC.activated ul {
+      display: block;
+    }
+}
+
+@media (hover: hover) {
+    #TOC:hover ul {
+      display: block;
+    }
+}

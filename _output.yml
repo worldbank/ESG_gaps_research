@@ -2,21 +2,24 @@ bookdown::tufte_html_book:
   tufte_variant: "envisioned"
   toc: TRUE
   toc_depth: 1
-  toc_float: TRUE
   split_by: chapter
-  css: [css/box.css]
+  css: ["css/box.css", "css/dropdown.css"]
   split_bib: no
   margin_references: FALSE
   number_sections: yes
   highlight: tango
-tufte::tufte_book:
-  citation_package: natbib
+  includes:
+    in_header: headers.html
+bookdown::tufte_book2:
+#  citation_package: natbib
   latex_engine: xelatex
   toc: FALSE
   includes:
     in_header: mystyles.sty
-bookdown::tufte_book2:
-#  citation_package: natbib
+
+# these styles aren't used
+tufte::tufte_book:
+  citation_package: natbib
   latex_engine: xelatex
   toc: FALSE
   includes:
