@@ -46,13 +46,13 @@ report.graphic <- function(viz, name, html=list(), pdf=list()) {
   }
 }
 
-report.table <- function(t, columns, caption, align=NULL, html=list(), pdf=list()) {
+report.table <- function(t, columns, caption, align=NULL, digits=getOption('digits'), longtable=FALSE, html=list(), pdf=list()) {
 
   if(knitr::is_html_output()) {
     # escape special characters that screw up HTML tables for some reason
-    t_ = mutate_all(t, function(i) {gsub("\\$", "\\\\$", i)})
+    t_ = mutate_all(t, function(i) {if( is.character(i) ) gsub("\\$", "\\\\$", i) else i})
     kt = knitr::kable(t_, format = "html", col.names=columns, caption=caption, align=align,
-                      row.names=FALSE, table.attr='class="striped"')
+                      digits=digits, row.names=FALSE, table.attr='class="striped"')
     widths = html[['widths']]
   }
 
@@ -61,7 +61,7 @@ report.table <- function(t, columns, caption, align=NULL, html=list(), pdf=list(
     if( !is.null(pdf[['args']]) ) args = modifyList(args, pdf[['args']])
 
     kt = knitr::kable(t, booktabs = TRUE, col.names=columns, caption=caption,
-                      row.names=FALSE, align=align)
+                      digits=digits, row.names=FALSE, align=align, longtable=longtable)
     kt = do.call(kableExtra::kable_styling, c(list(kt), args))
     widths = pdf[['widths']]
   }
@@ -78,6 +78,7 @@ report.table <- function(t, columns, caption, align=NULL, html=list(), pdf=list(
 }
 
 report.datatable <- function(t, columns, caption, precision=list(), html=list(), pdf=list()) {
+  # here, precision is a named list, as compared to digits, which is a single integer or integer vector
 
   if(knitr::is_html_output()) {
     args = list(pagelength=5, autowidth=TRUE)
@@ -101,8 +102,11 @@ report.datatable <- function(t, columns, caption, precision=list(), html=list(),
   }
 
   if(knitr::is_latex_output()) {
+    # convert precision to an integer vector
+    digits = map_dbl(colnames(t), function(n) if( is.null(precision[[n]]) ) getOption('digits') else precision[[n]])
+
     args = list(args=list(font_size=6))
     args = modifyList(args, pdf)
-    return(report.table(t, columns, caption, pdf=args))
+    return(report.table(t, columns, caption, digits=digits, longtable=TRUE, pdf=args))
   }
 }
