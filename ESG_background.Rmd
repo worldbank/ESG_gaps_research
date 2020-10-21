@@ -5,7 +5,8 @@
 ```
 
 This document builds upon research first presented in the discussion paper
-*Options for Improving Use of ESG for Sovereign Bond Analysis* (World Bank, 2018).
+[Options for Improving Use of ESG for Sovereign Bond Analysis][2018-options-paper]
+(World Bank, 2018).
 
 Interviews with ESG data providers found that most obtain at least some and often a substantial amount
 of data from World Bank databases.
@@ -102,3 +103,4 @@ Framework Analysis," have also been excluded, leaving 115 indicators as the prim
 
 [wdi]: https://datacatalog.worldbank.org/dataset/world-development-indicators
 [esg-ddh]: https://datacatalog.worldbank.org/dataset/environment-social-and-governance-data
+[2018-options-paper]: http://blogs.worldbank.org/opendata/new-resources-sovereign-esg-data-and-investors
