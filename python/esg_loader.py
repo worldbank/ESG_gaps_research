@@ -73,12 +73,43 @@ def extract_esg_data(metafile_path, csv_path, progress=True):
                     warnings.warn('ERROR {} ({})\n{}'.format(cets, db, err), RuntimeWarning)
 
 
+def extract_esg_data2(meta_path, csv_path, progress=True):
+    '''Extracts ESG data from the API, but only from the ESG database (db=75).
+    The metadata table is only used to include the sector (ENV, SOC or GOV)
+    which replace the database ID in the output
+    '''
+
+    meta = pd.read_csv(meta_path).query('wbgv1==1').set_index('cetsid')
+    time_range = range(1990, 2051)
+    with open(csv_path, 'w') as csv_fd:
+        writer = csv.writer(csv_fd)
+        
+        writer.writerow(['sector', 'iso3c', 'date', 'value', 'indicatorID', 'indicator', 'iso2c', 'country'])
+        esg_db = 75
+        indicators = [row['id'] for row in wb.series.list(db=esg_db)]
+        n = 0
+        for cetsid in indicators:
+            if progress:
+                n += 1
+                print('Fetching {} ({} of {})'.format(cetsid, n, len(indicators)), file=sys.stderr)
+
+            for elem in wb.data.fetch(cetsid, time=time_range, skipAggs=True, skipBlanks=True, labels=True, numericTimeKeys=True, db=esg_db):
+                writer.writerow([meta.loc[cetsid]['sector'], elem['economy']['id'],
+                    elem['time']['value'],
+                    elem['value'],
+                    elem['series']['id'], elem['series']['value'],
+                    wb.economy.iso2(elem['economy']['id']),
+                    elem['economy']['value']])
+                
+
 def write_feather_file(csv_path, feather_path):
     '''Convert CSV file on disk to feather
     '''
     esg = pd.read_csv(csv_path, keep_default_na=False, na_values='')
     # these next 2 conversions suppress some notices when R reads the feather file
-    esg['db'] = esg['db'].astype('float64')
+    if esg.get('db'):
+        esg['db'] = esg['db'].astype('float64')
+
     esg['date'] = esg['date'].astype('float64')
     esg.to_feather(feather_path)
 
