@@ -26,7 +26,7 @@ In RStudio, choose "bookdown::tufte_book2" from the "Build Book" menu in the boo
 
 ## HTML ##
 
-In RStudio, choose "bookdown::tufte_book2" from the "Build Book" menu in the book tab
+In RStudio, choose "bookdown::tufte_html_book" from the "Build Book" menu in the book tab
 
 There is an [apparent bug][mathjax-bug] in the HTML system that is preventing MathJax
 equations (used in Appendix 2) from rendering correctly, and requires a post-build
