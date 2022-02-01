@@ -1,0 +1,68 @@
+cetsid,name,sector,theme
+EN.ATM.CO2E.PC,CO2 emissions (metric tons per capita),ENV,Emissions & Pollution
+EN.CLC.GHGR.MT.CE,GHG net emissions/removals by LUCF (Mt of CO2 equivalent),ENV,Emissions & Pollution
+EN.ATM.METH.PC,Methane emissions (metric tons of CO2 equivalent per capita),ENV,Emissions & Pollution
+EN.ATM.NOXE.PC,Nitrous oxide emissions (metric tons of CO2 equivalent per capita),ENV,Emissions & Pollution
+EN.ATM.PM25.MC.M3,"PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",ENV,Emissions & Pollution
+NY.ADJ.DRES.GN.ZS,Adjusted savings: natural resources depletion (% of GNI),ENV,Natural capital endowment and management
+NY.ADJ.DFOR.GN.ZS,Adjusted savings: net forest depletion (% of GNI),ENV,Natural capital endowment and management
+ER.H2O.FWTL.ZS,"Annual freshwater withdrawals, total (% of internal resources)",ENV,Natural capital endowment and management
+AG.LND.FRST.ZS,Forest area (% of land area),ENV,Natural capital endowment and management
+EN.MAM.THRD.NO,"Mammal species, threatened",ENV,Natural capital endowment and management
+ER.PTD.TOTL.ZS,Terrestrial and marine protected areas (% of total territorial area),ENV,Natural capital endowment and management
+EG.ELC.COAL.ZS,Electricity production from coal sources (% of total),ENV,Energy use & security
+EG.IMP.CONS.ZS,"Energy imports, net (% of energy use)",ENV,Energy use & security
+EG.EGY.PRIM.PP.KD,Energy intensity level of primary energy (MJ/$2011 PPP GDP),ENV,Energy use & security
+EG.USE.PCAP.KG.OE,Energy use (kg of oil equivalent per capita),ENV,Energy use & security
+EG.USE.COMM.FO.ZS,Fossil fuel energy consumption (% of total),ENV,Energy use & security
+EG.ELC.RNEW.ZS,Renewable electricity output (% of total electricity output),ENV,Energy use & security
+EG.FEC.RNEW.ZS,Renewable energy consumption (% of total final energy consumption),ENV,Energy use & security
+EN.CLC.CDDY.XD,Cooling Degree Days (projected change in number of degree Celsius),ENV,Environment/climate risk & resilience
+EN.CLC.MDAT.ZS,"Droughts, floods, extreme temperatures (% of population, average 1990-2009)",ENV,Environment/climate risk & resilience
+EN.CLC.HEAT.XD,Heat Index 35 (projected change in days),ENV,Environment/climate risk & resilience
+EN.CLC.PRCP.XD,"Maximum 5-day Rainfall, 25-year Return Level (projected change in mm)",ENV,Environment/climate risk & resilience
+EN.CLC.SPEI.XD,"Mean Drought Index (projected change, unitless)",ENV,Environment/climate risk & resilience
+EN.POP.DNST,Population density (people per sq. km of land area),ENV,Environment/climate risk & resilience
+AG.LND.AGRI.ZS,Agricultural land (% of land area),ENV,Food security
+NV.AGR.TOTL.ZS,"Agriculture, forestry, and fishing, value added (% of GDP)",ENV,Food security
+AG.PRD.FOOD.XD,Food production index (2014-2016 = 100),ENV,Food security
+SE.XPD.TOTL.GB.ZS,"Government expenditure on education, total (% of government expenditure)",SOC,Education & skills
+SE.ADT.LITR.ZS,"Literacy rate, adult total (% of people ages 15 and above)",SOC,Education & skills
+SE.PRM.ENRR,"School enrollment, primary (% gross)",SOC,Education & skills
+SL.TLF.0714.ZS,"Children in employment, total (% of children ages 7-14)",SOC,Employment
+SL.TLF.ACTI.ZS,"Labor force participation rate, total (% of total population ages 15-64) (modeled ILO estimate)",SOC,Employment
+SL.UEM.TOTL.ZS,"Unemployment, total (% of total labor force) (modeled ILO estimate)",SOC,Employment
+SP.DYN.TFRT.IN,"Fertility rate, total (births per woman)",SOC,Demography
+SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",SOC,Demography
+SP.POP.65UP.TO.ZS,Population ages 65 and above (% of total population),SOC,Demography
+SI.SPR.PCAP.ZG,"Annualized average growth rate in per capita real survey mean consumption or income, total population (%)",SOC,Poverty & inequality
+SI.POV.GINI,Gini index (World Bank estimate),SOC,Poverty & inequality
+SI.DST.FRST.20,Income share held by lowest 20%,SOC,Poverty & inequality
+SI.POV.NAHC,Poverty headcount ratio at national poverty lines (% of population),SOC,Poverty & inequality
+SH.DTH.COMM.ZS,"Cause of death, by communicable diseases and maternal, prenatal and nutrition conditions (% of total)",SOC,Health & nutrition
+SH.MED.BEDS.ZS,"Hospital beds (per 1,000 people)",SOC,Health & nutrition
+SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",SOC,Health & nutrition
+SH.STA.OWAD.ZS,Prevalence of overweight (% of adults),SOC,Health & nutrition
+SN.ITK.DEFC.ZS,Prevalence of undernourishment (% of population),SOC,Health & nutrition
+EG.CFT.ACCS.ZS,Access to clean fuels and technologies for cooking (% of population),SOC,Access to services
+EG.ELC.ACCS.ZS,Access to electricity (% of population),SOC,Access to services
+SH.H2O.SMDW.ZS,People using safely managed drinking water services (% of population),SOC,Access to services
+SH.STA.SMSS.ZS,People using safely managed sanitation services (% of population),SOC,Access to services
+IC.LGL.CRED.XQ,Strength of legal rights index (0=weak to 12=strong),GOV,Human rights
+VA.EST,Voice and Accountability: Estimate,GOV,Human rights
+GE.EST,Government Effectiveness: Estimate,GOV,Government effectiveness
+RQ.EST,Regulatory Quality: Estimate,GOV,Government effectiveness
+CC.EST,Control of Corruption: Estimate,GOV,Stability & rule of law
+SM.POP.NETM,Net migration,GOV,Stability & rule of law
+PV.EST,Political Stability and Absence of Violence/Terrorism: Estimate,GOV,Stability & rule of law
+RL.EST,Rule of Law: Estimate,GOV,Stability & rule of law
+IC.BUS.EASE.XQ,Ease of doing business rank (1=most business-friendly regulations),GOV,Economic environment
+NY.GDP.MKTP.KD.ZG,GDP growth (annual %),GOV,Economic environment
+IT.NET.USER.ZS,Individuals using the Internet (% of population),GOV,Economic environment
+SG.GEN.PARL.ZS,Proportion of seats held by women in national parliaments (%),GOV,Gender
+SL.TLF.CACT.FM.ZS,Ratio of female to male labor force participation rate (%) (modeled ILO estimate),GOV,Gender
+SE.ENR.PRSC.FM.ZS,"School enrollment, primary and secondary (gross), gender parity index (GPI)",GOV,Gender
+SP.UWT.TFRT,Unmet need for contraception (% of married women ages 15-49),GOV,Gender
+IP.PAT.RESD,"Patent applications, residents",GOV,Innovation
+GB.XPD.RSDV.GD.ZS,Research and development expenditure (% of GDP),GOV,Innovation
+IP.JRN.ARTC.SC,Scientific and technical journal articles,GOV,Innovation
